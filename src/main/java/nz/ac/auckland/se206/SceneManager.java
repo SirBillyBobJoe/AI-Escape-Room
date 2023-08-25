@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 
 public class SceneManager {
   public enum AppUi {
-    SCREEN_START,
+    SCREEN_START
   }
 
   private static HashMap<AppUi, Parent> map = new HashMap<AppUi, Parent>();

@@ -38,6 +38,8 @@ public class App extends Application {
 
   public static void setUserInterface(AppUi ui) throws IOException {
     scene.setRoot(SceneManager.getUi(ui));
+    scene.getRoot().requestFocus();
+    System.out.println(scene.getRoot().isFocused());
   }
 
   /**
@@ -50,6 +52,7 @@ public class App extends Application {
   public void start(final Stage stage) throws IOException {
     SceneManager.addAppUi(AppUi.SCREEN_START, loadFxml("ScreenStart"), false);
     scene = new Scene(SceneManager.getUi(AppUi.SCREEN_START), 630, 630);
+    scene.getRoot().requestFocus();
     stage.setScene(scene);
     stage.show();
     stage.setOnCloseRequest(
