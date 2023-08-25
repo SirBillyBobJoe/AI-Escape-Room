@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import nz.ac.auckland.se206.SceneManager.AppUi;
 
 /**
  * This is the entry point of the JavaFX application, while you can change this class, it should
@@ -31,8 +32,14 @@ public class App extends Application {
    * @return The node of the input file.
    * @throws IOException If the file is not found.
    */
-  private static Parent loadFxml(final String fxml) throws IOException {
+  static Parent loadFxml(final String fxml) throws IOException {
     return new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml")).load();
+  }
+
+  public static void setUserInterface(AppUi ui) throws IOException {
+    scene.setRoot(SceneManager.getUi(ui));
+    scene.getRoot().requestFocus();
+    System.out.println(scene.getRoot().isFocused());
   }
 
   /**
@@ -43,11 +50,14 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
-    Parent root = loadFxml("room");
-    scene = new Scene(root, 600, 470);
+    SceneManager.addAppUi(AppUi.SCREEN_START, loadFxml("ScreenStart"), false);
+    scene = new Scene(SceneManager.getUi(AppUi.SCREEN_START), 630, 630);
+    scene.getRoot().requestFocus();
     stage.setScene(scene);
     stage.show();
-    root.requestFocus();
+    stage.setOnCloseRequest(
+        event -> {
+          System.exit(0);
+        });
   }
-
 }

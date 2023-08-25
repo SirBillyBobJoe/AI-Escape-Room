@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onKeyPressed" prefHeight="631.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ScreenStartController">
+   <children>
+      <ImageView fitHeight="680.0" fitWidth="635.0" layoutX="-3.0" layoutY="-2.0" onKeyPressed="#onKeyPressed" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/StartScreen/startScreen.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="112.0" fitWidth="373.0" layoutX="141.0" layoutY="53.0" onKeyPressed="#onKeyPressed" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/StartScreen/Title.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="easy" fitHeight="62.0" fitWidth="117.0" layoutX="257.0" layoutY="281.0" onKeyPressed="#onKeyPressed" onMouseClicked="#levelClick" onMouseEntered="#overEasy" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/StartScreen/easyGreen.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="medium" fitHeight="39.0" fitWidth="187.0" layoutX="222.0" layoutY="370.0" onKeyPressed="#onKeyPressed" onMouseClicked="#levelClick" onMouseEntered="#overMedium" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/StartScreen/mediumBlue.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hard" fitHeight="45.0" fitWidth="125.0" layoutX="253.0" layoutY="446.0" onKeyPressed="#onKeyPressed" onMouseClicked="#levelClick" onMouseEntered="#overHard" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/StartScreen/hardBlue.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="screenStage" fitHeight="128.0" fitWidth="366.0" layoutX="132.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/StartScreen/chooseLevel.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="two" fitHeight="93.0" fitWidth="71.0" layoutX="107.0" layoutY="310.0" onMouseClicked="#timeClick" onMouseEntered="#over2" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/StartScreen/2Green.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="four" fitHeight="114.0" fitWidth="73.0" layoutX="270.0" layoutY="308.0" onMouseClicked="#timeClick" onMouseEntered="#over4" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/StartScreen/4Blue.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="six" fitHeight="102.0" fitWidth="95.0" layoutX="453.0" layoutY="300.0" onMouseClicked="#timeClick" onMouseEntered="#over6" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/StartScreen/6Blue.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="timeSummary" fitHeight="57.0" fitWidth="161.0" layoutX="142.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/StartScreen/Time.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="levelSummary" fitHeight="150.0" fitWidth="200.0" layoutX="107.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/StartScreen/Level.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="timeSummaryVal" fitHeight="60.0" fitWidth="65.0" layoutX="329.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/StartScreen/2Blue.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="levelSummaryVal" fitHeight="57.0" fitWidth="117.0" layoutX="329.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/StartScreen/easyBlue.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="medium1" fitHeight="39.0" fitWidth="187.0" layoutX="316.0" layoutY="268.0" onKeyPressed="#onKeyPressed" onMouseClicked="#levelClick" onMouseEntered="#overMedium" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/StartScreen/mediumBlue.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="start" fitHeight="150.0" fitWidth="200.0" layoutX="207.0" layoutY="503.0" onMouseEntered="#overStart" onMouseExited="#leaveStart" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/StartScreen/startBlue.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="goBack" fitHeight="38.0" fitWidth="107.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#backClick" onMouseEntered="#overBack" onMouseExited="#leaveBack" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/StartScreen/exitBlue.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
