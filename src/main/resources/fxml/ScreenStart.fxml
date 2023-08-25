@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onKeyPressed" prefHeight="631.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ScreenStartController">
+   <children>
+      <ImageView fitHeight="680.0" fitWidth="635.0" layoutX="-3.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/startScreen.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="112.0" fitWidth="373.0" layoutX="141.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Title.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="easy" fitHeight="62.0" fitWidth="117.0" layoutX="257.0" layoutY="281.0" onMouseEntered="#overEasy" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/easyGreen.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="medium" fitHeight="39.0" fitWidth="187.0" layoutX="222.0" layoutY="370.0" onMouseEntered="#overMedium" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/mediumBlue.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hard" fitHeight="45.0" fitWidth="125.0" layoutX="253.0" layoutY="446.0" onMouseEntered="#overHard" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/hardBlue.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
