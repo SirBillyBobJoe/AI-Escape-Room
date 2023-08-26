@@ -51,6 +51,7 @@ public class App extends Application {
   @Override
   public void start(final Stage stage) throws IOException {
     SceneManager.addAppUi(AppUi.SCREEN_START, loadFxml("ScreenStart"), false);
+    SceneManager.addAppUi(AppUi.ROOM1, loadFxml("room1"), false);
     scene = new Scene(SceneManager.getUi(AppUi.SCREEN_START), 630, 630);
     scene.getRoot().requestFocus();
     stage.setScene(scene);

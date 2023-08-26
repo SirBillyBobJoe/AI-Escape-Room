@@ -1,13 +1,18 @@
 package nz.ac.auckland.se206.controllers;
 
+import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
+import nz.ac.auckland.se206.SceneManager.AppUi;
 
 public class ScreenStartController {
   @FXML private ImageView easy;
@@ -120,6 +125,19 @@ public class ScreenStartController {
     } else {
       goBack.setImage(new Image("/images/StartScreen/exitBlue.png"));
     }
+  }
+
+  @FXML
+  private void onStart(MouseEvent event) throws IOException {
+    GameState.timer.setTimeSecondsProperty(selectedTime * 60);
+
+    // Start the timer.
+    GameState.timer.start();
+
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    App.setUserInterface(AppUi.ROOM1);
+    stage.setWidth(550);
+    stage.setHeight(580);
   }
 
   private void removeSelectedLevel() {

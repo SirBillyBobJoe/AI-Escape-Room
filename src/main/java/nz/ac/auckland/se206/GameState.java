@@ -12,4 +12,6 @@ public class GameState {
   public static String hints = "Unlimited";
   public static int time = 2;
   public static String difficulty = "easy";
+
+  public static CountdownTimer timer = CountdownTimer.getInstance(GameState.time * 60);
 }
