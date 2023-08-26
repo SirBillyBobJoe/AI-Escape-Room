@@ -5,21 +5,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class TextToSpeechTest {
-  private TextToSpeech textToSpeech;
-
   @BeforeEach
   void setUp() throws TextToSpeechException {
-    textToSpeech = new TextToSpeech();
+    TextToSpeech.clearInstance();
   }
 
   @Test
   void textToSpeech() {
-    textToSpeech.speak("hello");
+    TextToSpeech.getInstance().speak("hello");
   }
 
   @Test
   void multipleTextToSpeech() {
-    textToSpeech.speak("hello", "how are you?");
-    textToSpeech.speak("today is a great day");
+    TextToSpeech.getInstance().speak("hello", "how are you?");
+    TextToSpeech.getInstance().speak("today is a great day");
   }
 }
