@@ -8,6 +8,27 @@ import javax.speech.synthesis.SynthesizerModeDesc;
 
 /** Text-to-speech API using the JavaX speech library. */
 public class TextToSpeech {
+
+  /** Singleton instance of the TextToSpeech class. */
+  private static TextToSpeech instance = new TextToSpeech();
+
+  private final Synthesizer synthesizer;
+
+  /**
+   * Returns the singleton instance of the TextToSpeech class.
+   *
+   * @return The singleton instance of the TextToSpeech class.
+   */
+  public static synchronized TextToSpeech getInstance() {
+    if (instance == null) instance = new TextToSpeech();
+    return instance;
+  }
+
+  /** Clears the singleton instance of the TextToSpeech class. */
+  public static void clearInstance() {
+    instance = null;
+  }
+
   /** Custom unchecked exception for Text-to-speech issues. */
   static class TextToSpeechException extends RuntimeException {
     public TextToSpeechException(final String message) {
@@ -16,29 +37,10 @@ public class TextToSpeech {
   }
 
   /**
-   * Main function to speak the given list of sentences.
-   *
-   * @param args A sequence of strings to speak.
+   * Constructs the TextToSpeech object by creating and allocating the speech synthesizer. The
+   * default voice is set to English: com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory.
    */
-  public static void main(final String[] args) {
-    if (args.length == 0) {
-      throw new IllegalArgumentException(
-          "You are not providing any arguments. You need to provide one or more sentences.");
-    }
-
-    final TextToSpeech textToSpeech = new TextToSpeech();
-
-    textToSpeech.speak(args);
-    textToSpeech.terminate();
-  }
-
-  private final Synthesizer synthesizer;
-
-  /**
-   * Constructs the TextToSpeech object creating and allocating the speech synthesizer. English
-   * voice: com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory
-   */
-  public TextToSpeech() {
+  private TextToSpeech() {
     try {
       System.setProperty(
           "freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
@@ -59,21 +61,18 @@ public class TextToSpeech {
    */
   public void speak(final String... sentences) {
     boolean isFirst = true;
-
     for (final String sentence : sentences) {
-      if (isFirst) {
-        isFirst = false;
-      } else {
+      if (!isFirst) {
         // Add a pause between sentences.
         sleep();
       }
-
       speak(sentence);
+      isFirst = false;
     }
   }
 
   /**
-   * Speaks the given sentence in input.
+   * Speaks the given sentence.
    *
    * @param sentence A string to speak.
    */
@@ -81,7 +80,6 @@ public class TextToSpeech {
     if (sentence == null) {
       throw new IllegalArgumentException("Text cannot be null.");
     }
-
     try {
       synthesizer.resume();
       synthesizer.speakPlainText(sentence, null);
@@ -91,7 +89,7 @@ public class TextToSpeech {
     }
   }
 
-  /** Sleeps a while to add some pause between sentences. */
+  /** Sleeps for a short duration to introduce a pause between sentences. */
   private void sleep() {
     try {
       Thread.sleep(100);
@@ -101,8 +99,8 @@ public class TextToSpeech {
   }
 
   /**
-   * It deallocates the speech synthesizer. If you are experiencing an IllegalThreadStateException,
-   * avoid using this method and run the speak method without terminating.
+   * Deallocates the speech synthesizer. If you are experiencing an IllegalThreadStateException,
+   * avoid using this method and ensure the speak methods are used without premature termination.
    */
   public void terminate() {
     try {

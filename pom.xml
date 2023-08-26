@@ -40,7 +40,8 @@
 							<configuration>
 								<mainClass>nz.ac.auckland.se206.App</mainClass>
 								<options>
-									<option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005
+									<option>
+										-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005
 									</option>
 								</options>
 							</configuration>
@@ -140,6 +141,18 @@
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.json</artifactId>
 			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.awaitility</groupId>
+			<artifactId>awaitility</artifactId>
+			<version>4.1.0</version> <!-- Check for the latest version on Maven Central -->
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.saxsys</groupId>
+			<artifactId>jfx-testrunner</artifactId>
+			<version>1.2</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
