@@ -76,7 +76,7 @@
             <Image url="@../images/StartScreen/mediumBlue.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="start" fitHeight="150.0" fitWidth="200.0" layoutX="207.0" layoutY="503.0" onMouseEntered="#overStart" onMouseExited="#leaveStart" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="start" fitHeight="150.0" fitWidth="200.0" layoutX="207.0" layoutY="503.0" onMouseClicked="#onStart" onMouseEntered="#overStart" onMouseExited="#leaveStart" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../images/StartScreen/startBlue.png" />
          </image>
