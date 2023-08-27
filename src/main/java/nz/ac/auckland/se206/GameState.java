@@ -1,5 +1,7 @@
 package nz.ac.auckland.se206;
 
+import nz.ac.auckland.se206.Items.Inventory;
+
 /** Represents the state of the game. */
 public class GameState {
 
@@ -14,4 +16,5 @@ public class GameState {
   public static String difficulty = "easy";
 
   public static CountdownTimer timer = CountdownTimer.getInstance(GameState.time * 60);
+  public static Inventory inventory = new Inventory();
 }
