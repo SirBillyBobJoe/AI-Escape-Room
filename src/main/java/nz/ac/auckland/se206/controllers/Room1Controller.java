@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -101,7 +102,7 @@ public class Room1Controller {
   }
 
   @FXML
-  public void onDragDetected(MouseEvent event) {
+  private void onDragDetected(MouseEvent event) {
     ImageView sourceImageView = (ImageView) event.getSource();
 
     // Start the drag-and-drop operation
@@ -123,11 +124,18 @@ public class Room1Controller {
   }
 
   @FXML
-  public void onDragOver(DragEvent event) {
+  private void onDragOver(DragEvent event) {
     // Allow this ImageView to accept the drag-and-drop if it is not the source and contains a
     // string
     if (event.getGestureSource() != event.getSource() && event.getDragboard().hasString()) {
       event.acceptTransferModes(TransferMode.MOVE);
+
+      // Make it really blue when hovered over
+      ImageView targetImageView = (ImageView) event.getSource();
+      ColorAdjust colorAdjust = new ColorAdjust();
+      colorAdjust.setHue(1); // Max hue
+      colorAdjust.setSaturation(1); // Max saturation
+      targetImageView.setEffect(colorAdjust);
     }
 
     // Consume the DragEvent
@@ -135,8 +143,18 @@ public class Room1Controller {
   }
 
   @FXML
-  public void onDragDropped(DragEvent event) {
-    System.out.println("onDragDropped called");
+  private void onDragExited(DragEvent event) {
+    // Remove the blue tint after dropping
+    ImageView targetImageView = (ImageView) event.getSource();
+    targetImageView.setEffect(null);
+  }
+
+  @FXML
+  private void onDragDropped(DragEvent event) {
+    // Remove the blue tint after dropping
+    ImageView targetImageView = (ImageView) event.getSource();
+    targetImageView.setEffect(null);
+
     // Get Dragboard
     Dragboard db = event.getDragboard();
 
@@ -148,6 +166,7 @@ public class Room1Controller {
       int originalIndex = Integer.parseInt(db.getString());
 
       ImageView tartgetImageView = (ImageView) event.getSource();
+
       int targetIndex = (int) tartgetImageView.getUserData();
 
       GameState.inventory.swapObject(originalIndex, targetIndex);
