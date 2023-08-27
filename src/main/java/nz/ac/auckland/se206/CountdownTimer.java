@@ -22,7 +22,7 @@ public class CountdownTimer {
 
   private Timeline timeline;
   private final IntegerProperty timeSeconds = new SimpleIntegerProperty();
-  private TextToSpeech tts = new TextToSpeech();
+  private TextToSpeech tts = TextToSpeech.getInstance();
 
   private CountdownTimer(int time) {
     timeSeconds.set(time);

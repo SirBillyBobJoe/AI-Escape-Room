@@ -7,7 +7,8 @@ import javafx.scene.Parent;
 public class SceneManager {
   public enum AppUi {
     SCREEN_START,
-    ROOM1
+    ROOM1,
+    WIRELINKING,
   }
 
   private static HashMap<AppUi, Parent> map = new HashMap<AppUi, Parent>();

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="nz.ac.auckland.se206.controllers.minigames.WirelinkingController">
+    <!-- This pane is where the wire will be drawn when dragging -->
+    <Pane fx:id="drawingArea" prefWidth="600" prefHeight="400" />
+    <VBox fx:id="leftHoleBox" spacing="10" AnchorPane.leftAnchor="10">
+        <!-- Holes on the left will be added dynamically in the controller -->
+    </VBox>
+    <VBox fx:id="rightHoleBox" spacing="10" AnchorPane.rightAnchor="10">
+        <!-- Holes on the right will be added dynamically in the controller -->
+    </VBox>
+</AnchorPane>
