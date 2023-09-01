@@ -1,17 +1,16 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.effect.ColorAdjust;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
@@ -20,16 +19,35 @@ import nz.ac.auckland.se206.Items.Keys;
 import nz.ac.auckland.se206.Items.Lighter;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.SharedChat;
+import nz.ac.auckland.se206.gpt.GameMaster;
 
+/**
+ * Controller class for Room 1 in the escape room game. Manages the UI elements and interactions for
+ * Room 1.
+ */
 public class Room1Controller {
   @FXML private Label countdownLabel;
+  @FXML private Label hintLabel;
   @FXML private ImageView restart;
   @FXML private ImageView item0, item1, item2, item3, item4, item5;
   @FXML private ImageView key1, key2, key3;
   @FXML private ImageView lighter1, lighter2, lighter3;
+  @FXML private TextArea textArea;
+  @FXML private TextField textField;
 
-  // countdown timer linked to gamestate timer
+  /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
+    // room1 chat context
+    GameState.gameMaster.createChatContext("room1");
+    GameState.gameMaster.addMessage(
+        "room1",
+        "user",
+        "You are the Game Master Of An Escape Room currently we are in room 1. If the hints left is"
+            + " 0 and the player asks anythign questions needing help in any form YOU MUST NOT GIVE"
+            + " ANY HINTS.");
+    GameState.gameMaster.runContext("room1");
+
     item0.setUserData(0); // Index 0
     item1.setUserData(1); // Index 1
     item2.setUserData(2); // Index 2
@@ -37,6 +55,7 @@ public class Room1Controller {
     item4.setUserData(4); // Index 4
     item5.setUserData(5); // Index 5
     countdownLabel.textProperty().bind(GameState.timer.timeSecondsProperty().asString());
+    hintLabel.textProperty().bind(GameState.hints);
     ImageView[] images = {item0, item1, item2, item3, item4, item5};
 
     GameState.inventory
@@ -51,8 +70,19 @@ public class Room1Controller {
                 }
               }
             });
+
+    // binds the text areas of the 2 controllers together
+    GameState.sharedChat = SharedChat.getInstance();
+    textArea.textProperty().bind(GameState.sharedChat.getTextProperty());
+    textArea.setWrapText(true);
   }
 
+  /**
+   * Resets the game state and navigates back to the start screen.
+   *
+   * @param event MouseEvent for the restart button.
+   * @throws IOException If the FXML for the start screen can't be loaded.
+   */
   @FXML
   private void onRestart(MouseEvent event) throws IOException {
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -62,19 +92,37 @@ public class Room1Controller {
     GameState.timer.stop();
 
     GameState.inventory = new Inventory();
+
+    GameState.gameMaster = new GameMaster();
+    GameState.sharedChat = new SharedChat();
     SceneManager.setReinitialise(AppUi.ROOM1);
   }
 
+  /**
+   * Updates the restart button's image when the mouse leaves its area.
+   *
+   * @param event MouseEvent for leaving the restart button.
+   */
   @FXML
   private void leaveRestart(MouseEvent event) {
     restart.setImage(new Image("/images/room1/restartBlue.png"));
   }
 
+  /**
+   * Updates the restart button's image when the mouse hovers over it.
+   *
+   * @param event MouseEvent for hovering over the restart button.
+   */
   @FXML
   private void overRestart(MouseEvent event) {
     restart.setImage(new Image("/images/room1/restartGreen.png"));
   }
 
+  /**
+   * Handles clicking on game objects in the room.
+   *
+   * @param event MouseEvent for clicking an object.
+   */
   @FXML
   private void objectClicked(MouseEvent event) {
 
@@ -101,80 +149,53 @@ public class Room1Controller {
     }
   }
 
+  /**
+   * Initiates drag-and-drop functionality for inventory items.
+   *
+   * @param event MouseEvent for starting a drag-and-drop.
+   */
   @FXML
   private void onDragDetected(MouseEvent event) {
-    ImageView sourceImageView = (ImageView) event.getSource();
-
-    // Start the drag-and-drop operation
-    Dragboard db = sourceImageView.startDragAndDrop(javafx.scene.input.TransferMode.ANY);
-    // Set the visual representation of the drag-and-drop with the image from the ImageView
-    db.setDragView(sourceImageView.getImage());
-    // Use stored user data to get the index of this ImageView
-    int index = (int) sourceImageView.getUserData();
-
-    // Store the ID of the ImageView being dragged in the ClipboardContent
-    ClipboardContent content = new ClipboardContent();
-    content.putString(String.valueOf(index));
-
-    // Add the ClipboardContent to the Dragboard
-    db.setContent(content);
-
-    // Consume the MouseEvent
-    event.consume();
+    GameState.inventory.onDragDetected(event);
   }
 
+  /**
+   * Allows drag-and-drop actions to proceed.
+   *
+   * @param event DragEvent for dragging over a target.
+   */
   @FXML
   private void onDragOver(DragEvent event) {
-    // Allow this ImageView to accept the drag-and-drop if it is not the source and contains a
-    // string
-    if (event.getGestureSource() != event.getSource() && event.getDragboard().hasString()) {
-      event.acceptTransferModes(TransferMode.MOVE);
-
-      // Make it really blue when hovered over
-      ImageView targetImageView = (ImageView) event.getSource();
-      ColorAdjust colorAdjust = new ColorAdjust();
-      colorAdjust.setHue(1); // Max hue
-      colorAdjust.setSaturation(1); // Max saturation
-      targetImageView.setEffect(colorAdjust);
-    }
-
-    // Consume the DragEvent
-    event.consume();
+    GameState.inventory.onDragOver(event);
   }
 
+  /**
+   * Resets drag-and-drop effects when the drag action exits the target area.
+   *
+   * @param event DragEvent for exiting the target area.
+   */
   @FXML
   private void onDragExited(DragEvent event) {
-    // Remove the blue tint after dropping
-    ImageView targetImageView = (ImageView) event.getSource();
-    targetImageView.setEffect(null);
+    GameState.inventory.onDragExited(event);
   }
 
+  /**
+   * Completes drag-and-drop functionality for inventory items.
+   *
+   * @param event DragEvent for dropping an item.
+   */
   @FXML
   private void onDragDropped(DragEvent event) {
-    // Remove the blue tint after dropping
-    ImageView targetImageView = (ImageView) event.getSource();
-    targetImageView.setEffect(null);
+    GameState.inventory.onDragDropped(event);
+  }
 
-    // Get Dragboard
-    Dragboard db = event.getDragboard();
-
-    // check if drop was successful
-    boolean success = false;
-
-    // Check if Dragboard has a String(we stored earlier)
-    if (db.hasString()) {
-      int originalIndex = Integer.parseInt(db.getString());
-
-      ImageView tartgetImageView = (ImageView) event.getSource();
-
-      int targetIndex = (int) tartgetImageView.getUserData();
-
-      GameState.inventory.swapObject(originalIndex, targetIndex);
-
-      success = true;
-    }
-
-    event.setDropCompleted(success);
-    event.consume();
+  /**
+   * Handles text message sending for the chat feature in Room 1.
+   *
+   * @param event ActionEvent for sending a message.
+   */
+  @FXML
+  private void onSend(ActionEvent event) {
+    GameState.sharedChat.onSend(textField, "room1");
   }
 }

@@ -9,10 +9,20 @@ import javafx.concurrent.Task;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 
+/**
+ * Implements a countdown timer for the game. Singleton pattern is applied to ensure only one
+ * instance of the timer.
+ */
 public class CountdownTimer {
 
   private static CountdownTimer countdownTimer = null;
 
+  /**
+   * Returns the singleton instance of the CountdownTimer class.
+   *
+   * @param time The time (in seconds) for the countdown.
+   * @return The singleton instance of CountdownTimer.
+   */
   public static CountdownTimer getInstance(int time) {
     if (countdownTimer == null) {
       countdownTimer = new CountdownTimer(time);
@@ -24,6 +34,11 @@ public class CountdownTimer {
   private final IntegerProperty timeSeconds = new SimpleIntegerProperty();
   private TextToSpeech tts = TextToSpeech.getInstance();
 
+  /**
+   * Private constructor for initializing a new CountdownTimer.
+   *
+   * @param time The time (in seconds) for the countdown.
+   */
   private CountdownTimer(int time) {
     timeSeconds.set(time);
     timeline = new Timeline();
@@ -87,18 +102,30 @@ public class CountdownTimer {
         });
   }
 
+  /** Starts the countdown timer. */
   public void start() {
     timeline.playFromStart();
   }
 
+  /** Stops the countdown timer. */
   public void stop() {
     timeline.stop();
   }
 
+  /**
+   * Retrieves the property representing the time left in seconds.
+   *
+   * @return The time left in seconds as an IntegerProperty.
+   */
   public IntegerProperty timeSecondsProperty() {
     return timeSeconds;
   }
 
+  /**
+   * Sets the time left for the countdown timer.
+   *
+   * @param time The time (in seconds) to set for the countdown.
+   */
   public void setTimeSecondsProperty(int time) {
     this.timeSeconds.set(time);
   }

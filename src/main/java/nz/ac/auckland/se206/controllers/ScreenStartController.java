@@ -14,6 +14,7 @@ import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 
+/** Class responsible for controlling the Start Screen of the game. */
 public class ScreenStartController {
   @FXML private ImageView easy;
   @FXML private ImageView medium;
@@ -37,26 +38,47 @@ public class ScreenStartController {
   private Boolean onLevel = true;
   private Boolean onTime = false;
 
+  /** Initializes the ScreenStartController, setting focus on anchorPane. */
   public void initialize() {
     anchorPane.requestFocus();
     System.out.println("AnchorPane focused: " + anchorPane.isFocused());
   }
 
+  /**
+   * Handles mouse click events for selecting levels.
+   *
+   * @param event MouseEvent object.
+   */
   @FXML
   private void levelClick(MouseEvent event) {
     choseLevel();
   }
 
+  /**
+   * Handles mouse click events for selecting time.
+   *
+   * @param event The mouse event object.
+   */
   @FXML
   private void timeClick(MouseEvent event) {
     choseTime();
   }
 
+  /**
+   * Handles mouse click events for the "Back" button.
+   *
+   * @param event The mouse event object.
+   */
   @FXML
   private void backClick(MouseEvent event) {
     goBack();
   }
 
+  /**
+   * Changes the UI when hovering over the "Easy" option.
+   *
+   * @param event The mouse event object.
+   */
   @FXML
   private void overEasy(MouseEvent event) {
     removeSelectedLevel();
@@ -64,6 +86,11 @@ public class ScreenStartController {
     onSelectLevel();
   }
 
+  /**
+   * Changes the UI when hovering over the "Medium" option.
+   *
+   * @param event The mouse event object.
+   */
   @FXML
   private void overMedium(MouseEvent event) {
     removeSelectedLevel();
@@ -71,6 +98,11 @@ public class ScreenStartController {
     onSelectLevel();
   }
 
+  /**
+   * Changes the UI when hovering over the "Hard" option.
+   *
+   * @param event The mouse event object.
+   */
   @FXML
   private void overHard(MouseEvent event) {
     removeSelectedLevel();
@@ -78,6 +110,11 @@ public class ScreenStartController {
     onSelectLevel();
   }
 
+  /**
+   * Changes the UI when hovering over the "2 Minutes" option.
+   *
+   * @param event The mouse event object.
+   */
   @FXML
   private void over2(MouseEvent event) {
     removeSelectedTime();
@@ -85,6 +122,11 @@ public class ScreenStartController {
     onSelectTime();
   }
 
+  /**
+   * Changes the UI when hovering over the "4 Minutes" option.
+   *
+   * @param event The mouse event object.
+   */
   @FXML
   private void over4(MouseEvent event) {
     removeSelectedTime();
@@ -92,6 +134,11 @@ public class ScreenStartController {
     onSelectTime();
   }
 
+  /**
+   * Changes the UI when hovering over the "6 Minutes" option.
+   *
+   * @param event The mouse event object.
+   */
   @FXML
   private void over6(MouseEvent event) {
     removeSelectedTime();
@@ -99,16 +146,31 @@ public class ScreenStartController {
     onSelectTime();
   }
 
+  /**
+   * Changes the UI when hovering over the "Start" button.
+   *
+   * @param event The mouse event object.
+   */
   @FXML
   private void overStart(MouseEvent event) {
     start.setImage(new Image("/images/StartScreen/startGreen.png"));
   }
 
+  /**
+   * Reverts the UI when no longer hovering over the "Start" button.
+   *
+   * @param event The mouse event object.
+   */
   @FXML
   private void leaveStart(MouseEvent event) {
     start.setImage(new Image("/images/StartScreen/startBlue.png"));
   }
 
+  /**
+   * Changes the UI when hovering over the "Back" button.
+   *
+   * @param event The mouse event object.
+   */
   @FXML
   private void overBack(MouseEvent event) {
     if (!onLevel) {
@@ -118,6 +180,11 @@ public class ScreenStartController {
     }
   }
 
+  /**
+   * Reverts the UI when no longer hovering over the "Back" button.
+   *
+   * @param event The mouse event object.
+   */
   @FXML
   private void leaveBack(MouseEvent event) {
     if (!onLevel) {
@@ -127,6 +194,12 @@ public class ScreenStartController {
     }
   }
 
+  /**
+   * Initiates the game when the "Start" button is clicked.
+   *
+   * @param event The mouse event object.
+   * @throws IOException if an I/O error occurs.
+   */
   @FXML
   private void onStart(MouseEvent event) throws IOException {
     GameState.timer.setTimeSecondsProperty(selectedTime * 60);
@@ -136,10 +209,11 @@ public class ScreenStartController {
 
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     App.setUserInterface(AppUi.ROOM1);
-    stage.setWidth(550);
-    stage.setHeight(580);
+    stage.setWidth(720);
+    stage.setHeight(570);
   }
 
+  /** Helper method to remove the currently selected level highlight. */
   private void removeSelectedLevel() {
     switch (selectedLevel) {
       case 0:
@@ -154,6 +228,7 @@ public class ScreenStartController {
     }
   }
 
+  /** Helper method to remove the currently selected time highlight. */
   private void removeSelectedTime() {
     switch (selectedTime) {
       case 2:
@@ -168,6 +243,7 @@ public class ScreenStartController {
     }
   }
 
+  /** Helper method to highlight the newly selected level. */
   private void onSelectLevel() {
     switch (selectedLevel) {
       case 0:
@@ -182,6 +258,7 @@ public class ScreenStartController {
     }
   }
 
+  /** Helper method to highlight the newly selected time. */
   private void onSelectTime() {
     switch (selectedTime) {
       case 2:
@@ -196,6 +273,11 @@ public class ScreenStartController {
     }
   }
 
+  /**
+   * Handles key press events for navigation and selection within the start screen.
+   *
+   * @param event KeyEvent object.
+   */
   @FXML
   private void onKeyPressed(KeyEvent event) {
     if (onLevel) {
@@ -246,6 +328,7 @@ public class ScreenStartController {
     }
   }
 
+  /** Helper method to navigate back in the options. */
   private void goBack() {
     if (onTime) {
       easy.setVisible(true);
@@ -275,6 +358,7 @@ public class ScreenStartController {
     }
   }
 
+  /** Helper method to set the selected level and update the UI accordingly. */
   private void choseLevel() {
     // makes levels not visible but time visible
 
@@ -291,20 +375,21 @@ public class ScreenStartController {
     screenStage.setImage(new Image("/images/StartScreen/chooseTime.png"));
     switch (selectedLevel) {
       case 0:
-        GameState.hints = "Unlimited";
+        GameState.hints.set("\u221E");
         GameState.difficulty = "easy";
         break;
       case 1:
-        GameState.hints = "5";
+        GameState.hints.set("5");
         GameState.difficulty = "medium";
         break;
       case 2:
-        GameState.hints = "0";
+        GameState.hints.set("0");
         GameState.difficulty = "hard";
         break;
     }
   }
 
+  /** Helper method to set the selected time and update the UI accordingly. */
   private void choseTime() {
     // makes levels not visible but time visible
 
