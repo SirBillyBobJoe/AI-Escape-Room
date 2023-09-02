@@ -73,6 +73,7 @@ public class SharedChat {
    * @param room The room context for the message.
    */
   public void onSend(TextField textField, String room) {
+    String msg1 = "";
     String msg = textField.getText();
 
     if (msg.trim().isEmpty()) {
@@ -80,20 +81,29 @@ public class SharedChat {
     }
     msg = msg.toLowerCase();
     textField.clear();
-    for (String keyWords : GameState.clueList) {
-      if (msg.contains(keyWords)) {
-        if (GameState.hints.get().equals("\u221E")) {
-          break;
-        } else if (Integer.parseInt(GameState.hints.get()) == 0) {
-          msg = "Tell the player they have no more hints left";
-        } else {
-          GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
-          msg = "I have " + GameState.hints.get() + " hints left " + msg;
+    // determines if its a hint from keywords or if its a general conversation
+    outerloop:
+    for (String keyWords1 : GameState.clueFirst) {
+      for (String keyWords2 : GameState.clueSecond) {
+        if (msg.contains(keyWords1) && msg.contains(keyWords2) && (!keyWords1.equals(keyWords2))) {
+          if (GameState.hints.get().equals("\u221E")) {
+            break outerloop;
+          } else if (Integer.parseInt(GameState.hints.get()) == 0) {
+            msg1 =
+                "Tell the player they have no more hints left. YOU ARE TO NOT GIVE THEM ANY MORE"
+                    + " ANSWERS TO HINTS";
+            break outerloop;
+          } else {
+            GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
+            msg1 = "I have " + GameState.hints.get() + " hints left ";
+            break outerloop;
+          }
         }
-        break;
       }
     }
-    GameState.gameMaster.addMessage(room, "user", msg);
+
+    GameState.gameMaster.addMessage(room, "user", msg1 + msg);
+    System.out.println(msg1 + msg);
     GameState.gameMaster.runContext(room);
 
     String message = GameState.name + ": " + msg;

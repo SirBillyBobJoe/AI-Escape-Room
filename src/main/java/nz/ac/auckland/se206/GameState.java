@@ -24,8 +24,56 @@ public class GameState {
   public static String name = "user";
   public static SharedChat sharedChat;
 
-  public static String[] clueList = {
-    "help", "hint", "what", "how", "where", "who", "why", "can", "do", "next", "stuck", "lost",
-    "tell", "show", "give", "need", "find", "solve", "figure", "unlock", "explain"
+  public static String[] clueFirst = {
+    "help", "hint", "what", "how", "where", "who", "why", "can", "do", "stuck", "lost", "tell",
+    "show", "give", "need", "find", "solve", "figure", "unlock", "explain", "Im", "I'm"
+  };
+
+  public static String[] clueSecond = {
+    "key",
+    "lock",
+    "door",
+    "safe",
+    "code",
+    "map",
+    "box",
+    "book",
+    "flashlight",
+    "mirror",
+    "painting",
+    "clock",
+    "compass",
+    "notebook",
+    "candles",
+    "chessboard",
+    "cards",
+    "symbols",
+    "dice",
+    "magnifier",
+    "password",
+    "riddle",
+    "sequence",
+    "timer",
+    "clue",
+    "pattern",
+    "combination",
+    "lever",
+    "switch",
+    "cipher",
+    "equation",
+    "maze",
+    "colors",
+    "numbers",
+    "letters",
+    "compartment",
+    "trapdoor",
+    "light",
+    "sound",
+    "next",
+    "proceed",
+    "hints",
+    "do",
+    "scroll",
+    "stuck"
   };
 }

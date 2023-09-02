@@ -39,6 +39,7 @@ public class Room1Controller {
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
     String hint;
+
     if (GameState.hints.get().equals("\u221E")) {
       hint = "infinite";
     } else {
@@ -46,15 +47,17 @@ public class Room1Controller {
     }
     // room1 chat context
     GameState.gameMaster.createChatContext("room1");
-    GameState.gameMaster.addMessage(
-        "room1",
-        "user",
-        "You are the Game Master Of An Escape Room currently we are in room 1. If the hints left is"
-            + " 0 and the player asks anythign questions needing help in any form YOU MUST NOT GIVE"
-            + " ANY HINTS. This game the player will have "
+    String gptMsg =
+        "This game the player will have "
             + hint
-            + " hints");
+            + " hints. You are the Game Master Of An Escape Room currently we are in room 1. Here"
+            + " is some answers to the hints. The scroll is under the car, Switch is next to the"
+            + " chains, light is next to the car, riddle answer is chicken, u need key to unlock"
+            + " the door. Don't reply to this message reply but reply to following messages. Only"
+            + " give one hint at a time";
+    GameState.gameMaster.addMessage("room1", "user", gptMsg);
     GameState.gameMaster.runContext("room1");
+    System.out.println(gptMsg);
 
     item0.setUserData(0); // Index 0
     item1.setUserData(1); // Index 1
