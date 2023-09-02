@@ -24,7 +24,7 @@ public class SharedChat {
   private final StringProperty text;
 
   /** Constructs a new SharedChat instance with an initial welcome message. */
-  public SharedChat() {
+  private SharedChat() {
     this.text =
         new SimpleStringProperty(
             "Grand Wizard: Welcome To My Dungeon Click On The Hints Button If You Are Stuck!!!"
@@ -59,6 +59,12 @@ public class SharedChat {
     getTextProperty().set(text);
   }
 
+  /** Resets the instance fields to their initial values. (to be implemented) */
+  public void restart() {
+    this.text.set(
+        "Grand Wizard: Welcome To My Dungeon Click On The Hints Button If You Are Stuck!!!\n\n");
+  }
+
   /**
    * Handles the send operation for the chat. Checks for hints and clues, updates the game state,
    * and triggers asynchronous actions for waiting for a response.
@@ -68,11 +74,6 @@ public class SharedChat {
    */
   public void onSend(TextField textField, String room) {
     String msg = textField.getText();
-    String hint = GameState.hints.get();
-    if (GameState.hints.get().equals("\u221E")) {
-      hint = "infinite";
-    }
-    String hintsLeft = "I have" + hint + " hints left";
 
     if (msg.trim().isEmpty()) {
       return;
@@ -82,17 +83,17 @@ public class SharedChat {
     for (String keyWords : GameState.clueList) {
       if (msg.contains(keyWords)) {
         if (GameState.hints.get().equals("\u221E")) {
-          hintsLeft = "I have infinite hints left";
           break;
         } else if (Integer.parseInt(GameState.hints.get()) == 0) {
-          hintsLeft = "Tell the player they have no more hints left";
+          msg = "Tell the player they have no more hints left";
         } else {
           GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
+          msg = "I have " + GameState.hints.get() + " hints left " + msg;
         }
         break;
       }
     }
-    GameState.gameMaster.addMessage(room, "user", hintsLeft + msg);
+    GameState.gameMaster.addMessage(room, "user", msg);
     GameState.gameMaster.runContext(room);
 
     String message = GameState.name + ": " + msg;

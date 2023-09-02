@@ -22,7 +22,7 @@ public class GameState {
   public static Inventory inventory = new Inventory();
   public static GameMaster gameMaster = new GameMaster();
   public static String name = "user";
-  public static SharedChat sharedChat = new SharedChat();
+  public static SharedChat sharedChat;
 
   public static String[] clueList = {
     "help", "hint", "what", "how", "where", "who", "why", "can", "do", "next", "stuck", "lost",

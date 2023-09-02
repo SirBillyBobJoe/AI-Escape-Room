@@ -38,6 +38,12 @@ public class Room1Controller {
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
+    String hint;
+    if (GameState.hints.get().equals("\u221E")) {
+      hint = "infinite";
+    } else {
+      hint = GameState.hints.get();
+    }
     // room1 chat context
     GameState.gameMaster.createChatContext("room1");
     GameState.gameMaster.addMessage(
@@ -45,7 +51,9 @@ public class Room1Controller {
         "user",
         "You are the Game Master Of An Escape Room currently we are in room 1. If the hints left is"
             + " 0 and the player asks anythign questions needing help in any form YOU MUST NOT GIVE"
-            + " ANY HINTS.");
+            + " ANY HINTS. This game the player will have "
+            + hint
+            + " hints");
     GameState.gameMaster.runContext("room1");
 
     item0.setUserData(0); // Index 0
@@ -94,7 +102,7 @@ public class Room1Controller {
     GameState.inventory = new Inventory();
 
     GameState.gameMaster = new GameMaster();
-    GameState.sharedChat = new SharedChat();
+    GameState.sharedChat.restart();
     SceneManager.setReinitialise(AppUi.ROOM1);
   }
 
