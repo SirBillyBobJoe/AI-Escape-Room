@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
  */
 public class Object {
   private Image image;
+  protected String message;
 
   private int position;
 
@@ -45,5 +46,23 @@ public class Object {
    */
   public Image getImage() {
     return image;
+  }
+
+  /**
+   * Retrieves the Message object holds
+   *
+   * @return The String of message
+   */
+  public String getMessage() {
+    return message;
+  }
+
+  /**
+   * Sets the Message object holds
+   *
+   * @param The String of message
+   */
+  public void setMessage(String message) {
+    this.message = message;
   }
 }

@@ -24,7 +24,7 @@ public class SharedChat {
   private final StringProperty text;
 
   /** Constructs a new SharedChat instance with an initial welcome message. */
-  private SharedChat() {
+  public SharedChat() {
     this.text =
         new SimpleStringProperty(
             "Grand Wizard: Welcome To My Dungeon Click On The Hints Button If You Are Stuck!!!"
@@ -89,7 +89,7 @@ public class SharedChat {
           if (GameState.hints.get().equals("\u221E")) {
             break outerloop;
           } else if (Integer.parseInt(GameState.hints.get()) == 0) {
-            msg1 =
+            msg =
                 "Tell the player they have no more hints left. YOU ARE TO NOT GIVE THEM ANY MORE"
                     + " ANSWERS TO HINTS";
             break outerloop;

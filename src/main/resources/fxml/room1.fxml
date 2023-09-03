@@ -80,5 +80,6 @@
          </image>
       </ImageView>
       <TextField fx:id="textField" layoutX="503.0" layoutY="259.0" prefHeight="25.0" prefWidth="197.0" />
+      <TextArea fx:id="itemChat" layoutX="503.0" layoutY="461.0" prefHeight="59.0" prefWidth="196.0" />
    </children>
 </AnchorPane>

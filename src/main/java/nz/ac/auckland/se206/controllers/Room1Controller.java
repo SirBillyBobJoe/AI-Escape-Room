@@ -1,6 +1,9 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -17,6 +20,7 @@ import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.Items.Inventory;
 import nz.ac.auckland.se206.Items.Keys;
 import nz.ac.auckland.se206.Items.Lighter;
+import nz.ac.auckland.se206.Items.Object;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.SharedChat;
@@ -35,6 +39,9 @@ public class Room1Controller {
   @FXML private ImageView lighter1, lighter2, lighter3;
   @FXML private TextArea textArea;
   @FXML private TextField textField;
+  @FXML private TextArea itemChat;
+  private final HashMap<ImageView, Object> room1Items = new HashMap<ImageView, Object>();
+  private Thread currentThread; // Store the current thread
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
@@ -59,16 +66,17 @@ public class Room1Controller {
     GameState.gameMaster.runContext("room1");
     System.out.println(gptMsg);
 
+    countdownLabel.textProperty().bind(GameState.timer.timeSecondsProperty().asString());
+    hintLabel.textProperty().bind(GameState.hints);
+
+    // controls for inventory indexing with the images
+    ImageView[] images = {item0, item1, item2, item3, item4, item5};
     item0.setUserData(0); // Index 0
     item1.setUserData(1); // Index 1
     item2.setUserData(2); // Index 2
     item3.setUserData(3); // Index 3
     item4.setUserData(4); // Index 4
     item5.setUserData(5); // Index 5
-    countdownLabel.textProperty().bind(GameState.timer.timeSecondsProperty().asString());
-    hintLabel.textProperty().bind(GameState.hints);
-    ImageView[] images = {item0, item1, item2, item3, item4, item5};
-
     GameState.inventory
         .inventoryProperty()
         .addListener(
@@ -81,11 +89,31 @@ public class Room1Controller {
                 }
               }
             });
+    // end of inventory initialising
 
     // binds the text areas of the 2 controllers together
-    GameState.sharedChat = SharedChat.getInstance();
-    textArea.textProperty().bind(GameState.sharedChat.getTextProperty());
+    GameState.room1Chat = SharedChat.getInstance();
+    textArea.textProperty().bind(GameState.room1Chat.getTextProperty());
     textArea.setWrapText(true);
+    // Listen for changes in the textProperty of the textArea
+    GameState.room1Chat
+        .getTextProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              // Scroll to the bottom in the JavaFX Application Thread
+              Platform.runLater(
+                  () -> {
+                    textArea.setScrollTop(Double.MAX_VALUE);
+                  });
+            });
+
+    // initialise objects in room 1 into HashMap
+    room1Items.put(key1, new Keys(1));
+    room1Items.put(key2, new Keys(2));
+    room1Items.put(key3, new Keys(3));
+    room1Items.put(lighter1, new Lighter());
+    room1Items.put(lighter2, new Lighter());
+    room1Items.put(lighter3, new Lighter());
   }
 
   /**
@@ -105,7 +133,7 @@ public class Room1Controller {
     GameState.inventory = new Inventory();
 
     GameState.gameMaster = new GameMaster();
-    GameState.sharedChat.restart();
+    GameState.room1Chat.restart();
     SceneManager.setReinitialise(AppUi.ROOM1);
   }
 
@@ -136,27 +164,43 @@ public class Room1Controller {
    */
   @FXML
   private void objectClicked(MouseEvent event) {
-
+    // Interrupt previous thread if it's still running
+    if (currentThread != null && currentThread.isAlive()) {
+      currentThread.interrupt();
+    }
+    itemChat.clear();
     ImageView imageView = (ImageView) event.getSource();
-    imageView.setVisible(false);
-    if (imageView == key1) {
-      GameState.inventory.addObject(new Keys(1));
-      return;
-    } else if (imageView == key2) {
-      GameState.inventory.addObject(new Keys(2));
-      return;
-    } else if (imageView == key3) {
-      GameState.inventory.addObject(new Keys(3));
-      return;
-    } else if (imageView == lighter1) {
-      GameState.inventory.addObject(new Lighter());
-      return;
-    } else if (imageView == lighter2) {
-      GameState.inventory.addObject(new Lighter());
-      return;
-    } else if (imageView == lighter3) {
-      GameState.inventory.addObject(new Lighter());
-      return;
+    Object item = room1Items.get(imageView);
+
+    if (item != null) {
+      imageView.setVisible(false);
+      GameState.inventory.addObject(item);
+      // adds message to item chat as if it was typing
+      String message = item.getMessage();
+      Task<Void> task =
+          new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+              for (char c : message.toCharArray()) {
+                if (isCancelled()) {
+                  break;
+                }
+                String currentChar = String.valueOf(c);
+                Platform.runLater(() -> itemChat.appendText(currentChar));
+                Thread.sleep(20); // Sleep for 20 ms to simulate typing delay
+              }
+              return null;
+            }
+          };
+
+      // Store the reference to the currently running thread
+      currentThread = new Thread(task);
+      currentThread.setDaemon(true); // Set as daemon so it doesn't prevent application from exiting
+
+      // Attach a listener that will clear the text area when the task is cancelled
+      task.setOnCancelled(e -> Platform.runLater(() -> itemChat.clear()));
+
+      currentThread.start();
     }
   }
 
@@ -207,6 +251,6 @@ public class Room1Controller {
    */
   @FXML
   private void onSend(ActionEvent event) {
-    GameState.sharedChat.onSend(textField, "room1");
+    GameState.room1Chat.onSend(textField, "room1");
   }
 }

@@ -14,6 +14,7 @@ public class Keys extends Object {
   public Keys(int id) {
     super(new Image("/images/Inventory/key.png"));
     this.id = id;
+    this.message = "You have found key " + id;
   }
 
   /**
