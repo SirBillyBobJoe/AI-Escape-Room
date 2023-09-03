@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 public class Object {
   private Image image;
   protected String message;
+  protected String itemIdentifier;
 
   private int position;
 
@@ -64,5 +65,9 @@ public class Object {
    */
   public void setMessage(String message) {
     this.message = message;
+  }
+
+  public String getItemIdentifier() {
+    return itemIdentifier;
   }
 }

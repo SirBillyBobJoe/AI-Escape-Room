@@ -3,13 +3,13 @@ package nz.ac.auckland.se206.controllers;
 import java.io.IOException;
 import java.util.HashMap;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -17,9 +17,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
+import nz.ac.auckland.se206.ItemChat;
 import nz.ac.auckland.se206.Items.Inventory;
 import nz.ac.auckland.se206.Items.Keys;
 import nz.ac.auckland.se206.Items.Lighter;
+import nz.ac.auckland.se206.Items.Lock;
 import nz.ac.auckland.se206.Items.Object;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
@@ -37,11 +39,11 @@ public class Room1Controller {
   @FXML private ImageView item0, item1, item2, item3, item4, item5;
   @FXML private ImageView key1, key2, key3;
   @FXML private ImageView lighter1, lighter2, lighter3;
+  @FXML private ImageView lock1;
   @FXML private TextArea textArea;
   @FXML private TextField textField;
   @FXML private TextArea itemChat;
   private final HashMap<ImageView, Object> room1Items = new HashMap<ImageView, Object>();
-  private Thread currentThread; // Store the current thread
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
@@ -62,8 +64,8 @@ public class Room1Controller {
             + " chains, light is next to the car, riddle answer is chicken, u need key to unlock"
             + " the door. Don't reply to this message reply but reply to following messages. Only"
             + " give one hint at a time";
-    GameState.gameMaster.addMessage("room1", "user", gptMsg);
-    GameState.gameMaster.runContext("room1");
+    // GameState.gameMaster.addMessage("room1", "user", gptMsg);
+    // GameState.gameMaster.runContext("room1");
     System.out.println(gptMsg);
 
     countdownLabel.textProperty().bind(GameState.timer.timeSecondsProperty().asString());
@@ -77,6 +79,9 @@ public class Room1Controller {
     item3.setUserData(3); // Index 3
     item4.setUserData(4); // Index 4
     item5.setUserData(5); // Index 5
+    lock1.setUserData("lock");
+    lock1.setOnDragOver(event -> onDragOver(event));
+    lock1.setOnDragDropped(event -> onDragDropped(event));
     GameState.inventory
         .inventoryProperty()
         .addListener(
@@ -114,6 +119,7 @@ public class Room1Controller {
     room1Items.put(lighter1, new Lighter());
     room1Items.put(lighter2, new Lighter());
     room1Items.put(lighter3, new Lighter());
+    room1Items.put(lock1, new Lock(1));
   }
 
   /**
@@ -164,43 +170,22 @@ public class Room1Controller {
    */
   @FXML
   private void objectClicked(MouseEvent event) {
-    // Interrupt previous thread if it's still running
-    if (currentThread != null && currentThread.isAlive()) {
-      currentThread.interrupt();
-    }
+
     itemChat.clear();
     ImageView imageView = (ImageView) event.getSource();
     Object item = room1Items.get(imageView);
 
+    // if not a lock
     if (item != null) {
-      imageView.setVisible(false);
-      GameState.inventory.addObject(item);
+      // if its not a lock
+      if (!(item instanceof Lock)) {
+
+        imageView.setVisible(false);
+        GameState.inventory.addObject(item);
+      }
       // adds message to item chat as if it was typing
       String message = item.getMessage();
-      Task<Void> task =
-          new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-              for (char c : message.toCharArray()) {
-                if (isCancelled()) {
-                  break;
-                }
-                String currentChar = String.valueOf(c);
-                Platform.runLater(() -> itemChat.appendText(currentChar));
-                Thread.sleep(20); // Sleep for 20 ms to simulate typing delay
-              }
-              return null;
-            }
-          };
-
-      // Store the reference to the currently running thread
-      currentThread = new Thread(task);
-      currentThread.setDaemon(true); // Set as daemon so it doesn't prevent application from exiting
-
-      // Attach a listener that will clear the text area when the task is cancelled
-      task.setOnCancelled(e -> Platform.runLater(() -> itemChat.clear()));
-
-      currentThread.start();
+      ItemChat.getInstance().printChatMessage(itemChat, message);
     }
   }
 
@@ -241,7 +226,7 @@ public class Room1Controller {
    */
   @FXML
   private void onDragDropped(DragEvent event) {
-    GameState.inventory.onDragDropped(event);
+    GameState.inventory.onDragDropped(event, room1Items, itemChat);
   }
 
   /**
@@ -252,5 +237,42 @@ public class Room1Controller {
   @FXML
   private void onSend(ActionEvent event) {
     GameState.room1Chat.onSend(textField, "room1");
+  }
+
+  /**
+   * Turn Object Blue
+   *
+   * @param event MouseEvent for turning object blue
+   */
+  @FXML
+  private void onMouseEntered(MouseEvent event) {
+    // Make it really blue when hovered over
+    ImageView targetImageView = (ImageView) event.getSource();
+    ColorAdjust colorAdjust = new ColorAdjust();
+    colorAdjust.setHue(1); // Max hue
+    colorAdjust.setSaturation(1); // Max saturation
+    targetImageView.setEffect(colorAdjust);
+  }
+
+  /**
+   * Removes blue tint from object
+   *
+   * @param event MouseEvent for turning object blue
+   */
+  @FXML
+  private void onMouseExited(MouseEvent event) {
+    // Remove the blue tint after dropping
+    ImageView targetImageView = (ImageView) event.getSource();
+    targetImageView.setEffect(null);
+  }
+
+  /**
+   * Handles events when we click on the inventory Items
+   *
+   * @param event MouseEvent for turning object blue
+   */
+  @FXML
+  private void onInventoryClicked(MouseEvent event) {
+    GameState.inventory.onInventoryClicked(event, itemChat);
   }
 }

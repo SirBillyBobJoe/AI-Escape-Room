@@ -1,8 +1,10 @@
 package nz.ac.auckland.se206.Items;
 
+import java.util.HashMap;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.scene.control.TextArea;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -11,6 +13,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import nz.ac.auckland.se206.GameState;
+import nz.ac.auckland.se206.ItemChat;
 
 /** Represents the inventory of objects within the game. */
 public class Inventory {
@@ -174,7 +177,8 @@ public class Inventory {
    *
    * @param event The DragEvent triggered by the drop.
    */
-  public void onDragDropped(DragEvent event) {
+  public void onDragDropped(
+      DragEvent event, HashMap<ImageView, Object> room1Items, TextArea itemChat) {
     // Remove the blue tint after dropping
     ImageView targetImageView = (ImageView) event.getSource();
     targetImageView.setEffect(null);
@@ -182,23 +186,55 @@ public class Inventory {
     // Get Dragboard
     Dragboard db = event.getDragboard();
 
-    // check if drop was successful
+    // Check if drop was successful
     boolean success = false;
 
-    // Check if Dragboard has a String(we stored earlier)
+    // Check if Dragboard has a String (we stored earlier)
     if (db.hasString()) {
       int originalIndex = Integer.parseInt(db.getString());
+      Object draggedItem =
+          GameState.inventory.getObject(
+              originalIndex); // Retrieve the dragged object based on the index.
 
-      ImageView tartgetImageView = (ImageView) event.getSource();
+      targetImageView = (ImageView) event.getSource(); // renamed to match the same variable name
 
-      int targetIndex = (int) tartgetImageView.getUserData();
+      // Check if it's a lock
+      if ("lock".equals(targetImageView.getUserData())) {
+        // This is where you would unlock the lock and make it invisible
+        Lock lockItem = (Lock) room1Items.get(targetImageView);
 
-      GameState.inventory.swapObject(originalIndex, targetIndex);
+        // Check whether the dragged item is a key and its ID matches the lock's ID
+        if (draggedItem instanceof Keys && lockItem != null && lockItem.isLocked()) {
+          Keys keyItem = (Keys) draggedItem;
+          if (keyItem.getID() == lockItem.getId()) {
+            lockItem.unlockLock();
+            targetImageView.setVisible(false);
+            String message = lockItem.getMessage();
+            ItemChat.getInstance().printChatMessage(itemChat, message);
+            inventoryProperty.set(originalIndex, new Object(null));
 
-      success = true;
+            success = true; // Only set success to true if the operation is successful.
+          } else {
+            ItemChat.getInstance()
+                .printChatMessage(itemChat, "You Need The Correct Key To Unlock The Lock");
+          }
+        } else { // if its not a key
+          ItemChat.getInstance().printChatMessage(itemChat, "You Need A Key To Unlock The Lock");
+        }
+      } else {
+        int targetIndex = (int) targetImageView.getUserData();
+        GameState.inventory.swapObject(originalIndex, targetIndex);
+        success = true;
+      }
     }
 
     event.setDropCompleted(success);
     event.consume();
+  }
+
+  public void onInventoryClicked(MouseEvent event, TextArea itemChat) {
+    int index = (int) ((ImageView) event.getSource()).getUserData();
+    String message = inventoryProperty.get(index).getItemIdentifier();
+    ItemChat.getInstance().printChatMessage(itemChat, message);
   }
 }

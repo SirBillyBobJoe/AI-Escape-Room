@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="701.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.Room1Controller">
    <children>
-      <ImageView fitHeight="531.0" fitWidth="548.0" layoutX="-7.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="531.0" fitWidth="548.0" layoutX="-11.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Room1/room1.jpg" />
          </image>
@@ -31,38 +31,38 @@
             <Image url="@../images/Inventory/Inventory.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="item3" fitHeight="34.0" fitWidth="37.0" layoutX="273.0" layoutY="486.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="key1" fitHeight="61.0" fitWidth="74.0" layoutX="42.0" layoutY="133.0" onMouseClicked="#objectClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="item3" fitHeight="34.0" fitWidth="37.0" layoutX="278.0" layoutY="487.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="key1" fitHeight="61.0" fitWidth="74.0" layoutX="42.0" layoutY="133.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/key.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="lighter1" fitHeight="88.0" fitWidth="98.0" layoutX="29.0" layoutY="38.0" onMouseClicked="#objectClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="lighter1" fitHeight="88.0" fitWidth="98.0" layoutX="29.0" layoutY="38.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/lighter.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="item1" fitHeight="34.0" fitWidth="37.0" layoutX="178.0" layoutY="489.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item2" fitHeight="34.0" fitWidth="37.0" layoutX="225.0" layoutY="487.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item0" fitHeight="34.0" fitWidth="37.0" layoutX="132.0" layoutY="488.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item4" fitHeight="34.0" fitWidth="37.0" layoutX="316.0" layoutY="488.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item5" fitHeight="34.0" fitWidth="37.0" layoutX="365.0" layoutY="490.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="key3" fitHeight="61.0" fitWidth="74.0" layoutX="187.0" layoutY="151.0" onMouseClicked="#objectClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="item1" fitHeight="34.0" fitWidth="37.0" layoutX="178.0" layoutY="489.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item2" fitHeight="34.0" fitWidth="37.0" layoutX="225.0" layoutY="487.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item0" fitHeight="34.0" fitWidth="37.0" layoutX="132.0" layoutY="488.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item4" fitHeight="34.0" fitWidth="37.0" layoutX="316.0" layoutY="488.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item5" fitHeight="34.0" fitWidth="37.0" layoutX="365.0" layoutY="490.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="key3" fitHeight="61.0" fitWidth="74.0" layoutX="187.0" layoutY="151.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/key.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="key2" fitHeight="61.0" fitWidth="74.0" layoutX="332.0" layoutY="143.0" onMouseClicked="#objectClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="key2" fitHeight="61.0" fitWidth="74.0" layoutX="332.0" layoutY="143.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/key.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="lighter3" fitHeight="88.0" fitWidth="98.0" layoutX="55.0" layoutY="261.0" onMouseClicked="#objectClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="lighter3" fitHeight="88.0" fitWidth="98.0" layoutX="55.0" layoutY="261.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/lighter.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="lighter2" fitHeight="88.0" fitWidth="98.0" layoutX="169.0" layoutY="238.0" onMouseClicked="#objectClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="lighter2" fitHeight="88.0" fitWidth="98.0" layoutX="208.0" layoutY="237.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/lighter.png" />
          </image>
@@ -81,5 +81,10 @@
       </ImageView>
       <TextField fx:id="textField" layoutX="503.0" layoutY="259.0" prefHeight="25.0" prefWidth="197.0" />
       <TextArea fx:id="itemChat" layoutX="503.0" layoutY="461.0" prefHeight="59.0" prefWidth="196.0" />
+      <ImageView fx:id="lock1" fitHeight="150.0" fitWidth="200.0" layoutX="376.0" layoutY="274.0" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Inventory/lock.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
