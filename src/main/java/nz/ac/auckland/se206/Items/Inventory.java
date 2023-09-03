@@ -216,7 +216,8 @@ public class Inventory {
             success = true; // Only set success to true if the operation is successful.
           } else {
             ItemChat.getInstance()
-                .printChatMessage(itemChat, "You Need The Correct Key To Unlock The Lock");
+                .printChatMessage(
+                    itemChat, "You Need Key " + lockItem.getId() + " To Unlock The Lock");
           }
         } else { // if its not a key
           ItemChat.getInstance().printChatMessage(itemChat, "You Need A Key To Unlock The Lock");

@@ -64,8 +64,8 @@ public class Room1Controller {
             + " chains, light is next to the car, riddle answer is chicken, u need key to unlock"
             + " the door. Don't reply to this message reply but reply to following messages. Only"
             + " give one hint at a time";
-    // GameState.gameMaster.addMessage("room1", "user", gptMsg);
-    // GameState.gameMaster.runContext("room1");
+    GameState.gameMaster.addMessage("room1", "user", gptMsg);
+    GameState.gameMaster.runContext("room1");
     System.out.println(gptMsg);
 
     countdownLabel.textProperty().bind(GameState.timer.timeSecondsProperty().asString());
