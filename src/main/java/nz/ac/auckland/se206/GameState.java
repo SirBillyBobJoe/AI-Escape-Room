@@ -18,6 +18,9 @@ public class GameState {
   public static int time = 2;
   public static String difficulty = "easy";
 
+  public static boolean escaped = false;
+  public static String escapeMessage = "CONGRATS YOU HAVE ESCAPED";
+
   public static CountdownTimer timer = CountdownTimer.getInstance(GameState.time * 60);
   public static Inventory inventory = new Inventory();
   public static GameMaster gameMaster = new GameMaster();

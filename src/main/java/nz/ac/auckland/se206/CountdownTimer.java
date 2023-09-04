@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206;
 
+import java.io.IOException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -7,6 +8,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.concurrent.Task;
 import javafx.util.Duration;
+import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 
 /**
@@ -79,6 +81,7 @@ public class CountdownTimer {
             new Thread(task).start();
           }
           if (newTime.intValue() == 0) {
+            this.stop();
             Platform.runLater(
                 () -> {
                   Task<Void> task =
@@ -95,8 +98,13 @@ public class CountdownTimer {
 
                   new Thread(task).start();
 
-                  Platform.exit();
-                  System.exit(0);
+                  try {
+                    SceneManager.setReinitialise(AppUi.ENDSCREEN);
+                    App.setUserInterface(AppUi.ENDSCREEN);
+                  } catch (IOException e1) {
+
+                    e1.printStackTrace();
+                  }
                 });
           }
         });

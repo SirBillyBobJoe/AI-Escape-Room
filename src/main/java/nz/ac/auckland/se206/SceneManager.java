@@ -8,8 +8,9 @@ import javafx.scene.Parent;
 public class SceneManager {
   /** Enumerates different states or scenes in the application. */
   public enum AppUi {
-    SCREEN_START,
-    ROOM1
+    SCREENSTART,
+    ROOM1,
+    ENDSCREEN
   }
 
   private static HashMap<AppUi, Parent> map = new HashMap<AppUi, Parent>();

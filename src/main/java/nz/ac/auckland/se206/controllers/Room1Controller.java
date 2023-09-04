@@ -133,7 +133,7 @@ public class Room1Controller {
   private void onRestart(MouseEvent event) throws IOException {
     new MouseClick().play();
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    App.setUserInterface(AppUi.SCREEN_START);
+    App.setUserInterface(AppUi.SCREENSTART);
     stage.setWidth(630);
     stage.setHeight(630);
     GameState.timer.stop();
@@ -277,5 +277,19 @@ public class Room1Controller {
   private void onInventoryClicked(MouseEvent event) {
     new MouseClick().play();
     GameState.inventory.onInventoryClicked(event, itemChat);
+  }
+
+  /**
+   * Handles button events for escaping
+   *
+   * @param event ActionEvent for button click
+   * @throws IOException
+   */
+  @FXML
+  private void onEscape(ActionEvent event) throws IOException {
+    GameState.timer.stop();
+    GameState.escaped = true;
+    SceneManager.setReinitialise(AppUi.ENDSCREEN);
+    App.setUserInterface(AppUi.ENDSCREEN);
   }
 }

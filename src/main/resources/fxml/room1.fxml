@@ -86,5 +86,6 @@
             <Image url="@../images/Inventory/lock.png" />
          </image>
       </ImageView>
+      <Button layoutX="334.0" layoutY="12.0" mnemonicParsing="false" onAction="#onEscape" text="Finish Game And Escape" />
    </children>
 </AnchorPane>
