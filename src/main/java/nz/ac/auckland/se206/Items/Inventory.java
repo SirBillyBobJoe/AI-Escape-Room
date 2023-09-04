@@ -4,14 +4,17 @@ import java.util.HashMap;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.paint.Color;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.ItemChat;
 
@@ -120,10 +123,18 @@ public class Inventory {
   public void onDragDetected(MouseEvent event) {
     ImageView sourceImageView = (ImageView) event.getSource();
 
+    // Configure SnapshotParameters
+    SnapshotParameters snapshotParameters = new SnapshotParameters();
+    snapshotParameters.setFill(Color.TRANSPARENT);
+
+    // Create a snapshot of the ImageView
+    WritableImage snapshot = sourceImageView.snapshot(snapshotParameters, null);
+
     // Start the drag-and-drop operation
-    Dragboard db = sourceImageView.startDragAndDrop(javafx.scene.input.TransferMode.ANY);
-    // Set the visual representation of the drag-and-drop with the image from the ImageView
-    db.setDragView(sourceImageView.getImage());
+    Dragboard db = sourceImageView.startDragAndDrop(TransferMode.ANY);
+
+    // Use the snapshot as the drag view
+    db.setDragView(snapshot);
     // Use stored user data to get the index of this ImageView
     int index = (int) sourceImageView.getUserData();
 
