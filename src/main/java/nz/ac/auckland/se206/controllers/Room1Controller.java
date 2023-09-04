@@ -23,6 +23,7 @@ import nz.ac.auckland.se206.Items.Keys;
 import nz.ac.auckland.se206.Items.Lighter;
 import nz.ac.auckland.se206.Items.Lock;
 import nz.ac.auckland.se206.Items.Object;
+import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.SharedChat;
@@ -130,6 +131,7 @@ public class Room1Controller {
    */
   @FXML
   private void onRestart(MouseEvent event) throws IOException {
+    new MouseClick().play();
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     App.setUserInterface(AppUi.SCREEN_START);
     stage.setWidth(630);
@@ -170,7 +172,7 @@ public class Room1Controller {
    */
   @FXML
   private void objectClicked(MouseEvent event) {
-
+    new MouseClick().play();
     itemChat.clear();
     ImageView imageView = (ImageView) event.getSource();
     Object item = room1Items.get(imageView);
@@ -273,6 +275,7 @@ public class Room1Controller {
    */
   @FXML
   private void onInventoryClicked(MouseEvent event) {
+    new MouseClick().play();
     GameState.inventory.onInventoryClicked(event, itemChat);
   }
 }

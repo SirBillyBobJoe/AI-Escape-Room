@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
+import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 
@@ -203,6 +204,7 @@ public class ScreenStartController {
    */
   @FXML
   private void onStart(MouseEvent event) throws IOException {
+    new MouseClick().play();
     GameState.timer.setTimeSecondsProperty(selectedTime * 60);
 
     // Start the timer.
@@ -331,6 +333,7 @@ public class ScreenStartController {
 
   /** Helper method to navigate back in the options. */
   private void goBack() {
+    new MouseClick().play();
     if (onTime) {
       easy.setVisible(true);
       medium.setVisible(true);
@@ -361,6 +364,7 @@ public class ScreenStartController {
 
   /** Helper method to set the selected level and update the UI accordingly. */
   private void choseLevel() {
+    new MouseClick().play();
     // makes levels not visible but time visible
 
     onLevel = false;
@@ -392,6 +396,7 @@ public class ScreenStartController {
 
   /** Helper method to set the selected time and update the UI accordingly. */
   private void choseTime() {
+    new MouseClick().play();
     // makes levels not visible but time visible
 
     onTime = false;
