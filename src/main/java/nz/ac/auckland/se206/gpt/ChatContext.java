@@ -5,7 +5,6 @@ import nz.ac.auckland.se206.gpt.openai.ApiProxyException;
 import nz.ac.auckland.se206.gpt.openai.ChatCompletionRequest;
 import nz.ac.auckland.se206.gpt.openai.ChatCompletionResult;
 import nz.ac.auckland.se206.gpt.openai.ChatCompletionResult.Choice;
-import nz.ac.auckland.se206.speech.TextToSpeech;
 
 /**
  * Represents a context for chat communication using the GPT model. Provides both synchronous and
@@ -96,9 +95,9 @@ public class ChatContext {
             isBusy = false;
 
             // Calculate the first sentence which is what word-to-speech will read out
-            String firstSentence =
+            /*  String firstSentence =
                 lastResponse.getContent().substring(0, lastResponse.getContent().indexOf(".") + 1);
-            TextToSpeech.getInstance().speak(firstSentence);
+            TextToSpeech.getInstance().speak(firstSentence);*/
             return null;
           }
         };
