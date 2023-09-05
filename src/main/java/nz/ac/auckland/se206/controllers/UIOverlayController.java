@@ -1,7 +1,6 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
-import java.util.HashMap;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,15 +13,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.ItemChat;
 import nz.ac.auckland.se206.Items.Inventory;
-import nz.ac.auckland.se206.Items.Keys;
-import nz.ac.auckland.se206.Items.Lighter;
-import nz.ac.auckland.se206.Items.Lock;
-import nz.ac.auckland.se206.Items.Object;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
@@ -33,42 +29,20 @@ import nz.ac.auckland.se206.gpt.GameMaster;
  * Controller class for Room 1 in the escape room game. Manages the UI elements and interactions for
  * Room 1.
  */
-public class Room1Controller {
+public class UIOverlayController {
+  @FXML private AnchorPane mainPane;
   @FXML private Label countdownLabel;
   @FXML private Label hintLabel;
   @FXML private ImageView restart;
   @FXML private ImageView item0, item1, item2, item3, item4, item5;
-  @FXML private ImageView key1, key2, key3;
-  @FXML private ImageView lighter1, lighter2, lighter3;
-  @FXML private ImageView lock1;
   @FXML private TextArea textArea;
   @FXML private TextField textField;
   @FXML private TextArea itemChat;
-  private final HashMap<ImageView, Object> room1Items = new HashMap<ImageView, Object>();
+  @FXML private Pane replacePane; // Must remain so it can be swapped at the start
+  private Pane loadedRoom;
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
-    String hint;
-
-    if (GameState.hints.get().equals("\u221E")) {
-      hint = "infinite";
-    } else {
-      hint = GameState.hints.get();
-    }
-    // room1 chat context
-    GameState.gameMaster.createChatContext("room1");
-    String gptMsg =
-        "This game the player will have "
-            + hint
-            + " hints. You are the Game Master Of An Escape Room currently we are in room 1. Here"
-            + " is some answers to the hints. The scroll is under the car, Switch is next to the"
-            + " chains, light is next to the car, riddle answer is chicken, u need key to unlock"
-            + " the door. Don't reply to this message reply but reply to following messages. Only"
-            + " give one hint at a time";
-    GameState.gameMaster.addMessage("room1", "user", gptMsg);
-    GameState.gameMaster.runContext("room1");
-    System.out.println(gptMsg);
-
     countdownLabel.textProperty().bind(GameState.timer.timeSecondsProperty().asString());
     hintLabel.textProperty().bind(GameState.hints);
 
@@ -80,9 +54,6 @@ public class Room1Controller {
     item3.setUserData(3); // Index 3
     item4.setUserData(4); // Index 4
     item5.setUserData(5); // Index 5
-    lock1.setUserData("lock");
-    lock1.setOnDragOver(event -> onDragOver(event));
-    lock1.setOnDragDropped(event -> onDragDropped(event));
     GameState.inventory
         .inventoryProperty()
         .addListener(
@@ -95,6 +66,7 @@ public class Room1Controller {
                 }
               }
             });
+    GameState.inventory.setItemChat(itemChat);
     // end of inventory initialising
 
     // binds the text areas of the 2 controllers together
@@ -113,14 +85,13 @@ public class Room1Controller {
                   });
             });
 
-    // initialise objects in room 1 into HashMap
-    room1Items.put(key1, new Keys(1));
-    room1Items.put(key2, new Keys(2));
-    room1Items.put(key3, new Keys(3));
-    room1Items.put(lighter1, new Lighter());
-    room1Items.put(lighter2, new Lighter());
-    room1Items.put(lighter3, new Lighter());
-    room1Items.put(lock1, new Lock(1));
+    // Load room 1 internal
+    try {
+      loadedRoom = (Pane) App.loadFxml("room1internal");
+      mainPane.getChildren().set(0, loadedRoom);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -166,32 +137,6 @@ public class Room1Controller {
   }
 
   /**
-   * Handles clicking on game objects in the room.
-   *
-   * @param event MouseEvent for clicking an object.
-   */
-  @FXML
-  private void objectClicked(MouseEvent event) {
-    new MouseClick().play();
-    itemChat.clear();
-    ImageView imageView = (ImageView) event.getSource();
-    Object item = room1Items.get(imageView);
-
-    // if not a lock
-    if (item != null) {
-      // if its not a lock
-      if (!(item instanceof Lock)) {
-
-        imageView.setVisible(false);
-        GameState.inventory.addObject(item);
-      }
-      // adds message to item chat as if it was typing
-      String message = item.getMessage();
-      ItemChat.getInstance().printChatMessage(itemChat, message);
-    }
-  }
-
-  /**
    * Initiates drag-and-drop functionality for inventory items.
    *
    * @param event MouseEvent for starting a drag-and-drop.
@@ -228,7 +173,7 @@ public class Room1Controller {
    */
   @FXML
   private void onDragDropped(DragEvent event) {
-    GameState.inventory.onDragDropped(event, room1Items, itemChat);
+    GameState.inventory.onDragDropped(event, GameState.currentRoomItems);
   }
 
   /**
@@ -276,7 +221,7 @@ public class Room1Controller {
   @FXML
   private void onInventoryClicked(MouseEvent event) {
     new MouseClick().play();
-    GameState.inventory.onInventoryClicked(event, itemChat);
+    GameState.inventory.onInventoryClicked(event);
   }
 
   /**

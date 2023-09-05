@@ -44,7 +44,7 @@ public class EndScreenController {
 
     GameState.gameMaster = new GameMaster();
     GameState.room1Chat.restart();
-    SceneManager.setReinitialise(AppUi.ROOM1);
+    SceneManager.setReinitialise(AppUi.UIOVERLAY);
     SceneManager.setReinitialise(AppUi.SCREENSTART);
     App.setUserInterface(AppUi.SCREENSTART);
   }

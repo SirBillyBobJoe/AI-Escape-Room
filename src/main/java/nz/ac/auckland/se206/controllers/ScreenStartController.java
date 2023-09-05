@@ -209,9 +209,9 @@ public class ScreenStartController {
 
     // Start the timer.
     GameState.timer.start();
-    SceneManager.addAppUi(AppUi.ROOM1, App.loadFxml("room1"), false);
+    SceneManager.addAppUi(AppUi.UIOVERLAY, App.loadFxml("uioverlay"), false);
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    App.setUserInterface(AppUi.ROOM1);
+    App.setUserInterface(AppUi.UIOVERLAY);
     stage.setWidth(720);
     stage.setHeight(570);
   }

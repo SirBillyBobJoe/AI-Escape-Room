@@ -1,8 +1,11 @@
 package nz.ac.auckland.se206;
 
+import java.util.HashMap;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.image.ImageView;
 import nz.ac.auckland.se206.Items.Inventory;
+import nz.ac.auckland.se206.Items.Object;
 import nz.ac.auckland.se206.gpt.GameMaster;
 
 /** Represents the state of the game. */
@@ -23,9 +26,12 @@ public class GameState {
 
   public static CountdownTimer timer = CountdownTimer.getInstance(GameState.time * 60);
   public static Inventory inventory = new Inventory();
+  public static HashMap<ImageView, Object> currentRoomItems = new HashMap<ImageView, Object>();
   public static GameMaster gameMaster = new GameMaster();
   public static String name = "user";
   public static SharedChat room1Chat = new SharedChat();
+
+  public static int numInventorySlots = 0;
 
   public static String[] clueFirst = {
     "help", "hint", "what", "how", "where", "who", "why", "can", "do", "stuck", "lost", "tell",

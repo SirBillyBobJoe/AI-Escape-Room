@@ -10,6 +10,8 @@ public class SceneManager {
   public enum AppUi {
     SCREENSTART,
     ROOM1,
+    ROOM1Internal,
+    UIOVERLAY,
     ENDSCREEN
   }
 

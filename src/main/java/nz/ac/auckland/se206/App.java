@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206;
 
 import java.io.IOException;
+import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,7 +34,18 @@ public class App extends Application {
    * @throws IOException If the file is not found.
    */
   public static Parent loadFxml(final String fxml) throws IOException {
-    return new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml")).load();
+    try {
+      URL fileUrl = App.class.getResource("/fxml/" + fxml + ".fxml");
+      if (fileUrl == null) {
+        throw new java.io.FileNotFoundException("FXML file can't be found");
+      }
+
+      return new FXMLLoader().load(fileUrl);
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("No page " + fxml + " please check FXMLLoader.");
+    }
+    return null;
   }
 
   public static void setUserInterface(AppUi ui) throws IOException {
