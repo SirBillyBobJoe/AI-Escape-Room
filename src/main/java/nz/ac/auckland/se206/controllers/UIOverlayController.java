@@ -2,6 +2,8 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -22,6 +24,7 @@ import nz.ac.auckland.se206.Items.Inventory;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.SharedChat;
 import nz.ac.auckland.se206.gpt.GameMaster;
 
@@ -70,11 +73,11 @@ public class UIOverlayController {
     // end of inventory initialising
 
     // binds the text areas of the 2 controllers together
-    GameState.room1Chat = SharedChat.getInstance();
-    textArea.textProperty().bind(GameState.room1Chat.getTextProperty());
+    GameState.chat = SharedChat.getInstance();
+    textArea.textProperty().bind(GameState.chat.getTextProperty());
     textArea.setWrapText(true);
     // Listen for changes in the textProperty of the textArea
-    GameState.room1Chat
+    GameState.chat
         .getTextProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
@@ -84,14 +87,21 @@ public class UIOverlayController {
                     textArea.setScrollTop(Double.MAX_VALUE);
                   });
             });
-
     // Load room 1 internal
-    try {
-      loadedRoom = (Pane) App.loadFxml("room1internal");
-      mainPane.getChildren().set(0, loadedRoom);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    GameState.currentRoom.addListener(
+        new ChangeListener<Rooms>() {
+          @Override
+          public void changed(ObservableValue o, Rooms oldVal, Rooms newVal) {
+            changeRoom(newVal);
+          }
+        });
+    GameState.currentRoom.set(Rooms.MAINROOM);
+    changeRoom(Rooms.MAINROOM);
+  }
+
+  private void changeRoom(Rooms room) {
+    loadedRoom = SceneManager.getRoomPane(room);
+    mainPane.getChildren().set(0, loadedRoom);
   }
 
   /**
@@ -104,6 +114,7 @@ public class UIOverlayController {
   private void onRestart(MouseEvent event) throws IOException {
     new MouseClick().play();
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    SceneManager.setReinitialise(AppUi.UIOVERLAY);
     App.setUserInterface(AppUi.SCREENSTART);
     stage.setWidth(630);
     stage.setHeight(630);
@@ -112,8 +123,7 @@ public class UIOverlayController {
     GameState.inventory = new Inventory();
 
     GameState.gameMaster = new GameMaster();
-    GameState.room1Chat.restart();
-    SceneManager.setReinitialise(AppUi.ROOM1);
+    GameState.chat.restart();
   }
 
   /**
@@ -183,7 +193,7 @@ public class UIOverlayController {
    */
   @FXML
   private void onSend(ActionEvent event) {
-    GameState.room1Chat.onSend(textField, "room1");
+    GameState.chat.onSend(textField, "room1");
   }
 
   /**

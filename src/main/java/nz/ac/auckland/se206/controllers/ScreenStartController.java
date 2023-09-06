@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.MouseClick;
-import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 
 /** Class responsible for controlling the Start Screen of the game. */
@@ -209,7 +208,6 @@ public class ScreenStartController {
 
     // Start the timer.
     GameState.timer.start();
-    SceneManager.addAppUi(AppUi.UIOVERLAY, App.loadFxml("uioverlay"), false);
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     App.setUserInterface(AppUi.UIOVERLAY);
     stage.setWidth(720);

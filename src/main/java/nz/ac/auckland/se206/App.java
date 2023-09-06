@@ -40,7 +40,7 @@ public class App extends Application {
         throw new java.io.FileNotFoundException("FXML file can't be found");
       }
 
-      return new FXMLLoader().load(fileUrl);
+      return FXMLLoader.load(fileUrl);
     } catch (Exception e) {
       e.printStackTrace();
       System.out.println("No page " + fxml + " please check FXMLLoader.");
@@ -62,9 +62,6 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
-    SceneManager.addAppUi(AppUi.SCREENSTART, loadFxml("screenstart"), false);
-    SceneManager.addAppUi(AppUi.ENDSCREEN, loadFxml("endscreen"), false);
-
     scene = new Scene(SceneManager.getUi(AppUi.SCREENSTART), 630, 630);
     scene.getRoot().requestFocus();
     stage.setScene(scene);

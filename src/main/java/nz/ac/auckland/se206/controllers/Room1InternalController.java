@@ -82,11 +82,10 @@ public class Room1InternalController {
     GameState.inventory = new Inventory();
 
     GameState.gameMaster = new GameMaster();
-    GameState.room1Chat.restart();
+    GameState.chat.restart();
     SceneManager.setReinitialise(AppUi.UIOVERLAY);
   }
 
-  // TODO
   // /**
   //  * Handles clicking on game objects in the room.
   //  *

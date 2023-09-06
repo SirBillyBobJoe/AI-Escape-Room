@@ -1,11 +1,13 @@
 package nz.ac.auckland.se206;
 
 import java.util.HashMap;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.ImageView;
 import nz.ac.auckland.se206.Items.Inventory;
 import nz.ac.auckland.se206.Items.Object;
+import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.gpt.GameMaster;
 
 /** Represents the state of the game. */
@@ -29,7 +31,9 @@ public class GameState {
   public static HashMap<ImageView, Object> currentRoomItems = new HashMap<ImageView, Object>();
   public static GameMaster gameMaster = new GameMaster();
   public static String name = "user";
-  public static SharedChat room1Chat = new SharedChat();
+  public static SharedChat chat = new SharedChat();
+  public static SimpleObjectProperty<Rooms> currentRoom =
+      new SimpleObjectProperty<SceneManager.Rooms>(Rooms.MAINROOM);
 
   public static int numInventorySlots = 0;
 
