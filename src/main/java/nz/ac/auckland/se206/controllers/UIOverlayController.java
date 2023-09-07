@@ -158,7 +158,7 @@ public class UIOverlayController {
     new MouseClick().play();
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     SceneManager.setReinitialise(AppUi.UIOVERLAY);
-    App.setUserInterface(AppUi.SCREENSTART);
+    App.setUserInterface(AppUi.STARTSCREEN);
     stage.setWidth(630);
     stage.setHeight(630);
     GameState.timer.stop();
