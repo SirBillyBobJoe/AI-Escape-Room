@@ -16,7 +16,7 @@ import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 
 /** Class responsible for controlling the Start Screen of the game. */
-public class ScreenStartController {
+public class StartScreenController {
   @FXML private ImageView easy;
   @FXML private ImageView medium;
   @FXML private ImageView medium1;
