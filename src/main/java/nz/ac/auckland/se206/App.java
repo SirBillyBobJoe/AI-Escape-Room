@@ -64,6 +64,7 @@ public class App extends Application {
   public void start(final Stage stage) throws IOException {
     scene = new Scene(SceneManager.getUi(AppUi.SCREENSTART), 630, 630);
     scene.getRoot().requestFocus();
+    stage.setResizable(false);
     stage.setScene(scene);
     stage.show();
     stage.setOnCloseRequest(
