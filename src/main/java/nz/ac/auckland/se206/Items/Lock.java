@@ -1,6 +1,8 @@
 package nz.ac.auckland.se206.Items;
 
 import javafx.scene.image.Image;
+import nz.ac.auckland.se206.GameState;
+import nz.ac.auckland.se206.SceneManager.Rooms;
 
 public class Lock extends Object {
   private boolean isLocked = true;
@@ -22,5 +24,6 @@ public class Lock extends Object {
 
   public void unlockLock() {
     this.message = "you have unlocked lock " + id;
+    GameState.currentRoom.set(Rooms.PUZZLEROOM);
   }
 }

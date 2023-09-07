@@ -20,6 +20,8 @@ import nz.ac.auckland.se206.ItemChat;
 
 /** Represents the inventory of objects within the game. */
 public class Inventory {
+  private TextArea itemChat;
+
   private final SimpleListProperty<Object> inventoryProperty =
       new SimpleListProperty<Object>(FXCollections.observableArrayList());
 
@@ -28,6 +30,10 @@ public class Inventory {
     for (int i = 0; i < 6; i++) {
       inventoryProperty.add(new Object(null));
     }
+  }
+
+  public void setItemChat(TextArea itemChat) {
+    this.itemChat = itemChat;
   }
 
   /**
@@ -188,8 +194,7 @@ public class Inventory {
    *
    * @param event The DragEvent triggered by the drop.
    */
-  public void onDragDropped(
-      DragEvent event, HashMap<ImageView, Object> room1Items, TextArea itemChat) {
+  public void onDragDropped(DragEvent event, HashMap<ImageView, Object> room1Items) {
     // Remove the blue tint after dropping
     ImageView targetImageView = (ImageView) event.getSource();
     targetImageView.setEffect(null);
@@ -244,7 +249,26 @@ public class Inventory {
     event.consume();
   }
 
-  public void onInventoryClicked(MouseEvent event, TextArea itemChat) {
+  public void onRegularItemClicked(MouseEvent event) {
+    itemChat.clear();
+    ImageView imageView = (ImageView) event.getSource();
+    Object item = GameState.currentRoomItems.get(imageView);
+
+    // if not a lock
+    if (item != null) {
+      // if its not a lock
+      if (!(item instanceof Lock)) {
+
+        imageView.setVisible(false);
+        GameState.inventory.addObject(item);
+      }
+      // adds message to item chat as if it was typing
+      String message = item.getMessage();
+      ItemChat.getInstance().printChatMessage(itemChat, message);
+    }
+  }
+
+  public void onInventoryClicked(MouseEvent event) {
     int index = (int) ((ImageView) event.getSource()).getUserData();
     String message = inventoryProperty.get(index).getItemIdentifier();
     ItemChat.getInstance().printChatMessage(itemChat, message);
