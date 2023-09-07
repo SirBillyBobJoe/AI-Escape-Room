@@ -36,8 +36,10 @@ public class EndScreenController {
     GameState.escaped = false;
     new MouseClick().play();
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    stage.setWidth(630);
-    stage.setHeight(630);
+    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
+    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
+    stage.setWidth(800 + additionalWidth);
+    stage.setHeight(600 + additionalHeight);
     GameState.timer.stop();
 
     GameState.inventory = new Inventory();

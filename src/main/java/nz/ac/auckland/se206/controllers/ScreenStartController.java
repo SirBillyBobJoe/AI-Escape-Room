@@ -210,8 +210,10 @@ public class ScreenStartController {
     GameState.timer.start();
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     App.setUserInterface(AppUi.UIOVERLAY);
-    stage.setWidth(720);
-    stage.setHeight(570);
+    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
+    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
+    stage.setWidth(1100 + additionalWidth);
+    stage.setHeight(600 + additionalHeight);
   }
 
   /** Helper method to remove the currently selected level highlight. */
