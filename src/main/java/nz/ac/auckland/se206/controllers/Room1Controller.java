@@ -44,11 +44,16 @@ public class Room1Controller {
   @FXML private TextArea textArea;
   @FXML private TextField textField;
   @FXML private TextArea itemChat;
+  @FXML private TextArea txaGameMaster;
+  @FXML private ImageView imgGameMaster;
   private final HashMap<ImageView, Object> room1Items = new HashMap<ImageView, Object>();
+  GameMasterActions gameMaster = new GameMasterActions();
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
     String hint;
+
+    gameMaster = new GameMasterActions(imgGameMaster, txaGameMaster);
 
     if (GameState.hints.get().equals("\u221E")) {
       hint = "infinite";
@@ -121,6 +126,22 @@ public class Room1Controller {
     room1Items.put(lighter2, new Lighter());
     room1Items.put(lighter3, new Lighter());
     room1Items.put(lock1, new Lock(1));
+  }
+
+  // DELETEME
+  private boolean justActivated = false;
+
+  @FXML
+  private void gameMasterClicked(MouseEvent event) {
+    if (!justActivated) {
+      justActivated = true;
+      gameMaster.activate(
+          "Hello, I am the game master. Do not defy me. blah blah blhaHello, I am the game"
+              + " master.");
+    } else {
+      gameMaster.unactivate();
+      justActivated = false;
+    }
   }
 
   /**
