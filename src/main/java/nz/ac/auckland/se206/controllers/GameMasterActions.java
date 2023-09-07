@@ -53,6 +53,12 @@ public class GameMasterActions {
     textArea.setEffect(innerShadow);
   }
 
+  /** Shows the GameMaster with a message */
+  public void activate(String message) {
+    activate();
+    say(message);
+  }
+
   /** Hides the GameMaster with a fade-out animation. */
   public void unactivate() {
     if (!isActive()) {
@@ -78,6 +84,14 @@ public class GameMasterActions {
 
   /** Displays the GameMaster text with a typing animation */
   public void say(String message) {
+    // Don't say anything if the GameMaster is not active
+    if (!isActive()) {
+      return;
+    }
+
+    // Clear the text area
+    textArea.clear();
+
     // Interrupt previous thread if it's still running
     if (thread != null && thread.isAlive()) {
       thread.interrupt();
