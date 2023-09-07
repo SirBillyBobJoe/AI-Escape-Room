@@ -15,7 +15,13 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.UIOverlayController">
    <children>
-      <AnchorPane fx:id="replacePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" />
+      <AnchorPane fx:id="replacePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <InnerShadow choke="0.71" height="45.0" radius="22.0" width="45.0" />
+         </effect></AnchorPane>
       <Label fx:id="countdownLabel" layoutX="197.0" layoutY="49.0" prefHeight="67.0" prefWidth="134.0" text="120" textFill="RED">
          <font>
             <Font size="65.0" />

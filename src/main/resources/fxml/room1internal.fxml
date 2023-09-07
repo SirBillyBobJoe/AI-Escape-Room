@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,6 +11,9 @@
          <image>
             <Image url="@../images/mainRoom/mainRoom.png" />
          </image>
+         <effect>
+            <InnerShadow choke="0.6" height="90.0" radius="44.5" width="90.0" />
+         </effect>
       </ImageView>
       <ImageView fx:id="key1" fitHeight="61.0" fitWidth="74.0" layoutX="42.0" layoutY="133.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
