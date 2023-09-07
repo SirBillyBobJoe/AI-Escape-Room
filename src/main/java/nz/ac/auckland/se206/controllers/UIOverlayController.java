@@ -41,11 +41,38 @@ public class UIOverlayController {
   @FXML private TextArea textArea;
   @FXML private TextField textField;
   @FXML private TextArea itemChat;
+  @FXML private TextArea txaGameMaster;
+  @FXML private ImageView imgGameMaster;
+  GameMasterActions gameMaster = new GameMasterActions();
+
   @FXML private Pane replacePane; // Must remain so it can be swapped at the start
   private Pane loadedRoom;
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
+    String hint;
+
+    gameMaster = new GameMasterActions(imgGameMaster, txaGameMaster);
+
+    if (GameState.hints.get().equals("\u221E")) {
+      hint = "infinite";
+    } else {
+      hint = GameState.hints.get();
+    }
+    // room1 chat context
+    GameState.gameMaster.createChatContext("room1");
+    String gptMsg =
+        "This game the player will have "
+            + hint
+            + " hints. You are the Game Master Of An Escape Room currently we are in room 1. Here"
+            + " is some answers to the hints. The scroll is under the car, Switch is next to the"
+            + " chains, light is next to the car, riddle answer is chicken, u need key to unlock"
+            + " the door. Don't reply to this message reply but reply to following messages. Only"
+            + " give one hint at a time";
+    GameState.gameMaster.addMessage("room1", "user", gptMsg);
+    GameState.gameMaster.runContext("room1");
+    System.out.println(gptMsg);
+
     countdownLabel.textProperty().bind(GameState.timer.timeSecondsProperty().asString());
     hintLabel.textProperty().bind(GameState.hints);
 
@@ -102,6 +129,22 @@ public class UIOverlayController {
   private void changeRoom(Rooms room) {
     loadedRoom = SceneManager.getRoomPane(room);
     mainPane.getChildren().set(0, loadedRoom);
+  }
+
+  // DELETEME
+  private boolean justActivated = false;
+
+  @FXML
+  private void gameMasterClicked(MouseEvent event) {
+    if (!justActivated) {
+      justActivated = true;
+      gameMaster.activate(
+          "Hello, I am the game master. Do not defy me. blah blah blhaHello, I am the game"
+              + " master.");
+    } else {
+      gameMaster.unactivate();
+      justActivated = false;
+    }
   }
 
   /**

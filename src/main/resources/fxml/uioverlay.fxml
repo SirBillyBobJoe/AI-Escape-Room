@@ -8,6 +8,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.paint.Color?>
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
    minWidth="-Infinity" prefHeight="530.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/20.0.1"
@@ -81,8 +85,43 @@
       </ImageView>
       <TextField fx:id="textField" layoutX="503.0" layoutY="259.0" prefHeight="25.0"
          prefWidth="197.0" />
-      <TextArea fx:id="itemChat" layoutX="503.0" layoutY="461.0" prefHeight="59.0" prefWidth="196.0" />
+      <TextArea fx:id="itemChat" editable="false" layoutX="503.0" layoutY="461.0" prefHeight="59.0"
+         prefWidth="196.0" />
+
+      <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="501.0"
+         layoutY="327.0" onMouseClicked="#gameMasterClicked" prefHeight="156.0" prefWidth="196.0"
+         style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;"
+         text="Hello, I am the Game Master. I will have some cool animations at some point."
+         wrapText="true">
+         <effect>
+            <InnerShadow height="43.72" radius="21.5425" width="44.45">
+               <color>
+                  <Color red="0.5263158082962036" green="0.05360623821616173"
+                     blue="0.05360623821616173" />
+               </color>
+            </InnerShadow>
+         </effect>
+         <font>
+            <Font name="Consolas" size="12.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets top="60.0" />
+         </padding>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </TextArea>
       <Button layoutX="334.0" layoutY="12.0" mnemonicParsing="false" onAction="#onEscape"
          text="Finish Game And Escape" />
+      <ImageView fx:id="imgGameMaster" fitHeight="53.0" fitWidth="58.0" layoutX="572.0"
+         layoutY="335.0" onMouseClicked="#gameMasterClicked" pickOnBounds="true"
+         preserveRatio="true">
+         <image>
+            <Image url="@../images/menu/gameMaster.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
