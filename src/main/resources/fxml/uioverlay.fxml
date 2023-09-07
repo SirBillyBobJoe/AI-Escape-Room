@@ -20,45 +20,33 @@
             <Insets />
          </opaqueInsets>
          <effect>
-            <InnerShadow choke="0.71" height="45.0" radius="22.0" width="45.0" />
+            <InnerShadow choke="0.6" height="90.0" radius="44.5" width="90.0" />
          </effect></AnchorPane>
-      <Label fx:id="countdownLabel" layoutX="197.0" layoutY="49.0" prefHeight="67.0" prefWidth="134.0" text="120" textFill="RED">
-         <font>
-            <Font size="65.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="restart" fitHeight="71.0" fitWidth="114.0" layoutX="8.0" layoutY="7.0" onMouseClicked="#onRestart" onMouseEntered="#overRestart" onMouseExited="#leaveRestart" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/Room1/restartBlue.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="109.0" fitWidth="276.0" layoutX="129.0" layoutY="483.0" pickOnBounds="true" preserveRatio="true">
+      <TextArea fx:id="itemChat" editable="false" layoutX="42.0" layoutY="526.0" prefHeight="37.0" prefWidth="276.0" />
+      <ImageView fitHeight="109.0" fitWidth="276.0" layoutX="42.0" layoutY="468.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/Inventory.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="item3" fitHeight="34.0" fitWidth="37.0" layoutX="267.0" layoutY="487.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item1" fitHeight="34.0" fitWidth="37.0" layoutX="178.0" layoutY="489.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item2" fitHeight="34.0" fitWidth="37.0" layoutX="225.0" layoutY="487.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item0" fitHeight="34.0" fitWidth="37.0" layoutX="132.0" layoutY="488.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item4" fitHeight="34.0" fitWidth="37.0" layoutX="316.0" layoutY="488.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item5" fitHeight="34.0" fitWidth="37.0" layoutX="365.0" layoutY="490.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <TextArea fx:id="textArea" layoutX="852.0" layoutY="67.0" prefHeight="200.0" prefWidth="202.0" />
-      <Button layoutX="1006.0" layoutY="301.0" mnemonicParsing="false" onAction="#onSend" text="Send" />
-      <Label fx:id="hintLabel" layoutX="904.0" layoutY="16.0" prefHeight="50.0" prefWidth="43.0" text="10">
+      <ImageView fx:id="item0" fitHeight="34.0" fitWidth="37.0" layoutX="45.0" layoutY="473.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item1" fitHeight="34.0" fitWidth="37.0" layoutX="92.0" layoutY="473.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item2" fitHeight="34.0" fitWidth="37.0" layoutX="139.0" layoutY="473.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item3" fitHeight="34.0" fitWidth="37.0" layoutX="185.0" layoutY="474.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item4" fitHeight="34.0" fitWidth="37.0" layoutX="231.0" layoutY="473.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item5" fitHeight="34.0" fitWidth="37.0" layoutX="278.0" layoutY="473.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="countdownLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="697.0" layoutY="27.0" prefHeight="44.0" prefWidth="77.0" text="120" textAlignment="CENTER" textFill="RED">
          <font>
-            <Font name="System Bold" size="36.0" />
+            <Font name="Consolas" size="45.0" />
          </font>
       </Label>
-      <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="955.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <Button layoutX="325.0" layoutY="30.0" mnemonicParsing="false" onAction="#onEscape" text="Finish Game And Escape" />
+      <ImageView fx:id="restart" fitHeight="71.0" fitWidth="114.0" layoutX="42.0" layoutY="38.0" onMouseClicked="#onRestart" onMouseEntered="#overRestart" onMouseExited="#leaveRestart" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/hint.png" />
+            <Image url="@../images/Room1/restartBlue.png" />
          </image>
       </ImageView>
-      <TextField fx:id="textField" layoutX="855.0" layoutY="272.0" prefHeight="25.0" prefWidth="197.0" />
-      <TextArea fx:id="itemChat" editable="false" layoutX="857.0" layoutY="507.0" prefHeight="59.0" prefWidth="196.0" />
 
-      <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="855.0" layoutY="333.0" onMouseClicked="#gameMasterClicked" prefHeight="156.0" prefWidth="196.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
+      <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="822.0" layoutY="37.0" onMouseClicked="#gameMasterClicked" prefHeight="156.0" prefWidth="250.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
          <effect>
             <InnerShadow height="43.72" radius="21.5425" width="44.45">
                <color>
@@ -79,11 +67,23 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </TextArea>
-      <Button layoutX="334.0" layoutY="12.0" mnemonicParsing="false" onAction="#onEscape" text="Finish Game And Escape" />
-      <ImageView fx:id="imgGameMaster" fitHeight="53.0" fitWidth="58.0" layoutX="926.0" layoutY="341.0" onMouseClicked="#gameMasterClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgGameMaster" fitHeight="53.0" fitWidth="58.0" layoutX="928.0" layoutY="45.0" onMouseClicked="#gameMasterClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/menu/gameMaster.png" />
          </image>
       </ImageView>
+      <TextArea fx:id="textArea" layoutX="829.0" layoutY="256.0" prefHeight="200.0" prefWidth="250.0" />
+      <Button layoutX="1011.0" layoutY="490.0" mnemonicParsing="false" onAction="#onSend" text="Send" />
+      <Label fx:id="hintLabel" layoutX="909.0" layoutY="205.0" prefHeight="50.0" prefWidth="43.0" text="10">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="960.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/hint.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="textField" layoutX="827.0" layoutY="464.0" prefHeight="25.0" prefWidth="250.0" />
    </children>
 </AnchorPane>
