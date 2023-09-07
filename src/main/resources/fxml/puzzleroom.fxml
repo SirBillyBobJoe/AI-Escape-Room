@@ -5,11 +5,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.PuzzleRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.PuzzleRoomController">
    <children>
-      <ImageView fitHeight="531.0" fitWidth="548.0" layoutX="-11.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
          <image>
-            <Image url="@../images/Room1/room1.jpg" />
+            <Image url="@../images/mainRoom/mainRoom.png" />
          </image>
       </ImageView>
       <Button layoutX="256.0" layoutY="254.0" mnemonicParsing="false" onAction="#changeBack" prefHeight="47.0" prefWidth="170.0" text="Change Room Back" />
