@@ -1,6 +1,8 @@
 package nz.ac.auckland.se206.controllers;
 
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.ImageView;
@@ -8,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class GameMasterActions {
+  private Thread thread;
   private ImageView image;
   private TextArea textArea;
   private boolean active;
@@ -68,6 +71,46 @@ public class GameMasterActions {
     innerShadow.setColor(Color.WHITE);
     innerShadow.setRadius(10.0);
     textArea.setEffect(innerShadow);
+
+    // Clear the text area
+    textArea.clear();
+  }
+
+  /** Displays the GameMaster text with a typing animation */
+  public void say(String message) {
+    // Interrupt previous thread if it's still running
+    if (thread != null && thread.isAlive()) {
+      thread.interrupt();
+    }
+    Task<Void> task =
+        new Task<Void>() {
+          @Override
+          protected Void call() throws Exception {
+            for (char c : message.toCharArray()) {
+              if (isCancelled()) {
+                break;
+              }
+              String currentChar = String.valueOf(c);
+              Platform.runLater(() -> textArea.appendText(currentChar));
+              Thread.sleep(
+                  Math.max(
+                      3,
+                      Math.min(
+                          700 / message.length(),
+                          20))); // Dynamic sleep based on length for typing effect
+            }
+            return null;
+          }
+        };
+
+    thread = new Thread(task);
+    thread.setDaemon(true);
+    task.setOnCancelled(e -> Platform.runLater(() -> textArea.clear()));
+    thread.start();
+  }
+
+  public void clear() {
+    textArea.clear();
   }
 
   public boolean isActive() {
