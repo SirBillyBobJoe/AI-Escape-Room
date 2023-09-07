@@ -7,11 +7,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="539.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.EndScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.EndScreenController">
    <children>
-      <ImageView fitHeight="565.0" fitWidth="600.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="675.0" fitWidth="816.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/endScreen/endScreen.jpg" />
+            <Image url="@../images/endScreen/endScreen.png" />
          </image>
       </ImageView>
       <Text fx:id="text" fill="#e4ff00" layoutX="115.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You Have Failed The Game Timer Ran Out!!!!!" textAlignment="CENTER" wrappingWidth="326.73828125">
