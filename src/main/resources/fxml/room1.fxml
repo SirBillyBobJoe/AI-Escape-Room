@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -89,9 +90,9 @@
             <Image url="@../images/Inventory/lock.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="501.0" layoutY="327.0" prefHeight="156.0" prefWidth="196.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
+      <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="501.0" layoutY="327.0" onMouseClicked="#gameMasterClicked" prefHeight="156.0" prefWidth="196.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
          <effect>
-            <InnerShadow height="41.52" radius="20.9925" width="44.45">
+            <InnerShadow height="43.72" radius="21.5425" width="44.45">
                <color>
                   <Color red="0.5263158082962036" green="0.05360623821616173" blue="0.05360623821616173" />
                </color>
@@ -106,9 +107,12 @@
          <padding>
             <Insets top="60.0" />
          </padding>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </TextArea>
       <Button layoutX="334.0" layoutY="12.0" mnemonicParsing="false" onAction="#onEscape" text="Finish Game And Escape" />
-      <ImageView fitHeight="53.0" fitWidth="58.0" layoutX="572.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgGameMaster" fitHeight="53.0" fitWidth="58.0" layoutX="572.0" layoutY="335.0" onMouseClicked="#gameMasterClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/menu/gameMaster.png" />
          </image></ImageView>
