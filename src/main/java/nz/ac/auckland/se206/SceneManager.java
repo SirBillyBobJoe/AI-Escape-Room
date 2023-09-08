@@ -18,6 +18,7 @@ public class SceneManager {
     MAINROOM,
     RIDDLEROOM,
     PUZZLEROOM,
+    WIRELINKING,
   }
 
   private static HashMap<AppUi, Parent> map = new HashMap<AppUi, Parent>();
