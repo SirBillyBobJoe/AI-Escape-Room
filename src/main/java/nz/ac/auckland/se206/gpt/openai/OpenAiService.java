@@ -62,7 +62,7 @@ public class OpenAiService {
       this.email = config.getEmail();
       this.apiKey = config.getApiKey();
     } catch (ApiProxyException e) {
-      // TODO handle exception appropriately
+
       e.printStackTrace();
     }
   }
