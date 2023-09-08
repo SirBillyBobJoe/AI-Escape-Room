@@ -62,7 +62,7 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
-    scene = new Scene(SceneManager.getUi(AppUi.SCREENSTART), 630, 630);
+    scene = new Scene(SceneManager.getUi(AppUi.PIPECONNECTING), 800, 600);
     scene.getRoot().requestFocus();
     stage.setScene(scene);
     stage.show();

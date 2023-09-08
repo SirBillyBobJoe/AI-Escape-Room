@@ -11,7 +11,8 @@ public class SceneManager {
   public enum AppUi {
     SCREENSTART,
     UIOVERLAY,
-    ENDSCREEN
+    ENDSCREEN,
+    PIPECONNECTING,
   }
 
   public enum Rooms {
