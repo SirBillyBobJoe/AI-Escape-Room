@@ -2,14 +2,11 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.Items.Inventory;
@@ -41,22 +38,21 @@ public class EndScreenController {
    * @param event ActionEvent for clicking the button.
    */
   @FXML
-  private void lblExitClicked(ActionEvent event) {
+  private void lblExitClicked() {
     new MouseClick().play();
     Platform.exit();
     System.exit(0);
   }
 
-  /** Restarts the game when the restart button is clicked. */
+  /**
+   * Restarts the game when the restart button is clicked.
+   *
+   * @param event ActionEvent for clicking the button.
+   */
   @FXML
-  private void lblRestartClicked(ActionEvent event) throws IOException {
+  private void lblRestartClicked() throws IOException {
     GameState.escaped = false;
     new MouseClick().play();
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-    stage.setWidth(800 + additionalWidth);
-    stage.setHeight(600 + additionalHeight);
     GameState.timer.stop();
 
     GameState.inventory = new Inventory();
