@@ -24,6 +24,11 @@
          <effect>
             <InnerShadow choke="0.6" height="90.0" radius="44.5" width="90.0" />
          </effect></AnchorPane>
+      <Label fx:id="lblRestart" layoutX="40.0" layoutY="40.0" onMouseClicked="#lblRestartClicked" onMouseEntered="#lblRestartEntered" onMouseExited="#lblRestartExited" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Restart" textFill="#bfbfbf">
+         <font>
+            <Font name="Consolas Bold" size="20.0" />
+         </font>
+      </Label>
       <TextArea fx:id="itemChat" editable="false" focusTraversable="false" layoutX="42.0" layoutY="526.0" mouseTransparent="true" prefHeight="37.0" prefWidth="276.0" style="-fx-background-color: transparent; -fx-control-inner-background: black;" text="hello">
          <effect>
             <DropShadow height="159.56" radius="39.39" spread="0.42" width="0.0" />
@@ -46,17 +51,12 @@
       <ImageView fx:id="item3" fitHeight="34.0" fitWidth="37.0" layoutX="185.0" layoutY="474.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="item4" fitHeight="34.0" fitWidth="37.0" layoutX="231.0" layoutY="473.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="item5" fitHeight="34.0" fitWidth="37.0" layoutX="278.0" layoutY="473.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="countdownLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="697.0" layoutY="27.0" prefHeight="44.0" prefWidth="77.0" text="120" textAlignment="CENTER" textFill="RED">
+      <Label fx:id="countdownLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="688.0" layoutY="30.0" prefHeight="1.0" prefWidth="77.0" text="120" textAlignment="CENTER" textFill="RED">
          <font>
             <Font name="Consolas" size="45.0" />
          </font>
       </Label>
-      <Button layoutX="325.0" layoutY="30.0" mnemonicParsing="false" onAction="#onEscape" text="Finish Game And Escape" />
-      <ImageView fx:id="restart" fitHeight="71.0" fitWidth="114.0" layoutX="42.0" layoutY="38.0" onMouseClicked="#onRestart" onMouseEntered="#overRestart" onMouseExited="#leaveRestart" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/Room1/restartBlue.png" />
-         </image>
-      </ImageView>
+      <Button layoutX="325.0" layoutY="40.0" mnemonicParsing="false" onAction="#onEscape" text="Finish Game And Escape" />
 
       <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="822.0" layoutY="37.0" onMouseClicked="#gameMasterClicked" prefHeight="209.0" prefWidth="250.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
          <effect>
