@@ -3,12 +3,11 @@ package nz.ac.auckland.se206.controllers;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
@@ -17,20 +16,6 @@ import nz.ac.auckland.se206.SceneManager.AppUi;
 
 /** Class responsible for controlling the Start Screen of the game. */
 public class StartScreenController {
-  @FXML private ImageView easy;
-  @FXML private ImageView medium;
-  @FXML private ImageView medium1;
-  @FXML private ImageView hard;
-  @FXML private ImageView two;
-  @FXML private ImageView four;
-  @FXML private ImageView six;
-  @FXML private ImageView screenStage;
-  @FXML private ImageView timeSummary;
-  @FXML private ImageView levelSummary;
-  @FXML private ImageView timeSummaryVal;
-  @FXML private ImageView levelSummaryVal;
-  @FXML private ImageView start;
-  @FXML private ImageView goBack;
   @FXML AnchorPane anchorPane;
   // 0 is easy 1 is medium 2 is hard
   private int selectedLevel = 0;
@@ -39,10 +24,40 @@ public class StartScreenController {
   private Boolean onLevel = true;
   private Boolean onTime = false;
 
+  @FXML Label screenStage;
+
+  @FXML Label lblExit;
+
+  @FXML Label lblEasy;
+  @FXML Label lblMedium;
+  @FXML Label lblHard;
+
+  @FXML Label lbl2Min;
+  @FXML Label lbl4Min;
+  @FXML Label lbl6Min;
+
+  @FXML Label timeSummary;
+  @FXML Label levelSummary;
+  @FXML Label timeSummaryVal;
+  @FXML Label levelSummaryVal;
+
+  @FXML Label lblStart;
+
+  private final DropShadow dropShadow = new DropShadow();
+  private final DropShadow startDropShadow = new DropShadow();
+
   /** Initializes the ScreenStartController, setting focus on anchorPane. */
   public void initialize() {
     anchorPane.requestFocus();
     System.out.println("AnchorPane focused: " + anchorPane.isFocused());
+
+    // Button drop shadow
+    dropShadow.setColor(Color.web("#007aec"));
+    dropShadow.setRadius(5.0);
+
+    // Start button drop shadow
+    startDropShadow.setColor(Color.web("#c31212"));
+    startDropShadow.setRadius(10.0);
   }
 
   /**
@@ -51,8 +66,8 @@ public class StartScreenController {
    * @param event MouseEvent object.
    */
   @FXML
-  private void levelClick(MouseEvent event) {
-    choseLevel();
+  private void levelClicked(MouseEvent event) {
+    chooseLevel();
   }
 
   /**
@@ -61,8 +76,8 @@ public class StartScreenController {
    * @param event The mouse event object.
    */
   @FXML
-  private void timeClick(MouseEvent event) {
-    choseTime();
+  private void timeClicked(MouseEvent event) {
+    chooseTime();
   }
 
   /**
@@ -71,128 +86,208 @@ public class StartScreenController {
    * @param event The mouse event object.
    */
   @FXML
-  private void backClick(MouseEvent event) {
+  private void lblExitClicked(MouseEvent event) {
     goBack();
   }
 
   /**
-   * Changes the UI when hovering over the "Easy" option.
+   * Updates the exit button when the mouse hovers over it.
    *
-   * @param event The mouse event object.
+   * @param event MouseEvent for hovering over the button.
    */
   @FXML
-  private void overEasy(MouseEvent event) {
-    removeSelectedLevel();
+  private void lblExitEntered(MouseEvent event) {
+    setEntered(lblExit);
+  }
+
+  /**
+   * Updates the exit button when the mouse leaves its area.
+   *
+   * @param event MouseEvent for leaving the button.
+   */
+  @FXML
+  private void lblExitExited(MouseEvent event) {
+    setExited(lblExit);
+  }
+
+  /**
+   * Updates the easy button when the mouse hovers over it.
+   *
+   * @param event MouseEvent for hovering over the button.
+   */
+  @FXML
+  private void lblEasyEntered(MouseEvent event) {
+    setEntered(lblEasy);
     selectedLevel = 0;
-    onSelectLevel();
   }
 
   /**
-   * Changes the UI when hovering over the "Medium" option.
+   * Updates the medium button when the mouse leaves its area.
    *
-   * @param event The mouse event object.
+   * @param event MouseEvent for leaving the button.
    */
   @FXML
-  private void overMedium(MouseEvent event) {
-    removeSelectedLevel();
+  private void lblEasyExited(MouseEvent event) {
+    setExited(lblEasy);
+  }
+
+  /**
+   * Updates the medium button when the mouse hovers over it.
+   *
+   * @param event MouseEvent for hovering over the button.
+   */
+  @FXML
+  private void lblMediumEntered(MouseEvent event) {
+    setEntered(lblMedium);
     selectedLevel = 1;
-    onSelectLevel();
   }
 
   /**
-   * Changes the UI when hovering over the "Hard" option.
+   * Updates the hard button when the mouse leaves its area.
    *
-   * @param event The mouse event object.
+   * @param event MouseEvent for leaving the button.
    */
   @FXML
-  private void overHard(MouseEvent event) {
-    removeSelectedLevel();
+  private void lblMediumExited(MouseEvent event) {
+    setExited(lblMedium);
+  }
+
+  /**
+   * Updates the hard button when the mouse hovers over it.
+   *
+   * @param event MouseEvent for hovering over the button.
+   */
+  @FXML
+  private void lblHardEntered(MouseEvent event) {
+    setEntered(lblHard);
     selectedLevel = 2;
-    onSelectLevel();
   }
 
   /**
-   * Changes the UI when hovering over the "2 Minutes" option.
+   * Updates the hard button when the mouse leaves its area.
    *
-   * @param event The mouse event object.
+   * @param event MouseEvent for leaving the button.
    */
   @FXML
-  private void over2(MouseEvent event) {
-    removeSelectedTime();
+  private void lblHardExited(MouseEvent event) {
+    setExited(lblHard);
+  }
+
+  /**
+   * Updates the 2 minutes button when the mouse hovers over it.
+   *
+   * @param event MouseEvent for hovering over the button.
+   */
+  @FXML
+  private void lbl2MinEntered(MouseEvent event) {
+    setEntered(lbl2Min);
     selectedTime = 2;
-    onSelectTime();
   }
 
   /**
-   * Changes the UI when hovering over the "4 Minutes" option.
+   * Updates the 2 minutes button when the mouse leaves its area.
    *
-   * @param event The mouse event object.
+   * @param event MouseEvent for leaving the button.
    */
   @FXML
-  private void over4(MouseEvent event) {
-    removeSelectedTime();
+  private void lbl2MinExited(MouseEvent event) {
+    setExited(lbl2Min);
+  }
+
+  /**
+   * Updates the 4 minutes button when the mouse hovers over it.
+   *
+   * @param event MouseEvent for hovering over the button.
+   */
+  @FXML
+  private void lbl4MinEntered(MouseEvent event) {
+    setEntered(lbl4Min);
     selectedTime = 4;
-    onSelectTime();
   }
 
   /**
-   * Changes the UI when hovering over the "6 Minutes" option.
+   * Updates the 4 minutes button when the mouse leaves its area.
    *
-   * @param event The mouse event object.
+   * @param event MouseEvent for leaving the button.
    */
   @FXML
-  private void over6(MouseEvent event) {
-    removeSelectedTime();
+  private void lbl4MinExited(MouseEvent event) {
+    setExited(lbl4Min);
+  }
+
+  /**
+   * Updates the 6 minutes button when the mouse hovers over it.
+   *
+   * @param event MouseEvent for hovering over the button.
+   */
+  @FXML
+  private void lbl6MinEntered(MouseEvent event) {
+    setEntered(lbl6Min);
     selectedTime = 6;
-    onSelectTime();
   }
 
   /**
-   * Changes the UI when hovering over the "Start" button.
+   * Updates the 6 minutes button when the mouse leaves its area.
    *
-   * @param event The mouse event object.
+   * @param event MouseEvent for leaving the button.
    */
   @FXML
-  private void overStart(MouseEvent event) {
-    start.setImage(new Image("/images/StartScreen/startGreen.png"));
+  private void lbl6MinExited(MouseEvent event) {
+    setExited(lbl6Min);
   }
 
   /**
-   * Reverts the UI when no longer hovering over the "Start" button.
+   * Updates the start button when the mouse hovers over it.
    *
-   * @param event The mouse event object.
+   * @param event MouseEvent for hovering over the button.
    */
   @FXML
-  private void leaveStart(MouseEvent event) {
-    start.setImage(new Image("/images/StartScreen/startBlue.png"));
+  private void lblStartEntered(MouseEvent event) {
+    lblStart.setEffect(startDropShadow);
+    lblStart.setTextFill(Color.web("#c31212"));
+    lblStart.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: #c31212; -fx-background-radius: 5px;"
+            + " -fx-background-color: black; -fx-padding: 7px;");
   }
 
   /**
-   * Changes the UI when hovering over the "Back" button.
+   * Updates the start button when the mouse leaves its area.
    *
-   * @param event The mouse event object.
+   * @param event MouseEvent for leaving the button.
    */
   @FXML
-  private void overBack(MouseEvent event) {
-    if (!onLevel) {
-      goBack.setImage(new Image("/images/StartScreen/goBackGreen.png"));
-    } else {
-      goBack.setImage(new Image("/images/StartScreen/exitGreen.png"));
-    }
+  private void lblStartExited(MouseEvent event) {
+    lblStart.setEffect(null);
+    lblStart.setTextFill(Color.WHITE);
+    lblStart.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: #bfbfbf; -fx-background-radius: 5px;"
+            + " -fx-background-color: rgba(0,0,0,0.6); -fx-padding: 7px;");
   }
 
   /**
-   * Reverts the UI when no longer hovering over the "Back" button.
+   * Helper method to update the UI when hovering over buttons.
    *
-   * @param event The mouse event object.
+   * @param label The label to update.
    */
-  @FXML
-  private void leaveBack(MouseEvent event) {
-    if (!onLevel) {
-      goBack.setImage(new Image("/images/StartScreen/goBackBlue.png"));
-    } else {
-      goBack.setImage(new Image("/images/StartScreen/exitBlue.png"));
-    }
+  private void setEntered(Label label) {
+    label.setEffect(dropShadow);
+    label.setTextFill(Color.WHITE);
+    label.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: white; -fx-background-radius: 5px;"
+            + " -fx-background-color: black; -fx-padding: 7px;");
+  }
+
+  /**
+   * Helper method to update the UI when leaving buttons.
+   *
+   * @param label The label to update.
+   */
+  private void setExited(Label label) {
+    label.setEffect(null);
+    label.setTextFill(Color.web("#bfbfbf"));
+    label.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: #bfbfbf; -fx-background-radius: 5px;"
+            + " -fx-background-color: black; -fx-padding: 7px;");
   }
 
   /**
@@ -202,7 +297,7 @@ public class StartScreenController {
    * @throws IOException if an I/O error occurs.
    */
   @FXML
-  private void onStart(MouseEvent event) throws IOException {
+  private void lblStartClicked(MouseEvent event) throws IOException {
     new MouseClick().play();
     GameState.timer.setTimeSecondsProperty(selectedTime * 60);
 
@@ -216,168 +311,52 @@ public class StartScreenController {
     stage.setHeight(600 + additionalHeight);
   }
 
-  /** Helper method to remove the currently selected level highlight. */
-  private void removeSelectedLevel() {
-    switch (selectedLevel) {
-      case 0:
-        easy.setImage(new Image("/images/StartScreen/easyBlue.png"));
-        break;
-      case 1:
-        medium.setImage(new Image("/images/StartScreen/mediumBlue.png"));
-        break;
-      case 2:
-        hard.setImage(new Image("/images/StartScreen/hardBlue.png"));
-        break;
-    }
-  }
-
-  /** Helper method to remove the currently selected time highlight. */
-  private void removeSelectedTime() {
-    switch (selectedTime) {
-      case 2:
-        two.setImage(new Image("/images/StartScreen/2Blue.png"));
-        break;
-      case 4:
-        four.setImage(new Image("/images/StartScreen/4Blue.png"));
-        break;
-      case 6:
-        six.setImage(new Image("/images/StartScreen/6Blue.png"));
-        break;
-    }
-  }
-
-  /** Helper method to highlight the newly selected level. */
-  private void onSelectLevel() {
-    switch (selectedLevel) {
-      case 0:
-        easy.setImage(new Image("/images/StartScreen/easyGreen.png"));
-        break;
-      case 1:
-        medium.setImage(new Image("/images/StartScreen/mediumGreen.png"));
-        break;
-      case 2:
-        hard.setImage(new Image("/images/StartScreen/hardGreen.png"));
-        break;
-    }
-  }
-
-  /** Helper method to highlight the newly selected time. */
-  private void onSelectTime() {
-    switch (selectedTime) {
-      case 2:
-        two.setImage(new Image("/images/StartScreen/2Green.png"));
-        break;
-      case 4:
-        four.setImage(new Image("/images/StartScreen/4Green.png"));
-        break;
-      case 6:
-        six.setImage(new Image("/images/StartScreen/6Green.png"));
-        break;
-    }
-  }
-
-  /**
-   * Handles key press events for navigation and selection within the start screen.
-   *
-   * @param event KeyEvent object.
-   */
-  @FXML
-  private void onKeyPressed(KeyEvent event) {
-    if (onLevel) {
-      if (event.getCode() == KeyCode.UP) {
-        removeSelectedLevel();
-
-        if (selectedLevel-- < 1) {
-          selectedLevel = 2;
-        }
-        onSelectLevel();
-      } else if (event.getCode() == KeyCode.DOWN) {
-        removeSelectedLevel();
-        if (selectedLevel++ > 1) {
-          selectedLevel = 0;
-        }
-        onSelectLevel();
-      } else if (event.getCode() == KeyCode.ENTER) {
-        choseLevel();
-      } else if (event.getCode() == KeyCode.ESCAPE) {
-        goBack();
-      }
-    } else if (onTime) {
-      if (event.getCode() == KeyCode.LEFT) {
-        removeSelectedTime();
-        if (selectedTime - 2 < 2) {
-          selectedTime = 6;
-        } else {
-          selectedTime -= 2;
-        }
-        onSelectTime();
-      } else if (event.getCode() == KeyCode.RIGHT) {
-        removeSelectedTime();
-        if (selectedTime + 2 > 6) {
-          selectedTime = 2;
-        } else {
-          selectedTime += 2;
-        }
-        onSelectTime();
-      } else if (event.getCode() == KeyCode.ENTER) {
-        choseTime();
-      } else if (event.getCode() == KeyCode.ESCAPE) {
-        goBack();
-      }
-    } else {
-      if (event.getCode() == KeyCode.ESCAPE) {
-        goBack();
-      }
-    }
-  }
-
   /** Helper method to navigate back in the options. */
   private void goBack() {
     new MouseClick().play();
     if (onTime) {
-      easy.setVisible(true);
-      medium.setVisible(true);
-      hard.setVisible(true);
-      two.setVisible(false);
-      four.setVisible(false);
-      six.setVisible(false);
+      lblEasy.setVisible(true);
+      lblMedium.setVisible(true);
+      lblHard.setVisible(true);
+      lbl2Min.setVisible(false);
+      lbl4Min.setVisible(false);
+      lbl6Min.setVisible(false);
       onLevel = true;
       onTime = false;
-      screenStage.setImage(new Image("/images/StartScreen/chooseLevel.png"));
-      goBack.setImage(new Image("/images/StartScreen/exitBlue.png"));
+      screenStage.setText("Difficulty Select");
+      lblExit.setText("Exit");
     } else if (onLevel) {
       System.exit(0);
     } else {
-      two.setVisible(true);
-      four.setVisible(true);
-      six.setVisible(true);
+      lbl2Min.setVisible(true);
+      lbl4Min.setVisible(true);
+      lbl6Min.setVisible(true);
       timeSummary.setVisible(false);
       levelSummary.setVisible(false);
       timeSummaryVal.setVisible(false);
       levelSummaryVal.setVisible(false);
-      medium1.setVisible(false);
-      start.setVisible(false);
+      lblStart.setVisible(false);
       onTime = true;
-      screenStage.setImage(new Image("/images/StartScreen/chooseTime.png"));
+      screenStage.setText("Time Select");
     }
   }
 
   /** Helper method to set the selected level and update the UI accordingly. */
-  private void choseLevel() {
+  private void chooseLevel() {
     new MouseClick().play();
     // makes levels not visible but time visible
 
     onLevel = false;
     onTime = true;
-    easy.setVisible(false);
-    medium.setVisible(false);
-    hard.setVisible(false);
-    two.setVisible(true);
-    four.setVisible(true);
-    six.setVisible(true);
+    lblEasy.setVisible(false);
+    lblMedium.setVisible(false);
+    lblHard.setVisible(false);
+    lbl2Min.setVisible(true);
+    lbl4Min.setVisible(true);
+    lbl6Min.setVisible(true);
 
-    goBack.setImage(new Image("/images/StartScreen/goBackBlue.png"));
-    screenStage.setImage(new Image("/images/StartScreen/chooseTime.png"));
+    lblExit.setText("Back");
+    screenStage.setText("Time Select");
     switch (selectedLevel) {
       case 0:
         GameState.hints.set("\u221E");
@@ -395,31 +374,29 @@ public class StartScreenController {
   }
 
   /** Helper method to set the selected time and update the UI accordingly. */
-  private void choseTime() {
+  private void chooseTime() {
     new MouseClick().play();
     // makes levels not visible but time visible
 
     onTime = false;
-    two.setVisible(false);
-    four.setVisible(false);
-    six.setVisible(false);
-    start.setVisible(true);
+    lbl2Min.setVisible(false);
+    lbl4Min.setVisible(false);
+    lbl6Min.setVisible(false);
+    lblStart.setVisible(true);
     timeSummary.setVisible(true);
     levelSummary.setVisible(true);
     timeSummaryVal.setVisible(true);
     levelSummaryVal.setVisible(true);
 
-    screenStage.setImage(new Image("/images/StartScreen/Summary.png"));
+    screenStage.setText("Ready?");
     if (GameState.difficulty != "medium") {
-      levelSummaryVal.setImage(
-          new Image("/images/StartScreen/" + GameState.difficulty + "Blue.png"));
+      levelSummaryVal.setText(GameState.difficulty);
     } else {
       levelSummaryVal.setVisible(false);
-      medium1.setVisible(true);
     }
-    timeSummaryVal.setImage(new Image("/images/StartScreen/" + selectedTime + "Blue.png"));
+    timeSummaryVal.setText(selectedTime + " minutes");
     GameState.time = selectedTime;
-    System.out.println(selectedTime);
-    System.out.println(selectedLevel);
+    System.out.println("Level: " + selectedLevel);
+    System.out.println("Time: " + selectedTime);
   }
 }

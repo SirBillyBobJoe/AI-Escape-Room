@@ -26,7 +26,7 @@
          </effect></AnchorPane>
       <Label fx:id="lblRestart" layoutX="40.0" layoutY="40.0" onMouseClicked="#lblRestartClicked" onMouseEntered="#lblRestartEntered" onMouseExited="#lblRestartExited" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Restart" textFill="#bfbfbf">
          <font>
-            <Font name="Consolas Bold" size="20.0" />
+            <Font name="Consolas" size="20.0" />
          </font>
       </Label>
       <TextArea fx:id="itemChat" editable="false" focusTraversable="false" layoutX="42.0" layoutY="526.0" mouseTransparent="true" prefHeight="37.0" prefWidth="276.0" style="-fx-background-color: transparent; -fx-control-inner-background: black;" text="hello">
@@ -60,9 +60,9 @@
 
       <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="822.0" layoutY="37.0" onMouseClicked="#gameMasterClicked" prefHeight="209.0" prefWidth="250.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
          <effect>
-            <InnerShadow height="43.72" radius="21.5425" width="44.45">
+            <InnerShadow height="44.09" radius="21.635" width="44.45">
                <color>
-                  <Color red="0.5263158082962036" green="0.05360623821616173" blue="0.05360623821616173" />
+                  <Color red="0.5254902243614197" green="0.054901961237192154" blue="0.054901961237192154" />
                </color>
             </InnerShadow>
          </effect>
