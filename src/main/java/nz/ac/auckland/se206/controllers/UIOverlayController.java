@@ -289,7 +289,12 @@ public class UIOverlayController {
   private void onEscape(ActionEvent event) throws IOException {
     GameState.timer.stop();
     GameState.escaped = true;
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     SceneManager.setReinitialise(AppUi.ENDSCREEN);
     App.setUserInterface(AppUi.ENDSCREEN);
+    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
+    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
+    stage.setWidth(800 + additionalWidth);
+    stage.setHeight(600 + additionalHeight);
   }
 }
