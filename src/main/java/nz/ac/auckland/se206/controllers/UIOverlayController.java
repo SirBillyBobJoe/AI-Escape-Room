@@ -11,12 +11,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
@@ -36,11 +37,14 @@ public class UIOverlayController {
   @FXML private AnchorPane mainPane;
   @FXML private Label countdownLabel;
   @FXML private Label hintLabel;
-  @FXML private ImageView restart;
   @FXML private ImageView item0, item1, item2, item3, item4, item5;
   @FXML private TextArea textArea;
   @FXML private TextField textField;
   @FXML private TextArea itemChat;
+
+  @FXML Label lblRestart;
+  private final DropShadow dropShadow = new DropShadow();
+
   @FXML private TextArea txaGameMaster;
   @FXML private ImageView imgGameMaster;
   GameMasterActions gameMaster = new GameMasterActions();
@@ -124,6 +128,10 @@ public class UIOverlayController {
         });
     GameState.currentRoom.set(Rooms.MAINROOM);
     changeRoom(Rooms.MAINROOM);
+
+    // Button drop shadow
+    dropShadow.setColor(Color.web("#007aec"));
+    dropShadow.setRadius(5.0);
   }
 
   private void changeRoom(Rooms room) {
@@ -154,13 +162,15 @@ public class UIOverlayController {
    * @throws IOException If the FXML for the start screen can't be loaded.
    */
   @FXML
-  private void onRestart(MouseEvent event) throws IOException {
+  private void lblRestartClicked(MouseEvent event) throws IOException {
     new MouseClick().play();
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     SceneManager.setReinitialise(AppUi.UIOVERLAY);
-    App.setUserInterface(AppUi.SCREENSTART);
-    stage.setWidth(630);
-    stage.setHeight(630);
+    App.setUserInterface(AppUi.STARTSCREEN);
+    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
+    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
+    stage.setWidth(800 + additionalWidth);
+    stage.setHeight(600 + additionalHeight);
     GameState.timer.stop();
 
     GameState.inventory = new Inventory();
@@ -170,23 +180,31 @@ public class UIOverlayController {
   }
 
   /**
-   * Updates the restart button's image when the mouse leaves its area.
-   *
-   * @param event MouseEvent for leaving the restart button.
-   */
-  @FXML
-  private void leaveRestart(MouseEvent event) {
-    restart.setImage(new Image("/images/room1/restartBlue.png"));
-  }
-
-  /**
-   * Updates the restart button's image when the mouse hovers over it.
+   * Updates the restart button when the mouse hovers over it.
    *
    * @param event MouseEvent for hovering over the restart button.
    */
   @FXML
-  private void overRestart(MouseEvent event) {
-    restart.setImage(new Image("/images/room1/restartGreen.png"));
+  private void lblRestartEntered(MouseEvent event) {
+    lblRestart.setEffect(dropShadow);
+    lblRestart.setTextFill(Color.WHITE);
+    lblRestart.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: white; -fx-background-radius: 5px;"
+            + " -fx-background-color: black; -fx-padding: 7px;");
+  }
+
+  /**
+   * Updates the restart button when the mouse leaves its area.
+   *
+   * @param event MouseEvent for leaving the restart button.
+   */
+  @FXML
+  private void lblRestartExited(MouseEvent event) {
+    lblRestart.setEffect(null);
+    lblRestart.setTextFill(Color.web("#bfbfbf"));
+    lblRestart.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: #bfbfbf; -fx-background-radius: 5px;"
+            + " -fx-background-color: black; -fx-padding: 7px;");
   }
 
   /**
@@ -287,7 +305,12 @@ public class UIOverlayController {
   private void onEscape(ActionEvent event) throws IOException {
     GameState.timer.stop();
     GameState.escaped = true;
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     SceneManager.setReinitialise(AppUi.ENDSCREEN);
     App.setUserInterface(AppUi.ENDSCREEN);
+    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
+    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
+    stage.setWidth(800 + additionalWidth);
+    stage.setHeight(600 + additionalHeight);
   }
 }

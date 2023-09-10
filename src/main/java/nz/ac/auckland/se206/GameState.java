@@ -24,7 +24,7 @@ public class GameState {
   public static String difficulty = "easy";
 
   public static boolean escaped = false;
-  public static String escapeMessage = "CONGRATS YOU HAVE ESCAPED";
+  public static String escapeMessage = "You made it out! Good job...";
 
   public static CountdownTimer timer = CountdownTimer.getInstance(GameState.time * 60);
   public static Inventory inventory = new Inventory();
