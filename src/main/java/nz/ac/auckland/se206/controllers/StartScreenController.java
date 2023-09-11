@@ -389,7 +389,9 @@ public class StartScreenController {
     levelSummaryVal.setVisible(true);
 
     screenStage.setText("Ready?");
-    levelSummaryVal.setText(GameState.difficulty);
+    String difficultyText =
+        GameState.difficulty.substring(0, 1).toUpperCase() + GameState.difficulty.substring(1);
+    levelSummaryVal.setText(difficultyText);
     timeSummaryVal.setText(selectedTime + " minutes");
     GameState.time = selectedTime;
     System.out.println("Level: " + selectedLevel);

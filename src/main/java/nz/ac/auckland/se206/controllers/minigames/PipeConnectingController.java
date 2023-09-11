@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.GameState;
+import nz.ac.auckland.se206.SceneManager.Puzzle;
 
 /** Controller for the Pipe Connecting Mini-game. */
 public class PipeConnectingController {
@@ -20,8 +21,7 @@ public class PipeConnectingController {
   @FXML private GridPane grid;
 
   private int gridXSize, gridYSize;
-  private final int GRID_CELL_SIZE = 75;
-  private final double CELL_SIZE = 75;
+  private double gridCellSize, rectWidth, rectHeight;
 
   /** Represents a point in the grid. */
   private class Point {
@@ -76,19 +76,27 @@ public class PipeConnectingController {
       // Easy difficulty
       gridXSize = 4;
       gridYSize = 3;
+      gridCellSize = 80;
     } else if (GameState.difficulty.equals("medium")) {
       // Medium difficulty
       gridXSize = 5;
       gridYSize = 4;
+      gridCellSize = 65;
     } else if (GameState.difficulty.equals("hard")) {
       // Hard difficulty
       gridXSize = 6;
       gridYSize = 5;
+      gridCellSize = 50;
+
     } else {
       // Default difficulty
       gridXSize = 4;
       gridYSize = 3;
+      gridCellSize = 80;
     }
+
+    rectWidth = gridCellSize / 4;
+    rectHeight = gridCellSize / 2 + rectWidth / 2;
   }
 
   /** Resets the datastructures to default values */
@@ -102,15 +110,17 @@ public class PipeConnectingController {
   private void createGrid() {
     Random rand = new Random();
 
-    gridAnchor.setLayoutX((800 - (gridXSize + 1) * GRID_CELL_SIZE) / 2);
-    gridAnchor.setLayoutY((600 - (gridYSize + 1) * GRID_CELL_SIZE) / 2);
-    gridAnchor.setPrefSize((gridXSize + 1) * GRID_CELL_SIZE, (gridYSize + 1) * GRID_CELL_SIZE);
-    grid.setPrefSize(gridXSize * GRID_CELL_SIZE, gridYSize * GRID_CELL_SIZE);
-    for (int i = 4; i < gridXSize; i++) {
-      grid.getColumnConstraints().add(new javafx.scene.layout.ColumnConstraints(GRID_CELL_SIZE));
+    gridAnchor.setLayoutX((800 - (gridXSize + 1) * gridCellSize) / 2);
+    gridAnchor.setLayoutY((500 - (gridYSize + 1) * gridCellSize) / 2);
+    gridAnchor.setPrefSize((gridXSize + 1) * gridCellSize, (gridYSize + 1) * gridCellSize);
+    grid.setLayoutX(gridCellSize / 2);
+    grid.setLayoutY(gridCellSize / 2);
+    grid.setPrefSize(gridXSize * gridCellSize, gridYSize * gridCellSize);
+    for (int i = 0; i < gridXSize; i++) {
+      grid.getColumnConstraints().add(new javafx.scene.layout.ColumnConstraints(gridCellSize));
     }
-    for (int i = 3; i < gridYSize; i++) {
-      grid.getRowConstraints().add(new javafx.scene.layout.RowConstraints(GRID_CELL_SIZE));
+    for (int i = 0; i < gridYSize; i++) {
+      grid.getRowConstraints().add(new javafx.scene.layout.RowConstraints(gridCellSize));
     }
     grid.setStyle("-fx-background-color: #FFFFFF;");
 
@@ -328,33 +338,34 @@ public class PipeConnectingController {
    */
   private Pane createPane(int stucture, int x, int y) {
     Pane pane = new Pane();
-    pane.setPrefSize(GRID_CELL_SIZE, GRID_CELL_SIZE);
+    pane.setPrefSize(gridCellSize, gridCellSize);
     pane.setOnMouseClicked(this::handlePaneClick);
     pane.setRotate(mapRotations[x][y] * 90);
 
+    double offsetIncrement = (gridCellSize - rectWidth) / 2;
     var children = pane.getChildren();
     // Add pipes
     if ((stucture & 0b1000) != 0) {
       // top
-      Rectangle rect = new Rectangle(27.5, 0, 20, 47.5);
+      Rectangle rect = new Rectangle(offsetIncrement, 0, rectWidth, rectHeight);
       rect.setStrokeWidth(0);
       children.add(rect);
     }
     if ((stucture & 0b0100) != 0) {
       // right
-      Rectangle rect = new Rectangle(27.5, 27.5, 47.5, 20);
+      Rectangle rect = new Rectangle(offsetIncrement, offsetIncrement, rectHeight, rectWidth);
       rect.setStrokeWidth(0);
       children.add(rect);
     }
     if ((stucture & 0b0010) != 0) {
       // bottom
-      Rectangle rect = new Rectangle(27.5, 27.5, 20, 47.5);
+      Rectangle rect = new Rectangle(offsetIncrement, offsetIncrement, rectWidth, rectHeight);
       rect.setStrokeWidth(0);
       children.add(rect);
     }
     if ((stucture & 0b0001) != 0) {
       // left
-      Rectangle rect = new Rectangle(0, 27.5, 47.5, 20);
+      Rectangle rect = new Rectangle(0, offsetIncrement, rectHeight, rectWidth);
       rect.setStrokeWidth(0);
       children.add(rect);
     }
@@ -370,29 +381,32 @@ public class PipeConnectingController {
       int y = inlet.y;
 
       double layoutX, layoutY;
-      double width = 20, height = 30;
+      double inletHeight = rectWidth * 1.5;
       boolean horizontal = false;
       if (y == -1) { // Top side
-        layoutX = (x + 1) * CELL_SIZE - 0.5 * width;
-        layoutY = 7.5;
+        layoutX = (x + 1) * gridCellSize - 0.5 * rectWidth;
+        layoutY = gridCellSize / 2 - inletHeight;
       } else if (x == gridXSize) { // Right side
-        layoutX = (gridXSize + 0.5) * CELL_SIZE;
-        layoutY = (y + 1) * CELL_SIZE - 0.5 * width;
+        layoutX = (gridXSize + 0.5) * gridCellSize;
+        layoutY = (y + 1) * gridCellSize - 0.5 * rectWidth;
         horizontal = true;
       } else if (y == gridYSize) { // Bottom side
-        layoutX = (x + 1) * CELL_SIZE - 0.5 * width;
-        layoutY = (gridYSize + 0.5) * CELL_SIZE;
+        layoutX = (x + 1) * gridCellSize - 0.5 * rectWidth;
+        layoutY = (gridYSize + 0.5) * gridCellSize;
       } else { // Left side
-        layoutX = 7.5;
-        layoutY = (y + 1) * CELL_SIZE - 0.5 * width;
+        layoutX = gridCellSize / 2 - inletHeight;
+        layoutY = (y + 1) * gridCellSize - 0.5 * rectWidth;
         horizontal = true;
       }
 
       // Create the rectangle for the inlet
+      double width, height;
       if (horizontal) {
-        double temp = width;
-        width = height;
-        height = temp;
+        width = inletHeight;
+        height = rectWidth;
+      } else {
+        width = rectWidth;
+        height = inletHeight;
       }
       Rectangle inletRectangle = new Rectangle(width, height);
       inletRectangle.setLayoutX(layoutX);
@@ -548,6 +562,12 @@ public class PipeConnectingController {
     pane.setRotate(mapRotations[x][y] * 90);
 
     checkCompleteness();
+  }
+
+  @FXML
+  private void exitPuzzle() {
+    System.out.println("Exit");
+    GameState.currentPuzzle.setValue(Puzzle.NONE);
   }
 
   /** Called when the map is found to be complete. Prints a completion message to the console. */

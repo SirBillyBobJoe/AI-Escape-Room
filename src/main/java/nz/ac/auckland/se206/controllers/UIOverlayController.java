@@ -26,6 +26,7 @@ import nz.ac.auckland.se206.Items.Inventory;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.SharedChat;
 import nz.ac.auckland.se206.gpt.GameMaster;
@@ -50,8 +51,10 @@ public class UIOverlayController {
   @FXML private ImageView imgGameMaster;
   GameMasterActions gameMaster = new GameMasterActions();
 
-  @FXML private Pane replacePane; // Must remain so it can be swapped at the start
+  @FXML private Pane roomPane; // Must remain so it can be swapped at the start
   private Pane loadedRoom;
+  @FXML private Pane puzzlePane; // Must remain so it can be swapped at the start
+  private Pane loadedPuzzle;
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
@@ -134,6 +137,13 @@ public class UIOverlayController {
     GameState.currentRoom.set(Rooms.MAINROOM);
     changeRoom(Rooms.MAINROOM);
 
+    GameState.currentPuzzle.addListener(
+        (ObservableValue<? extends Puzzle> o, Puzzle oldVal, Puzzle newVal) -> {
+          changePuzzle(oldVal, newVal);
+        });
+    GameState.currentPuzzle.set(Puzzle.NONE);
+    changePuzzle(Puzzle.NONE, Puzzle.NONE);
+
     // Set up a button drop shadow
     dropShadow.setColor(Color.web("#007aec"));
     dropShadow.setRadius(5.0);
@@ -159,6 +169,44 @@ public class UIOverlayController {
           fadeIn.setFromValue(0.0);
           fadeIn.setToValue(1.0);
           fadeIn.setNode(loadedRoom);
+          fadeIn.play();
+        });
+
+    fadeOut.play();
+  }
+
+  /**
+   * Changes the current puzzle with a fade transition.
+   *
+   * @param oldPuzzle The puzzle to transition from.
+   * @param newPuzzle The puzzle to transition to.
+   */
+  private void changePuzzle(Puzzle oldPuzzle, Puzzle newPuzzle) {
+    double fadeOutDuration = 300;
+    double fadeInDuration = 300;
+    if (oldPuzzle.equals(Puzzle.NONE)) {
+      fadeOutDuration = 0;
+    }
+    if (newPuzzle.equals(Puzzle.NONE)) {
+      fadeInDuration = 0;
+    }
+
+    final double fadeInDurationFinal = fadeInDuration;
+
+    // Fade out the current puzzle
+    FadeTransition fadeOut = new FadeTransition(Duration.millis(fadeOutDuration));
+    fadeOut.setFromValue(1.0);
+    fadeOut.setToValue(0.0);
+    fadeOut.setNode(loadedPuzzle);
+    fadeOut.setOnFinished(
+        e -> {
+          loadedPuzzle = SceneManager.getPuzzlePane(newPuzzle);
+          mainPane.getChildren().set(mainPane.getChildren().size() - 1, loadedPuzzle);
+          // Fade in the new puzzle
+          FadeTransition fadeIn = new FadeTransition(Duration.millis(fadeInDurationFinal));
+          fadeIn.setFromValue(0.0);
+          fadeIn.setToValue(1.0);
+          fadeIn.setNode(loadedPuzzle);
           fadeIn.play();
         });
 

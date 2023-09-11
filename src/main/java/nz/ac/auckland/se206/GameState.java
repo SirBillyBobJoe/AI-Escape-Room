@@ -7,6 +7,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.image.ImageView;
 import nz.ac.auckland.se206.Items.Inventory;
 import nz.ac.auckland.se206.Items.Object;
+import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.gpt.GameMaster;
 
@@ -34,6 +35,8 @@ public class GameState {
   public static SharedChat chat = new SharedChat();
   public static SimpleObjectProperty<Rooms> currentRoom =
       new SimpleObjectProperty<SceneManager.Rooms>(Rooms.MAINROOM);
+  public static SimpleObjectProperty<Puzzle> currentPuzzle =
+      new SimpleObjectProperty<SceneManager.Puzzle>(Puzzle.NONE);
 
   public static int numInventorySlots = 0;
 

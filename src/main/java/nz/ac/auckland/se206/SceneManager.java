@@ -19,13 +19,19 @@ public class SceneManager {
     MAINROOM,
     RIDDLEROOM,
     PUZZLEROOM,
-    WIRELINKING,
     LEFTROOM,
+  }
+
+  public enum Puzzle {
+    NONE,
+    PIPEPUZZLE,
+    WIREPUZZLE,
   }
 
   private static HashMap<AppUi, Parent> map = new HashMap<AppUi, Parent>();
   private static HashMap<AppUi, Boolean> reinitialize = new HashMap<AppUi, Boolean>();
   private static HashMap<Rooms, Pane> roomMap = new HashMap<Rooms, Pane>();
+  private static HashMap<Puzzle, Pane> puzzleMap = new HashMap<Puzzle, Pane>();
 
   /**
    * Returns the Parent root object for a given UI state.
@@ -63,15 +69,27 @@ public class SceneManager {
     reinitialize.put(ui, true);
   }
 
-  /** */
   public static void initialiseRooms() throws IOException {
     roomMap = new HashMap<Rooms, Pane>();
     roomMap.put(Rooms.MAINROOM, (Pane) App.loadFxml("mainroom"));
     roomMap.put(Rooms.PUZZLEROOM, (Pane) App.loadFxml("puzzleroom"));
     roomMap.put(Rooms.RIDDLEROOM, (Pane) App.loadFxml("riddleroom"));
+
+    initialisePuzzles();
   }
 
   public static Pane getRoomPane(Rooms room) {
     return roomMap.get(room);
+  }
+
+  public static void initialisePuzzles() throws IOException {
+    puzzleMap = new HashMap<Puzzle, Pane>();
+    puzzleMap.put(Puzzle.NONE, (Pane) App.loadFxml("none"));
+    puzzleMap.put(Puzzle.WIREPUZZLE, (Pane) App.loadFxml("wirelinking"));
+    puzzleMap.put(Puzzle.PIPEPUZZLE, (Pane) App.loadFxml("pipeconnecting"));
+  }
+
+  public static Pane getPuzzlePane(Puzzle puzzle) {
+    return puzzleMap.get(puzzle);
   }
 }

@@ -19,12 +19,13 @@ import nz.ac.auckland.se206.Items.Lock;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.gpt.GameMaster;
 
 /**
  * Controller class for Room 1 in the escape room game. Manages the UI elements and interactions for
- * Room 1.
+ * the main room.
  */
 public class MainRoomController {
   @FXML private ImageView key1, key2, key3;
@@ -128,8 +129,7 @@ public class MainRoomController {
       stage.setHeight(600 + additionalHeight);
 
     } else if (id.equals("wireBox")) {
-
-      System.out.println(id);
+      GameState.currentPuzzle.set(Puzzle.WIREPUZZLE);
     }
   }
 
