@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 public class SceneManager {
   /** Enumerates different states or scenes in the application. */
   public enum AppUi {
-    SCREENSTART,
+    STARTSCREEN,
     UIOVERLAY,
     ENDSCREEN,
     PIPECONNECTING,
@@ -65,7 +65,7 @@ public class SceneManager {
   /** */
   public static void initialiseRooms() throws IOException {
     roomMap = new HashMap<Rooms, Pane>();
-    roomMap.put(Rooms.MAINROOM, (Pane) App.loadFxml("room1internal"));
+    roomMap.put(Rooms.MAINROOM, (Pane) App.loadFxml("mainroom"));
     roomMap.put(Rooms.PUZZLEROOM, (Pane) App.loadFxml("puzzleroom"));
     roomMap.put(Rooms.RIDDLEROOM, new Pane());
   }

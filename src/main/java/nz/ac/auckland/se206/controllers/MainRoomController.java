@@ -23,7 +23,7 @@ import nz.ac.auckland.se206.gpt.GameMaster;
  * Controller class for Room 1 in the escape room game. Manages the UI elements and interactions for
  * Room 1.
  */
-public class Room1InternalController {
+public class MainRoomController {
   @FXML private ImageView key1, key2, key3;
   @FXML private ImageView lighter1, lighter2, lighter3;
   @FXML private ImageView lock1;
@@ -74,9 +74,11 @@ public class Room1InternalController {
   private void onRestart(MouseEvent event) throws IOException {
     new MouseClick().play();
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    App.setUserInterface(AppUi.SCREENSTART);
-    stage.setWidth(630);
-    stage.setHeight(630);
+    App.setUserInterface(AppUi.STARTSCREEN);
+    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
+    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
+    stage.setWidth(800 + additionalWidth);
+    stage.setHeight(600 + additionalHeight);
     GameState.timer.stop();
 
     GameState.inventory = new Inventory();
