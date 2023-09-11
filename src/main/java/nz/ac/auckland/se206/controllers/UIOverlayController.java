@@ -145,11 +145,6 @@ public class UIOverlayController {
    * @param room The room to transition to.
    */
   private void changeRoom(Rooms room) {
-    if (GameState.currentRoom.get() == Rooms.MAINROOM) {
-      lblRestart.setText("Restart");
-    } else {
-      lblRestart.setText("Back");
-    }
     // Fade out the current room
     FadeTransition fadeOut = new FadeTransition(Duration.millis(300));
     fadeOut.setFromValue(1.0);
@@ -200,26 +195,22 @@ public class UIOverlayController {
     // Play a click sound effect
     new MouseClick().play();
 
-    if (GameState.currentRoom.get() == Rooms.MAINROOM) {
-      // Retrieve the stage and navigate to the start screen
-      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-      SceneManager.setReinitialise(AppUi.UIOVERLAY);
-      App.setUserInterface(AppUi.STARTSCREEN);
+    // Retrieve the stage and navigate to the start screen
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    SceneManager.setReinitialise(AppUi.UIOVERLAY);
+    App.setUserInterface(AppUi.STARTSCREEN);
 
-      // Adjust the stage dimensions
-      double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-      double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-      stage.setWidth(800 + additionalWidth);
-      stage.setHeight(600 + additionalHeight);
+    // Adjust the stage dimensions
+    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
+    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
+    stage.setWidth(800 + additionalWidth);
+    stage.setHeight(600 + additionalHeight);
 
-      // Stop the game timer and reset game state
-      GameState.timer.stop();
-      GameState.inventory = new Inventory();
-      GameState.gameMaster = new GameMaster();
-      GameState.chat.restart();
-    } else {
-      GameState.currentRoom.set(Rooms.MAINROOM);
-    }
+    // Stop the game timer and reset game state
+    GameState.timer.stop();
+    GameState.inventory = new Inventory();
+    GameState.gameMaster = new GameMaster();
+    GameState.chat.restart();
   }
 
   /**
