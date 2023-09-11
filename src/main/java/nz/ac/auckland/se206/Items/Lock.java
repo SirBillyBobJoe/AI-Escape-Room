@@ -23,6 +23,7 @@ public class Lock extends Object {
   }
 
   public void unlockLock() {
+    isLocked = false;
     this.message = "you have unlocked lock " + id;
     GameState.currentRoom.set(Rooms.PUZZLEROOM);
   }

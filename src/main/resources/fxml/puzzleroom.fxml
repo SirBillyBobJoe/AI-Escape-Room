@@ -1,21 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.CubicCurve?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.PuzzleRoomController">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+      <ImageView fx:id="background" fitHeight="622.0" fitWidth="800.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/mainRoom/mainRoom.png" />
+            <Image url="@../images/puzzleroom/room.png" />
          </image>
          <effect>
             <InnerShadow choke="0.6" height="90.0" radius="44.5" width="90.0" />
          </effect>
       </ImageView>
-      <Rectangle fx:id="rightDoor" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="405.0" layoutX="640.0" layoutY="97.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="162.0" />
+      <CubicCurve fx:id="rightDoor" controlX1="-85.338134765625" controlX2="47.0" controlY1="-374.3333435058594" controlY2="-715.0" endX="29.00006103515625" endY="36.666656494140625" fill="DODGERBLUE" layoutX="771.0" layoutY="414.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" startX="-65.139892578125" startY="4.333343505859375" stroke="BLACK" />
+      <Button fx:id="wallButton" layoutX="616.0" layoutY="31.0" mnemonicParsing="false" onAction="#pressButton" text="Change Wall" />
+      <ImageView fx:id="candle1" fitHeight="64.0" fitWidth="49.0" layoutX="314.0" layoutY="246.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/puzzleroom/unlitCandle.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="candle2" fitHeight="64.0" fitWidth="49.0" layoutX="345.0" layoutY="246.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/puzzleroom/unlitCandle.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="candle3" fitHeight="64.0" fitWidth="49.0" layoutX="378.0" layoutY="247.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/puzzleroom/unlitCandle.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="candle4" fitHeight="64.0" fitWidth="49.0" layoutX="412.0" layoutY="247.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/puzzleroom/unlitCandle.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

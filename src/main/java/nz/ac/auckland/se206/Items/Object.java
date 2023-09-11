@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
  * and a position within the inventory.
  */
 public class Object {
-  private Image image;
+  protected Image image;
   protected String message;
   protected String itemIdentifier;
 
