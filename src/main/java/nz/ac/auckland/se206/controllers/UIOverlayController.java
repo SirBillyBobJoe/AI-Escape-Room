@@ -1,8 +1,8 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.Items.Inventory;
@@ -54,17 +55,21 @@ public class UIOverlayController {
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
-    String hint;
-
+    // Initialize the Game Master actions
     gameMaster = new GameMasterActions(imgGameMaster, txaGameMaster);
 
+    // Determine the hint text based on the game state
+    String hint;
     if (GameState.hints.get().equals("\u221E")) {
       hint = "infinite";
     } else {
       hint = GameState.hints.get();
     }
-    // room1 chat context
+
+    // Create a chat context for Room 1
     GameState.gameMaster.createChatContext("room1");
+
+    // Generate a message for the Game Master
     String gptMsg =
         "This game the player will have "
             + hint
@@ -73,21 +78,24 @@ public class UIOverlayController {
             + " chains, light is next to the car, riddle answer is chicken, u need key to unlock"
             + " the door. Don't reply to this message reply but reply to following messages. Only"
             + " give one hint at a time";
+
+    // Add the initial message to the chat context and run it
     GameState.gameMaster.addMessage("room1", "user", gptMsg);
     GameState.gameMaster.runContext("room1");
     System.out.println(gptMsg);
 
+    // Bind UI elements to game state properties
     countdownLabel.textProperty().bind(GameState.timer.timeSecondsProperty().asString());
     hintLabel.textProperty().bind(GameState.hints);
 
-    // controls for inventory indexing with the images
+    // Initialize inventory control images
     ImageView[] images = {item0, item1, item2, item3, item4, item5};
-    item0.setUserData(0); // Index 0
-    item1.setUserData(1); // Index 1
-    item2.setUserData(2); // Index 2
-    item3.setUserData(3); // Index 3
-    item4.setUserData(4); // Index 4
-    item5.setUserData(5); // Index 5
+    // Set user data for each inventory item
+    for (int i = 0; i < images.length; i++) {
+      images[i].setUserData(i);
+    }
+
+    // Update the inventory UI when it changes
     GameState.inventory
         .inventoryProperty()
         .addListener(
@@ -101,54 +109,75 @@ public class UIOverlayController {
               }
             });
     GameState.inventory.setItemChat(itemChat);
-    // end of inventory initialising
 
-    // binds the text areas of the 2 controllers together
+    // Bind text areas of the 2 controllers together for chat
     GameState.chat = SharedChat.getInstance();
     textArea.textProperty().bind(GameState.chat.getTextProperty());
     textArea.setWrapText(true);
-    // Listen for changes in the textProperty of the textArea
+
+    // Scroll to the bottom of the chat area when text changes
     GameState.chat
         .getTextProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
-              // Scroll to the bottom in the JavaFX Application Thread
               Platform.runLater(
                   () -> {
                     textArea.setScrollTop(Double.MAX_VALUE);
                   });
             });
-    // Load room 1 internal
+
+    // Load the initial room and set up a listener for room changes
     GameState.currentRoom.addListener(
-        new ChangeListener<Rooms>() {
-          @Override
-          public void changed(ObservableValue o, Rooms oldVal, Rooms newVal) {
-            changeRoom(newVal);
-          }
+        (ObservableValue<? extends Rooms> o, Rooms oldVal, Rooms newVal) -> {
+          changeRoom(newVal);
         });
     GameState.currentRoom.set(Rooms.MAINROOM);
     changeRoom(Rooms.MAINROOM);
 
-    // Button drop shadow
+    // Set up a button drop shadow
     dropShadow.setColor(Color.web("#007aec"));
     dropShadow.setRadius(5.0);
   }
 
+  /**
+   * Changes the current game room with a fade transition.
+   *
+   * @param room The room to transition to.
+   */
   private void changeRoom(Rooms room) {
-    loadedRoom = SceneManager.getRoomPane(room);
-    mainPane.getChildren().set(0, loadedRoom);
+    // Fade out the current room
+    FadeTransition fadeOut = new FadeTransition(Duration.millis(300));
+    fadeOut.setFromValue(1.0);
+    fadeOut.setToValue(0.0);
+    fadeOut.setNode(loadedRoom);
+    fadeOut.setOnFinished(
+        e -> {
+          loadedRoom = SceneManager.getRoomPane(room);
+          mainPane.getChildren().set(0, loadedRoom);
+          // Fade in the new room
+          FadeTransition fadeIn = new FadeTransition(Duration.millis(300));
+          fadeIn.setFromValue(0.0);
+          fadeIn.setToValue(1.0);
+          fadeIn.setNode(loadedRoom);
+          fadeIn.play();
+        });
+
+    fadeOut.play();
   }
 
   // DELETEME
   private boolean justActivated = false;
 
+  /**
+   * Handles the click event for the game master, activating or deactivating it.
+   *
+   * @param event The mouse click event.
+   */
   @FXML
   private void gameMasterClicked(MouseEvent event) {
     if (!justActivated) {
       justActivated = true;
-      gameMaster.activate(
-          "Hello, I am the game master. Do not defy me. blah blah blhaHello, I am the game"
-              + " master.");
+      gameMaster.activate("Hello, I am the game master. Do not defy me. blah blah blah.");
     } else {
       gameMaster.unactivate();
       justActivated = false;
@@ -158,23 +187,28 @@ public class UIOverlayController {
   /**
    * Resets the game state and navigates back to the start screen.
    *
-   * @param event MouseEvent for the restart button.
+   * @param event The mouse click event for the restart button.
    * @throws IOException If the FXML for the start screen can't be loaded.
    */
   @FXML
   private void lblRestartClicked(MouseEvent event) throws IOException {
+    // Play a click sound effect
     new MouseClick().play();
+
+    // Retrieve the stage and navigate to the start screen
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     SceneManager.setReinitialise(AppUi.UIOVERLAY);
     App.setUserInterface(AppUi.STARTSCREEN);
+
+    // Adjust the stage dimensions
     double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
     double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
     stage.setWidth(800 + additionalWidth);
     stage.setHeight(600 + additionalHeight);
+
+    // Stop the game timer and reset game state
     GameState.timer.stop();
-
     GameState.inventory = new Inventory();
-
     GameState.gameMaster = new GameMaster();
     GameState.chat.restart();
   }
