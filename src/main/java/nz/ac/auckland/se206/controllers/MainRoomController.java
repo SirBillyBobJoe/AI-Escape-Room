@@ -25,7 +25,7 @@ import nz.ac.auckland.se206.gpt.GameMaster;
 
 /**
  * Controller class for Room 1 in the escape room game. Manages the UI elements and interactions for
- * Room 1.
+ * the main room.
  */
 public class MainRoomController {
   @FXML private ImageView key1, key2, key3;
