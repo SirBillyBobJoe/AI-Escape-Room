@@ -4,6 +4,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.CubicCurve?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.MainRoomController">
    <children>
@@ -15,17 +17,18 @@
             <InnerShadow choke="0.6" height="90.0" radius="44.5" width="90.0" />
          </effect>
       </ImageView>
-      <ImageView fx:id="key1" fitHeight="61.0" fitWidth="74.0" layoutX="42.0" layoutY="133.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+      <CubicCurve fx:id="exitDoor" controlX1="-146.0" controlX2="53.0" controlY1="-347.2886657714844" controlY2="-164.28866577148438" endX="23.0" endY="253.71133422851562" fill="DODGERBLUE" layoutX="461.0" layoutY="222.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" startX="-146.0" startY="253.71133422851562" stroke="BLACK" />
+      <ImageView fx:id="key1" fitHeight="61.0" fitWidth="74.0" layoutX="295.0" layoutY="50.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/key.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="lighter1" fitHeight="88.0" fitWidth="98.0" layoutX="29.0" layoutY="38.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="lighter1" fitHeight="88.0" fitWidth="98.0" layoutX="356.0" layoutY="35.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/lighter.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="key3" fitHeight="61.0" fitWidth="74.0" layoutX="187.0" layoutY="151.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="key3" fitHeight="61.0" fitWidth="74.0" layoutX="224.0" layoutY="172.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/key.png" />
          </image>
@@ -35,7 +38,7 @@
             <Image url="@../images/Inventory/key.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="lighter3" fitHeight="88.0" fitWidth="98.0" layoutX="55.0" layoutY="261.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="lighter3" fitHeight="88.0" fitWidth="98.0" layoutX="312.0" layoutY="202.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/lighter.png" />
          </image>
@@ -45,10 +48,13 @@
             <Image url="@../images/Inventory/lighter.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="lock1" fitHeight="150.0" fitWidth="200.0" layoutX="376.0" layoutY="274.0" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="lock1" fitHeight="150.0" fitWidth="200.0" layoutX="359.0" layoutY="281.0" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/lock.png" />
          </image>
       </ImageView>
+      <Rectangle fx:id="rightDoor" arcHeight="5.0" arcWidth="5.0" fill="#1f85ff" height="317.0" layoutX="693.0" layoutY="192.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+      <Rectangle fx:id="wireBox" arcHeight="5.0" arcWidth="5.0" fill="#1f85ff" height="118.0" layoutX="521.0" layoutY="194.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="93.0" />
+      <CubicCurve fx:id="leftDoor" controlX1="-170.0" controlX2="67.0" controlY1="-384.64471435546875" controlY2="-273.0" endX="35.0" endY="351.0" fill="DODGERBLUE" layoutX="152.0" layoutY="131.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" startX="-102.0" startY="380.7113342285156" stroke="BLACK" />
    </children>
 </AnchorPane>
