@@ -20,6 +20,7 @@ public class SceneManager {
     RIDDLEROOM,
     PUZZLEROOM,
     WIRELINKING,
+    LEFTROOM,
   }
 
   private static HashMap<AppUi, Parent> map = new HashMap<AppUi, Parent>();
@@ -67,7 +68,8 @@ public class SceneManager {
     roomMap = new HashMap<Rooms, Pane>();
     roomMap.put(Rooms.MAINROOM, (Pane) App.loadFxml("mainroom"));
     roomMap.put(Rooms.PUZZLEROOM, (Pane) App.loadFxml("puzzleroom"));
-    roomMap.put(Rooms.RIDDLEROOM, new Pane());
+    roomMap.put(Rooms.RIDDLEROOM, (Pane) App.loadFxml("riddleroom"));
+    roomMap.put(Rooms.LEFTROOM, (Pane) App.loadFxml("leftroom"));
   }
 
   public static Pane getRoomPane(Rooms room) {

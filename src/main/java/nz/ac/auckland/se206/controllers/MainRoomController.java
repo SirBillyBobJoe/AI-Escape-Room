@@ -7,6 +7,8 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.CubicCurve;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
@@ -17,6 +19,7 @@ import nz.ac.auckland.se206.Items.Lock;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.gpt.GameMaster;
 
 /**
@@ -27,6 +30,8 @@ public class MainRoomController {
   @FXML private ImageView key1, key2, key3;
   @FXML private ImageView lighter1, lighter2, lighter3;
   @FXML private ImageView lock1;
+  @FXML private Rectangle rightDoor, wireBox;
+  @FXML CubicCurve leftDoor, exitDoor;
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
@@ -94,9 +99,38 @@ public class MainRoomController {
   //  * @param event MouseEvent for clicking an object.
   //  */
   @FXML
-  private void objectClicked(MouseEvent event) {
+  private void objectClicked(MouseEvent event) throws IOException {
+    Node source = (Node) event.getSource();
+    String id = source.getId();
     new MouseClick().play();
-    GameState.inventory.onRegularItemClicked(event);
+    if (source instanceof ImageView) {
+
+      GameState.inventory.onRegularItemClicked(event);
+
+    } else if (id.equals("leftDoor")) { // if click on the left door
+
+      GameState.currentRoom.set(Rooms.LEFTROOM);
+
+    } else if (id.equals("rightDoor")) { // if click on the right door
+
+      GameState.currentRoom.set(Rooms.RIDDLEROOM);
+
+    } else if (id.equals("exitDoor")) { // if clicked on the centre exit door
+
+      GameState.timer.stop();
+      GameState.escaped = true;
+      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      SceneManager.setReinitialise(AppUi.ENDSCREEN);
+      App.setUserInterface(AppUi.ENDSCREEN);
+      double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
+      double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
+      stage.setWidth(800 + additionalWidth);
+      stage.setHeight(600 + additionalHeight);
+
+    } else if (id.equals("wireBox")) {
+
+      System.out.println(id);
+    }
   }
 
   /**
@@ -130,18 +164,23 @@ public class MainRoomController {
   }
 
   /**
-   * Turn Object Blue
+   * Turn Object Blue if imageView otherwise show clickable
    *
-   * @param event MouseEvent for turning object blue
+   * @param event MouseEvent for turning object blue or showing clickable
    */
   @FXML
   private void onMouseEntered(MouseEvent event) {
-    // Make it really blue when hovered over
-    ImageView targetImageView = (ImageView) event.getSource();
-    ColorAdjust colorAdjust = new ColorAdjust();
-    colorAdjust.setHue(1); // Max hue
-    colorAdjust.setSaturation(1); // Max saturation
-    targetImageView.setEffect(colorAdjust);
+    Node source = (Node) event.getSource();
+    if (source instanceof ImageView) {
+      // Make it really blue when hovered over
+      ImageView targetImageView = (ImageView) event.getSource();
+      ColorAdjust colorAdjust = new ColorAdjust();
+      colorAdjust.setHue(1); // Max hue
+      colorAdjust.setSaturation(1); // Max saturation
+      targetImageView.setEffect(colorAdjust);
+    } else {
+      source.setOpacity(0.22);
+    }
   }
 
   /**
@@ -151,8 +190,13 @@ public class MainRoomController {
    */
   @FXML
   private void onMouseExited(MouseEvent event) {
-    // Remove the blue tint after dropping
-    ImageView targetImageView = (ImageView) event.getSource();
-    targetImageView.setEffect(null);
+    Node source = (Node) event.getSource();
+
+    if (source instanceof ImageView) {
+      ImageView targetImageView = (ImageView) source;
+      targetImageView.setEffect(null); // Remove the blue tint
+    } else {
+      source.setOpacity(0); // Make the node invisible
+    }
   }
 }

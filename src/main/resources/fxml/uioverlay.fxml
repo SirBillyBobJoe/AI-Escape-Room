@@ -56,7 +56,6 @@
             <Font name="Consolas" size="45.0" />
          </font>
       </Label>
-      <Button layoutX="325.0" layoutY="40.0" mnemonicParsing="false" onAction="#onEscape" text="Finish Game And Escape" />
 
       <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="822.0" layoutY="37.0" onMouseClicked="#gameMasterClicked" prefHeight="209.0" prefWidth="250.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
          <effect>
