@@ -195,24 +195,22 @@ public class UIOverlayController {
     // Play a click sound effect
     new MouseClick().play();
 
-    if (GameState.currentRoom.get() == Rooms.MAINROOM) {
-      // Retrieve the stage and navigate to the start screen
-      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-      SceneManager.setReinitialise(AppUi.UIOVERLAY);
-      App.setUserInterface(AppUi.STARTSCREEN);
+    // Retrieve the stage and navigate to the start screen
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    SceneManager.setReinitialise(AppUi.UIOVERLAY);
+    App.setUserInterface(AppUi.STARTSCREEN);
 
-      // Adjust the stage dimensions
-      double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-      double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-      stage.setWidth(800 + additionalWidth);
-      stage.setHeight(600 + additionalHeight);
+    // Adjust the stage dimensions
+    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
+    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
+    stage.setWidth(800 + additionalWidth);
+    stage.setHeight(600 + additionalHeight);
 
-      // Stop the game timer and reset game state
-      GameState.timer.stop();
-      GameState.inventory = new Inventory();
-      GameState.gameMaster = new GameMaster();
-      GameState.chat.restart();
-    }
+    // Stop the game timer and reset game state
+    GameState.timer.stop();
+    GameState.inventory = new Inventory();
+    GameState.gameMaster = new GameMaster();
+    GameState.chat.restart();
   }
 
   /**
