@@ -83,7 +83,7 @@ public class SceneManager {
 
   public static void initialisePuzzles() throws IOException {
     puzzleMap = new HashMap<Puzzle, Pane>();
-    puzzleMap.put(Puzzle.NONE, new Pane());
+    puzzleMap.put(Puzzle.NONE, (Pane) App.loadFxml("none"));
     puzzleMap.put(Puzzle.WIREPUZZLE, (Pane) App.loadFxml("wirelinking"));
     puzzleMap.put(Puzzle.PIPEPUZZLE, (Pane) App.loadFxml("pipeconnecting"));
   }

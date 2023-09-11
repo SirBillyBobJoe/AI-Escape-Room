@@ -4,6 +4,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.MainRoomController">
    <children>
@@ -50,5 +51,6 @@
             <Image url="@../images/Inventory/lock.png" />
          </image>
       </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="133.0" layoutX="515.0" layoutY="187.0" onMouseClicked="#wireBoxClick" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
    </children>
 </AnchorPane>

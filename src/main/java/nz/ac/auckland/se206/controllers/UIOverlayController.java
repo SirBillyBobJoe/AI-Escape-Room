@@ -141,8 +141,8 @@ public class UIOverlayController {
         (ObservableValue<? extends Puzzle> o, Puzzle oldVal, Puzzle newVal) -> {
           changePuzzle(oldVal, newVal);
         });
-    GameState.currentPuzzle.set(Puzzle.PIPEPUZZLE);
-    changePuzzle(Puzzle.NONE, Puzzle.PIPEPUZZLE);
+    GameState.currentPuzzle.set(Puzzle.NONE);
+    changePuzzle(Puzzle.NONE, Puzzle.NONE);
 
     // Set up a button drop shadow
     dropShadow.setColor(Color.web("#007aec"));
@@ -201,7 +201,7 @@ public class UIOverlayController {
     fadeOut.setOnFinished(
         e -> {
           loadedPuzzle = SceneManager.getPuzzlePane(newPuzzle);
-          mainPane.getChildren().set(1, loadedPuzzle);
+          mainPane.getChildren().set(mainPane.getChildren().size() - 1, loadedPuzzle);
           // Fade in the new puzzle
           FadeTransition fadeIn = new FadeTransition(Duration.millis(fadeInDurationFinal));
           fadeIn.setFromValue(0.0);

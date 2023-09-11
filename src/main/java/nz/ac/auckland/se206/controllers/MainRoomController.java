@@ -17,6 +17,7 @@ import nz.ac.auckland.se206.Items.Lock;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.gpt.GameMaster;
 
 /**
@@ -154,5 +155,11 @@ public class MainRoomController {
     // Remove the blue tint after dropping
     ImageView targetImageView = (ImageView) event.getSource();
     targetImageView.setEffect(null);
+  }
+
+  @FXML
+  private void wireBoxClick(MouseEvent event) {
+    System.out.println("wire box clicked");
+    GameState.currentPuzzle.set(Puzzle.WIREPUZZLE);
   }
 }
