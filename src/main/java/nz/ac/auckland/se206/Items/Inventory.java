@@ -238,6 +238,26 @@ public class Inventory {
         } else { // if its not a key
           ItemChat.getInstance().printChatMessage(itemChat, "You Need A Key To Unlock The Lock");
         }
+      } else if ("candle".equals(targetImageView.getUserData())) { // if its a candle
+
+        Candle candleItem = (Candle) room1Items.get(targetImageView);
+
+        // Check whether the dragged item is a lighter
+        if (draggedItem instanceof Lighter && candleItem != null) {
+          Lighter lighterItem = (Lighter) draggedItem;
+
+          candleItem.changeCandle();
+          targetImageView.setImage(candleItem.getImage());
+          String message = candleItem.getMessage();
+          ItemChat.getInstance().printChatMessage(itemChat, message);
+
+          success = true; // Only set success to true if the operation is successful.
+
+        } else { // if its not a lighter
+          ItemChat.getInstance()
+              .printChatMessage(itemChat, "You Need A Lighter To Light The Candle");
+        }
+
       } else {
         int targetIndex = (int) targetImageView.getUserData();
         GameState.inventory.swapObject(originalIndex, targetIndex);

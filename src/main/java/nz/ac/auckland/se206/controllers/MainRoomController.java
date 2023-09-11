@@ -29,7 +29,7 @@ import nz.ac.auckland.se206.gpt.GameMaster;
  */
 public class MainRoomController {
   @FXML private ImageView key1, key2, key3;
-  @FXML private ImageView lighter1, lighter2, lighter3;
+  @FXML private ImageView lighter1;
   @FXML private ImageView lock1;
   @FXML private Rectangle rightDoor, wireBox;
   @FXML CubicCurve leftDoor, exitDoor;
@@ -57,16 +57,13 @@ public class MainRoomController {
     GameState.gameMaster.runContext("room1");
 
     lock1.setUserData("lock");
-    lock1.setOnDragOver(event -> onDragOver(event));
-    lock1.setOnDragDropped(event -> onDragDropped(event));
 
     // initialise objects in room 1 into HashMap
     GameState.currentRoomItems.put(key1, new Keys(1));
     GameState.currentRoomItems.put(key2, new Keys(2));
     GameState.currentRoomItems.put(key3, new Keys(3));
     GameState.currentRoomItems.put(lighter1, new Lighter());
-    GameState.currentRoomItems.put(lighter2, new Lighter());
-    GameState.currentRoomItems.put(lighter3, new Lighter());
+
     GameState.currentRoomItems.put(lock1, new Lock(1));
   }
 
