@@ -69,7 +69,6 @@ public class SceneManager {
     roomMap.put(Rooms.MAINROOM, (Pane) App.loadFxml("mainroom"));
     roomMap.put(Rooms.PUZZLEROOM, (Pane) App.loadFxml("puzzleroom"));
     roomMap.put(Rooms.RIDDLEROOM, (Pane) App.loadFxml("riddleroom"));
-    roomMap.put(Rooms.LEFTROOM, (Pane) App.loadFxml("leftroom"));
   }
 
   public static Pane getRoomPane(Rooms room) {

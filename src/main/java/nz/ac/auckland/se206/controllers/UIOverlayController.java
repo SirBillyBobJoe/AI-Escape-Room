@@ -145,11 +145,6 @@ public class UIOverlayController {
    * @param room The room to transition to.
    */
   private void changeRoom(Rooms room) {
-    if (GameState.currentRoom.get() == Rooms.MAINROOM) {
-      lblRestart.setText("Restart");
-    } else {
-      lblRestart.setText("Back");
-    }
     // Fade out the current room
     FadeTransition fadeOut = new FadeTransition(Duration.millis(300));
     fadeOut.setFromValue(1.0);
@@ -217,8 +212,6 @@ public class UIOverlayController {
       GameState.inventory = new Inventory();
       GameState.gameMaster = new GameMaster();
       GameState.chat.restart();
-    } else {
-      GameState.currentRoom.set(Rooms.MAINROOM);
     }
   }
 

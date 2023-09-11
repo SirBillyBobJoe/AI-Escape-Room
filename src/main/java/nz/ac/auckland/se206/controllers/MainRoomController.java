@@ -93,11 +93,11 @@ public class MainRoomController {
     SceneManager.setReinitialise(AppUi.UIOVERLAY);
   }
 
-  // /**
-  //  * Handles clicking on game objects in the room.
-  //  *
-  //  * @param event MouseEvent for clicking an object.
-  //  */
+  /**
+   * Handles clicking on game objects in the room.
+   *
+   * @param event MouseEvent for clicking an object.
+   */
   @FXML
   private void objectClicked(MouseEvent event) throws IOException {
     Node source = (Node) event.getSource();
@@ -109,7 +109,7 @@ public class MainRoomController {
 
     } else if (id.equals("leftDoor")) { // if click on the left door
 
-      GameState.currentRoom.set(Rooms.LEFTROOM);
+      GameState.currentRoom.set(Rooms.PUZZLEROOM);
 
     } else if (id.equals("rightDoor")) { // if click on the right door
 
