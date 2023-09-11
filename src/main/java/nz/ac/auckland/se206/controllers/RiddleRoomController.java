@@ -10,7 +10,7 @@ import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 
-public class PuzzleRoomController {
+public class RiddleRoomController {
   /**
    * Handles clicking on game objects in the room.
    *
@@ -21,7 +21,7 @@ public class PuzzleRoomController {
     Node source = (Node) event.getSource();
     String id = source.getId();
     new MouseClick().play();
-    if (id.equals("rightDoor")) {
+    if (id.equals("leftDoor")) {
 
       GameState.currentRoom.set(Rooms.MAINROOM);
     }

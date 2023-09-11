@@ -19,6 +19,7 @@ public class SceneManager {
     MAINROOM,
     RIDDLEROOM,
     PUZZLEROOM,
+    LEFTROOM,
   }
 
   public enum Puzzle {
@@ -72,7 +73,7 @@ public class SceneManager {
     roomMap = new HashMap<Rooms, Pane>();
     roomMap.put(Rooms.MAINROOM, (Pane) App.loadFxml("mainroom"));
     roomMap.put(Rooms.PUZZLEROOM, (Pane) App.loadFxml("puzzleroom"));
-    roomMap.put(Rooms.RIDDLEROOM, new Pane());
+    roomMap.put(Rooms.RIDDLEROOM, (Pane) App.loadFxml("riddleroom"));
 
     initialisePuzzles();
   }

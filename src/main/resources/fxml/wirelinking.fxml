@@ -5,16 +5,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1"
-    xmlns="http://javafx.com/javafx/20.0.1"
-    fx:controller="nz.ac.auckland.se206.controllers.minigames.WirelinkingController">
-    <Rectangle fill="#000000cc" height="600.0" onMouseClicked="#exitPuzzle" stroke="BLACK"
-        strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.minigames.WirelinkingController">
+    <Rectangle fill="#000000cc" height="600.0" onMouseClicked="#exitPuzzle" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
     <AnchorPane layoutX="150.0" layoutY="100.0" prefHeight="300.0" prefWidth="500.0">
         <children>
             <!-- This pane is where the wire will be drawn when dragging -->
-            <Pane fx:id="drawingArea" prefHeight="300.0" prefWidth="500.0" />
+            <Pane fx:id="drawingArea" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #ffffff;" />
             <VBox fx:id="leftHoleBox" spacing="10" AnchorPane.leftAnchor="10">
                 <!-- Holes on the left will be added dynamically in the controller -->
             </VBox>
