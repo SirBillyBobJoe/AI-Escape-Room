@@ -127,6 +127,8 @@ public class MainRoomController {
 
     } else if (id.equals("wireBox")) {
       GameState.currentPuzzle.set(Puzzle.WIREPUZZLE);
+    } else if (id.equals("candlePainting")) {
+      GameState.currentPuzzle.set(Puzzle.CANDLEPAINTING);
     }
   }
 

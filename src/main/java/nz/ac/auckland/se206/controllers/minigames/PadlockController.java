@@ -99,6 +99,7 @@ public class PadlockController {
       letterOptions.add(individualLetterOptions);
       hBox.getChildren().add(newLetterField);
     }
+    System.out.println(answer);
   }
 
   @FXML

@@ -27,6 +27,7 @@ public class SceneManager {
     PIPEPUZZLE,
     WIREPUZZLE,
     PADLOCK,
+    CANDLEPAINTING,
   }
 
   private static HashMap<AppUi, Parent> map = new HashMap<AppUi, Parent>();
@@ -89,11 +90,13 @@ public class SceneManager {
     puzzleMap.put(Puzzle.WIREPUZZLE, (Pane) App.loadFxml("wirelinking"));
     puzzleMap.put(Puzzle.PIPEPUZZLE, (Pane) App.loadFxml("pipeconnecting"));
     puzzleMap.put(Puzzle.PADLOCK, (Pane) App.loadFxml("padlock"));
+    puzzleMap.put(Puzzle.CANDLEPAINTING, (Pane) App.loadFxml("candlepainting"));
 
     GameState.puzzleSolved = new HashMap<Puzzle, Boolean>();
     GameState.puzzleSolved.put(Puzzle.WIREPUZZLE, false);
     GameState.puzzleSolved.put(Puzzle.PIPEPUZZLE, false);
     GameState.puzzleSolved.put(Puzzle.PADLOCK, false);
+    GameState.puzzleSolved.put(Puzzle.CANDLEPAINTING, false);
   }
 
   public static Pane getPuzzlePane(Puzzle puzzle) {
