@@ -66,7 +66,7 @@ public class PadlockController {
       // Handle up arrow click
       upArrow.setOnMouseClicked(
           e -> {
-            if (GameState.puzzleSolved.get(Puzzle.PADLOCK)) return;
+            if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) return;
 
             int index = individualLetterOptions.indexOf(selectedLetter.getValue());
             if (index == 0) {
@@ -83,7 +83,7 @@ public class PadlockController {
       // Handle down arrow click
       downArrow.setOnMouseClicked(
           e -> {
-            if (GameState.puzzleSolved.get(Puzzle.PADLOCK)) return;
+            if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) return;
 
             int index = individualLetterOptions.indexOf(selectedLetter.getValue());
             if (index == individualLetterOptions.size() - 1) {
@@ -124,7 +124,7 @@ public class PadlockController {
    * @param event MouseEvent for turning object blue or showing clickable
    */
   private void onMouseEntered(MouseEvent event) {
-    if (GameState.puzzleSolved.get(Puzzle.PADLOCK)) return;
+    if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) return;
 
     Node source = (Polygon) event.getSource();
     ColorAdjust colorAdjust = new ColorAdjust();
@@ -145,7 +145,7 @@ public class PadlockController {
 
   /** Called when the map is found to be complete. Prints a completion message to the console. */
   private void onComplete() {
-    GameState.puzzleSolved.put(Puzzle.PADLOCK, true);
+    GameState.puzzleSolved.get(Puzzle.PADLOCK).set(true);
     System.out.println("Complete");
   }
 }

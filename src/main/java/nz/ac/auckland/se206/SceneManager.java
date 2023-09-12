@@ -2,6 +2,8 @@ package nz.ac.auckland.se206;
 
 import java.io.IOException;
 import java.util.HashMap;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 
@@ -46,7 +48,7 @@ public class SceneManager {
     if (!reinitialize.containsKey(ui) || reinitialize.get(ui)) {
       // If this room should be re-initialized, create a new instance of the UI.
       // For example, load a new instance from a FXML file:
-
+      initialisePuzzles();
       if (ui.equals(AppUi.UIOVERLAY)) {
         System.out.println("Initialise Rooms");
         initialiseRooms();
@@ -76,8 +78,6 @@ public class SceneManager {
     roomMap.put(Rooms.MAINROOM, (Pane) App.loadFxml("mainroom"));
     roomMap.put(Rooms.PUZZLEROOM, (Pane) App.loadFxml("puzzleroom"));
     roomMap.put(Rooms.RIDDLEROOM, (Pane) App.loadFxml("riddleroom"));
-
-    initialisePuzzles();
   }
 
   public static Pane getRoomPane(Rooms room) {
@@ -92,11 +92,11 @@ public class SceneManager {
     puzzleMap.put(Puzzle.PADLOCK, (Pane) App.loadFxml("padlock"));
     puzzleMap.put(Puzzle.CANDLEPAINTING, (Pane) App.loadFxml("candlepainting"));
 
-    GameState.puzzleSolved = new HashMap<Puzzle, Boolean>();
-    GameState.puzzleSolved.put(Puzzle.WIREPUZZLE, false);
-    GameState.puzzleSolved.put(Puzzle.PIPEPUZZLE, false);
-    GameState.puzzleSolved.put(Puzzle.PADLOCK, false);
-    GameState.puzzleSolved.put(Puzzle.CANDLEPAINTING, false);
+    GameState.puzzleSolved = new HashMap<Puzzle, BooleanProperty>();
+    GameState.puzzleSolved.put(Puzzle.WIREPUZZLE, new SimpleBooleanProperty(false));
+    GameState.puzzleSolved.put(Puzzle.PIPEPUZZLE, new SimpleBooleanProperty(false));
+    GameState.puzzleSolved.put(Puzzle.PADLOCK, new SimpleBooleanProperty(false));
+    GameState.puzzleSolved.put(Puzzle.CANDLEPAINTING, new SimpleBooleanProperty(false));
   }
 
   public static Pane getPuzzlePane(Puzzle puzzle) {

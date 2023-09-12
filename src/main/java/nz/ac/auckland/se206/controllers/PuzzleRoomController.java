@@ -147,10 +147,10 @@ public class PuzzleRoomController {
     System.out.println(checkCandleGame());
     System.out.println(GameState.candleOrder);
     if (checkCandleGame()) {
-      GameState.puzzleSolved.put(Puzzle.CANDLEPAINTING, true);
+      GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(true);
       System.out.println("Complete");
     } else {
-      GameState.puzzleSolved.put(Puzzle.CANDLEPAINTING, false);
+      GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(false);
     }
   }
 

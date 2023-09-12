@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Paint;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -148,6 +149,14 @@ public class WirelinkingController {
   private EventHandler<MouseEvent> handleStartDrag =
       event -> {
         Circle sourceHole = (Circle) event.getSource();
+        Paint colour = sourceHole.getStroke();
+        if (colour.equals(Color.RED) && !GameState.inventory.containsItem(GameState.redWire))
+          return;
+        if (colour.equals(Color.BLUE) && !GameState.inventory.containsItem(GameState.blueWire))
+          return;
+        if (colour.equals(Color.GREEN) && !GameState.inventory.containsItem(GameState.greenWire))
+          return;
+
         if (correctPaths.get(sourceHole).isComplete()) return;
 
         currentCorrectPath = correctPaths.get(sourceHole);
@@ -234,6 +243,14 @@ public class WirelinkingController {
     currentCorrectPath.startHole.setFill(permanentWire.getStroke());
     currentCorrectPath.setComplete();
 
+    Paint colour = sourceHole.getStroke();
+    if (colour.equals(Color.RED) && GameState.inventory.containsItem(GameState.redWire))
+      GameState.inventory.removeObject(GameState.redWire);
+    if (colour.equals(Color.BLUE) && GameState.inventory.containsItem(GameState.blueWire))
+      GameState.inventory.removeObject(GameState.blueWire);
+    if (colour.equals(Color.GREEN) && GameState.inventory.containsItem(GameState.greenWire))
+      GameState.inventory.removeObject(GameState.greenWire);
+
     checkCompleteness();
   }
 
@@ -268,7 +285,7 @@ public class WirelinkingController {
     for (CorrectPath path : correctPaths.values()) {
       if (!path.isComplete()) return;
     }
-    GameState.puzzleSolved.put(Puzzle.WIREPUZZLE, true);
+    GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).set(true);
     System.out.println("Completed");
   }
 
