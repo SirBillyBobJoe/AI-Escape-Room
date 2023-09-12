@@ -31,6 +31,7 @@ public class MainRoomController {
   @FXML private ImageView key1, key2, key3;
   @FXML private ImageView lighter1;
   @FXML private ImageView lock1;
+  @FXML private ImageView greenWire, blueWire, redWire;
   @FXML private Rectangle rightDoor, wireBox;
   @FXML CubicCurve leftDoor, exitDoor;
 
@@ -63,8 +64,10 @@ public class MainRoomController {
     GameState.currentRoomItems.put(key2, new Keys(2));
     GameState.currentRoomItems.put(key3, new Keys(3));
     GameState.currentRoomItems.put(lighter1, new Lighter());
-
     GameState.currentRoomItems.put(lock1, new Lock(1));
+    GameState.currentRoomItems.put(greenWire, GameState.greenWire);
+    GameState.currentRoomItems.put(redWire, GameState.redWire);
+    GameState.currentRoomItems.put(blueWire, GameState.blueWire);
   }
 
   /**

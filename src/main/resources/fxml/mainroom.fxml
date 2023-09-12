@@ -7,9 +7,9 @@
 <?import javafx.scene.shape.CubicCurve?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.MainRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.MainRoomController">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="600.0" fitWidth="806.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/mainRoom/mainRoom.png" />
          </image>
@@ -47,5 +47,20 @@
       <Rectangle fx:id="rightDoor" arcHeight="5.0" arcWidth="5.0" fill="#1f85ff" height="317.0" layoutX="734.0" layoutY="192.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="59.0" />
       <Rectangle fx:id="wireBox" arcHeight="5.0" arcWidth="5.0" fill="#1f85ff" height="118.0" layoutX="521.0" layoutY="194.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="93.0" />
       <CubicCurve fx:id="leftDoor" controlX1="-170.0" controlX2="67.0" controlY1="-384.64471435546875" controlY2="-273.0" endX="35.0" endY="351.0" fill="DODGERBLUE" layoutX="152.0" layoutY="131.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" startX="-102.0" startY="380.7113342285156" stroke="BLACK" />
+      <ImageView fx:id="redWire" fitHeight="132.0" fitWidth="138.0" layoutX="64.0" layoutY="148.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Inventory/redWire.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="blueWire" fitHeight="118.0" fitWidth="128.0" layoutX="69.0" layoutY="208.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Inventory/blueWire.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="greenWire" fitHeight="124.0" fitWidth="132.0" layoutX="67.0" layoutY="277.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Inventory/greenWire.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

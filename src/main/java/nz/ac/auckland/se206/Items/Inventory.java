@@ -71,7 +71,10 @@ public class Inventory {
    * @param object The object to remove.
    */
   public void removeObject(Object object) {
-    inventoryProperty.remove(object);
+    if (inventoryProperty.contains(object)) {
+      int index = inventoryProperty.indexOf(object);
+      inventoryProperty.set(index, new Object(null));
+    }
   }
 
   /**
@@ -292,5 +295,9 @@ public class Inventory {
     int index = (int) ((ImageView) event.getSource()).getUserData();
     String message = inventoryProperty.get(index).getItemIdentifier();
     ItemChat.getInstance().printChatMessage(itemChat, message);
+  }
+
+  public boolean containsItem(Object object) {
+    return inventoryProperty.contains(object);
   }
 }
