@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.minigames.CandlePaintingController">
+   <children>
+      <Rectangle fill="#000000cc" height="600.0" layoutX="-4.0" onMouseClicked="#exitPuzzle" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
+      <AnchorPane layoutX="165.0" layoutY="72.0" prefHeight="434.0" prefWidth="451.0">
+         <children>
+            <ImageView fitHeight="427.0" fitWidth="481.0" layoutX="2.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/candlegame/candlePainting.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="candle0" fitHeight="105.0" fitWidth="56.0" layoutX="139.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/puzzleroom/litCandle.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="candle1" fitHeight="105.0" fitWidth="56.0" layoutX="188.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/puzzleroom/unlitCandle.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="candle2" fitHeight="105.0" fitWidth="56.0" layoutX="245.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/puzzleroom/litCandle.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="candle3" fitHeight="105.0" fitWidth="56.0" layoutX="296.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/puzzleroom/unlitCandle.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

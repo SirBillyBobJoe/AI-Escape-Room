@@ -6,6 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.CubicCurve?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.PuzzleRoomController">
    <children>
@@ -18,7 +19,7 @@
          </effect>
       </ImageView>
       <CubicCurve fx:id="rightDoor" controlX1="-85.338134765625" controlX2="47.0" controlY1="-374.3333435058594" controlY2="-715.0" endX="29.00006103515625" endY="36.666656494140625" fill="DODGERBLUE" layoutX="771.0" layoutY="414.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" startX="-65.139892578125" startY="4.333343505859375" stroke="BLACK" />
-      <Button fx:id="wallButton" layoutX="616.0" layoutY="31.0" mnemonicParsing="false" onAction="#pressButton" text="Change Wall" />
+      <Button fx:id="wallButton" layoutX="651.0" layoutY="28.0" mnemonicParsing="false" onAction="#pressButton" text="Change Wall" />
       <ImageView fx:id="candle1" fitHeight="64.0" fitWidth="49.0" layoutX="314.0" layoutY="246.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../images/puzzleroom/unlitCandle.png" />
@@ -39,5 +40,7 @@
             <Image url="@../images/puzzleroom/unlitCandle.png" />
          </image>
       </ImageView>
+      <Button layoutX="77.0" layoutY="427.0" mnemonicParsing="false" onAction="#onPadlock" text="padlock game" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="92.0" layoutX="213.0" layoutY="3.0" onMouseClicked="#onPipe" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="361.0" />
    </children>
 </AnchorPane>

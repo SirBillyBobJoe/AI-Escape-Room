@@ -18,6 +18,7 @@
          </effect>
       </ImageView>
       <CubicCurve fx:id="exitDoor" controlX1="-146.0" controlX2="53.0" controlY1="-347.2886657714844" controlY2="-164.28866577148438" endX="23.0" endY="253.71133422851562" fill="DODGERBLUE" layoutX="461.0" layoutY="222.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" startX="-146.0" startY="253.71133422851562" stroke="BLACK" />
+      <Rectangle fx:id="candlePainting" arcHeight="5.0" arcWidth="5.0" fill="#1f85ff" height="118.0" layoutX="225.0" layoutY="185.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="59.0" />
       <ImageView fx:id="key1" fitHeight="61.0" fitWidth="74.0" layoutX="295.0" layoutY="50.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/key.png" />

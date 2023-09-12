@@ -26,4 +26,8 @@ public class Candle extends Object {
       this.image = new Image("/images/puzzleroom/litCandle.png");
     }
   }
+
+  public boolean isLit() {
+    return isLit;
+  }
 }

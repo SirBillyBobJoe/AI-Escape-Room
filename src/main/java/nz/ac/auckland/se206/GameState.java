@@ -1,6 +1,8 @@
 package nz.ac.auckland.se206;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,6 +22,8 @@ public class GameState {
 
   /** Indicates whether the key has been found. */
   public static boolean isKeyFound = false;
+
+  public static List<Boolean> candleOrder = new ArrayList<Boolean>();
 
   public static StringProperty hints = new SimpleStringProperty("\u221E");
   public static int time = 2;

@@ -269,6 +269,7 @@ public class WirelinkingController {
       if (!path.isComplete()) return;
     }
     GameState.puzzleSolved.put(Puzzle.WIREPUZZLE, true);
+    System.out.println("Completed");
   }
 
   /**
@@ -279,5 +280,6 @@ public class WirelinkingController {
   @FXML
   private void exitPuzzle(MouseEvent event) {
     GameState.currentPuzzle.set(Puzzle.NONE);
+    System.out.println("Exit");
   }
 }

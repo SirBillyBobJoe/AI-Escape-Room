@@ -1,6 +1,8 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -12,15 +14,21 @@ import javafx.scene.input.MouseEvent;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.Items.Candle;
 import nz.ac.auckland.se206.MouseClick;
+import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 
 public class PuzzleRoomController {
   @FXML ImageView background;
   @FXML ImageView candle1, candle2, candle3, candle4;
-
+  private List<ImageView> candles;
   boolean isOpenWall = false;
 
   public void initialize() {
+    candles = new ArrayList<ImageView>();
+    candles.add(candle1);
+    candles.add(candle2);
+    candles.add(candle3);
+    candles.add(candle4);
     candle1.setUserData("candle");
     candle2.setUserData("candle");
     candle3.setUserData("candle");
@@ -136,5 +144,38 @@ public class PuzzleRoomController {
   @FXML
   private void onDragDropped(DragEvent event) {
     GameState.inventory.onDragDropped(event, GameState.currentRoomItems);
+    System.out.println(checkCandleGame());
+    System.out.println(GameState.candleOrder);
+    if (checkCandleGame()) {
+      GameState.puzzleSolved.put(Puzzle.CANDLEPAINTING, true);
+      System.out.println("Complete");
+    } else {
+      GameState.puzzleSolved.put(Puzzle.CANDLEPAINTING, false);
+    }
+  }
+
+  @FXML
+  private void onPipe(MouseEvent event) {
+    new MouseClick().play();
+    GameState.currentPuzzle.set(Puzzle.PIPEPUZZLE);
+  }
+
+  @FXML
+  private void onPadlock(ActionEvent event) {
+    new MouseClick().play();
+    GameState.currentPuzzle.set(Puzzle.PADLOCK);
+  }
+
+  private boolean checkCandleGame() {
+
+    for (int i = 0; i < GameState.candleOrder.size(); i++) {
+      Candle candle = (Candle) GameState.currentRoomItems.get(candles.get(i));
+
+      if (GameState.candleOrder.get(i) != candle.isLit()) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
