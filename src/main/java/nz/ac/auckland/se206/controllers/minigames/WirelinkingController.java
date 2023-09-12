@@ -233,6 +233,8 @@ public class WirelinkingController {
     sourceHole.setFill(permanentWire.getStroke());
     currentCorrectPath.startHole.setFill(permanentWire.getStroke());
     currentCorrectPath.setComplete();
+
+    checkCompleteness();
   }
 
   /**
@@ -260,6 +262,13 @@ public class WirelinkingController {
   private void resetCurrentWireAndPath() {
     resetCurrentWire();
     currentCorrectPath = null;
+  }
+
+  private void checkCompleteness() {
+    for (CorrectPath path : correctPaths.values()) {
+      if (!path.isComplete()) return;
+    }
+    GameState.puzzleSolved.put(Puzzle.WIREPUZZLE, true);
   }
 
   /**

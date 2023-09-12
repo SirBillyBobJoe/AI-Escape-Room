@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+    prefHeight="80.0" prefWidth="40.0" xmlns="http://javafx.com/javafx/20.0.1"
+    xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="label" alignment="CENTER" layoutX="0.0" layoutY="20.0" prefHeight="40"
+            prefWidth="40" text="A">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Label>
+        <Polygon fx:id="upArrow" fill="#c3a615"
+            points="10, 20, 30, 20, 20, 5"
+            stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+        <Polygon fx:id="downArrow" fill="#c3a615"
+            points="10, 60, 30, 60, 20, 75"
+            stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+    </children>
+    <rotationAxis>
+        <Point3D />
+    </rotationAxis>
+</Pane>
