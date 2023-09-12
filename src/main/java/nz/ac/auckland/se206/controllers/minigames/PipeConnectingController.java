@@ -554,7 +554,7 @@ public class PipeConnectingController {
    * @param event The MouseEvent triggered by the click.
    */
   private void handlePaneClick(MouseEvent event) {
-    if (GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE)) return;
+    if (GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE).getValue()) return;
     Pane pane = (Pane) event.getSource();
     int x = GridPane.getColumnIndex(pane);
     int y = GridPane.getRowIndex(pane);
@@ -573,7 +573,7 @@ public class PipeConnectingController {
 
   /** Called when the map is found to be complete. Prints a completion message to the console. */
   private void onComplete() {
-    GameState.puzzleSolved.put(Puzzle.PIPEPUZZLE, true);
+    GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE).set(true);
     System.out.println("Complete");
   }
 }

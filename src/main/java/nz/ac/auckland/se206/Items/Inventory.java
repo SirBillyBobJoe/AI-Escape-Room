@@ -4,6 +4,7 @@ import java.util.HashMap;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.ColorAdjust;
@@ -17,6 +18,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.paint.Color;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.ItemChat;
+import nz.ac.auckland.se206.SceneManager.Puzzle;
 
 /** Represents the inventory of objects within the game. */
 public class Inventory {
@@ -227,7 +229,6 @@ public class Inventory {
           Keys keyItem = (Keys) draggedItem;
           if (keyItem.getID() == lockItem.getId()) {
             lockItem.unlockLock();
-            targetImageView.setVisible(false);
             String message = lockItem.getMessage();
             ItemChat.getInstance().printChatMessage(itemChat, message);
             inventoryProperty.set(originalIndex, new Object(null));
@@ -274,7 +275,14 @@ public class Inventory {
 
   public void onRegularItemClicked(MouseEvent event) {
     itemChat.clear();
+    Node node = (Node) event.getSource();
+    if (node.getId().equals("exitDoor") // if its the exit door tell them u cant escape yet
+        && !GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
+      ItemChat.getInstance().printChatMessage(itemChat, "You need to solve the PadLock Puzzle");
+      return;
+    }
     ImageView imageView = (ImageView) event.getSource();
+
     Object item = GameState.currentRoomItems.get(imageView);
 
     // if not a lock

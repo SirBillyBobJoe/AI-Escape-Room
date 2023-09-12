@@ -28,7 +28,7 @@ import nz.ac.auckland.se206.gpt.GameMaster;
  * the main room.
  */
 public class MainRoomController {
-  @FXML private ImageView key1, key2, key3;
+  @FXML private ImageView key1;
   @FXML private ImageView lighter1;
   @FXML private ImageView lock1;
   @FXML private ImageView greenWire, blueWire, redWire;
@@ -58,11 +58,12 @@ public class MainRoomController {
     GameState.gameMaster.runContext("room1");
 
     lock1.setUserData("lock");
-
+    // bind locks visibility to solving the padlock puzzle
+    lock1.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PADLOCK).not());
+    // binds the keys visibility to solving the wire game
+    key1.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE));
     // initialise objects in room 1 into HashMap
     GameState.currentRoomItems.put(key1, new Keys(1));
-    GameState.currentRoomItems.put(key2, new Keys(2));
-    GameState.currentRoomItems.put(key3, new Keys(3));
     GameState.currentRoomItems.put(lighter1, new Lighter());
     GameState.currentRoomItems.put(lock1, new Lock(1));
     GameState.currentRoomItems.put(greenWire, GameState.greenWire);
@@ -102,10 +103,14 @@ public class MainRoomController {
   @FXML
   private void objectClicked(MouseEvent event) throws IOException {
     Node source = (Node) event.getSource();
+    source.visibleProperty().unbind();
     String id = source.getId();
     new MouseClick().play();
     if (source instanceof ImageView) {
-
+      if (id.equals("lock1") && !(((Lock) GameState.currentRoomItems.get(lock1)).isLocked())) {
+        GameState.currentPuzzle.set(Puzzle.PADLOCK);
+        return;
+      }
       GameState.inventory.onRegularItemClicked(event);
 
     } else if (id.equals("leftDoor")) { // if click on the left door
@@ -117,16 +122,19 @@ public class MainRoomController {
       GameState.currentRoom.set(Rooms.RIDDLEROOM);
 
     } else if (id.equals("exitDoor")) { // if clicked on the centre exit door
-
-      GameState.timer.stop();
-      GameState.escaped = true;
-      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-      SceneManager.setReinitialise(AppUi.ENDSCREEN);
-      App.setUserInterface(AppUi.ENDSCREEN);
-      double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-      double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-      stage.setWidth(800 + additionalWidth);
-      stage.setHeight(600 + additionalHeight);
+      if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
+        GameState.timer.stop();
+        GameState.escaped = true;
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        SceneManager.setReinitialise(AppUi.ENDSCREEN);
+        App.setUserInterface(AppUi.ENDSCREEN);
+        double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
+        double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
+        stage.setWidth(800 + additionalWidth);
+        stage.setHeight(600 + additionalHeight);
+      } else {
+        GameState.inventory.onRegularItemClicked(event);
+      }
 
     } else if (id.equals("wireBox")) {
       GameState.currentPuzzle.set(Puzzle.WIREPUZZLE);

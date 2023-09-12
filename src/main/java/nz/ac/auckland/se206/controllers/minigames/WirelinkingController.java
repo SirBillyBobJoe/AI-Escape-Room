@@ -285,7 +285,7 @@ public class WirelinkingController {
     for (CorrectPath path : correctPaths.values()) {
       if (!path.isComplete()) return;
     }
-    GameState.puzzleSolved.put(Puzzle.WIREPUZZLE, true);
+    GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).set(true);
     System.out.println("Completed");
   }
 

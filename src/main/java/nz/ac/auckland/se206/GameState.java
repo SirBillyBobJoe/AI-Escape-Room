@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -47,7 +48,7 @@ public class GameState {
       new SimpleObjectProperty<SceneManager.Rooms>(Rooms.MAINROOM);
   public static SimpleObjectProperty<Puzzle> currentPuzzle =
       new SimpleObjectProperty<SceneManager.Puzzle>(Puzzle.NONE);
-  public static Map<Puzzle, Boolean> puzzleSolved = new HashMap<Puzzle, Boolean>();
+  public static Map<Puzzle, BooleanProperty> puzzleSolved = new HashMap<Puzzle, BooleanProperty>();
 
   // Padlock Game
   public static String padlockAnswer = "YoMama";
