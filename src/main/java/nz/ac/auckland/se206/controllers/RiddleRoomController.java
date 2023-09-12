@@ -4,13 +4,33 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 
 public class RiddleRoomController {
+  @FXML Rectangle leftDoor;
+  @FXML Rectangle computer;
+  @FXML ImageView imgRoom;
+
+  /** Turns the lights on in the riddle room */
+  @FXML
+  public void turnLightsOn() {
+    imgRoom.setImage(new Image("/images/riddleRoom/riddleRoomLight.png"));
+    GameState.riddleRoomActive = true;
+  }
+
+  /** Turns the lights off in the riddle room */
+  @FXML
+  public void turnLightsOff() {
+    imgRoom.setImage(new Image("/images/riddleRoom/riddleRoomDark.png"));
+    GameState.riddleRoomActive = false;
+  }
+
   /**
    * Handles clicking on game objects in the room.
    *

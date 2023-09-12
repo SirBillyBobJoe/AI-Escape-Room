@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.CubicCurve?>
 <?import javafx.scene.shape.Rectangle?>
 
@@ -56,5 +60,31 @@
       <Rectangle fx:id="rightDoor" arcHeight="5.0" arcWidth="5.0" fill="#1f85ff" height="317.0" layoutX="734.0" layoutY="192.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="59.0" />
       <Rectangle fx:id="wireBox" arcHeight="5.0" arcWidth="5.0" fill="#1f85ff" height="118.0" layoutX="521.0" layoutY="194.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="93.0" />
       <CubicCurve fx:id="leftDoor" controlX1="-170.0" controlX2="67.0" controlY1="-384.64471435546875" controlY2="-273.0" endX="35.0" endY="351.0" fill="DODGERBLUE" layoutX="152.0" layoutY="131.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" startX="-102.0" startY="380.7113342285156" stroke="BLACK" />
+      <Rectangle fx:id="riddleGlow" arcHeight="5.0" arcWidth="5.0" height="341.0" layoutX="733.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" width="74.0">
+         <effect>
+            <GaussianBlur />
+         </effect>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color opacity="0.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006711409395973154">
+                     <color>
+                        <Color opacity="0.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" opacity="0.7022900581359863" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
    </children>
 </AnchorPane>

@@ -31,7 +31,7 @@ public class MainRoomController {
   @FXML private ImageView lighter1, lighter2, lighter3;
   @FXML private ImageView lock1;
   @FXML private Rectangle rightDoor, wireBox;
-  @FXML CubicCurve leftDoor, exitDoor;
+  @FXML private CubicCurve leftDoor, exitDoor;
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {

@@ -19,7 +19,11 @@ public class GameState {
   /** Indicates whether the key has been found. */
   public static boolean isKeyFound = false;
 
+  /** Indicates whether the riddle room is active or not */
+  public static boolean riddleRoomActive = false;
+
   public static StringProperty hints = new SimpleStringProperty("\u221E");
+
   public static int time = 2;
   public static String difficulty = "easy";
 
