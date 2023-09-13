@@ -46,7 +46,7 @@ public class GameState {
 
   public static StringProperty hints = new SimpleStringProperty("\u221E");
 
-  public static int time = 2;
+  public static int time = 6;
   public static String difficulty = "easy";
 
   public static boolean escaped = false;
