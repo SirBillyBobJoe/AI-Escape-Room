@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.minigames.ComputerScreenController">
+  <children>
+      <Rectangle fill="#000000cc" height="600.0" onMouseClicked="#exitPuzzle" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
+      <AnchorPane fx:id="computerScreen" layoutX="102.0" layoutY="109.0" prefHeight="381.0" prefWidth="595.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-color: grey; -fx-border-radius: 10px; -fx-border-width: 2px;">
+         <children>
+            <ImageView fitHeight="334.0" fitWidth="548.0" layoutX="25.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/riddleRoom/computerBackground.png" />
+               </image>
+            </ImageView>
+            <AnchorPane fx:id="computerScreenWindow" layoutX="41.0" layoutY="41.0" prefHeight="298.0" prefWidth="350.0" style="-fx-background-color: rgba(255,255,255,0.5);">
+               <children>
+                  <TextField layoutX="23.0" layoutY="250.0" prefHeight="26.0" prefWidth="249.0" promptText="Type here" />
+                  <Button layoutX="283.0" layoutY="250.0" mnemonicParsing="false" text="Send" />
+                  <TextArea layoutX="23.0" layoutY="47.0" prefHeight="190.0" prefWidth="304.0" text="Hello" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0" layoutX="1.0" layoutY="-1.0" stroke="TRANSPARENT" strokeType="INSIDE" width="348.0" />
+                  <Circle fill="#ff5b5b" layoutX="331.0" layoutY="13.0" radius="6.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+               </children>
+            </AnchorPane>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="151.0" layoutX="399.0" layoutY="70.0" stroke="TRANSPARENT" strokeType="INSIDE" width="151.0">
+               <effect>
+                  <GaussianBlur radius="62.99" />
+               </effect>
+            </Rectangle>
+            <ImageView fitHeight="84.0" fitWidth="75.0" layoutX="437.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/riddleRoom/gameMaster.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+  </children>
+</AnchorPane>
