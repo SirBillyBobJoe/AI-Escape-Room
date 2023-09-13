@@ -115,8 +115,7 @@ public class UIOverlayController {
 
     // Bind text areas of the 2 controllers together for chat
     GameState.chat = SharedChat.getInstance();
-    textArea.textProperty().bind(GameState.chat.getTextProperty());
-    textArea.setWrapText(true);
+    txaGameMaster.textProperty().bind(GameState.chat.getTextProperty());
 
     // Scroll to the bottom of the chat area when text changes
     GameState.chat
@@ -125,7 +124,7 @@ public class UIOverlayController {
             (observable, oldValue, newValue) -> {
               Platform.runLater(
                   () -> {
-                    textArea.setScrollTop(Double.MAX_VALUE);
+                    txaGameMaster.setScrollTop(Double.MAX_VALUE);
                   });
             });
 

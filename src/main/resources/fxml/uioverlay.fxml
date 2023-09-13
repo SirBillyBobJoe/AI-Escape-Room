@@ -12,7 +12,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.UIOverlayController">
@@ -58,7 +57,7 @@
          </font>
       </Label>
 
-      <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="822.0" layoutY="37.0" onMouseClicked="#gameMasterClicked" prefHeight="209.0" prefWidth="250.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
+      <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="822.0" layoutY="37.0" onMouseClicked="#gameMasterClicked" prefHeight="218.0" prefWidth="250.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
          <effect>
             <InnerShadow height="44.09" radius="21.635" width="44.45">
                <color>
@@ -84,18 +83,6 @@
             <Image url="@../images/menu/gameMaster.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="textArea" layoutX="822.0" layoutY="330.0" prefHeight="200.0" prefWidth="250.0">
-         <effect>
-            <DropShadow height="50.0" radius="24.5" width="50.0">
-               <color>
-                  <Color green="0.47843137383461" blue="0.9254902005195618" />
-               </color>
-            </DropShadow>
-         </effect>
-         <font>
-            <Font name="Consolas" size="12.0" />
-         </font>
-      </TextArea>
       <Button layoutX="1029.0" layoutY="538.0" mnemonicParsing="false" onAction="#onSend" text="Send" />
       <Label fx:id="hintLabel" layoutX="1008.0" layoutY="292.0" prefHeight="37.0" prefWidth="25.0" text="10">
          <font>
@@ -112,7 +99,6 @@
             <Font name="Consolas" size="12.0" />
          </font>
       </TextField>
-      <Line endX="150.0" layoutX="923.0" layoutY="277.0" startX="-100.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="0.7" />
       <AnchorPane fx:id="puzzlePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" />
    </children>
 </AnchorPane>
