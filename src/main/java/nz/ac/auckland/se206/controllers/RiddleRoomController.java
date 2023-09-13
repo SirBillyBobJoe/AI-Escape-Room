@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.MouseClick;
+import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 
 public class RiddleRoomController {
@@ -46,6 +47,8 @@ public class RiddleRoomController {
     if (id.equals("leftDoor")) {
 
       GameState.currentRoom.set(Rooms.MAINROOM);
+    } else if (id.equals("computer")) {
+      GameState.currentPuzzle.set(Puzzle.COMPUTERSCREEN);
     }
   }
 
