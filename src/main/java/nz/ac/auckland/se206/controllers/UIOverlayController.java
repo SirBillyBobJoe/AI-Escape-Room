@@ -259,6 +259,9 @@ public class UIOverlayController {
     GameState.inventory = new Inventory();
     GameState.gameMaster = new GameMaster();
     GameState.chat.restart();
+    GameState.resetGame();
+    SceneManager.initialisePuzzles();
+    SceneManager.initialiseRooms();
   }
 
   /**

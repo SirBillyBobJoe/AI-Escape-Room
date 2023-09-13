@@ -32,7 +32,7 @@ public class MainRoomController {
   @FXML private ImageView key1;
   @FXML private ImageView lighter1;
   @FXML private ImageView lock1;
-  @FXML private ImageView greenWire, blueWire, redWire;
+  @FXML private ImageView blueWire, redWire;
   @FXML private ImageView hammer;
   @FXML private Rectangle rightDoor, wireBox;
   @FXML private CubicCurve leftDoor, exitDoor;
@@ -66,13 +66,14 @@ public class MainRoomController {
     lock1.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PADLOCK).not());
     // binds the keys visibility to solving the wire game
     key1.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE));
+
+    wireBox.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).not());
     // initialise objects in room 1 into HashMap
     GameState.currentRoomItems.put(key1, new Keys(1));
     GameState.currentRoomItems.put(lighter1, new Lighter());
     GameState.currentRoomItems.put(lock1, new Lock(1));
 
     GameState.riddleGlow = riddleGlow;
-    GameState.currentRoomItems.put(greenWire, GameState.greenWire);
     GameState.currentRoomItems.put(redWire, GameState.redWire);
     GameState.currentRoomItems.put(blueWire, GameState.blueWire);
     GameState.currentRoomItems.put(hammer, new Hammer());
@@ -110,11 +111,14 @@ public class MainRoomController {
   @FXML
   private void objectClicked(MouseEvent event) throws IOException {
     Node source = (Node) event.getSource();
-    source.visibleProperty().unbind();
+
     String id = source.getId();
     new MouseClick().play();
     if (source instanceof ImageView) {
+      System.out.println("unbinded" + source.getId());
+      source.visibleProperty().unbind();
       if (id.equals("lock1") && !(((Lock) GameState.currentRoomItems.get(lock1)).isLocked())) {
+
         GameState.currentPuzzle.set(Puzzle.PADLOCK);
         return;
       }

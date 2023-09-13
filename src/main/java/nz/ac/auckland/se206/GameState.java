@@ -41,6 +41,7 @@ public class GameState {
       riddleGlow.setVisible(false);
     }
   }
+
   public static List<Boolean> candleOrder = new ArrayList<Boolean>();
 
   public static StringProperty hints = new SimpleStringProperty("\u221E");
@@ -128,4 +129,13 @@ public class GameState {
     "scroll",
     "stuck"
   };
+
+  public static void resetGame() {
+    wallCount = 3;
+    candleOrder.clear(); // Assuming you want to empty the list
+    escaped = false;
+    timer = CountdownTimer.getInstance(time * 60); // Assuming getInstance resets the timer
+    currentRoom.set(Rooms.MAINROOM);
+    currentPuzzle.set(Puzzle.NONE);
+  }
 }

@@ -18,7 +18,7 @@ public class CandlePaintingController {
     candles.add(candle1);
     candles.add(candle2);
     candles.add(candle3);
-
+    GameState.candleOrder = new ArrayList<Boolean>();
     for (int i = 0; i < 4; i++) {
       Random random = new Random();
 
