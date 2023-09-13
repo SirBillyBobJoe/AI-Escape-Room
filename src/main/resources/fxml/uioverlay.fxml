@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
@@ -57,7 +56,7 @@
          </font>
       </Label>
 
-      <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="822.0" layoutY="37.0" onMouseClicked="#gameMasterClicked" prefHeight="218.0" prefWidth="250.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
+      <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="822.0" layoutY="141.0" onMouseClicked="#gameMasterClicked" prefHeight="218.0" prefWidth="250.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
          <effect>
             <InnerShadow height="44.09" radius="21.635" width="44.45">
                <color>
@@ -78,27 +77,27 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </TextArea>
-      <ImageView fx:id="imgGameMaster" fitHeight="53.0" fitWidth="58.0" layoutX="921.0" layoutY="46.0" onMouseClicked="#gameMasterClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgGameMaster" fitHeight="53.0" fitWidth="58.0" layoutX="921.0" layoutY="150.0" onMouseClicked="#gameMasterClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/menu/gameMaster.png" />
          </image>
       </ImageView>
-      <Button layoutX="1029.0" layoutY="538.0" mnemonicParsing="false" onAction="#onSend" text="Send" />
-      <Label fx:id="hintLabel" layoutX="1008.0" layoutY="292.0" prefHeight="37.0" prefWidth="25.0" text="10">
+      <Button layoutX="822.0" layoutY="465.0" mnemonicParsing="false" onAction="#onSend" prefHeight="26.0" prefWidth="250.0" text="Send" />
+      <Label fx:id="hintLabel" layoutX="1007.0" layoutY="92.0" prefHeight="37.0" prefWidth="25.0" text="10" textFill="#c9c9c9">
          <font>
             <Font name="Consolas Bold" size="28.0" />
          </font>
       </Label>
-      <ImageView fitHeight="30.0" fitWidth="29.0" layoutX="1046.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="30.0" fitWidth="29.0" layoutX="1046.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/hint.png" />
          </image>
       </ImageView>
-      <TextField fx:id="textField" layoutX="822.0" layoutY="538.0" prefHeight="25.0" prefWidth="207.0">
+      <TextArea fx:id="promptArea" layoutX="822.0" layoutY="374.0" prefHeight="81.0" prefWidth="250.0" promptText="Chat to me if you must..." wrapText="true">
          <font>
             <Font name="Consolas" size="12.0" />
          </font>
-      </TextField>
+      </TextArea>
       <AnchorPane fx:id="puzzlePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" />
    </children>
 </AnchorPane>

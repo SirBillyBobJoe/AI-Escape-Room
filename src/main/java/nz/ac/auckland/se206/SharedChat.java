@@ -3,7 +3,7 @@ package nz.ac.auckland.se206;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.concurrent.Task;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 
 /** A singleton class that manages the shared chat functionality in the application. */
 public class SharedChat {
@@ -25,11 +25,7 @@ public class SharedChat {
 
   /** Constructs a new SharedChat instance with an initial welcome message. */
   public SharedChat() {
-    this.text =
-        new SimpleStringProperty(
-            "Grand Wizard: Welcome To My Dungeon Click On The Hints Button If You Are Stuck!!!"
-                + "\n"
-                + "\n");
+    this.text = new SimpleStringProperty("I am the all knowing, The Singularity." + "\n" + "\n");
   }
 
   /**
@@ -72,7 +68,7 @@ public class SharedChat {
    * @param textField The TextField containing the user message.
    * @param room The room context for the message.
    */
-  public void onSend(TextField textField, String room) {
+  public void onSend(TextArea textField, String room) {
     String msg1 = "";
     String msg = textField.getText();
 

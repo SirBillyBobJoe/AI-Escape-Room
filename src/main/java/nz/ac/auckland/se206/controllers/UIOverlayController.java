@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
@@ -40,8 +39,7 @@ public class UIOverlayController {
   @FXML private Label countdownLabel;
   @FXML private Label hintLabel;
   @FXML private ImageView item0, item1, item2, item3, item4, item5;
-  @FXML private TextArea textArea;
-  @FXML private TextField textField;
+  @FXML private TextArea promptArea;
   @FXML private TextArea itemChat;
 
   @FXML Label lblRestart;
@@ -338,7 +336,7 @@ public class UIOverlayController {
    */
   @FXML
   private void onSend(ActionEvent event) {
-    GameState.chat.onSend(textField, "room1");
+    GameState.chat.onSend(promptArea, "room1");
   }
 
   /**
