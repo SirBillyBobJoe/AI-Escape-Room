@@ -48,7 +48,9 @@ public class RiddleRoomController {
 
       GameState.currentRoom.set(Rooms.MAINROOM);
     } else if (id.equals("computer")) {
-      GameState.currentPuzzle.set(Puzzle.COMPUTERSCREEN);
+      if (GameState.riddleRoomActive) {
+        GameState.currentPuzzle.set(Puzzle.COMPUTERSCREEN);
+      }
     }
   }
 
