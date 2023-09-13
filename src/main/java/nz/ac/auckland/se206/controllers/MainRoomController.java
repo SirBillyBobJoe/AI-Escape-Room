@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
@@ -10,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.Items.Inventory;
@@ -62,7 +64,17 @@ public class MainRoomController {
     // bind locks visibility to solving the padlock puzzle
     lock1.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PADLOCK).not());
     // binds the keys visibility to solving the wire game
+    // Bind the visible property to some condition (in your case, puzzle solved)
     key1.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE));
+
+    // Add a listener to the visible property
+    key1.visibleProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue) { // Check if the new value of the property is 'true'
+                drop(key1);
+              }
+            });
 
     wireBox.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).not());
     // initialise objects in room 1 into HashMap
@@ -215,5 +227,13 @@ public class MainRoomController {
     } else {
       source.setOpacity(0); // Make the node invisible
     }
+  }
+
+  private void drop(Node node) {
+    TranslateTransition translate = new TranslateTransition();
+    translate.setNode(node);
+    translate.setDuration(Duration.millis(1000));
+    translate.setByY(200);
+    translate.play();
   }
 }

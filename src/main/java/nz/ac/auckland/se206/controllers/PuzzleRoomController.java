@@ -3,6 +3,7 @@ package nz.ac.auckland.se206.controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -11,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.Items.Candle;
 import nz.ac.auckland.se206.Items.Hammer;
@@ -47,6 +49,23 @@ public class PuzzleRoomController {
     hammer.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE));
 
     greenWire.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING));
+    // Add a listener to the visible property
+    greenWire
+        .visibleProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue) { // Check if the new value of the property is 'true'
+                drop(greenWire);
+              }
+            });
+    hammer
+        .visibleProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue) { // Check if the new value of the property is 'true'
+                drop(hammer);
+              }
+            });
   }
 
   /**
@@ -183,5 +202,13 @@ public class PuzzleRoomController {
     }
 
     return true;
+  }
+
+  private void drop(Node node) {
+    TranslateTransition translate = new TranslateTransition();
+    translate.setNode(node);
+    translate.setDuration(Duration.millis(1000));
+    translate.setByY(200);
+    translate.play();
   }
 }
