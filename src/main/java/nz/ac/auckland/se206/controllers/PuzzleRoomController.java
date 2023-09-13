@@ -128,6 +128,10 @@ public class PuzzleRoomController {
       candle2.setVisible(true);
       candle3.setVisible(true);
       candle4.setVisible(true);
+    } else if (GameState.wallCount == 2) {
+      background.setImage(new Image("/images/puzzleroom/crack1.png"));
+    } else if (GameState.wallCount == 1) {
+      background.setImage(new Image("/images/puzzleroom/crack2.png"));
     }
     if (node.getUserData().equals("candle")) {
       System.out.println(checkCandleGame());
