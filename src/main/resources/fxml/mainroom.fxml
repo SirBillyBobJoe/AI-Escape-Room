@@ -52,5 +52,10 @@
             <Image url="@../images/Inventory/greenWire.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="hammer" fitHeight="102.0" fitWidth="88.0" layoutX="155.0" layoutY="324.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Inventory/hammer.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

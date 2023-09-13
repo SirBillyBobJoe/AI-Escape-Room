@@ -59,6 +59,8 @@ public class GameState {
 
   public static int numInventorySlots = 0;
 
+  public static int wallCount = 3;
+
   public static String[] clueFirst = {
     "help", "hint", "what", "how", "where", "who", "why", "can", "do", "stuck", "lost", "tell",
     "show", "give", "need", "find", "solve", "figure", "unlock", "explain", "Im", "I'm"
