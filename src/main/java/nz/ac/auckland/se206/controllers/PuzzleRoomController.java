@@ -93,30 +93,6 @@ public class PuzzleRoomController {
   }
 
   /**
-   * Changes to the wall
-   *
-   * @param event ActionEvent for changing the wall.
-   */
-  @FXML
-  private void pressButton(ActionEvent event) {
-    if (isOpenWall) {
-      background.setImage(new Image("/images/puzzleroom/room.png"));
-      isOpenWall = false;
-      candle1.setVisible(false);
-      candle2.setVisible(false);
-      candle3.setVisible(false);
-      candle4.setVisible(false);
-    } else {
-      background.setImage(new Image("/images/puzzleroom/openwallroom.png"));
-      isOpenWall = true;
-      candle1.setVisible(true);
-      candle2.setVisible(true);
-      candle3.setVisible(true);
-      candle4.setVisible(true);
-    }
-  }
-
-  /**
    * Allows drag-and-drop actions to proceed.
    *
    * @param event DragEvent for dragging over a target.
@@ -144,13 +120,24 @@ public class PuzzleRoomController {
   @FXML
   private void onDragDropped(DragEvent event) {
     GameState.inventory.onDragDropped(event, GameState.currentRoomItems);
-    System.out.println(checkCandleGame());
-    System.out.println(GameState.candleOrder);
-    if (checkCandleGame()) {
-      GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(true);
-      System.out.println("Complete");
-    } else {
-      GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(false);
+    Node node = (Node) event.getSource();
+    if (GameState.wallCount <= 0) {
+      background.setImage(new Image("/images/puzzleroom/openwallroom.png"));
+      isOpenWall = true;
+      candle1.setVisible(true);
+      candle2.setVisible(true);
+      candle3.setVisible(true);
+      candle4.setVisible(true);
+    }
+    if (node.getUserData().equals("candle")) {
+      System.out.println(checkCandleGame());
+      System.out.println(GameState.candleOrder);
+      if (checkCandleGame()) {
+        GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(true);
+        System.out.println("Complete");
+      } else {
+        GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(false);
+      }
     }
   }
 

@@ -16,8 +16,10 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.ItemChat;
+import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 
 /** Represents the inventory of objects within the game. */
@@ -170,7 +172,11 @@ public class Inventory {
     // string
     if (event.getGestureSource() != event.getSource() && event.getDragboard().hasString()) {
       event.acceptTransferModes(TransferMode.MOVE);
-
+      Node targetImageNode = (Node) event.getSource();
+      if (targetImageNode instanceof Rectangle) {
+        targetImageNode.setOpacity(0.22);
+        return;
+      }
       // Make it really blue when hovered over
       ImageView targetImageView = (ImageView) event.getSource();
       ColorAdjust colorAdjust = new ColorAdjust();
@@ -189,6 +195,11 @@ public class Inventory {
    * @param event The DragEvent triggered by the exit.
    */
   public void onDragExited(DragEvent event) {
+    Node targetImageNode = (Node) event.getSource();
+    if (targetImageNode instanceof Rectangle) {
+      targetImageNode.setOpacity(0);
+      return;
+    }
     // Remove the blue tint after dropping
     ImageView targetImageView = (ImageView) event.getSource();
     targetImageView.setEffect(null);
@@ -200,9 +211,8 @@ public class Inventory {
    * @param event The DragEvent triggered by the drop.
    */
   public void onDragDropped(DragEvent event, HashMap<ImageView, Object> room1Items) {
-    // Remove the blue tint after dropping
-    ImageView targetImageView = (ImageView) event.getSource();
-    targetImageView.setEffect(null);
+    Node targetImageNode = (Node) event.getSource();
+    targetImageNode.setEffect(null);
 
     // Get Dragboard
     Dragboard db = event.getDragboard();
@@ -216,7 +226,24 @@ public class Inventory {
       Object draggedItem =
           GameState.inventory.getObject(
               originalIndex); // Retrieve the dragged object based on the index.
+      if (targetImageNode instanceof Rectangle && targetImageNode.getId().equals("brickWall")) {
+        System.out.println(GameState.wallCount);
+        if (draggedItem instanceof Hammer) {
+          new MouseClick().play();
 
+          if (!(GameState.wallCount-- > 1)) {
+            targetImageNode.setVisible(false);
+            ItemChat.getInstance().printChatMessage(itemChat, "you have broken the wall");
+          }
+
+          ItemChat.getInstance().printChatMessage(itemChat, "you have cracked the wall");
+        } else {
+          ItemChat.getInstance().printChatMessage(itemChat, "You need to use a hammer");
+        }
+        return;
+      }
+      // Remove the blue tint after dropping
+      ImageView targetImageView = (ImageView) event.getSource();
       targetImageView = (ImageView) event.getSource(); // renamed to match the same variable name
 
       // Check if it's a lock
