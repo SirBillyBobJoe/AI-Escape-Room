@@ -35,7 +35,8 @@ public class MainRoomController {
   @FXML private ImageView greenWire, blueWire, redWire;
   @FXML private ImageView hammer;
   @FXML private Rectangle rightDoor, wireBox;
-  @FXML CubicCurve leftDoor, exitDoor;
+  @FXML private CubicCurve leftDoor, exitDoor;
+  @FXML private Rectangle riddleGlow;
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
@@ -69,6 +70,8 @@ public class MainRoomController {
     GameState.currentRoomItems.put(key1, new Keys(1));
     GameState.currentRoomItems.put(lighter1, new Lighter());
     GameState.currentRoomItems.put(lock1, new Lock(1));
+
+    GameState.riddleGlow = riddleGlow;
     GameState.currentRoomItems.put(greenWire, GameState.greenWire);
     GameState.currentRoomItems.put(redWire, GameState.redWire);
     GameState.currentRoomItems.put(blueWire, GameState.blueWire);

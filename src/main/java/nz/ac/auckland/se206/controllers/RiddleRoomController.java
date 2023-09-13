@@ -4,13 +4,35 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 
 public class RiddleRoomController {
+  @FXML Rectangle leftDoor;
+  @FXML Rectangle computer;
+  @FXML ImageView imgRoom;
+
+  /** Turns the lights on in the riddle room */
+  @FXML
+  public void turnLightsOn() {
+    imgRoom.setImage(new Image("/images/riddleRoom/riddleRoomLight.png"));
+    GameState.riddleRoomActive = true;
+    GameState.setRiddleGlow();
+  }
+
+  /** Turns the lights off in the riddle room */
+  @FXML
+  public void turnLightsOff() {
+    imgRoom.setImage(new Image("/images/riddleRoom/riddleRoomDark.png"));
+    GameState.riddleRoomActive = false;
+    GameState.setRiddleGlow();
+  }
+
   /**
    * Handles clicking on game objects in the room.
    *
@@ -43,7 +65,14 @@ public class RiddleRoomController {
       colorAdjust.setSaturation(1); // Max saturation
       targetImageView.setEffect(colorAdjust);
     } else {
-      source.setOpacity(0.22);
+      // Everything but the door shouldn't be hoverable if the riddle room is inactive
+      if (source == computer) {
+        if (GameState.riddleRoomActive) {
+          source.setOpacity(0.22);
+        }
+      } else {
+        source.setOpacity(0.22);
+      }
     }
   }
 
