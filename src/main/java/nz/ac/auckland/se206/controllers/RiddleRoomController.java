@@ -22,6 +22,7 @@ public class RiddleRoomController {
   public void turnLightsOn() {
     imgRoom.setImage(new Image("/images/riddleRoom/riddleRoomLight.png"));
     GameState.riddleRoomActive = true;
+    GameState.setRiddleGlow();
   }
 
   /** Turns the lights off in the riddle room */
@@ -29,6 +30,7 @@ public class RiddleRoomController {
   public void turnLightsOff() {
     imgRoom.setImage(new Image("/images/riddleRoom/riddleRoomDark.png"));
     GameState.riddleRoomActive = false;
+    GameState.setRiddleGlow();
   }
 
   /**

@@ -4,7 +4,9 @@ import java.util.HashMap;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.Items.Inventory;
 import nz.ac.auckland.se206.Items.Object;
 import nz.ac.auckland.se206.SceneManager.Rooms;
@@ -22,7 +24,15 @@ public class GameState {
   /** Indicates whether the riddle room is active or not */
   public static boolean riddleRoomActive = false;
 
-  public static void toggleRiddleRoomActive() {}
+  @FXML public static Rectangle riddleGlow;
+
+  public static void setRiddleGlow() {
+    if (riddleRoomActive) {
+      riddleGlow.setVisible(true);
+    } else {
+      riddleGlow.setVisible(false);
+    }
+  }
 
   public static StringProperty hints = new SimpleStringProperty("\u221E");
 

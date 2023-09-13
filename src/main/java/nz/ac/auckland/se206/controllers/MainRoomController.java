@@ -68,6 +68,8 @@ public class MainRoomController {
     GameState.currentRoomItems.put(lighter2, new Lighter());
     GameState.currentRoomItems.put(lighter3, new Lighter());
     GameState.currentRoomItems.put(lock1, new Lock(1));
+
+    GameState.riddleGlow = riddleGlow;
   }
 
   /**
