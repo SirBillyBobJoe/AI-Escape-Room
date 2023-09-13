@@ -30,6 +30,7 @@ public class SceneManager {
     WIREPUZZLE,
     PADLOCK,
     CANDLEPAINTING,
+    COMPUTERSCREEN,
   }
 
   private static HashMap<AppUi, Parent> map = new HashMap<AppUi, Parent>();
@@ -91,12 +92,14 @@ public class SceneManager {
     puzzleMap.put(Puzzle.PIPEPUZZLE, (Pane) App.loadFxml("pipeconnecting"));
     puzzleMap.put(Puzzle.PADLOCK, (Pane) App.loadFxml("padlock"));
     puzzleMap.put(Puzzle.CANDLEPAINTING, (Pane) App.loadFxml("candlepainting"));
+    puzzleMap.put(Puzzle.COMPUTERSCREEN, (Pane) App.loadFxml("computerscreen"));
 
     GameState.puzzleSolved = new HashMap<Puzzle, BooleanProperty>();
     GameState.puzzleSolved.put(Puzzle.WIREPUZZLE, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.PIPEPUZZLE, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.PADLOCK, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.CANDLEPAINTING, new SimpleBooleanProperty(false));
+    GameState.puzzleSolved.put(Puzzle.COMPUTERSCREEN, new SimpleBooleanProperty(false));
   }
 
   public static Pane getPuzzlePane(Puzzle puzzle) {
