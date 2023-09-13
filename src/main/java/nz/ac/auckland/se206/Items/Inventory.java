@@ -4,6 +4,7 @@ import java.util.HashMap;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.ColorAdjust;
@@ -15,8 +16,11 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.ItemChat;
+import nz.ac.auckland.se206.MouseClick;
+import nz.ac.auckland.se206.SceneManager.Puzzle;
 
 /** Represents the inventory of objects within the game. */
 public class Inventory {
@@ -71,7 +75,10 @@ public class Inventory {
    * @param object The object to remove.
    */
   public void removeObject(Object object) {
-    inventoryProperty.remove(object);
+    if (inventoryProperty.contains(object)) {
+      int index = inventoryProperty.indexOf(object);
+      inventoryProperty.set(index, new Object(null));
+    }
   }
 
   /**
@@ -165,7 +172,11 @@ public class Inventory {
     // string
     if (event.getGestureSource() != event.getSource() && event.getDragboard().hasString()) {
       event.acceptTransferModes(TransferMode.MOVE);
-
+      Node targetImageNode = (Node) event.getSource();
+      if (targetImageNode instanceof Rectangle) {
+        targetImageNode.setOpacity(0.22);
+        return;
+      }
       // Make it really blue when hovered over
       ImageView targetImageView = (ImageView) event.getSource();
       ColorAdjust colorAdjust = new ColorAdjust();
@@ -184,6 +195,11 @@ public class Inventory {
    * @param event The DragEvent triggered by the exit.
    */
   public void onDragExited(DragEvent event) {
+    Node targetImageNode = (Node) event.getSource();
+    if (targetImageNode instanceof Rectangle) {
+      targetImageNode.setOpacity(0);
+      return;
+    }
     // Remove the blue tint after dropping
     ImageView targetImageView = (ImageView) event.getSource();
     targetImageView.setEffect(null);
@@ -195,9 +211,8 @@ public class Inventory {
    * @param event The DragEvent triggered by the drop.
    */
   public void onDragDropped(DragEvent event, HashMap<ImageView, Object> room1Items) {
-    // Remove the blue tint after dropping
-    ImageView targetImageView = (ImageView) event.getSource();
-    targetImageView.setEffect(null);
+    Node targetImageNode = (Node) event.getSource();
+    targetImageNode.setEffect(null);
 
     // Get Dragboard
     Dragboard db = event.getDragboard();
@@ -211,7 +226,24 @@ public class Inventory {
       Object draggedItem =
           GameState.inventory.getObject(
               originalIndex); // Retrieve the dragged object based on the index.
+      if (targetImageNode instanceof Rectangle && targetImageNode.getId().equals("brickWall")) {
+        System.out.println(GameState.wallCount);
+        if (draggedItem instanceof Hammer) {
+          new MouseClick().play();
 
+          if (!(GameState.wallCount-- > 1)) {
+            targetImageNode.setVisible(false);
+            ItemChat.getInstance().printChatMessage(itemChat, "you have broken the wall");
+          }
+
+          ItemChat.getInstance().printChatMessage(itemChat, "you have cracked the wall");
+        } else {
+          ItemChat.getInstance().printChatMessage(itemChat, "You need to use a hammer");
+        }
+        return;
+      }
+      // Remove the blue tint after dropping
+      ImageView targetImageView = (ImageView) event.getSource();
       targetImageView = (ImageView) event.getSource(); // renamed to match the same variable name
 
       // Check if it's a lock
@@ -224,7 +256,6 @@ public class Inventory {
           Keys keyItem = (Keys) draggedItem;
           if (keyItem.getID() == lockItem.getId()) {
             lockItem.unlockLock();
-            targetImageView.setVisible(false);
             String message = lockItem.getMessage();
             ItemChat.getInstance().printChatMessage(itemChat, message);
             inventoryProperty.set(originalIndex, new Object(null));
@@ -238,6 +269,26 @@ public class Inventory {
         } else { // if its not a key
           ItemChat.getInstance().printChatMessage(itemChat, "You Need A Key To Unlock The Lock");
         }
+      } else if ("candle".equals(targetImageView.getUserData())) { // if its a candle
+
+        Candle candleItem = (Candle) room1Items.get(targetImageView);
+
+        // Check whether the dragged item is a lighter
+        if (draggedItem instanceof Lighter && candleItem != null) {
+          Lighter lighterItem = (Lighter) draggedItem;
+
+          candleItem.changeCandle();
+          targetImageView.setImage(candleItem.getImage());
+          String message = candleItem.getMessage();
+          ItemChat.getInstance().printChatMessage(itemChat, message);
+
+          success = true; // Only set success to true if the operation is successful.
+
+        } else { // if its not a lighter
+          ItemChat.getInstance()
+              .printChatMessage(itemChat, "You Need A Lighter To Light The Candle");
+        }
+
       } else {
         int targetIndex = (int) targetImageView.getUserData();
         GameState.inventory.swapObject(originalIndex, targetIndex);
@@ -251,7 +302,14 @@ public class Inventory {
 
   public void onRegularItemClicked(MouseEvent event) {
     itemChat.clear();
+    Node node = (Node) event.getSource();
+    if (node.getId().equals("exitDoor") // if its the exit door tell them u cant escape yet
+        && !GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
+      ItemChat.getInstance().printChatMessage(itemChat, "You need to solve the PadLock Puzzle");
+      return;
+    }
     ImageView imageView = (ImageView) event.getSource();
+
     Object item = GameState.currentRoomItems.get(imageView);
 
     // if not a lock
@@ -272,5 +330,9 @@ public class Inventory {
     int index = (int) ((ImageView) event.getSource()).getUserData();
     String message = inventoryProperty.get(index).getItemIdentifier();
     ItemChat.getInstance().printChatMessage(itemChat, message);
+  }
+
+  public boolean containsItem(Object object) {
+    return inventoryProperty.contains(object);
   }
 }

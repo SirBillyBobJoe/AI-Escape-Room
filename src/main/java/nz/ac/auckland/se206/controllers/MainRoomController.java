@@ -12,6 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
+import nz.ac.auckland.se206.Items.Hammer;
 import nz.ac.auckland.se206.Items.Inventory;
 import nz.ac.auckland.se206.Items.Keys;
 import nz.ac.auckland.se206.Items.Lighter;
@@ -19,17 +20,20 @@ import nz.ac.auckland.se206.Items.Lock;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.gpt.GameMaster;
 
 /**
  * Controller class for Room 1 in the escape room game. Manages the UI elements and interactions for
- * Room 1.
+ * the main room.
  */
 public class MainRoomController {
-  @FXML private ImageView key1, key2, key3;
-  @FXML private ImageView lighter1, lighter2, lighter3;
+  @FXML private ImageView key1;
+  @FXML private ImageView lighter1;
   @FXML private ImageView lock1;
+  @FXML private ImageView greenWire, blueWire, redWire;
+  @FXML private ImageView hammer;
   @FXML private Rectangle rightDoor, wireBox;
   @FXML private CubicCurve leftDoor, exitDoor;
   @FXML private Rectangle riddleGlow;
@@ -56,20 +60,22 @@ public class MainRoomController {
     GameState.gameMaster.addMessage("room1", "user", gptMsg);
     GameState.gameMaster.runContext("room1");
 
+    hammer.setUserData("hammer");
     lock1.setUserData("lock");
-    lock1.setOnDragOver(event -> onDragOver(event));
-    lock1.setOnDragDropped(event -> onDragDropped(event));
-
+    // bind locks visibility to solving the padlock puzzle
+    lock1.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PADLOCK).not());
+    // binds the keys visibility to solving the wire game
+    key1.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE));
     // initialise objects in room 1 into HashMap
     GameState.currentRoomItems.put(key1, new Keys(1));
-    GameState.currentRoomItems.put(key2, new Keys(2));
-    GameState.currentRoomItems.put(key3, new Keys(3));
     GameState.currentRoomItems.put(lighter1, new Lighter());
-    GameState.currentRoomItems.put(lighter2, new Lighter());
-    GameState.currentRoomItems.put(lighter3, new Lighter());
     GameState.currentRoomItems.put(lock1, new Lock(1));
 
     GameState.riddleGlow = riddleGlow;
+    GameState.currentRoomItems.put(greenWire, GameState.greenWire);
+    GameState.currentRoomItems.put(redWire, GameState.redWire);
+    GameState.currentRoomItems.put(blueWire, GameState.blueWire);
+    GameState.currentRoomItems.put(hammer, new Hammer());
   }
 
   /**
@@ -104,10 +110,14 @@ public class MainRoomController {
   @FXML
   private void objectClicked(MouseEvent event) throws IOException {
     Node source = (Node) event.getSource();
+    source.visibleProperty().unbind();
     String id = source.getId();
     new MouseClick().play();
     if (source instanceof ImageView) {
-
+      if (id.equals("lock1") && !(((Lock) GameState.currentRoomItems.get(lock1)).isLocked())) {
+        GameState.currentPuzzle.set(Puzzle.PADLOCK);
+        return;
+      }
       GameState.inventory.onRegularItemClicked(event);
 
     } else if (id.equals("leftDoor")) { // if click on the left door
@@ -119,20 +129,24 @@ public class MainRoomController {
       GameState.currentRoom.set(Rooms.RIDDLEROOM);
 
     } else if (id.equals("exitDoor")) { // if clicked on the centre exit door
-
-      GameState.timer.stop();
-      GameState.escaped = true;
-      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-      SceneManager.setReinitialise(AppUi.ENDSCREEN);
-      App.setUserInterface(AppUi.ENDSCREEN);
-      double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-      double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-      stage.setWidth(800 + additionalWidth);
-      stage.setHeight(600 + additionalHeight);
+      if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
+        GameState.timer.stop();
+        GameState.escaped = true;
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        SceneManager.setReinitialise(AppUi.ENDSCREEN);
+        App.setUserInterface(AppUi.ENDSCREEN);
+        double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
+        double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
+        stage.setWidth(800 + additionalWidth);
+        stage.setHeight(600 + additionalHeight);
+      } else {
+        GameState.inventory.onRegularItemClicked(event);
+      }
 
     } else if (id.equals("wireBox")) {
-
-      System.out.println(id);
+      GameState.currentPuzzle.set(Puzzle.WIREPUZZLE);
+    } else if (id.equals("candlePainting")) {
+      GameState.currentPuzzle.set(Puzzle.CANDLEPAINTING);
     }
   }
 

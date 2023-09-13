@@ -2,7 +2,7 @@ package nz.ac.auckland.se206.Items;
 
 import javafx.scene.image.Image;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.SceneManager.Rooms;
+import nz.ac.auckland.se206.SceneManager.Puzzle;
 
 public class Lock extends Object {
   private boolean isLocked = true;
@@ -23,7 +23,8 @@ public class Lock extends Object {
   }
 
   public void unlockLock() {
+    isLocked = false;
     this.message = "you have unlocked lock " + id;
-    GameState.currentRoom.set(Rooms.PUZZLEROOM);
+    GameState.currentPuzzle.set(Puzzle.PADLOCK);
   }
 }

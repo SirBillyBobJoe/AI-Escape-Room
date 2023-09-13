@@ -23,7 +23,8 @@
          </opaqueInsets>
          <effect>
             <InnerShadow choke="0.6" height="90.0" radius="44.5" width="90.0" />
-         </effect></AnchorPane>
+         </effect>
+      </AnchorPane>
       <Label fx:id="lblRestart" layoutX="40.0" layoutY="40.0" onMouseClicked="#lblRestartClicked" onMouseEntered="#lblRestartEntered" onMouseExited="#lblRestartExited" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Restart" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
@@ -112,5 +113,6 @@
          </font>
       </TextField>
       <Line endX="150.0" layoutX="923.0" layoutY="277.0" startX="-100.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="0.7" />
+      <AnchorPane fx:id="puzzlePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" />
    </children>
 </AnchorPane>
