@@ -20,6 +20,7 @@ import nz.ac.auckland.se206.SceneManager.Rooms;
 public class PuzzleRoomController {
   @FXML ImageView background;
   @FXML ImageView candle1, candle2, candle3, candle4;
+  @FXML private ImageView greenWire;
   private List<ImageView> candles;
   boolean isOpenWall = false;
 
@@ -33,10 +34,13 @@ public class PuzzleRoomController {
     candle2.setUserData("candle");
     candle3.setUserData("candle");
     candle4.setUserData("candle");
+    GameState.currentRoomItems.put(greenWire, GameState.greenWire);
     GameState.currentRoomItems.put(candle1, new Candle());
     GameState.currentRoomItems.put(candle2, new Candle());
     GameState.currentRoomItems.put(candle3, new Candle());
     GameState.currentRoomItems.put(candle4, new Candle());
+
+    greenWire.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE));
   }
 
   /**
@@ -52,6 +56,11 @@ public class PuzzleRoomController {
     if (id.equals("rightDoor")) {
 
       GameState.currentRoom.set(Rooms.MAINROOM);
+    } else if (source instanceof ImageView) {
+      System.out.println("unbinded" + source.getId());
+      source.visibleProperty().unbind();
+
+      GameState.inventory.onRegularItemClicked(event);
     }
   }
 
@@ -133,7 +142,7 @@ public class PuzzleRoomController {
     } else if (GameState.wallCount == 1) {
       background.setImage(new Image("/images/puzzleroom/crack2.png"));
     }
-    if (node.getUserData().equals("candle")) {
+    if (node.getUserData() != null && node.getUserData().equals("candle")) {
       System.out.println(checkCandleGame());
       System.out.println(GameState.candleOrder);
       if (checkCandleGame()) {
