@@ -13,6 +13,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.Items.Candle;
+import nz.ac.auckland.se206.Items.Hammer;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
@@ -20,6 +21,7 @@ import nz.ac.auckland.se206.SceneManager.Rooms;
 public class PuzzleRoomController {
   @FXML ImageView background;
   @FXML ImageView candle1, candle2, candle3, candle4;
+  @FXML ImageView hammer;
   @FXML private ImageView greenWire;
   private List<ImageView> candles;
   boolean isOpenWall = false;
@@ -40,7 +42,11 @@ public class PuzzleRoomController {
     GameState.currentRoomItems.put(candle3, new Candle());
     GameState.currentRoomItems.put(candle4, new Candle());
 
-    greenWire.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE));
+    hammer.setUserData("hammer");
+    GameState.currentRoomItems.put(hammer, new Hammer());
+    hammer.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE));
+
+    greenWire.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING));
   }
 
   /**
