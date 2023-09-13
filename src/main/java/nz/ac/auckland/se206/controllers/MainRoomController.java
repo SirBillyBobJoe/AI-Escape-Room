@@ -12,7 +12,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.Items.Hammer;
 import nz.ac.auckland.se206.Items.Inventory;
 import nz.ac.auckland.se206.Items.Keys;
 import nz.ac.auckland.se206.Items.Lighter;
@@ -33,7 +32,6 @@ public class MainRoomController {
   @FXML private ImageView lighter1;
   @FXML private ImageView lock1;
   @FXML private ImageView blueWire, redWire;
-  @FXML private ImageView hammer;
   @FXML private Rectangle rightDoor, wireBox;
   @FXML private CubicCurve leftDoor, exitDoor;
   @FXML private Rectangle riddleGlow;
@@ -60,7 +58,6 @@ public class MainRoomController {
     GameState.gameMaster.addMessage("room1", "user", gptMsg);
     GameState.gameMaster.runContext("room1");
 
-    hammer.setUserData("hammer");
     lock1.setUserData("lock");
     // bind locks visibility to solving the padlock puzzle
     lock1.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PADLOCK).not());
@@ -76,7 +73,6 @@ public class MainRoomController {
     GameState.riddleGlow = riddleGlow;
     GameState.currentRoomItems.put(redWire, GameState.redWire);
     GameState.currentRoomItems.put(blueWire, GameState.blueWire);
-    GameState.currentRoomItems.put(hammer, new Hammer());
   }
 
   /**
