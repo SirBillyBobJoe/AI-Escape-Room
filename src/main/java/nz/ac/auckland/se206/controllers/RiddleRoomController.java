@@ -63,7 +63,14 @@ public class RiddleRoomController {
       colorAdjust.setSaturation(1); // Max saturation
       targetImageView.setEffect(colorAdjust);
     } else {
-      source.setOpacity(0.22);
+      // Everything but the door shouldn't be hoverable if the riddle room is inactive
+      if (source == computer) {
+        if (GameState.riddleRoomActive) {
+          source.setOpacity(0.22);
+        }
+      } else {
+        source.setOpacity(0.22);
+      }
     }
   }
 

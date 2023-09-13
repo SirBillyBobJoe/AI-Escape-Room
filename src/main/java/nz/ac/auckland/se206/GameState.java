@@ -22,6 +22,8 @@ public class GameState {
   /** Indicates whether the riddle room is active or not */
   public static boolean riddleRoomActive = false;
 
+  public static void toggleRiddleRoomActive() {}
+
   public static StringProperty hints = new SimpleStringProperty("\u221E");
 
   public static int time = 2;

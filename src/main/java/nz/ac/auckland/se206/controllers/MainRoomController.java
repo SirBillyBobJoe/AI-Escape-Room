@@ -32,6 +32,7 @@ public class MainRoomController {
   @FXML private ImageView lock1;
   @FXML private Rectangle rightDoor, wireBox;
   @FXML private CubicCurve leftDoor, exitDoor;
+  @FXML private Rectangle riddleGlow;
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
