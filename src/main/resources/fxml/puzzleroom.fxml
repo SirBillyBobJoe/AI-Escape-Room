@@ -40,12 +40,12 @@
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="92.0" layoutX="213.0" layoutY="3.0" onMouseClicked="#onPipe" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="361.0" />
       <Rectangle fx:id="brickWall" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="148.0" layoutX="301.0" layoutY="166.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="149.0" />
-      <ImageView fx:id="greenWire" fitHeight="124.0" fitWidth="132.0" layoutX="292.0" layoutY="392.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greenWire" fitHeight="124.0" fitWidth="132.0" layoutX="312.0" layoutY="155.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/greenWire.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="hammer" fitHeight="102.0" fitWidth="88.0" layoutX="165.0" layoutY="334.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="hammer" fitHeight="102.0" fitWidth="88.0" layoutX="183.0" layoutY="122.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Inventory/hammer.png" />
          </image>

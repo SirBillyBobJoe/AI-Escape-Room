@@ -575,5 +575,6 @@ public class PipeConnectingController {
   private void onComplete() {
     GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE).set(true);
     System.out.println("Complete");
+    exitPuzzle();
   }
 }

@@ -288,6 +288,7 @@ public class WirelinkingController {
     GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).set(true);
     System.out.println("Completed");
     System.out.println(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).getValue());
+    exitPuzzle(null);
   }
 
   /**

@@ -147,5 +147,6 @@ public class PadlockController {
   private void onComplete() {
     GameState.puzzleSolved.get(Puzzle.PADLOCK).set(true);
     System.out.println("Complete");
+    exitPuzzle();
   }
 }
