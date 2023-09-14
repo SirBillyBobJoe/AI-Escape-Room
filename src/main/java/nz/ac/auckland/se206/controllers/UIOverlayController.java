@@ -6,7 +6,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -152,6 +154,46 @@ public class UIOverlayController {
                   // This code will run after 20 seconds of player inactivity.
                   GameState.gameMasterActions.unactivate();
                 }));
+
+    // Generate a welcome message for the player after the game master activates (5 seconds after
+    // game loads)
+    GameState.gameMaster.createChatContext("intro");
+
+    // Add the initial message to the chat context and run it
+    GameState.gameMaster.addMessage(
+        "intro",
+        "user",
+        "You are The Singularity, an omnipresent AI. You are the master of this escape room. You"
+            + " introduce yourself extremely briefly.");
+    GameState.gameMaster.runContext("intro");
+    Task<Void> waitForResponseTask =
+        new Task<Void>() {
+          @Override
+          protected Void call() throws Exception {
+            GameState.gameMaster.waitForContext("intro");
+            return null;
+          }
+        };
+
+    new Thread(waitForResponseTask).start();
+
+    Timeline welcome =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(2), // Delay of 5 seconds
+                new EventHandler<ActionEvent>() {
+                  @Override
+                  public void handle(ActionEvent event) {
+                    waitForResponseTask.setOnSucceeded(
+                        e -> {
+                          GameState.gameMasterActions.activate(
+                              GameState.gameMaster.getLastResponse("intro").getContent());
+                        });
+
+                    new Thread(waitForResponseTask).start();
+                  }
+                }));
+    welcome.play();
   }
 
   /**
