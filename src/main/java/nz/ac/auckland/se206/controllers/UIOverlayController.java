@@ -47,7 +47,6 @@ public class UIOverlayController {
 
   @FXML private TextArea txaGameMaster;
   @FXML private ImageView imgGameMaster;
-  GameMasterActions gameMaster = new GameMasterActions();
 
   @FXML private Pane roomPane; // Must remain so it can be swapped at the start
   private Pane loadedRoom;
@@ -56,9 +55,6 @@ public class UIOverlayController {
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
-    // Initialize the Game Master actions
-    gameMaster = new GameMasterActions(imgGameMaster, txaGameMaster);
-
     // Determine the hint text based on the game state
     String hint;
     if (GameState.hints.get().equals("\u221E")) {
@@ -110,7 +106,9 @@ public class UIOverlayController {
 
     // Bind text areas of the 2 controllers together for chat
     GameState.chat = SharedChat.getInstance();
-    txaGameMaster.textProperty().bind(GameState.chat.getTextProperty());
+    GameState.gameMasterActions = new GameMasterActions(imgGameMaster, txaGameMaster);
+    GameState.gameMasterActions.activate();
+    GameState.chat.setGameMasterActions(GameState.gameMasterActions);
 
     // Scroll to the bottom of the chat area when text changes
     GameState.chat

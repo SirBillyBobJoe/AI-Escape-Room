@@ -4,10 +4,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
+import nz.ac.auckland.se206.controllers.GameMasterActions;
 
 /** A singleton class that manages the shared chat functionality in the application. */
 public class SharedChat {
   private static SharedChat instance;
+  private GameMasterActions gameMasterActions;
 
   /**
    * Retrieves the singleton instance of SharedChat.
@@ -26,6 +28,10 @@ public class SharedChat {
   /** Constructs a new SharedChat instance with an initial welcome message. */
   public SharedChat() {
     this.text = new SimpleStringProperty("");
+  }
+
+  public void setGameMasterActions(GameMasterActions gameMasterActions) {
+    this.gameMasterActions = gameMasterActions;
   }
 
   /**
@@ -57,8 +63,7 @@ public class SharedChat {
 
   /** Resets the instance fields to their initial values. (to be implemented) */
   public void restart() {
-    this.text.set(
-        "Grand Wizard: Welcome To My Dungeon Click On The Hints Button If You Are Stuck!!!\n\n");
+    this.text.set("Welcome To My Dungeon Click On The Hints Button If You Are Stuck!!!\n\n");
   }
 
   /**
@@ -116,12 +121,7 @@ public class SharedChat {
 
     waitForResponseTask.setOnSucceeded(
         e -> {
-          this.setText(
-              GameState.name
-                  + ": "
-                  + this.getText()
-                  + GameState.gameMaster.getLastResponse(room).getContent()
-                  + "\n\n");
+          gameMasterActions.say(GameState.gameMaster.getLastResponse(room).getContent() + "\n\n");
         });
 
     new Thread(waitForResponseTask).start();

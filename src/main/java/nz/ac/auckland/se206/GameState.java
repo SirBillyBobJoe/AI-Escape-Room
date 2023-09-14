@@ -18,6 +18,7 @@ import nz.ac.auckland.se206.Items.Object;
 import nz.ac.auckland.se206.Items.RedWire;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
+import nz.ac.auckland.se206.controllers.GameMasterActions;
 import nz.ac.auckland.se206.gpt.GameMaster;
 
 /** Represents the state of the game. */
@@ -58,7 +59,7 @@ public class GameState {
   public static GameMaster gameMaster = new GameMaster();
   public static String name = "user";
   public static SharedChat chat = new SharedChat();
-
+  public static GameMasterActions gameMasterActions;
   // Room Control
   public static SimpleObjectProperty<Rooms> currentRoom =
       new SimpleObjectProperty<SceneManager.Rooms>(Rooms.MAINROOM);
