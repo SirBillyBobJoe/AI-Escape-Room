@@ -111,7 +111,6 @@ public class UIOverlayController {
 
     // Bind text areas of the 2 controllers together for chat
     GameState.chat = SharedChat.getInstance();
-    GameState.gameMasterActions.activate();
     GameState.chat.setGameMasterActions(GameState.gameMasterActions);
 
     // Scroll to the bottom of the chat area when text changes
