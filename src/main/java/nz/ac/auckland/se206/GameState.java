@@ -52,6 +52,7 @@ public class GameState {
 
   public static boolean escaped = false;
   public static String escapeMessage = "You made it out! Good job...";
+  public static boolean lastMessageWasFromPlayer = false;
 
   public static CountdownTimer timer = CountdownTimer.getInstance(GameState.time * 60);
   public static Inventory inventory = new Inventory();

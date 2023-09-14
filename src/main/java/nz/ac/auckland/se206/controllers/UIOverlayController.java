@@ -2,6 +2,8 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -52,6 +54,8 @@ public class UIOverlayController {
   private Pane loadedRoom;
   @FXML private Pane puzzlePane; // Must remain so it can be swapped at the start
   private Pane loadedPuzzle;
+
+  private Timeline playerInteractionTimer;
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
@@ -139,6 +143,16 @@ public class UIOverlayController {
     // Set up a button drop shadow
     dropShadow.setColor(Color.web("#007aec"));
     dropShadow.setRadius(5.0);
+
+    // Set up a timer to check for player interaction with game master
+    playerInteractionTimer =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(15),
+                e -> {
+                  // This code will run after 20 seconds of player inactivity.
+                  GameState.gameMasterActions.unactivate();
+                }));
   }
 
   /**
@@ -313,6 +327,10 @@ public class UIOverlayController {
   @FXML
   private void onSend(ActionEvent event) {
     GameState.chat.onSend(promptArea, "main");
+
+    // Reset the player interaction timer
+    playerInteractionTimer.stop();
+    playerInteractionTimer.play();
   }
 
   /**
