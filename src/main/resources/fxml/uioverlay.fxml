@@ -56,7 +56,7 @@
          </font>
       </Label>
 
-      <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="822.0" layoutY="141.0" onMouseClicked="#gameMasterClicked" prefHeight="218.0" prefWidth="250.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
+      <TextArea fx:id="txaGameMaster" editable="false" focusTraversable="false" layoutX="822.0" layoutY="141.0" prefHeight="218.0" prefWidth="250.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
          <effect>
             <InnerShadow height="44.09" radius="21.635" width="44.45">
                <color>
@@ -77,7 +77,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </TextArea>
-      <ImageView fx:id="imgGameMaster" fitHeight="53.0" fitWidth="58.0" layoutX="921.0" layoutY="150.0" onMouseClicked="#gameMasterClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgGameMaster" fitHeight="53.0" fitWidth="58.0" layoutX="921.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/menu/gameMaster.png" />
          </image>

@@ -210,25 +210,6 @@ public class UIOverlayController {
     fadeOut.play();
   }
 
-  // DELETEME
-  private boolean justActivated = false;
-
-  /**
-   * Handles the click event for the game master, activating or deactivating it.
-   *
-   * @param event The mouse click event.
-   */
-  @FXML
-  private void gameMasterClicked(MouseEvent event) {
-    if (!justActivated) {
-      justActivated = true;
-      gameMaster.activate("Hello, I am the game master. Do not defy me. blah blah blah.");
-    } else {
-      gameMaster.unactivate();
-      justActivated = false;
-    }
-  }
-
   /**
    * Resets the game state and navigates back to the start screen.
    *

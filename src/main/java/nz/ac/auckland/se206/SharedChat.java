@@ -25,7 +25,7 @@ public class SharedChat {
 
   /** Constructs a new SharedChat instance with an initial welcome message. */
   public SharedChat() {
-    this.text = new SimpleStringProperty("I am the all knowing, The Singularity." + "\n" + "\n");
+    this.text = new SimpleStringProperty("");
   }
 
   /**
