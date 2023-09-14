@@ -163,8 +163,8 @@ public class UIOverlayController {
     GameState.gameMaster.addMessage(
         "intro",
         "user",
-        "You are The Singularity, an omnipresent AI. You are the master of this escape room. You"
-            + " introduce yourself extremely briefly.");
+        "You are The Singularity, an omnipresent AI. You don't want the player to escape from your"
+            + " domain. You introduce yourself extremely briefly.");
     GameState.gameMaster.runContext("intro");
     Task<Void> waitForResponseTask =
         new Task<Void>() {
