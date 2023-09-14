@@ -55,6 +55,8 @@ public class UIOverlayController {
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
+    GameState.gameMasterActions = new GameMasterActions(imgGameMaster, txaGameMaster);
+
     // Determine the hint text based on the game state
     String hint;
     if (GameState.hints.get().equals("\u221E")) {
@@ -63,8 +65,8 @@ public class UIOverlayController {
       hint = GameState.hints.get();
     }
 
-    // Create a chat context for Room 1
-    GameState.gameMaster.createChatContext("room1");
+    // Create a chat context for main room
+    GameState.gameMaster.createChatContext("main");
 
     // Generate a message for the Game Master
     String gptMsg =
@@ -74,9 +76,8 @@ public class UIOverlayController {
             + " room. Only give one hint at a time";
 
     // Add the initial message to the chat context and run it
-    GameState.gameMaster.addMessage("room1", "user", gptMsg);
-    GameState.gameMaster.runContext("room1");
-    System.out.println(gptMsg);
+    GameState.gameMaster.addMessage("main", "user", gptMsg);
+    GameState.gameMaster.runContext("main");
 
     // Bind UI elements to game state properties
     countdownLabel.textProperty().bind(GameState.timer.timeSecondsProperty().asString());
@@ -106,7 +107,6 @@ public class UIOverlayController {
 
     // Bind text areas of the 2 controllers together for chat
     GameState.chat = SharedChat.getInstance();
-    GameState.gameMasterActions = new GameMasterActions(imgGameMaster, txaGameMaster);
     GameState.gameMasterActions.activate();
     GameState.chat.setGameMasterActions(GameState.gameMasterActions);
 
@@ -312,7 +312,7 @@ public class UIOverlayController {
    */
   @FXML
   private void onSend(ActionEvent event) {
-    GameState.chat.onSend(promptArea, "room1");
+    GameState.chat.onSend(promptArea, "main");
   }
 
   /**
