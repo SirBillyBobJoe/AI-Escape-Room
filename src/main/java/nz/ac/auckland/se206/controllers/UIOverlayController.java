@@ -74,11 +74,8 @@ public class UIOverlayController {
     String gptMsg =
         "This game the player will have "
             + hint
-            + " hints. You are the Game Master Of An Escape Room currently we are in room 1. Here"
-            + " is some answers to the hints. The scroll is under the car, Switch is next to the"
-            + " chains, light is next to the car, riddle answer is chicken, u need key to unlock"
-            + " the door. Don't reply to this message reply but reply to following messages. Only"
-            + " give one hint at a time";
+            + " hints. You are \"The Singularity\", master of this escape room. We are in the main"
+            + " room. Only give one hint at a time";
 
     // Add the initial message to the chat context and run it
     GameState.gameMaster.addMessage("room1", "user", gptMsg);
