@@ -171,20 +171,28 @@ public class Inventory {
     // Allow this ImageView to accept the drag-and-drop if it is not the source and contains a
     // string
     if (event.getGestureSource() != event.getSource() && event.getDragboard().hasString()) {
+      ColorAdjust colorAdjust = new ColorAdjust();
       event.acceptTransferModes(TransferMode.MOVE);
       Node targetImageNode = (Node) event.getSource();
-      if (targetImageNode instanceof Rectangle) {
-        Rectangle rectangle = (Rectangle) targetImageNode;
-        if (!GameState.isPuzzlesOn.getValue()) {
+      if (!GameState.isPuzzlesOn.getValue()) { // when puzzles are off
+        if (targetImageNode instanceof Rectangle) {
+          Rectangle rectangle = (Rectangle) targetImageNode;
           rectangle.setFill(Color.RED);
+          targetImageNode.setOpacity(0.22);
+          return;
+        } else {
+          colorAdjust.setHue(-0.5); // Max hue
+          colorAdjust.setSaturation(1); // Max saturation
+          targetImageNode.setEffect(colorAdjust);
+          return;
         }
-
+      }
+      if (targetImageNode instanceof Rectangle) { // if its a rectangle
         targetImageNode.setOpacity(0.22);
         return;
       }
       // Make it really blue when hovered over
       ImageView targetImageView = (ImageView) event.getSource();
-      ColorAdjust colorAdjust = new ColorAdjust();
       colorAdjust.setHue(1); // Max hue
       colorAdjust.setSaturation(1); // Max saturation
       targetImageView.setEffect(colorAdjust);
