@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -86,5 +87,10 @@
             <DropShadow height="82.07" radius="42.0" spread="0.82" width="87.93" />
          </effect>
       </Label>
+      <TextArea editable="false" layoutX="440.0" layoutY="155.0" prefHeight="323.0" prefWidth="319.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="              How To Play&#10;*Highlighted items are clickable.&#10;&#10;*Solve puzzles and riddles&#10; to progress through the game.&#10;&#10;*You have an inventory. You can&#10; drag items from the inventory over&#10; other items in the game to interact&#10; with them if they become highlighted.&#10;&#10;*If you are stuck you can ask the&#10; game master for help. Depending on &#10; the game mode you will have a certain&#10; number of hints.">
+         <font>
+            <Font name="Consolas Bold" size="36.0" />
+         </font>
+      </TextArea>
    </children>
 </AnchorPane>
