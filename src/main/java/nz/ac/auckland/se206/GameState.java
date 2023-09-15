@@ -93,30 +93,33 @@ public class GameState {
 
   public static String[] clueFirst = {
     "help", "hint", "what", "how", "where", "who", "why", "can", "do", "stuck", "lost", "tell",
-    "show", "give", "need", "find", "solve", "figure", "unlock", "explain", "Im", "I'm", "I", "need"
+    "show", "give", "need", "find", "solve", "figure", "unlock", "explain", "im", "i'm", "i",
+    "need", "hint", "wat", "opened", "unlock"
   };
 
   public static String[] clueSecond = {
+    "wall",
+    "brick",
+    "smash",
+    "chest",
+    "hammer",
     "key",
     "lock",
     "door",
     "safe",
     "code",
-    "map",
     "box",
-    "book",
     "flashlight",
-    "mirror",
     "painting",
-    "clock",
-    "compass",
-    "notebook",
-    "candles",
+    "candle",
+    "computer",
+    "water",
+    "drip",
+    "puddle",
     "chessboard",
     "cards",
     "symbols",
     "dice",
-    "magnifier",
     "password",
     "riddle",
     "sequence",
@@ -124,12 +127,13 @@ public class GameState {
     "clue",
     "pattern",
     "combination",
-    "lever",
-    "switch",
     "cipher",
     "equation",
-    "maze",
-    "colors",
+    "pipe",
+    "green",
+    "red",
+    "blue",
+    "wire",
     "numbers",
     "letters",
     "compartment",
@@ -141,8 +145,10 @@ public class GameState {
     "hints",
     "hint",
     "do",
-    "scroll",
-    "stuck"
+    "stuck",
+    "lighter",
+    "click",
+    "object",
   };
 
   public static void resetGame() {
