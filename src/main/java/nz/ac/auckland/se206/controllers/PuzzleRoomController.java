@@ -3,10 +3,12 @@ package nz.ac.auckland.se206.controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
@@ -31,6 +33,8 @@ public class PuzzleRoomController {
   @FXML private ImageView hammer;
   @FXML private ImageView greenWire;
   @FXML private CubicCurve riddleGlow1;
+  @FXML private ImageView waterdrop, puddle;
+
   private List<ImageView> candles;
   boolean isOpenWall = false;
 
@@ -57,6 +61,8 @@ public class PuzzleRoomController {
     hammer.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE));
 
     greenWire.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING));
+    puddle.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE).not());
+    waterdrop.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE).not());
     // Add a listener to the visible property
     greenWire
         .visibleProperty()
@@ -74,6 +80,34 @@ public class PuzzleRoomController {
                 drop(hammer);
               }
             });
+
+    // Initialize Timeline
+    Timeline timeline = new Timeline();
+
+    // Create KeyFrame sequence
+    KeyFrame kf =
+        new KeyFrame(
+            Duration.millis(2), // 5 milliseconds, approx 60fps
+            new EventHandler<ActionEvent>() {
+              double deltaY = 1; // Set how much the image will move in each frame
+
+              @Override
+              public void handle(ActionEvent event) {
+                // Update waterdrop position
+                waterdrop.setLayoutY(waterdrop.getLayoutY() + deltaY);
+
+                if (waterdrop.getLayoutY() > 450) {
+                  waterdrop.setLayoutY(20); // Reset to just above the screen
+                }
+              }
+            });
+
+    // Add KeyFrame to Timeline
+    timeline.getKeyFrames().add(kf);
+    timeline.setCycleCount(Animation.INDEFINITE); // Makes the animation run indefinitely
+
+    // Start the Timeline
+    timeline.play();
   }
 
   /**

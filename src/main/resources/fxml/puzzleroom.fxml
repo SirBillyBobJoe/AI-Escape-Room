@@ -61,14 +61,24 @@
       </ImageView>
       <Rectangle fx:id="pipeGame" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="92.0" layoutX="213.0" layoutY="3.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="361.0" />
       <Rectangle fx:id="brickWall" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="148.0" layoutX="301.0" layoutY="166.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="149.0" />
-      <ImageView fx:id="greenWire" fitHeight="124.0" fitWidth="132.0" layoutX="312.0" layoutY="155.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greenWire" fitHeight="124.0" fitWidth="132.0" layoutX="312.0" layoutY="155.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../images/Inventory/greenWire.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="hammer" fitHeight="102.0" fitWidth="88.0" layoutX="183.0" layoutY="122.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="hammer" fitHeight="102.0" fitWidth="88.0" layoutX="183.0" layoutY="122.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../images/Inventory/hammer.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="puddle" fitHeight="150.0" fitWidth="200.0" layoutX="278.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/puzzleroom/puddle.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="waterdrop" fitHeight="23.0" fitWidth="13.0" layoutX="362.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/puzzleroom/waterdrop.png" />
          </image>
       </ImageView>
    </children>

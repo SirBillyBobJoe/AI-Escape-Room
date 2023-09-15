@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
@@ -37,32 +38,14 @@ public class MainRoomController {
   @FXML private ImageView key1;
   @FXML private ImageView lighter1;
   @FXML private ImageView lock1;
-  @FXML private ImageView blueWire, redWire;
-  @FXML private Rectangle rightDoor, wireBox;
+  @FXML private ImageView blueWire, redWire, background;
+  @FXML private Rectangle rightDoor, wireBox, passcode;
   @FXML private CubicCurve leftDoor, exitDoor;
   @FXML private Rectangle riddleGlow;
+  @FXML private Rectangle hide1, hide2;
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
-    String hint;
-
-    if (GameState.hints.get().equals("\u221E")) {
-      hint = "infinite";
-    } else {
-      hint = GameState.hints.get();
-    }
-    // room1 chat context
-    GameState.gameMaster.createChatContext("room1");
-    String gptMsg =
-        "This game the player will have "
-            + hint
-            + " hints. You are the Game Master Of An Escape Room currently we are in room 1. Here"
-            + " is some answers to the hints. The scroll is under the car, Switch is next to the"
-            + " chains, light is next to the car, riddle answer is chicken, u need key to unlock"
-            + " the door. Don't reply to this message reply but reply to following messages. Only"
-            + " give one hint at a time";
-    GameState.gameMaster.addMessage("room1", "user", gptMsg);
-    GameState.gameMaster.runContext("room1");
 
     lock1.setUserData("lock");
     // bind locks visibility to solving the padlock puzzle
@@ -81,6 +64,19 @@ public class MainRoomController {
             });
 
     wireBox.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).not());
+    passcode.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PASSCODE).not());
+    // Add a listener to the visible property
+    passcode
+        .visibleProperty()
+        .addListener(
+            (observable1, oldValue1, newValue1) -> {
+              System.out.println("Passcode visibility changed to: " + newValue1); // Debug print
+              if (!newValue1) { // Check if the new value of the property is 'true'
+                background.setImage(new Image("/images/mainRoom/openChest.png"));
+                blueWire.setVisible(true);
+              }
+            });
+
     // initialise objects in room 1 into HashMap
     GameState.currentRoomItems.put(key1, new Keys(1));
     GameState.currentRoomItems.put(lighter1, new Lighter());
@@ -171,6 +167,10 @@ public class MainRoomController {
       GameState.currentPuzzle.set(Puzzle.WIREPUZZLE);
     } else if (id.equals("candlePainting")) {
       GameState.currentPuzzle.set(Puzzle.CANDLEPAINTING);
+    } else if (id.equals("passcode")) {
+      GameState.currentPuzzle.set(Puzzle.PASSCODE);
+    } else if (id.equals("hide1") || id.equals("hide2")) {
+      source.setVisible(false);
     }
   }
 
@@ -229,11 +229,15 @@ public class MainRoomController {
   @FXML
   private void onMouseEntered(MouseEvent event) {
     Node source = (Node) event.getSource();
+    String id = source.getId();
     ColorAdjust colorAdjust = new ColorAdjust();
     if (!GameState.isPuzzlesOn.getValue()
         && GameState.puzzleName.contains(source.getId())) { // when puzzles are turned off turn red
       if (source instanceof Rectangle) { // if its a rectangle
-        source.setOpacity(0.22);
+
+        if (!(id.equals("hide1") || id.equals("hide2"))) {
+          source.setOpacity(0.22);
+        }
         Rectangle rectangle = (Rectangle) source;
         rectangle.setFill(Color.RED);
       } else {
@@ -248,6 +252,9 @@ public class MainRoomController {
       colorAdjust.setHue(1); // Max hue
       colorAdjust.setSaturation(1); // Max saturation
       targetImageView.setEffect(colorAdjust);
+    } else if (id.equals("hide1") || id.equals("hide2")) {
+      Rectangle rectangle = (Rectangle) source;
+      rectangle.setFill(Color.web("#1F85FF"));
     } else {
       source.setOpacity(0.22);
     }
@@ -261,7 +268,7 @@ public class MainRoomController {
   @FXML
   private void onMouseExited(MouseEvent event) {
     Node source = (Node) event.getSource();
-
+    String id = source.getId();
     if (source instanceof ImageView) {
       ImageView targetImageView = (ImageView) source;
       targetImageView.setEffect(null); // Remove the blue tint
@@ -270,9 +277,17 @@ public class MainRoomController {
         && source instanceof Rectangle) { // when the puzzles are turned off turn red
 
       Rectangle rectangle = (Rectangle) source;
-      rectangle.setFill(Color.web("#1F85FF"));
-      source.setOpacity(0);
 
+      if (!(id.equals("hide1") || id.equals("hide2"))) {
+        rectangle.setFill(Color.web("#1F85FF"));
+        source.setOpacity(0);
+      } else {
+        rectangle.setFill(Color.web("#0c0f15"));
+      }
+
+    } else if (id.equals("hide1") || id.equals("hide2")) {
+      Rectangle rectangle = (Rectangle) source;
+      rectangle.setFill(Color.web("#0c0f15"));
     } else {
       source.setOpacity(0); // Make the node invisible
     }

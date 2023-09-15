@@ -15,20 +15,13 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.UIOverlayController">
    <children>
-      <AnchorPane fx:id="replacePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <InnerShadow choke="0.6" height="90.0" radius="44.5" width="90.0" />
-         </effect>
-      </AnchorPane>
+      <AnchorPane fx:id="puzzlePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" />
       <Label fx:id="lblRestart" layoutX="40.0" layoutY="40.0" onMouseClicked="#lblRestartClicked" onMouseEntered="#lblRestartEntered" onMouseExited="#lblRestartExited" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Restart" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <TextArea fx:id="itemChat" editable="false" focusTraversable="false" layoutX="42.0" layoutY="526.0" mouseTransparent="true" prefHeight="37.0" prefWidth="276.0" style="-fx-background-color: transparent; -fx-control-inner-background: black;" text="hello">
+      <TextArea fx:id="itemChat" editable="false" focusTraversable="false" layoutX="810.0" layoutY="549.0" mouseTransparent="true" prefHeight="37.0" prefWidth="276.0" style="-fx-background-color: transparent; -fx-control-inner-background: black;" text="hello">
          <effect>
             <DropShadow height="159.56" radius="39.39" spread="0.42" width="0.0" />
          </effect>
@@ -36,7 +29,7 @@
             <Font name="Consolas" size="12.0" />
          </font>
       </TextArea>
-      <ImageView fitHeight="109.0" fitWidth="276.0" layoutX="42.0" layoutY="468.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="109.0" fitWidth="276.0" layoutX="809.0" layoutY="500.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/menu/inventory.png" />
          </image>
@@ -44,12 +37,12 @@
             <DropShadow height="120.66" radius="29.665" width="0.0" />
          </effect>
       </ImageView>
-      <ImageView fx:id="item0" fitHeight="34.0" fitWidth="37.0" layoutX="45.0" layoutY="473.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item1" fitHeight="34.0" fitWidth="37.0" layoutX="92.0" layoutY="473.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item2" fitHeight="34.0" fitWidth="37.0" layoutX="139.0" layoutY="473.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item3" fitHeight="34.0" fitWidth="37.0" layoutX="185.0" layoutY="474.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item4" fitHeight="34.0" fitWidth="37.0" layoutX="231.0" layoutY="473.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="item5" fitHeight="34.0" fitWidth="37.0" layoutX="278.0" layoutY="473.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item0" fitHeight="34.0" fitWidth="37.0" layoutX="810.0" layoutY="505.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item1" fitHeight="34.0" fitWidth="37.0" layoutX="859.0" layoutY="505.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item2" fitHeight="34.0" fitWidth="37.0" layoutX="903.0" layoutY="505.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item3" fitHeight="34.0" fitWidth="37.0" layoutX="956.0" layoutY="505.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item4" fitHeight="34.0" fitWidth="37.0" layoutX="1001.0" layoutY="505.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="item5" fitHeight="34.0" fitWidth="37.0" layoutX="1040.0" layoutY="505.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="countdownLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="688.0" layoutY="30.0" prefHeight="1.0" prefWidth="77.0" text="120" textAlignment="CENTER" textFill="RED">
          <font>
             <Font name="Consolas" size="45.0" />
@@ -98,6 +91,13 @@
             <Font name="Consolas" size="12.0" />
          </font>
       </TextArea>
-      <AnchorPane fx:id="puzzlePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" />
+      <AnchorPane fx:id="replacePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <InnerShadow choke="0.6" height="90.0" radius="44.5" width="90.0" />
+         </effect>
+      </AnchorPane>
    </children>
 </AnchorPane>
