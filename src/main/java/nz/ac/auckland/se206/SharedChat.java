@@ -89,7 +89,7 @@ public class SharedChat {
         if (msg.contains(keyWords1) && msg.contains(keyWords2) && (!keyWords1.equals(keyWords2))) {
           if (GameState.hints.get().equals("\u221E")) {
             break outerloop;
-          } else if (Integer.parseInt(GameState.hints.get()) == 1) {
+          } else if (Integer.parseInt(GameState.hints.get()) == 0) {
             msg =
                 "Tell the player they have no more hints left. YOU ARE TO NOT GIVE THEM ANY MORE"
                     + " ANSWERS TO HINTS";
