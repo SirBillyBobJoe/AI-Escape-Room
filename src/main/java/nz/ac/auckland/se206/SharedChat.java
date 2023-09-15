@@ -89,14 +89,14 @@ public class SharedChat {
         if (msg.contains(keyWords1) && msg.contains(keyWords2) && (!keyWords1.equals(keyWords2))) {
           if (GameState.hints.get().equals("\u221E")) {
             break outerloop;
-          } else if (Integer.parseInt(GameState.hints.get()) == 0) {
+          } else if (Integer.parseInt(GameState.hints.get()) == 1) {
             msg =
                 "Tell the player they have no more hints left. YOU ARE TO NOT GIVE THEM ANY MORE"
                     + " ANSWERS TO HINTS";
             break outerloop;
           } else {
             GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
-            msg1 = "I have " + GameState.hints.get() + " hints left ";
+            msg1 = "Do not mention a hint number.";
             break outerloop;
           }
         }
@@ -106,9 +106,6 @@ public class SharedChat {
     GameState.gameMaster.addMessage(room, "user", msg1 + msg);
     System.out.println(msg1 + msg);
     GameState.gameMaster.runContext(room);
-
-    String message = GameState.name + ": " + msg;
-    this.setText(this.getText() + message + "\n\n");
 
     Task<Void> waitForResponseTask =
         new Task<Void>() {

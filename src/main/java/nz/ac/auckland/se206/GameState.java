@@ -81,7 +81,7 @@ public class GameState {
 
   public static String[] clueFirst = {
     "help", "hint", "what", "how", "where", "who", "why", "can", "do", "stuck", "lost", "tell",
-    "show", "give", "need", "find", "solve", "figure", "unlock", "explain", "Im", "I'm"
+    "show", "give", "need", "find", "solve", "figure", "unlock", "explain", "Im", "I'm", "I", "need"
   };
 
   public static String[] clueSecond = {
@@ -127,6 +127,7 @@ public class GameState {
     "next",
     "proceed",
     "hints",
+    "hint",
     "do",
     "scroll",
     "stuck"
