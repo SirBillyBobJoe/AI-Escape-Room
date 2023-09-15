@@ -89,6 +89,7 @@ public class GameState {
 
   public static BooleanProperty isPuzzlesOn = new SimpleBooleanProperty(true);
   public static Set<String> puzzleName = new HashSet<String>();
+  public static String passcodeAnswer = "1234";
 
   public static String[] clueFirst = {
     "help", "hint", "what", "how", "where", "who", "why", "can", "do", "stuck", "lost", "tell",

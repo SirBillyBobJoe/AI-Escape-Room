@@ -31,6 +31,7 @@ public class SceneManager {
     PADLOCK,
     CANDLEPAINTING,
     COMPUTERSCREEN,
+    PASSCODE,
   }
 
   private static HashMap<AppUi, Parent> map = new HashMap<AppUi, Parent>();
@@ -93,6 +94,7 @@ public class SceneManager {
     puzzleMap.put(Puzzle.PADLOCK, (Pane) App.loadFxml("padlock"));
     puzzleMap.put(Puzzle.CANDLEPAINTING, (Pane) App.loadFxml("candlepainting"));
     puzzleMap.put(Puzzle.COMPUTERSCREEN, (Pane) App.loadFxml("computerscreen"));
+    puzzleMap.put(Puzzle.PASSCODE, (Pane) App.loadFxml("passcode"));
 
     GameState.puzzleSolved = new HashMap<Puzzle, BooleanProperty>();
     GameState.puzzleSolved.put(Puzzle.WIREPUZZLE, new SimpleBooleanProperty(false));
@@ -100,12 +102,16 @@ public class SceneManager {
     GameState.puzzleSolved.put(Puzzle.PADLOCK, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.CANDLEPAINTING, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.COMPUTERSCREEN, new SimpleBooleanProperty(false));
+    GameState.puzzleSolved.put(Puzzle.PASSCODE, new SimpleBooleanProperty(false));
 
     GameState.puzzleName.add("wireBox");
     GameState.puzzleName.add("candlePainting");
     GameState.puzzleName.add("pipeGame");
     GameState.puzzleName.add("brickWall");
     GameState.puzzleName.add("lock1");
+    GameState.puzzleName.add("hide1");
+    GameState.puzzleName.add("hide2");
+    GameState.puzzleName.add("passcode");
   }
 
   public static Pane getPuzzlePane(Puzzle puzzle) {
