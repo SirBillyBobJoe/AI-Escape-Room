@@ -149,7 +149,7 @@ public class UIOverlayController {
     playerInteractionTimer =
         new Timeline(
             new KeyFrame(
-                Duration.seconds(10),
+                Duration.seconds(15),
                 e -> {
                   // This code will run after 20 seconds of player inactivity.
                   GameState.gameMasterActions.unactivate();
