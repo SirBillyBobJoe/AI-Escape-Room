@@ -2,14 +2,18 @@ package nz.ac.auckland.se206;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.Items.BlueWire;
 import nz.ac.auckland.se206.Items.GreenWire;
@@ -34,10 +38,14 @@ public class GameState {
 
   @FXML public static Rectangle riddleGlow;
 
+  @FXML public static CubicCurve riddleGlow1;
+
   public static void setRiddleGlow() {
     if (riddleRoomActive) {
+      riddleGlow1.setVisible(true);
       riddleGlow.setVisible(true);
     } else {
+      riddleGlow1.setVisible(false);
       riddleGlow.setVisible(false);
     }
   }
@@ -76,6 +84,9 @@ public class GameState {
   public static int numInventorySlots = 0;
 
   public static int wallCount = 3;
+
+  public static BooleanProperty isPuzzlesOn = new SimpleBooleanProperty(true);
+  public static Set<String> puzzleName = new HashSet<String>();
 
   public static String[] clueFirst = {
     "help", "hint", "what", "how", "where", "who", "why", "can", "do", "stuck", "lost", "tell",

@@ -100,6 +100,12 @@ public class SceneManager {
     GameState.puzzleSolved.put(Puzzle.PADLOCK, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.CANDLEPAINTING, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.COMPUTERSCREEN, new SimpleBooleanProperty(false));
+
+    GameState.puzzleName.add("wireBox");
+    GameState.puzzleName.add("candlePainting");
+    GameState.puzzleName.add("pipeGame");
+    GameState.puzzleName.add("brickWall");
+    GameState.puzzleName.add("lock1");
   }
 
   public static Pane getPuzzlePane(Puzzle puzzle) {

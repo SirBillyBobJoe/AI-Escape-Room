@@ -2,12 +2,14 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -132,6 +134,13 @@ public class MainRoomController {
       }
       GameState.inventory.onRegularItemClicked(event);
 
+    } else if (!GameState.isPuzzlesOn.getValue()
+        && GameState.puzzleName.contains(source.getId())
+        && source instanceof Rectangle) { // when puzzles are turned off
+
+      Rectangle rectangle = (Rectangle) source;
+      vibrate(rectangle);
+
     } else if (id.equals("leftDoor")) { // if click on the left door
 
       GameState.currentRoom.set(Rooms.PUZZLEROOM);
@@ -200,13 +209,21 @@ public class MainRoomController {
   @FXML
   private void onMouseEntered(MouseEvent event) {
     Node source = (Node) event.getSource();
+    ColorAdjust colorAdjust = new ColorAdjust();
     if (source instanceof ImageView) {
       // Make it really blue when hovered over
       ImageView targetImageView = (ImageView) event.getSource();
-      ColorAdjust colorAdjust = new ColorAdjust();
       colorAdjust.setHue(1); // Max hue
       colorAdjust.setSaturation(1); // Max saturation
       targetImageView.setEffect(colorAdjust);
+    } else if (!GameState.isPuzzlesOn.getValue()
+        && GameState.puzzleName.contains(source.getId())
+        && source instanceof Rectangle) { // when puzzles are turned off turn red
+
+      source.setOpacity(0.22);
+      Rectangle rectangle = (Rectangle) source;
+      rectangle.setFill(Color.RED);
+
     } else {
       source.setOpacity(0.22);
     }
@@ -224,9 +241,23 @@ public class MainRoomController {
     if (source instanceof ImageView) {
       ImageView targetImageView = (ImageView) source;
       targetImageView.setEffect(null); // Remove the blue tint
+    } else if (!GameState.isPuzzlesOn.getValue()
+        && GameState.puzzleName.contains(source.getId())
+        && source instanceof Rectangle) { // when the puzzles are turned off turn red
+
+      Rectangle rectangle = (Rectangle) source;
+      rectangle.setFill(Color.web("#1F85FF"));
+      source.setOpacity(0);
+
     } else {
       source.setOpacity(0); // Make the node invisible
     }
+  }
+
+  @FXML
+  private void puzzleOff(ActionEvent event) {
+    GameState.isPuzzlesOn.set(!GameState.isPuzzlesOn.getValue());
+    System.out.println(GameState.isPuzzlesOn.getValue());
   }
 
   private void drop(Node node) {
@@ -235,5 +266,14 @@ public class MainRoomController {
     translate.setDuration(Duration.millis(1000));
     translate.setByY(200);
     translate.play();
+  }
+
+  public void vibrate(Node node) {
+    TranslateTransition tt = new TranslateTransition(Duration.millis(15), node);
+    tt.setFromX(0f);
+    tt.setByX(5f);
+    tt.setCycleCount(4);
+    tt.setAutoReverse(true);
+    tt.play();
   }
 }
