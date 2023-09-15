@@ -174,6 +174,11 @@ public class Inventory {
       event.acceptTransferModes(TransferMode.MOVE);
       Node targetImageNode = (Node) event.getSource();
       if (targetImageNode instanceof Rectangle) {
+        Rectangle rectangle = (Rectangle) targetImageNode;
+        if (!GameState.isPuzzlesOn.getValue()) {
+          rectangle.setFill(Color.RED);
+        }
+
         targetImageNode.setOpacity(0.22);
         return;
       }

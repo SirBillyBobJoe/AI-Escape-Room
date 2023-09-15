@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
@@ -80,5 +81,6 @@
       </Rectangle>
       <Rectangle fx:id="rightDoor" arcHeight="5.0" arcWidth="5.0" fill="#1f85ff" height="317.0" layoutX="734.0" layoutY="192.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="67.0" />
       <Rectangle fx:id="wireBox" arcHeight="5.0" arcWidth="5.0" fill="#1f85ff" height="118.0" layoutX="523.0" layoutY="194.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="93.0" />
+      <Button layoutX="609.0" layoutY="47.0" mnemonicParsing="false" onAction="#puzzleOff" text="puzzle on/off" />
    </children>
 </AnchorPane>
