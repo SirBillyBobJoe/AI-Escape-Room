@@ -2,14 +2,17 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
@@ -40,8 +43,7 @@ public class UIOverlayController {
   @FXML private Label countdownLabel;
   @FXML private Label hintLabel;
   @FXML private ImageView item0, item1, item2, item3, item4, item5;
-  @FXML private TextArea textArea;
-  @FXML private TextField textField;
+  @FXML private TextArea promptArea;
   @FXML private TextArea itemChat;
 
   @FXML Label lblRestart;
@@ -49,17 +51,17 @@ public class UIOverlayController {
 
   @FXML private TextArea txaGameMaster;
   @FXML private ImageView imgGameMaster;
-  GameMasterActions gameMaster = new GameMasterActions();
 
   @FXML private Pane roomPane; // Must remain so it can be swapped at the start
   private Pane loadedRoom;
   @FXML private Pane puzzlePane; // Must remain so it can be swapped at the start
   private Pane loadedPuzzle;
 
+  private Timeline playerInteractionTimer;
+
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
-    // Initialize the Game Master actions
-    gameMaster = new GameMasterActions(imgGameMaster, txaGameMaster);
+    GameState.gameMasterActions = new GameMasterActions(imgGameMaster, txaGameMaster);
 
     // Determine the hint text based on the game state
     String hint;
@@ -69,23 +71,20 @@ public class UIOverlayController {
       hint = GameState.hints.get();
     }
 
-    // Create a chat context for Room 1
-    GameState.gameMaster.createChatContext("room1");
+    // Create a chat context for main room
+    GameState.gameMaster.createChatContext("main");
 
     // Generate a message for the Game Master
     String gptMsg =
         "This game the player will have "
             + hint
-            + " hints. You are the Game Master Of An Escape Room currently we are in room 1. Here"
-            + " is some answers to the hints. The scroll is under the car, Switch is next to the"
-            + " chains, light is next to the car, riddle answer is chicken, u need key to unlock"
-            + " the door. Don't reply to this message reply but reply to following messages. Only"
-            + " give one hint at a time";
+            + " hints. You are \"The Singularity\", master of this escape room. We are in the main"
+            + " room. Only give one hint at a time. You speak very concisely, you do not waste"
+            + " words. Concise. Strict. Stoic. You do not wish for the player to escape. Doubt";
 
     // Add the initial message to the chat context and run it
-    GameState.gameMaster.addMessage("room1", "user", gptMsg);
-    GameState.gameMaster.runContext("room1");
-    System.out.println(gptMsg);
+    GameState.gameMaster.addMessage("main", "user", gptMsg);
+    GameState.gameMaster.runContext("main");
 
     // Bind UI elements to game state properties
     countdownLabel.textProperty().bind(GameState.timer.timeSecondsProperty().asString());
@@ -115,8 +114,7 @@ public class UIOverlayController {
 
     // Bind text areas of the 2 controllers together for chat
     GameState.chat = SharedChat.getInstance();
-    textArea.textProperty().bind(GameState.chat.getTextProperty());
-    textArea.setWrapText(true);
+    GameState.chat.setGameMasterActions(GameState.gameMasterActions);
 
     // Scroll to the bottom of the chat area when text changes
     GameState.chat
@@ -125,7 +123,7 @@ public class UIOverlayController {
             (observable, oldValue, newValue) -> {
               Platform.runLater(
                   () -> {
-                    textArea.setScrollTop(Double.MAX_VALUE);
+                    txaGameMaster.setScrollTop(Double.MAX_VALUE);
                   });
             });
 
@@ -147,6 +145,56 @@ public class UIOverlayController {
     // Set up a button drop shadow
     dropShadow.setColor(Color.web("#007aec"));
     dropShadow.setRadius(5.0);
+
+    // Set up a timer to check for player interaction with game master
+    playerInteractionTimer =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(15),
+                e -> {
+                  // This code will run after 20 seconds of player inactivity.
+                  GameState.gameMasterActions.unactivate();
+                }));
+
+    // Generate a welcome message for the player after the game master activates (5 seconds after
+    // game loads)
+    GameState.gameMaster.createChatContext("intro");
+
+    // Add the initial message to the chat context and run it
+    GameState.gameMaster.addMessage(
+        "intro",
+        "user",
+        "You are The Singularity, an omnipresent AI. You don't want the player to escape from your"
+            + " domain. You introduce yourself extremely briefly.");
+    GameState.gameMaster.runContext("intro");
+    Task<Void> waitForResponseTask =
+        new Task<Void>() {
+          @Override
+          protected Void call() throws Exception {
+            GameState.gameMaster.waitForContext("intro");
+            return null;
+          }
+        };
+
+    new Thread(waitForResponseTask).start();
+
+    Timeline welcome =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(2), // Delay of 5 seconds
+                new EventHandler<ActionEvent>() {
+                  @Override
+                  public void handle(ActionEvent event) {
+                    waitForResponseTask.setOnSucceeded(
+                        e -> {
+                          GameState.gameMasterActions.activate(
+                              GameState.gameMaster.getLastResponse("intro").getContent());
+                        });
+
+                    new Thread(waitForResponseTask).start();
+                  }
+                }));
+    welcome.play();
   }
 
   /**
@@ -211,25 +259,6 @@ public class UIOverlayController {
         });
 
     fadeOut.play();
-  }
-
-  // DELETEME
-  private boolean justActivated = false;
-
-  /**
-   * Handles the click event for the game master, activating or deactivating it.
-   *
-   * @param event The mouse click event.
-   */
-  @FXML
-  private void gameMasterClicked(MouseEvent event) {
-    if (!justActivated) {
-      justActivated = true;
-      gameMaster.activate("Hello, I am the game master. Do not defy me. blah blah blah.");
-    } else {
-      gameMaster.unactivate();
-      justActivated = false;
-    }
   }
 
   /**
@@ -339,7 +368,11 @@ public class UIOverlayController {
    */
   @FXML
   private void onSend(ActionEvent event) {
-    GameState.chat.onSend(textField, "room1");
+    GameState.chat.onSend(promptArea, "main");
+
+    // Reset the player interaction timer
+    playerInteractionTimer.stop();
+    playerInteractionTimer.play();
   }
 
   /**
