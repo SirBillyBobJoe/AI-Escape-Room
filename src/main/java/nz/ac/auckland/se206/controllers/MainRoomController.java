@@ -1,6 +1,8 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -124,22 +126,23 @@ public class MainRoomController {
 
     String id = source.getId();
     new MouseClick().play();
-    if (source instanceof ImageView) {
-      System.out.println("unbinded" + source.getId());
-      source.visibleProperty().unbind();
+    if (!GameState.isPuzzlesOn.getValue()
+        && GameState.puzzleName.contains(source.getId())) { // when puzzles are turned off
+
+      vibrate(source);
+
+    } else if (source instanceof ImageView) {
+
+      if (id.equals("key1")) {
+        source.visibleProperty().unbind();
+      }
+
       if (id.equals("lock1") && !(((Lock) GameState.currentRoomItems.get(lock1)).isLocked())) {
 
         GameState.currentPuzzle.set(Puzzle.PADLOCK);
         return;
       }
       GameState.inventory.onRegularItemClicked(event);
-
-    } else if (!GameState.isPuzzlesOn.getValue()
-        && GameState.puzzleName.contains(source.getId())
-        && source instanceof Rectangle) { // when puzzles are turned off
-
-      Rectangle rectangle = (Rectangle) source;
-      vibrate(rectangle);
 
     } else if (id.equals("leftDoor")) { // if click on the left door
 
@@ -198,6 +201,23 @@ public class MainRoomController {
    */
   @FXML
   private void onDragDropped(DragEvent event) {
+    Node node = (Node) event.getSource();
+    if (!GameState.isPuzzlesOn.getValue() && GameState.puzzleName.contains(node.getId())) {
+
+      vibrate(node);
+
+      KeyFrame keyFrame =
+          new KeyFrame(
+              Duration.millis(500),
+              e -> {
+                node.setEffect(null);
+              });
+
+      Timeline timeline = new Timeline(keyFrame);
+      timeline.play();
+
+      return;
+    }
     GameState.inventory.onDragDropped(event, GameState.currentRoomItems);
   }
 
@@ -210,20 +230,24 @@ public class MainRoomController {
   private void onMouseEntered(MouseEvent event) {
     Node source = (Node) event.getSource();
     ColorAdjust colorAdjust = new ColorAdjust();
-    if (source instanceof ImageView) {
+    if (!GameState.isPuzzlesOn.getValue()
+        && GameState.puzzleName.contains(source.getId())) { // when puzzles are turned off turn red
+      if (source instanceof Rectangle) { // if its a rectangle
+        source.setOpacity(0.22);
+        Rectangle rectangle = (Rectangle) source;
+        rectangle.setFill(Color.RED);
+      } else {
+        colorAdjust.setHue(-0.5); // Max hue
+        colorAdjust.setSaturation(1); // Max saturation
+        source.setEffect(colorAdjust);
+      }
+
+    } else if (source instanceof ImageView) {
       // Make it really blue when hovered over
       ImageView targetImageView = (ImageView) event.getSource();
       colorAdjust.setHue(1); // Max hue
       colorAdjust.setSaturation(1); // Max saturation
       targetImageView.setEffect(colorAdjust);
-    } else if (!GameState.isPuzzlesOn.getValue()
-        && GameState.puzzleName.contains(source.getId())
-        && source instanceof Rectangle) { // when puzzles are turned off turn red
-
-      source.setOpacity(0.22);
-      Rectangle rectangle = (Rectangle) source;
-      rectangle.setFill(Color.RED);
-
     } else {
       source.setOpacity(0.22);
     }
