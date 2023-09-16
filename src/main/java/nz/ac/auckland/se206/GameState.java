@@ -60,6 +60,7 @@ public class GameState {
   public static GameMaster gameMaster = new GameMaster();
   public static String name = "user";
   public static SharedChat chat = new SharedChat();
+  public static RiddleChat riddleChat = new RiddleChat();
   public static GameMasterActions gameMasterActions;
   // Room Control
   public static SimpleObjectProperty<Rooms> currentRoom =

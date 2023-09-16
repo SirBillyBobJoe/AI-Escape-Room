@@ -25,25 +25,30 @@ public class RiddleChat {
     this.textArea = textArea;
   }
 
+  public void newRiddle(String contextName) {
+    GameState.gameMaster.createChatContext(contextName);
+  }
+
   /** Handles the sending of a text message. */
   @FXML
-  public void onSend(String message) {
-    GameState.gameMaster.addMessage("riddle", "user", message);
+  public void onSend(String message, String contextName) {
+    GameState.gameMaster.addMessage(contextName, "user", message);
     System.out.println(message);
-    GameState.gameMaster.runContext("riddle");
+    GameState.gameMaster.runContext(contextName);
 
     Task<Void> waitForResponseTask =
         new Task<Void>() {
           @Override
           protected Void call() throws Exception {
-            GameState.gameMaster.waitForContext("riddle");
+            GameState.gameMaster.waitForContext(contextName);
             return null;
           }
         };
 
     waitForResponseTask.setOnSucceeded(
         e -> {
-          textArea.setText(GameState.gameMaster.getLastResponse("riddle").getContent() + "\n\n");
+          textArea.appendText(
+              GameState.gameMaster.getLastResponse(contextName).getContent() + "\n\n");
         });
 
     new Thread(waitForResponseTask).start();

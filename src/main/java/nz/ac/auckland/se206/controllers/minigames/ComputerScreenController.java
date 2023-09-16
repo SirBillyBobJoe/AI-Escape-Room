@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.RiddleChat;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 
 public class ComputerScreenController {
@@ -13,10 +12,7 @@ public class ComputerScreenController {
   @FXML private TextArea txaRiddle;
 
   @FXML
-  public void initialize() {
-    GameState.gameMaster.createChatContext("riddle");
-    RiddleChat.getInstance().setTextArea(txaRiddle);
-  }
+  public void initialize() {}
 
   @FXML
   private void exitPuzzle() {
@@ -26,7 +22,7 @@ public class ComputerScreenController {
 
   @FXML
   private void onGuess(ActionEvent event) {
-    RiddleChat.getInstance().onSend(txfGuess.getText());
+    GameState.riddleChat.onSend(txfGuess.getText(), "riddle");
     txfGuess.clear();
   }
 }
