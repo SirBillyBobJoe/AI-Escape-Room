@@ -27,6 +27,11 @@
                   <TextArea fx:id="txaRiddle" editable="false" layoutX="23.0" layoutY="47.0" prefHeight="190.0" prefWidth="304.0" wrapText="true" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0" layoutX="1.0" layoutY="-1.0" stroke="TRANSPARENT" strokeType="INSIDE" width="348.0" />
                   <Circle fill="#ff5b5b" layoutX="331.0" layoutY="13.0" radius="6.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                  <ImageView fx:id="imgLoadingWheel" fitHeight="25.0" fitWidth="21.0" layoutX="248.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/riddleRoom/loadingWheel.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="151.0" layoutX="399.0" layoutY="70.0" stroke="TRANSPARENT" strokeType="INSIDE" width="151.0">

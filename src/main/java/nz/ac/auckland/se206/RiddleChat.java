@@ -1,13 +1,22 @@
 package nz.ac.auckland.se206;
 
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 public class RiddleChat {
   private static RiddleChat instance;
   private String contextName;
   @FXML private TextArea textArea;
+  @FXML private ImageView imgLoadingWheel;
+
+  // Create a RotateTransition for the loading wheel
+  private RotateTransition loadingAnimation;
 
   /**
    * Retrieves the singleton instance of SharedChat.
@@ -26,10 +35,28 @@ public class RiddleChat {
     this.textArea = textArea;
   }
 
+  public void setLoadingWheel(ImageView imgLoadingWheel) {
+    this.imgLoadingWheel = imgLoadingWheel;
+    imgLoadingWheel.setVisible(false);
+
+    // Create the loading animation
+    loadingAnimation = new RotateTransition(Duration.seconds(2), imgLoadingWheel);
+    loadingAnimation.setByAngle(360);
+    loadingAnimation.setInterpolator(Interpolator.LINEAR);
+    loadingAnimation.setCycleCount(Timeline.INDEFINITE);
+  }
+
   public void newRiddle(String contextName, String riddleAnswer) {
     textArea.clear();
 
-    // New riddle with new chat context
+    // Start the loading animation
+    if (loadingAnimation != null) {
+      imgLoadingWheel.setVisible(true);
+      loadingAnimation.play();
+      System.out.println("The loading wheels should be spinning ");
+    }
+
+    // New riddle with a new chat context
     GameState.gameMaster.createChatContext(contextName);
     this.contextName = contextName;
     GameState.gameMaster.addMessage(
@@ -59,6 +86,12 @@ public class RiddleChat {
 
     waitForResponseTask.setOnSucceeded(
         e -> {
+          // Stop the loading animation
+          if (loadingAnimation != null) {
+            loadingAnimation.stop();
+            imgLoadingWheel.setVisible(false);
+          }
+
           textArea.appendText(
               "Computer: "
                   + GameState.gameMaster.getLastResponse(contextName).getContent()
@@ -72,6 +105,13 @@ public class RiddleChat {
   @FXML
   public void onSend(String message) {
     if (contextName == null) return;
+
+    // Start the loading animation
+    if (loadingAnimation != null) {
+      imgLoadingWheel.setVisible(true);
+      loadingAnimation.play();
+    }
+
     GameState.gameMaster.addMessage(contextName, "user", message);
     System.out.println(message);
     GameState.gameMaster.runContext(contextName);
@@ -87,6 +127,12 @@ public class RiddleChat {
 
     waitForResponseTask.setOnSucceeded(
         e -> {
+          // Stop the loading animation
+          if (loadingAnimation != null) {
+            loadingAnimation.stop();
+            imgLoadingWheel.setVisible(false);
+          }
+
           textArea.appendText(
               "Computer: "
                   + GameState.gameMaster.getLastResponse(contextName).getContent()
