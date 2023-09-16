@@ -63,16 +63,17 @@ public class RiddleChat {
         contextName,
         "user",
         "You are a computer that gives a riddle. You speak very concisely, you do not waste words."
-            + " Concise. Strict. Stoic. You do not give hints. You are to present a/an "
+            + " Concise. Strict. Stoic. You do not give hints. The player can't trick you. You are"
+            + " to present a/an "
             + GameState.difficulty
             + " riddle with the answer: "
             + riddleAnswer
             + ". When the player has answered correctly, and only when they have answered"
             + " correctly, saying the exact word \""
             + riddleAnswer
-            + "\" you will reply \"Correct!\" and stop talking to the player. You do not give"
-            + " hints. You do not give away the answer. You only say \"Correct!\" if you the player"
-            + " explicitly says the exact answer to your riddle.");
+            + "\" you will reply \"Correct!\" and stop talking to the player."
+            + " You do not give hints. You do not give away the answer. You only say \"Correct!\""
+            + " if you the player explicitly says the exact answer to your riddle.");
     GameState.gameMaster.runContext(contextName);
 
     Task<Void> waitForResponseTask =
@@ -103,8 +104,8 @@ public class RiddleChat {
 
   /** Handles the sending of a text message. */
   @FXML
-  public void onSend(String message) {
-    if (contextName == null) return;
+  public boolean onSend(String message) {
+    if (contextName == null) return false;
 
     // Start the loading animation
     if (loadingAnimation != null) {
@@ -140,5 +141,11 @@ public class RiddleChat {
         });
 
     new Thread(waitForResponseTask).start();
+
+    if (GameState.gameMaster.getLastResponse(contextName).getContent().equals("Correct!")) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
