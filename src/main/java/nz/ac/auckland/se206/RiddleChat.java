@@ -29,6 +29,8 @@ public class RiddleChat {
   public void newRiddle(String contextName) {
     GameState.gameMaster.createChatContext(contextName);
     this.contextName = contextName;
+
+    textArea.clear();
   }
 
   /** Handles the sending of a text message. */
