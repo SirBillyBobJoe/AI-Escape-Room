@@ -27,5 +27,6 @@ public class ComputerScreenController {
   @FXML
   private void onGuess(ActionEvent event) {
     RiddleChat.getInstance().onSend(txfGuess.getText());
+    txfGuess.clear();
   }
 }
