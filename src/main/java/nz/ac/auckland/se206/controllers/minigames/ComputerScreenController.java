@@ -28,12 +28,8 @@ public class ComputerScreenController {
 
   @FXML
   private void onGuess(ActionEvent event) {
-    boolean correctAnswer = GameState.riddleChat.onSend(txfGuess.getText());
+    GameState.riddleChat.onSend(txfGuess.getText());
     txaRiddle.appendText("You: " + txfGuess.getText() + "\n\n");
     txfGuess.clear();
-
-    if (GameState.isRiddleResolved == false) {
-      GameState.isRiddleResolved = correctAnswer;
-    }
   }
 }

@@ -71,7 +71,7 @@ public class RiddleChat {
             + ". When the player has answered correctly, and only when they have answered"
             + " correctly, saying the exact word \""
             + riddleAnswer
-            + "\" you will reply \"Correct!\" and stop talking to the player."
+            + "\" you will reply exactly: \"Correct!\" and stop talking to the player."
             + " You do not give hints. You do not give away the answer. You only say \"Correct!\""
             + " if you the player explicitly says the exact answer to your riddle.");
     GameState.gameMaster.runContext(contextName);
@@ -104,8 +104,8 @@ public class RiddleChat {
 
   /** Handles the sending of a text message. */
   @FXML
-  public boolean onSend(String message) {
-    if (contextName == null) return false;
+  public void onSend(String message) {
+    if (contextName == null) return;
 
     // Start the loading animation
     if (loadingAnimation != null) {
@@ -138,14 +138,16 @@ public class RiddleChat {
               "Computer: "
                   + GameState.gameMaster.getLastResponse(contextName).getContent()
                   + "\n\n");
+
+          // Player got the correct answer
+          if (GameState.gameMaster.getLastResponse(contextName).getContent().equals("Correct!")) {
+            // Which riddle was answered correctly?
+            if (GameState.isRiddleResolved == false) {
+              GameState.isRiddleResolved = true;
+            }
+          }
         });
 
     new Thread(waitForResponseTask).start();
-
-    if (GameState.gameMaster.getLastResponse(contextName).getContent().equals("Correct!")) {
-      return true;
-    } else {
-      return false;
-    }
   }
 }
