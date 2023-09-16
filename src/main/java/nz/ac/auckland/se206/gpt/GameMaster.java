@@ -11,8 +11,8 @@ public class GameMaster {
 
   // API specific values that affect the behavior of the chat
   private int nApiValue = 1;
-  private double temperatureApiValue = 0.5;
-  private double topPApiValue = 0.5;
+  private double temperatureApiValue = 0.7;
+  private double topPApiValue = 0.85;
   private int maxTokensApiValue = 100;
 
   // Maps a name of a context to its ChatContext instance
