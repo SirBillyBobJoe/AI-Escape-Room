@@ -40,7 +40,12 @@ public class RiddleChat {
             + GameState.difficulty
             + " riddle with the answer: "
             + riddleAnswer
-            + ". When the player guesses correctly, say \"Correct!\".");
+            + ". When the player has answered correctly, and only when they have answered"
+            + " correctly, saying the exact word \""
+            + riddleAnswer
+            + "\" you will reply \"Correct!\" and stop talking to the player. You do not give"
+            + " hints. You do not give away the answer. You only say \"Correct!\" if you the player"
+            + " explicitly says the exact answer to your riddle.");
     GameState.gameMaster.runContext(contextName);
 
     Task<Void> waitForResponseTask =
