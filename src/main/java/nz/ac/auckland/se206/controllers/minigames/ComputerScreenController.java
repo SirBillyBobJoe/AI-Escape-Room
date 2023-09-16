@@ -12,9 +12,6 @@ public class ComputerScreenController {
   @FXML private TextArea txaRiddle;
 
   @FXML
-  public void initialize() {}
-
-  @FXML
   private void exitPuzzle() {
     System.out.println("Exit");
     GameState.currentPuzzle.setValue(Puzzle.NONE);
@@ -22,7 +19,7 @@ public class ComputerScreenController {
 
   @FXML
   private void onGuess(ActionEvent event) {
-    GameState.riddleChat.onSend(txfGuess.getText(), "riddle");
+    GameState.riddleChat.onSend(txfGuess.getText());
     txfGuess.clear();
   }
 }

@@ -6,6 +6,7 @@ import javafx.scene.control.TextArea;
 
 public class RiddleChat {
   private static RiddleChat instance;
+  private String contextName;
   @FXML private TextArea textArea;
 
   /**
@@ -27,11 +28,13 @@ public class RiddleChat {
 
   public void newRiddle(String contextName) {
     GameState.gameMaster.createChatContext(contextName);
+    this.contextName = contextName;
   }
 
   /** Handles the sending of a text message. */
   @FXML
-  public void onSend(String message, String contextName) {
+  public void onSend(String message) {
+    if (contextName == null) return;
     GameState.gameMaster.addMessage(contextName, "user", message);
     System.out.println(message);
     GameState.gameMaster.runContext(contextName);
