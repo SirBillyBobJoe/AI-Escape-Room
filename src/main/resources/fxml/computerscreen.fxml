@@ -24,7 +24,7 @@
                <children>
                   <TextField fx:id="txfGuess" layoutX="23.0" layoutY="250.0" prefHeight="26.0" prefWidth="249.0" promptText="Type here" />
                   <Button layoutX="283.0" layoutY="250.0" mnemonicParsing="false" onAction="#onGuess" text="Send" />
-                  <TextArea fx:id="txaRiddle" editable="false" layoutX="23.0" layoutY="47.0" prefHeight="190.0" prefWidth="304.0" />
+                  <TextArea fx:id="txaRiddle" editable="false" layoutX="23.0" layoutY="47.0" prefHeight="190.0" prefWidth="304.0" wrapText="true" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0" layoutX="1.0" layoutY="-1.0" stroke="TRANSPARENT" strokeType="INSIDE" width="348.0" />
                   <Circle fill="#ff5b5b" layoutX="331.0" layoutY="13.0" radius="6.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                </children>
