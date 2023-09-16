@@ -12,6 +12,12 @@ public class ComputerScreenController {
   @FXML private TextArea txaRiddle;
 
   @FXML
+  private void initialize() {
+    GameState.riddleChat.setTextArea(txaRiddle);
+    GameState.riddleChat.newRiddle("riddle", "vase");
+  }
+
+  @FXML
   private void exitPuzzle() {
     System.out.println("Exit");
     GameState.currentPuzzle.setValue(Puzzle.NONE);

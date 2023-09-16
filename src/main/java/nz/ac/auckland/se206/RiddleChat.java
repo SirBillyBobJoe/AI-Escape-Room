@@ -26,11 +26,39 @@ public class RiddleChat {
     this.textArea = textArea;
   }
 
-  public void newRiddle(String contextName) {
+  public void newRiddle(String contextName, String riddleAnswer) {
+    textArea.clear();
+
+    // New riddle with new chat context
     GameState.gameMaster.createChatContext(contextName);
     this.contextName = contextName;
+    GameState.gameMaster.addMessage(
+        contextName,
+        "user",
+        "You are a computer that gives a riddle. You speak very concisely, you do not waste words."
+            + " Concise. Strict. Stoic. You do not give hints. You are to present a/an "
+            + GameState.difficulty
+            + " riddle with the answer: "
+            + riddleAnswer
+            + ". When the player guesses correctly, say \"Correct!\".");
+    GameState.gameMaster.runContext(contextName);
 
-    textArea.clear();
+    Task<Void> waitForResponseTask =
+        new Task<Void>() {
+          @Override
+          protected Void call() throws Exception {
+            GameState.gameMaster.waitForContext(contextName);
+            return null;
+          }
+        };
+
+    waitForResponseTask.setOnSucceeded(
+        e -> {
+          textArea.appendText(
+              GameState.gameMaster.getLastResponse(contextName).getContent() + "\n\n");
+        });
+
+    new Thread(waitForResponseTask).start();
   }
 
   /** Handles the sending of a text message. */
