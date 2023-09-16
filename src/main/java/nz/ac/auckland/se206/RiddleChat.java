@@ -55,7 +55,9 @@ public class RiddleChat {
     waitForResponseTask.setOnSucceeded(
         e -> {
           textArea.appendText(
-              GameState.gameMaster.getLastResponse(contextName).getContent() + "\n\n");
+              "Computer: "
+                  + GameState.gameMaster.getLastResponse(contextName).getContent()
+                  + "\n\n");
         });
 
     new Thread(waitForResponseTask).start();
@@ -81,7 +83,9 @@ public class RiddleChat {
     waitForResponseTask.setOnSucceeded(
         e -> {
           textArea.appendText(
-              GameState.gameMaster.getLastResponse(contextName).getContent() + "\n\n");
+              "Computer: "
+                  + GameState.gameMaster.getLastResponse(contextName).getContent()
+                  + "\n\n");
         });
 
     new Thread(waitForResponseTask).start();
