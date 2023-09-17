@@ -110,12 +110,14 @@ public class SharedChat {
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
-              + " hint about solving a pipe puzzle. There is a leak from the pipe.";
+              + " hint about solving a pipe puzzle. There is a leak coming from some pipes in some"
+              + " room.";
     } else if (!GameState.wallRemoved) {
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
-              + " hint about breaking down a wall or using a hammer. There is a blank brick wall";
+              + " hint about breaking down a wall or using a hammer. There is a blank brick wall"
+              + " somewhere";
     } else if (!GameState.wallPiecesFound) {
       stepBasedHintPrompt =
           "Tell the player a/an "
@@ -149,7 +151,7 @@ public class SharedChat {
     }
 
     // Get the Game Master's response
-    GameState.gameMaster.addMessage(room, "user", msg1 + msg);
+    GameState.gameMaster.addMessage(room, "user", msg1 + msg + ". " + stepBasedHintPrompt);
     System.out.println(msg1 + msg + ". " + stepBasedHintPrompt);
     GameState.gameMaster.runContext(room);
 

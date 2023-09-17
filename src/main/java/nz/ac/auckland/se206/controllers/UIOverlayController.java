@@ -80,7 +80,7 @@ public class UIOverlayController {
             + hint
             + " hints. You are \"The Singularity\", master of this escape room. We are in the main"
             + " room. Only give one hint at a time. You speak very concisely, you do not waste"
-            + " words. Concise. Strict. Stoic";
+            + " words. Concise. Strict. Stoic. Your hints not very specific.";
 
     // Add the initial message to the chat context and run it
     GameState.gameMaster.addMessage("main", "user", gptMsg);
