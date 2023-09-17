@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RiddleRoomController">
    <children>
-      <ImageView fx:id="imgRoom" fitHeight="600.0" fitWidth="807.0" onMouseClicked="#turnLightsOn" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgRoom" fitHeight="600.0" fitWidth="807.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/riddleRoom/riddleRoomDark.png" />
          </image>
