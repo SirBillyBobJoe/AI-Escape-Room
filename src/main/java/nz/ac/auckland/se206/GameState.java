@@ -181,5 +181,16 @@ public class GameState {
     timer = CountdownTimer.getInstance(time * 60); // Assuming getInstance resets the timer
     currentRoom.set(Rooms.MAINROOM);
     currentPuzzle.set(Puzzle.NONE);
+
+    pipePuzzleSolved = false;
+    wallRemoved = false;
+    wallPiecesFound = false;
+    candlePuzzleSolved = false;
+    chestPuzzleSolved = false;
+    wirePuzzleSolved = false;
+    padlockPuzzleSolved = false;
+    isRiddleResolved = false;
+    isKeyFound = false;
+    riddleRoomActive = false;
   }
 }
