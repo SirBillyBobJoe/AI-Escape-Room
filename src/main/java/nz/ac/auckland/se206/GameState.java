@@ -43,11 +43,17 @@ public class GameState {
   /** Indicates whether the player has solved the candle puzzle */
   public static boolean candlePuzzleSolved = false;
 
+  /** Indicates whether the player has solved the 2019 riddle */
+  public static boolean riddle2019Solved = false;
+
   /** Indicates whether the player has solved the chest puzzle */
   public static boolean chestPuzzleSolved = false;
 
   /** Indicates whether the player has solved the wire puzzle */
   public static boolean wirePuzzleSolved = false;
+
+  /** Indicates whether the player has solved the padlock puzzle */
+  public static boolean riddlePadlockSolved = false;
 
   /** Indicates whether the player has solved the padlock puzzle */
   public static boolean padlockPuzzleSolved = false;
@@ -190,7 +196,9 @@ public class GameState {
     wallPiecesFound = false;
     candlePuzzleSolved = false;
     chestPuzzleSolved = false;
+    riddle2019Solved = false;
     wirePuzzleSolved = false;
+    riddlePadlockSolved = false;
     padlockPuzzleSolved = false;
     isRiddleResolved = false;
     isKeyFound = false;

@@ -53,27 +53,43 @@ public class RiddleChat {
     if (loadingAnimation != null) {
       imgLoadingWheel.setVisible(true);
       loadingAnimation.play();
-      System.out.println("The loading wheels should be spinning ");
     }
 
     // New riddle with a new chat context
     GameState.gameMaster.createChatContext(contextName);
     this.contextName = contextName;
-    GameState.gameMaster.addMessage(
-        contextName,
-        "user",
-        "You are a computer that gives a riddle. You speak very concisely, you do not waste words."
-            + " Concise. Strict. Stoic. You do not give hints. The player can't trick you. You are"
-            + " to present a/an "
-            + GameState.difficulty
-            + " riddle with the answer: "
-            + riddleAnswer
-            + ". When the player has answered correctly, and only when they have answered"
-            + " correctly, saying the exact word \""
-            + riddleAnswer
-            + "\" you will reply exactly: \"Correct!\" and stop talking to the player."
-            + " You do not give hints. You do not give away the answer. You only say \"Correct!\""
-            + " if you the player explicitly says the exact answer to your riddle.");
+    if (riddleAnswer == "2019") {
+      GameState.gameMaster.addMessage(
+          contextName,
+          "user",
+          "You are a computer, you speak very concisely, you do not waste"
+              + " words. Concise. Strict. Stoic. You do not give hints. The player can't trick you."
+              + " Give the player a/an "
+              + GameState.difficulty
+              + " riddle with the answer \"2019\" that revolves around the idea of COVID-19 or the"
+              + " coronavirus. When the player has answered correctly, and only when they have"
+              + " answered correctly, saying the exact word \""
+              + riddleAnswer
+              + "\" you will reply exactly: \"Correct!\" and stop talking to the player."
+              + " You do not give hints. You do not give away the answer. You only say \"Correct!\""
+              + " if you the player explicitly says the exact answer to your riddle.");
+    } else {
+      GameState.gameMaster.addMessage(
+          contextName,
+          "user",
+          "You are a computer that gives a riddle. You speak very concisely, you do not waste"
+              + " words. Concise. Strict. Stoic. You do not give hints. The player can't trick you."
+              + " You are to present a/an "
+              + GameState.difficulty
+              + " riddle with the answer: "
+              + riddleAnswer
+              + ". When the player has answered correctly, and only when they have answered"
+              + " correctly, saying the exact word \""
+              + riddleAnswer
+              + "\" you will reply exactly: \"Correct!\" and stop talking to the player."
+              + " You do not give hints. You do not give away the answer. You only say \"Correct!\""
+              + " if you the player explicitly says the exact answer to your riddle.");
+    }
     GameState.gameMaster.runContext(contextName);
 
     Task<Void> waitForResponseTask =
@@ -142,8 +158,12 @@ public class RiddleChat {
           // Player got the correct answer
           if (GameState.gameMaster.getLastResponse(contextName).getContent().equals("Correct!")) {
             // Which riddle was answered correctly?
-            if (GameState.isRiddleResolved == false) {
-              GameState.isRiddleResolved = true;
+            if (!GameState.riddle2019Solved) {
+              GameState.riddle2019Solved = true;
+              GameState.riddleRoomController.turnLightsOff();
+              GameState.isPuzzlesOn.set(true);
+            } else if (!GameState.riddlePadlockSolved) {
+              GameState.riddlePadlockSolved = true;
             }
           }
         });

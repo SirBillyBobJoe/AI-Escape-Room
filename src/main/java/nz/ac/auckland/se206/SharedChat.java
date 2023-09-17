@@ -89,6 +89,7 @@ public class SharedChat {
       for (String keyWords2 : GameState.clueSecond) {
         if (msg.contains(keyWords1) && msg.contains(keyWords2) && (!keyWords1.equals(keyWords2))) {
           if (GameState.hints.get().equals("\u221E")) {
+            msg1 = "Do not mention a hint number or say \"Hint: \". ";
             break outerloop;
           } else if (Integer.parseInt(GameState.hints.get()) == 0) {
             msg =
@@ -129,12 +130,17 @@ public class SharedChat {
               + GameState.difficulty
               + " hint about lighting some candles. Maybe the painting of candles can help the"
               + " player?";
+    } else if (!GameState.riddle2019Solved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " about the year that the COVID-19 virus was declared a pandemic (2019).";
     } else if (!GameState.chestPuzzleSolved) {
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
-              + " hint about a chest. There is a chest in the main room with a number lock that the"
-              + " player knows.";
+              + " hint about a chest. There is a chest in the main room with a number lock. The"
+              + " player should remember their previous riddle answer: 2019";
     } else if (!GameState.wirePuzzleSolved) {
       stepBasedHintPrompt =
           "Tell the player a/an "
