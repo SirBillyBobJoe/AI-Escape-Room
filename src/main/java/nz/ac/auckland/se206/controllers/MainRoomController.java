@@ -4,7 +4,6 @@ import java.io.IOException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
@@ -295,12 +294,6 @@ public class MainRoomController {
     } else {
       source.setOpacity(0); // Make the node invisible
     }
-  }
-
-  @FXML
-  private void puzzleOff(ActionEvent event) {
-    GameState.isPuzzlesOn.set(!GameState.isPuzzlesOn.getValue());
-    System.out.println(GameState.isPuzzlesOn.getValue());
   }
 
   private void drop(Node node) {
