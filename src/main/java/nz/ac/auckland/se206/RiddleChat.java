@@ -70,9 +70,9 @@ public class RiddleChat {
               + " coronavirus. When the player has answered correctly, and only when they have"
               + " answered correctly, saying the exact word \""
               + riddleAnswer
-              + "\" you will reply exactly: \"Correct!\" and stop talking to the player."
-              + " You do not give hints. You do not give away the answer. You only say \"Correct!\""
-              + " if you the player explicitly says the exact answer to your riddle.");
+              + "\" you will reply exactly: \"Correct!\" and stop talking to the player. You do not"
+              + " give hints. You do not give away the answer. YOU NEVER SAY \"2019\" You only say"
+              + " \"Correct!\" if you the player explicitly says the exact answer to your riddle.");
     } else {
       GameState.gameMaster.addMessage(
           contextName,
