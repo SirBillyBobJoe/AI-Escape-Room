@@ -23,6 +23,7 @@ import nz.ac.auckland.se206.Items.RedWire;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.controllers.GameMasterActions;
+import nz.ac.auckland.se206.controllers.RiddleRoomController;
 import nz.ac.auckland.se206.gpt.GameMaster;
 
 /** Represents the state of the game. */
@@ -56,6 +57,8 @@ public class GameState {
 
   /** Indicates whether the key has been found. */
   public static boolean isKeyFound = false;
+
+  public static RiddleRoomController riddleRoomController;
 
   /** Indicates whether the riddle room is active or not */
   public static boolean riddleRoomActive = false;

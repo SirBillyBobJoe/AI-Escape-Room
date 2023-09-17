@@ -18,6 +18,10 @@ public class RiddleRoomController {
   @FXML Rectangle computer;
   @FXML ImageView imgRoom;
 
+  public void initialize() {
+    GameState.riddleRoomController = this;
+  }
+
   /** Turns the lights on in the riddle room */
   @FXML
   public void turnLightsOn() {
