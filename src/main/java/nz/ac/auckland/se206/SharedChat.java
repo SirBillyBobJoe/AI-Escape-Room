@@ -74,6 +74,7 @@ public class SharedChat {
    * @param room The room context for the message.
    */
   public void onSend(TextArea textField, String room) {
+    // Get the player's message
     String msg1 = "";
     String msg = textField.getText();
 
@@ -88,6 +89,7 @@ public class SharedChat {
       for (String keyWords2 : GameState.clueSecond) {
         if (msg.contains(keyWords1) && msg.contains(keyWords2) && (!keyWords1.equals(keyWords2))) {
           if (GameState.hints.get().equals("\u221E")) {
+            msg1 = "Do not mention a hint number or say \"Hint: \". ";
             break outerloop;
           } else if (Integer.parseInt(GameState.hints.get()) == 0) {
             msg =
@@ -96,15 +98,76 @@ public class SharedChat {
             break outerloop;
           } else {
             GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
-            msg1 = "Do not mention a hint number.";
+            msg1 = "Do not mention a hint number or say \"Hint: \". ";
             break outerloop;
           }
         }
       }
     }
 
-    GameState.gameMaster.addMessage(room, "user", msg1 + msg);
-    System.out.println(msg1 + msg);
+    // Get the right hint based on the current step
+    String stepBasedHintPrompt = "";
+    if (!GameState.pipePuzzleSolved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about solving a pipe puzzle. There is a leak coming from some pipes in some"
+              + " room.";
+    } else if (!GameState.wallRemoved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about breaking down a brick wall or using a hammer. There is a brick wall.";
+    } else if (!GameState.wallPiecesFound) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about a looking for items in a wall in the main room. They are next to the"
+              + " escape door.";
+    } else if (!GameState.candlePuzzleSolved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about lighting some candles. Maybe the painting of candles can help the"
+              + " player?";
+    } else if (!GameState.riddle2019Solved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " about the year that the COVID-19 virus was declared a pandemic (2019).";
+    } else if (!GameState.chestPuzzleSolved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about a chest. There is a chest in the main room with a number lock. The"
+              + " player should remember their previous riddle answer: 2019";
+    } else if (!GameState.wirePuzzleSolved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about wires. There is a electrical box with wires that are disconnected. The"
+              + " player might have missed a red wire in behind the wall in the main room";
+    } else if (!GameState.riddlePadlockSolved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about the answer to a riddle they are solving. The answer is: "
+              + GameState.padlockAnswer
+              + ".";
+    } else if (!GameState.padlockPuzzleSolved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about a lock. There is a combination padlock on the main.";
+    } else {
+      stepBasedHintPrompt =
+          "Tell the player a/an " + GameState.difficulty + " about using their wit to escape.";
+    }
+
+    // Get the Game Master's response
+    GameState.gameMaster.addMessage(
+        room, "user", msg1 + "The player says: " + msg + ". " + stepBasedHintPrompt);
+    System.out.println(msg1 + "The player says: \"" + msg + "\". " + stepBasedHintPrompt);
     GameState.gameMaster.runContext(room);
 
     Task<Void> waitForResponseTask =

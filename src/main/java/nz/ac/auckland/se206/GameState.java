@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -23,10 +24,40 @@ import nz.ac.auckland.se206.Items.RedWire;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.controllers.GameMasterActions;
+import nz.ac.auckland.se206.controllers.RiddleRoomController;
 import nz.ac.auckland.se206.gpt.GameMaster;
 
 /** Represents the state of the game. */
 public class GameState {
+
+  // Steps in the game, in order
+
+  /** Indicates whether the pipe puzzle has been solved */
+  public static boolean pipePuzzleSolved = false;
+
+  /** Indicates whether the player has hammered down the wall */
+  public static boolean wallRemoved = false;
+
+  /** Indicates whether the both wall panels have been removed */
+  public static boolean wallPiecesFound = false;
+
+  /** Indicates whether the player has solved the candle puzzle */
+  public static boolean candlePuzzleSolved = false;
+
+  /** Indicates whether the player has solved the 2019 riddle */
+  public static boolean riddle2019Solved = false;
+
+  /** Indicates whether the player has solved the chest puzzle */
+  public static boolean chestPuzzleSolved = false;
+
+  /** Indicates whether the player has solved the wire puzzle */
+  public static boolean wirePuzzleSolved = false;
+
+  /** Indicates whether the player has solved the padlock riddle */
+  public static boolean riddlePadlockSolved = false;
+
+  /** Indicates whether the player has solved the padlock puzzle */
+  public static boolean padlockPuzzleSolved = false;
 
   /** Indicates whether the riddle has been resolved. */
   public static boolean isRiddleResolved = false;
@@ -34,11 +65,12 @@ public class GameState {
   /** Indicates whether the key has been found. */
   public static boolean isKeyFound = false;
 
+  public static RiddleRoomController riddleRoomController;
+
   /** Indicates whether the riddle room is active or not */
   public static boolean riddleRoomActive = false;
 
   @FXML public static Rectangle riddleGlow;
-
   @FXML public static CubicCurve riddleGlow1;
 
   public static void setRiddleGlow() {
@@ -78,7 +110,11 @@ public class GameState {
   public static Map<Puzzle, BooleanProperty> puzzleSolved = new HashMap<Puzzle, BooleanProperty>();
 
   // Padlock Game
-  public static String padlockAnswer = "YoMama";
+  static String[] words = {"apple", "table", "chair", "piano", "dance"};
+  static Random random = new Random();
+  static int randomIndex = random.nextInt(words.length);
+  static String randomWord = words[randomIndex];
+  public static String padlockAnswer = randomWord;
 
   public static RedWire redWire = new RedWire();
   public static GreenWire greenWire = new GreenWire();
@@ -90,7 +126,7 @@ public class GameState {
 
   public static BooleanProperty isPuzzlesOn = new SimpleBooleanProperty(true);
   public static Set<String> puzzleName = new HashSet<String>();
-  public static String passcodeAnswer = "1234";
+  public static String passcodeAnswer = "2019";
 
   public static String[] clueFirst = {
     "help", "hint", "what", "how", "where", "who", "why", "can", "do", "stuck", "lost", "tell",
@@ -159,5 +195,18 @@ public class GameState {
     timer = CountdownTimer.getInstance(time * 60); // Assuming getInstance resets the timer
     currentRoom.set(Rooms.MAINROOM);
     currentPuzzle.set(Puzzle.NONE);
+
+    pipePuzzleSolved = false;
+    wallRemoved = false;
+    wallPiecesFound = false;
+    candlePuzzleSolved = false;
+    chestPuzzleSolved = false;
+    riddle2019Solved = false;
+    wirePuzzleSolved = false;
+    riddlePadlockSolved = false;
+    padlockPuzzleSolved = false;
+    isRiddleResolved = false;
+    isKeyFound = false;
+    riddleRoomActive = false;
   }
 }

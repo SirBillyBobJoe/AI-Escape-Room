@@ -38,6 +38,7 @@ public class PuzzleRoomController {
   private List<ImageView> candles;
   boolean isOpenWall = false;
 
+  @FXML
   public void initialize() {
 
     GameState.riddleGlow1 = riddleGlow1;
@@ -252,6 +253,8 @@ public class PuzzleRoomController {
 
     if (GameState.wallCount <= 0) {
       background.setImage(new Image("/images/puzzleroom/openwallroom.png"));
+      GameState.wallRemoved = true;
+      System.out.println("Wall Removed");
       isOpenWall = true;
       candle1.setVisible(true);
       candle2.setVisible(true);
@@ -268,6 +271,10 @@ public class PuzzleRoomController {
       if (checkCandleGame()) {
         GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(true);
         System.out.println("Complete");
+        GameState.candlePuzzleSolved = true;
+        GameState.isPuzzlesOn.set(false);
+        GameState.riddleRoomController.turnLightsOn();
+        System.out.println("Lights off");
       } else {
         GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(false);
       }

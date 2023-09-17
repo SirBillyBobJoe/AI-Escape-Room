@@ -288,6 +288,10 @@ public class WirelinkingController {
     GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).set(true);
     System.out.println("Completed");
     System.out.println(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).getValue());
+    GameState.wirePuzzleSolved = true;
+    GameState.riddleRoomController.turnLightsOn();
+    GameState.riddleChat.newRiddle("padlockRiddle", GameState.padlockAnswer);
+    GameState.isPuzzlesOn.set(false);
     exitPuzzle(null);
   }
 
