@@ -174,11 +174,6 @@ public class MainRoomController {
       source.setVisible(false);
       if (hide1.isVisible() == false && hide2.isVisible() == false) {
         GameState.wallPiecesFound = true;
-        if (GameState.candlePuzzleSolved) {
-          GameState.isPuzzlesOn.set(false);
-          GameState.riddleRoomController.turnLightsOn();
-          System.out.println("Lights off");
-        }
       }
     }
   }

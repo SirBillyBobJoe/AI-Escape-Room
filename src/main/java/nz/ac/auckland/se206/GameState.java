@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -52,7 +53,7 @@ public class GameState {
   /** Indicates whether the player has solved the wire puzzle */
   public static boolean wirePuzzleSolved = false;
 
-  /** Indicates whether the player has solved the padlock puzzle */
+  /** Indicates whether the player has solved the padlock riddle */
   public static boolean riddlePadlockSolved = false;
 
   /** Indicates whether the player has solved the padlock puzzle */
@@ -109,7 +110,11 @@ public class GameState {
   public static Map<Puzzle, BooleanProperty> puzzleSolved = new HashMap<Puzzle, BooleanProperty>();
 
   // Padlock Game
-  public static String padlockAnswer = "YoMama";
+  static String[] words = {"apple", "table", "chair", "piano", "dance"};
+  static Random random = new Random();
+  static int randomIndex = random.nextInt(words.length);
+  static String randomWord = words[randomIndex];
+  public static String padlockAnswer = randomWord;
 
   public static RedWire redWire = new RedWire();
   public static GreenWire greenWire = new GreenWire();

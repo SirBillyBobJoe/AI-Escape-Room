@@ -164,6 +164,8 @@ public class RiddleChat {
               GameState.isPuzzlesOn.set(true);
             } else if (!GameState.riddlePadlockSolved) {
               GameState.riddlePadlockSolved = true;
+              GameState.riddleRoomController.turnLightsOff();
+              GameState.isPuzzlesOn.set(true);
             }
           }
         });

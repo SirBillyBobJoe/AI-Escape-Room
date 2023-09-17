@@ -145,7 +145,15 @@ public class SharedChat {
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
-              + " hint about wires. There is a electrical box with wires that are disconnected.";
+              + " hint about wires. There is a electrical box with wires that are disconnected. The"
+              + " player might have missed a red wire in behind the wall in the main room";
+    } else if (!GameState.riddlePadlockSolved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about the answer to a riddle they are solving. The answer is: "
+              + GameState.padlockAnswer
+              + ".";
     } else if (!GameState.padlockPuzzleSolved) {
       stepBasedHintPrompt =
           "Tell the player a/an "
