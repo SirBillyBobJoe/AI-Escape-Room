@@ -163,11 +163,15 @@ public class SharedChat {
       stepBasedHintPrompt =
           "Tell the player a/an " + GameState.difficulty + " about using their wit to escape.";
     }
-
+    String finalMessage;
+    if (Integer.parseInt(GameState.hints.get()) == 0) {
+      finalMessage = msg1 + "The player says: " + msg + ". ";
+    } else {
+      finalMessage = msg1 + "The player says: " + msg + ". " + stepBasedHintPrompt;
+    }
     // Get the Game Master's response
-    GameState.gameMaster.addMessage(
-        room, "user", msg1 + "The player says: " + msg + ". " + stepBasedHintPrompt);
-    System.out.println(msg1 + "The player says: \"" + msg + "\". " + stepBasedHintPrompt);
+    GameState.gameMaster.addMessage(room, "user", finalMessage);
+    System.out.println(finalMessage);
     GameState.gameMaster.runContext(room);
 
     Task<Void> waitForResponseTask =
