@@ -28,6 +28,29 @@ import nz.ac.auckland.se206.gpt.GameMaster;
 /** Represents the state of the game. */
 public class GameState {
 
+  // Steps in the game, in order
+
+  /** Indicates whether the pipe puzzle has been solved */
+  public static boolean pipePuzzleSolved = false;
+
+  /** Indicates whether the both wall panels have been removed */
+  public static boolean wallPiecesFound = false;
+
+  /** Indicates whether the player has hammered down the wall */
+  public static boolean wallRemoved = false;
+
+  /** Indicates whether the player has solved the candle puzzle */
+  public static boolean candlePuzzleSolved = false;
+
+  /** Indicates whether the player has solved the chest puzzle */
+  public static boolean chestPuzzleSolved = false;
+
+  /** Indicates whether the player has solved the wire puzzle */
+  public static boolean wirePuzzleSolved = false;
+
+  /** Indicates whether the player has solved the padlock puzzle */
+  public static boolean padlockPuzzleSolved = false;
+
   /** Indicates whether the riddle has been resolved. */
   public static boolean isRiddleResolved = false;
 
@@ -38,7 +61,6 @@ public class GameState {
   public static boolean riddleRoomActive = false;
 
   @FXML public static Rectangle riddleGlow;
-
   @FXML public static CubicCurve riddleGlow1;
 
   public static void setRiddleGlow() {

@@ -252,6 +252,8 @@ public class PuzzleRoomController {
 
     if (GameState.wallCount <= 0) {
       background.setImage(new Image("/images/puzzleroom/openwallroom.png"));
+      GameState.wallRemoved = true;
+      System.out.println("Wall Removed");
       isOpenWall = true;
       candle1.setVisible(true);
       candle2.setVisible(true);
@@ -268,6 +270,7 @@ public class PuzzleRoomController {
       if (checkCandleGame()) {
         GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(true);
         System.out.println("Complete");
+        GameState.candlePuzzleSolved = true;
       } else {
         GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(false);
       }

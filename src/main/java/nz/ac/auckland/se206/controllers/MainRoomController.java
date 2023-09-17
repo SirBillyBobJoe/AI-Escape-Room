@@ -74,6 +74,7 @@ public class MainRoomController {
               if (!newValue1) { // Check if the new value of the property is 'true'
                 background.setImage(new Image("/images/mainRoom/openChest.png"));
                 blueWire.setVisible(true);
+                GameState.chestPuzzleSolved = true;
               }
             });
 
@@ -171,6 +172,9 @@ public class MainRoomController {
       GameState.currentPuzzle.set(Puzzle.PASSCODE);
     } else if (id.equals("hide1") || id.equals("hide2")) {
       source.setVisible(false);
+      if (hide1.isVisible() == false && hide2.isVisible() == false) {
+        GameState.wallPiecesFound = true;
+      }
     }
   }
 

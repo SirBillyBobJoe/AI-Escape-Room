@@ -146,6 +146,7 @@ public class PadlockController {
   /** Called when the map is found to be complete. Prints a completion message to the console. */
   private void onComplete() {
     GameState.puzzleSolved.get(Puzzle.PADLOCK).set(true);
+    GameState.padlockPuzzleSolved = true;
     System.out.println("Complete");
     exitPuzzle();
   }

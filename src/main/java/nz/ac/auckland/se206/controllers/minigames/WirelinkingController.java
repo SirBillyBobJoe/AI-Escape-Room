@@ -61,6 +61,7 @@ public class WirelinkingController {
     /** Marks the path as completed. */
     public void setComplete() {
       isComplete = true;
+      GameState.wirePuzzleSolved = true;
     }
   }
 
