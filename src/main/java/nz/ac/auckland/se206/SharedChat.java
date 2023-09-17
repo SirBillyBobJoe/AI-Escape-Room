@@ -74,6 +74,7 @@ public class SharedChat {
    * @param room The room context for the message.
    */
   public void onSend(TextArea textField, String room) {
+    // Get the player's message
     String msg1 = "";
     String msg = textField.getText();
 
@@ -103,8 +104,53 @@ public class SharedChat {
       }
     }
 
+    // Get the right hint based on the current step
+    String stepBasedHintPrompt = "";
+    if (!GameState.pipePuzzleSolved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about solving a pipe puzzle. There is a leak from the pipe.";
+    } else if (!GameState.wallRemoved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about breaking down a wall or using a hammer. There is a blank brick wall";
+    } else if (!GameState.wallPiecesFound) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about a looking for items in a wall. There are suspicious looking spots on"
+              + " the wall of the main room.";
+    } else if (!GameState.candlePuzzleSolved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about lighting candles. There is a painting of candles.";
+    } else if (!GameState.chestPuzzleSolved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about a chest. There is a chest with a number lock.";
+    } else if (!GameState.wirePuzzleSolved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about wires. There is a electrical box with wires that are disconnected.";
+    } else if (!GameState.padlockPuzzleSolved) {
+      stepBasedHintPrompt =
+          "Tell the player a/an "
+              + GameState.difficulty
+              + " hint about a lock. There is a padlock on the main door and a key for it hidden"
+              + " somewhere in the main room (The wall).";
+    } else {
+      stepBasedHintPrompt =
+          "Tell the player a/an " + GameState.difficulty + " about using their wit to escape.";
+    }
+
+    // Get the Game Master's response
     GameState.gameMaster.addMessage(room, "user", msg1 + msg);
-    System.out.println(msg1 + msg);
+    System.out.println(msg1 + msg + ". " + stepBasedHintPrompt);
     GameState.gameMaster.runContext(room);
 
     Task<Void> waitForResponseTask =

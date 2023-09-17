@@ -33,11 +33,11 @@ public class GameState {
   /** Indicates whether the pipe puzzle has been solved */
   public static boolean pipePuzzleSolved = false;
 
-  /** Indicates whether the both wall panels have been removed */
-  public static boolean wallPiecesFound = false;
-
   /** Indicates whether the player has hammered down the wall */
   public static boolean wallRemoved = false;
+
+  /** Indicates whether the both wall panels have been removed */
+  public static boolean wallPiecesFound = false;
 
   /** Indicates whether the player has solved the candle puzzle */
   public static boolean candlePuzzleSolved = false;

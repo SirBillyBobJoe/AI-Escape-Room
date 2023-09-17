@@ -80,15 +80,7 @@ public class UIOverlayController {
             + hint
             + " hints. You are \"The Singularity\", master of this escape room. We are in the main"
             + " room. Only give one hint at a time. You speak very concisely, you do not waste"
-            + " words. Concise. Strict. Stoic. You do not wish for the player to escape. Doubt."
-            + " Here are some hints you can give the player but only give them one at a time."
-            + "1: The green Wire is in the chest"
-            + "2: The Lighter and Red Wire is beneath the wire box and behind the door"
-            + "3. Fix the pipe to get the hammer"
-            + "4. Use the hammer to break the wall"
-            + "5. Look at the painting to solve the candles"
-            + "6. Use the wires to fix the wire box which will give you the key"
-            + "7. Use the key to open the lock";
+            + " words. Concise. Strict. Stoic";
 
     // Add the initial message to the chat context and run it
     GameState.gameMaster.addMessage("main", "user", gptMsg);
