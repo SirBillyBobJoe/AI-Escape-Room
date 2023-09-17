@@ -97,7 +97,7 @@ public class SharedChat {
             break outerloop;
           } else {
             GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
-            msg1 = "Do not mention a hint number.";
+            msg1 = "Do not mention a hint number or say \"Hint: \". ";
             break outerloop;
           }
         }
@@ -116,24 +116,25 @@ public class SharedChat {
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
-              + " hint about breaking down a wall or using a hammer. There is a blank brick wall"
-              + " somewhere";
+              + " hint about breaking down a brick wall or using a hammer. There is a brick wall.";
     } else if (!GameState.wallPiecesFound) {
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
-              + " hint about a looking for items in a wall. There are suspicious looking spots on"
-              + " the wall of the main room.";
+              + " hint about a looking for items in a wall in the main room. They are next to the"
+              + " escape door.";
     } else if (!GameState.candlePuzzleSolved) {
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
-              + " hint about lighting candles. There is a painting of candles.";
+              + " hint about lighting some candles. Maybe the painting of candles can help the"
+              + " player?";
     } else if (!GameState.chestPuzzleSolved) {
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
-              + " hint about a chest. There is a chest with a number lock.";
+              + " hint about a chest. There is a chest in the main room with a number lock that the"
+              + " player knows.";
     } else if (!GameState.wirePuzzleSolved) {
       stepBasedHintPrompt =
           "Tell the player a/an "
@@ -143,16 +144,16 @@ public class SharedChat {
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
-              + " hint about a lock. There is a padlock on the main door and a key for it hidden"
-              + " somewhere in the main room (The wall).";
+              + " hint about a lock. There is a combination padlock on the main.";
     } else {
       stepBasedHintPrompt =
           "Tell the player a/an " + GameState.difficulty + " about using their wit to escape.";
     }
 
     // Get the Game Master's response
-    GameState.gameMaster.addMessage(room, "user", msg1 + msg + ". " + stepBasedHintPrompt);
-    System.out.println(msg1 + msg + ". " + stepBasedHintPrompt);
+    GameState.gameMaster.addMessage(
+        room, "user", msg1 + "The player says: " + msg + ". " + stepBasedHintPrompt);
+    System.out.println(msg1 + "The player says: \"" + msg + "\". " + stepBasedHintPrompt);
     GameState.gameMaster.runContext(room);
 
     Task<Void> waitForResponseTask =
