@@ -88,7 +88,7 @@ public class SharedChat {
     outerloop:
     for (String keyWords1 : GameState.clueFirst) {
       for (String keyWords2 : GameState.clueSecond) {
-        if (msg.contains(keyWords1) && msg.contains(keyWords2) && (!keyWords1.equals(keyWords2))) {
+        if (msg.contains(keyWords1) && msg.contains(keyWords2)) {
           isHint = true;
           if (GameState.hints.get().equals("\u221E")) {
             msg1 = "Do not mention a hint number or say \"Hint: \". ";
@@ -109,7 +109,24 @@ public class SharedChat {
 
     // Get the right hint based on the current step
     String stepBasedHintPrompt = "";
-    if (!GameState.pipePuzzleSolved) {
+    if (GameState.riddleRoomActive.getValue()) {
+      if (!GameState.riddle2019Solved) {
+        stepBasedHintPrompt =
+            "Tell the player a/an "
+                + GameState.difficulty
+                + "a hint to the riddle with the answer of the year"
+                + GameState.passcodeAnswer
+                + "but never under any circumstance give them the answer";
+      } else if (!GameState.riddlePadlockSolved) {
+        stepBasedHintPrompt =
+            "Tell the player a/an "
+                + GameState.difficulty
+                + " hint about the answer to a riddle they are solving. The answer is: "
+                + GameState.padlockAnswer
+                + "but never under any circumstance give them the answer.";
+      }
+
+    } else if (!GameState.pipePuzzleSolved) {
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
@@ -132,12 +149,6 @@ public class SharedChat {
               + GameState.difficulty
               + " hint about lighting some candles. Maybe the painting of candles can help the"
               + " player?";
-    } else if (!GameState.riddle2019Solved) {
-      stepBasedHintPrompt =
-          "Tell the player a/an "
-              + GameState.difficulty
-              + "a hint to the riddle with the answer of the year"
-              + GameState.passcodeAnswer;
     } else if (!GameState.chestPuzzleSolved) {
       stepBasedHintPrompt =
           "Tell the player a/an "
@@ -150,18 +161,11 @@ public class SharedChat {
               + GameState.difficulty
               + " hint about wires. There is a electrical box with wires that are disconnected. The"
               + " player might have missed a red wire in behind the wall in the main room";
-    } else if (!GameState.riddlePadlockSolved) {
-      stepBasedHintPrompt =
-          "Tell the player a/an "
-              + GameState.difficulty
-              + " hint about the answer to a riddle they are solving. The answer is: "
-              + GameState.padlockAnswer
-              + ".";
     } else if (!GameState.padlockPuzzleSolved) {
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
-              + " hint about a lock. There is a combination padlock on the main.";
+              + " hint about a lock. There is a combination word padlock in the main room.";
     } else {
       stepBasedHintPrompt =
           "Tell the player a/an " + GameState.difficulty + " about using their wit to escape.";
