@@ -72,6 +72,8 @@ public class GameState {
 
   @FXML public static Rectangle riddleGlow;
   @FXML public static CubicCurve riddleGlow1;
+  @FXML public static ImageView mainRoom;
+  @FXML public static ImageView puzzleRoom;
 
   public static void setRiddleGlow() {
     if (riddleRoomActive) {

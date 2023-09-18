@@ -83,6 +83,7 @@ public class MainRoomController {
     GameState.currentRoomItems.put(lock1, new Lock(1));
 
     GameState.riddleGlow = riddleGlow;
+    GameState.mainRoom = background;
     GameState.currentRoomItems.put(redWire, GameState.redWire);
     GameState.currentRoomItems.put(blueWire, GameState.blueWire);
   }
