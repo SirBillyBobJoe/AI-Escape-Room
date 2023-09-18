@@ -9,7 +9,6 @@ import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -59,6 +58,8 @@ public class UIOverlayController {
   private Pane loadedPuzzle;
 
   private Timeline playerInteractionTimer;
+
+  private String intro;
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
@@ -168,7 +169,7 @@ public class UIOverlayController {
         "You are The Singularity, an omnipresent AI. You don't want the player to escape from your"
             + " domain. You introduce yourself extremely briefly.");
     GameState.gameMaster.runContext("intro");
-    Task<Void> waitForResponseTask =
+    Task<Void> waitForIntro =
         new Task<Void>() {
           @Override
           protected Void call() throws Exception {
@@ -177,25 +178,13 @@ public class UIOverlayController {
           }
         };
 
-    new Thread(waitForResponseTask).start();
+    new Thread(waitForIntro).start();
 
-    Timeline welcome =
-        new Timeline(
-            new KeyFrame(
-                Duration.seconds(2), // Delay of 5 seconds
-                new EventHandler<ActionEvent>() {
-                  @Override
-                  public void handle(ActionEvent event) {
-                    waitForResponseTask.setOnSucceeded(
-                        e -> {
-                          GameState.gameMasterActions.activate(
-                              GameState.gameMaster.getLastResponse("intro").getContent());
-                        });
-
-                    new Thread(waitForResponseTask).start();
-                  }
-                }));
-    welcome.play();
+    waitForIntro.setOnSucceeded(
+        e -> {
+          intro = GameState.gameMaster.getLastResponse("intro").getContent();
+          GameState.gameMasterActions.activate(intro);
+        });
   }
 
   /**
