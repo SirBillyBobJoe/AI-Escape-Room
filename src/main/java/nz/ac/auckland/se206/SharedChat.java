@@ -167,10 +167,12 @@ public class SharedChat {
           "Tell the player a/an " + GameState.difficulty + " about using their wit to escape.";
     }
     String finalMessage;
-    if (Integer.parseInt(GameState.hints.get()) == 0 || !isHint) {
+    if (GameState.hints.get().equals("0") || !isHint) {
       finalMessage = msg1 + "The player says: " + msg + ". ";
+      System.out.println("no hint");
     } else {
       finalMessage = msg1 + "The player says: " + msg + ". " + stepBasedHintPrompt;
+      System.out.println("Give hint");
     }
     // Get the Game Master's response
     GameState.gameMaster.addMessage(room, "user", finalMessage);
