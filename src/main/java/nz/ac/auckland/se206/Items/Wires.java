@@ -9,7 +9,7 @@ public class Wires extends Object {
   public Wires(String colour, Image image) {
     super(image);
     this.colour = colour;
-    this.message = "this is a " + colour + " wire";
+    this.message = "This is a " + colour + " wire.";
 
     this.isUsed = false;
   }

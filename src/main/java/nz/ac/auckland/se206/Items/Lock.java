@@ -11,7 +11,7 @@ public class Lock extends Object {
   public Lock(int id) {
     super(new Image("/images/Inventory/lock.png"));
     this.id = id;
-    this.message = "lock " + id + " is locked";
+    this.message = "This padlock is locked.";
   }
 
   public boolean isLocked() {
@@ -24,7 +24,7 @@ public class Lock extends Object {
 
   public void unlockLock() {
     isLocked = false;
-    this.message = "you have unlocked lock " + id;
+    this.message = "You have unlocked the padlock.";
     GameState.currentPuzzle.set(Puzzle.PADLOCK);
   }
 }
