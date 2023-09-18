@@ -22,7 +22,7 @@
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <TextArea fx:id="itemChat" editable="false" focusTraversable="false" layoutX="821.0" layoutY="527.0" mouseTransparent="true" prefHeight="44.0" prefWidth="250.0" style="-fx-background-color: transparent; -fx-control-inner-background: black; -fx-border-color: white; -fx-border-radius: 5;" text="hello" wrapText="true">
+      <TextArea fx:id="itemChat" editable="false" focusTraversable="false" layoutX="821.0" layoutY="527.0" mouseTransparent="true" prefHeight="44.0" prefWidth="250.0" style="-fx-background-color: transparent; -fx-control-inner-background: black; -fx-border-color: white; -fx-border-radius: 5;" wrapText="true">
          <effect>
             <DropShadow height="159.56" radius="39.39" spread="0.42" width="0.0" />
          </effect>

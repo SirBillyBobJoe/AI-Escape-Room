@@ -6,6 +6,6 @@ public class BlueWire extends Wires {
 
   public BlueWire() {
     super("Blue", new Image("/images/Inventory/blueWire.png"));
-    this.itemIdentifier = "this is a blue wire";
+    this.itemIdentifier = "This is a blue wire.";
   }
 }

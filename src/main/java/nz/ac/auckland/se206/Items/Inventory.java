@@ -246,12 +246,12 @@ public class Inventory {
 
           if (!(GameState.wallCount-- > 1)) {
             targetImageNode.setVisible(false);
-            ItemChat.getInstance().printChatMessage(itemChat, "you have broken the wall");
+            ItemChat.getInstance().printChatMessage(itemChat, "You have broken the wall.");
           }
 
-          ItemChat.getInstance().printChatMessage(itemChat, "you have cracked the wall");
+          ItemChat.getInstance().printChatMessage(itemChat, "You have cracked the wall.");
         } else {
-          ItemChat.getInstance().printChatMessage(itemChat, "You need to use a hammer");
+          ItemChat.getInstance().printChatMessage(itemChat, "You need to use a hammer.");
         }
         return;
       }
@@ -276,11 +276,11 @@ public class Inventory {
             success = true; // Only set success to true if the operation is successful.
           } else {
             ItemChat.getInstance()
-                .printChatMessage(
-                    itemChat, "You Need Key " + lockItem.getId() + " To Unlock The Lock");
+                .printChatMessage(itemChat, "You need a key to unlock The padlock.");
           }
         } else { // if its not a key
-          ItemChat.getInstance().printChatMessage(itemChat, "You Need A Key To Unlock The Lock");
+          ItemChat.getInstance()
+              .printChatMessage(itemChat, "You need a key to unlock The padlock.");
         }
       } else if ("candle".equals(targetImageView.getUserData())) { // if its a candle
 
@@ -298,8 +298,7 @@ public class Inventory {
           success = true; // Only set success to true if the operation is successful.
 
         } else { // if its not a lighter
-          ItemChat.getInstance()
-              .printChatMessage(itemChat, "You Need A Lighter To Light The Candle");
+          ItemChat.getInstance().printChatMessage(itemChat, "You need a lighter to light candles.");
         }
 
       } else {
@@ -318,7 +317,8 @@ public class Inventory {
     Node node = (Node) event.getSource();
     if (node.getId().equals("exitDoor") // if its the exit door tell them u cant escape yet
         && !GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
-      ItemChat.getInstance().printChatMessage(itemChat, "You need to solve the PadLock Puzzle");
+      ItemChat.getInstance()
+          .printChatMessage(itemChat, "You need to solve the padLock combination.");
       return;
     }
     ImageView imageView = (ImageView) event.getSource();
