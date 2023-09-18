@@ -111,10 +111,13 @@ public class GameState {
 
   // Padlock Game
   static String[] words = {"apple", "table", "chair", "piano", "dance"};
+  static String[] numbers = {"2019", "1945", "2008", "2001", "1840"};
   static Random random = new Random();
   static int randomIndex = random.nextInt(words.length);
   static String randomWord = words[randomIndex];
+  static String randomYear = numbers[randomIndex];
   public static String padlockAnswer = randomWord;
+  public static String passcodeAnswer = randomYear;
 
   public static RedWire redWire = new RedWire();
   public static GreenWire greenWire = new GreenWire();
@@ -126,7 +129,6 @@ public class GameState {
 
   public static BooleanProperty isPuzzlesOn = new SimpleBooleanProperty(true);
   public static Set<String> puzzleName = new HashSet<String>();
-  public static String passcodeAnswer = "2019";
 
   public static String[] clueFirst = {
     "help", "hint", "what", "how", "where", "who", "why", "can", "do", "stuck", "lost", "tell",
