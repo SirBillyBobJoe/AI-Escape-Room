@@ -110,11 +110,14 @@ public class GameState {
   public static Map<Puzzle, BooleanProperty> puzzleSolved = new HashMap<Puzzle, BooleanProperty>();
 
   // Padlock Game
-  static String[] words = {"apple", "table", "chair", "piano", "dance"};
-  static Random random = new Random();
-  static int randomIndex = random.nextInt(words.length);
-  static String randomWord = words[randomIndex];
+  public static String[] words = {"apple", "table", "chair", "piano", "dance"};
+  public static String[] numbers = {"2019", "2008", "2001", "1945", "1840"};
+  public static Random random = new Random();
+  public static int randomIndex = random.nextInt(words.length);
+  public static String randomWord = words[randomIndex];
+  public static String randomNumbers = numbers[randomIndex];
   public static String padlockAnswer = randomWord;
+  public static String passcodeAnswer = randomNumbers;
 
   public static RedWire redWire = new RedWire();
   public static GreenWire greenWire = new GreenWire();
@@ -126,7 +129,6 @@ public class GameState {
 
   public static BooleanProperty isPuzzlesOn = new SimpleBooleanProperty(true);
   public static Set<String> puzzleName = new HashSet<String>();
-  public static String passcodeAnswer = "2019";
 
   public static String[] clueFirst = {
     "help", "hint", "what", "how", "where", "who", "why", "can", "do", "stuck", "lost", "tell",
