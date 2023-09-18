@@ -29,7 +29,7 @@ public class PasscodeController {
   private List<List<String>> letterOptions = new ArrayList<List<String>>();
   private List<StringProperty> selectedLetters = new ArrayList<StringProperty>();
 
-  private final String[] numbers = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+  private final String[] numbers = {"9", "8", "7", "6", "5", "4", "3", "2", "1", "0"};
 
   /** Initializes the grid based on the game's difficulty. */
   @FXML
@@ -39,23 +39,19 @@ public class PasscodeController {
 
     // Loop through each letter in the answer
     for (int i = 0; i < answer.length(); i++) {
-      String correctLetter = answer.substring(i, i + 1);
       Pane newLetterField = (Pane) App.loadFxml("padlockselector");
       List<String> individualLetterOptions = new ArrayList<String>();
-      int numOptions = rand.nextInt(4) + 6;
+      int numOptions = 10;
 
       // Generate random letter options
       for (int n = 0; n < numOptions; n++) {
-        String nextLetter = numbers[rand.nextInt(10)];
-        if (individualLetterOptions.contains(nextLetter) || correctLetter.equals(nextLetter)) {
-          numOptions++;
-        } else {
-          individualLetterOptions.add(nextLetter);
-        }
+        String nextLetter = numbers[n];
+
+        individualLetterOptions.add(nextLetter);
       }
 
       // Set one of the options to be the correct letter
-      individualLetterOptions.set(rand.nextInt(individualLetterOptions.size()), correctLetter);
+
       StringProperty selectedLetter =
           new SimpleStringProperty(
               individualLetterOptions.get(rand.nextInt(individualLetterOptions.size())));

@@ -74,6 +74,7 @@ public class SharedChat {
    * @param room The room context for the message.
    */
   public void onSend(TextArea textField, String room) {
+    Boolean isHint = false;
     // Get the player's message
     String msg1 = "";
     String msg = textField.getText();
@@ -88,6 +89,7 @@ public class SharedChat {
     for (String keyWords1 : GameState.clueFirst) {
       for (String keyWords2 : GameState.clueSecond) {
         if (msg.contains(keyWords1) && msg.contains(keyWords2) && (!keyWords1.equals(keyWords2))) {
+          isHint = true;
           if (GameState.hints.get().equals("\u221E")) {
             msg1 = "Do not mention a hint number or say \"Hint: \". ";
             break outerloop;
@@ -165,7 +167,7 @@ public class SharedChat {
           "Tell the player a/an " + GameState.difficulty + " about using their wit to escape.";
     }
     String finalMessage;
-    if (Integer.parseInt(GameState.hints.get()) == 0) {
+    if (Integer.parseInt(GameState.hints.get()) == 0 || !isHint) {
       finalMessage = msg1 + "The player says: " + msg + ". ";
     } else {
       finalMessage = msg1 + "The player says: " + msg + ". " + stepBasedHintPrompt;

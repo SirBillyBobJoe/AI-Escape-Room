@@ -11,7 +11,7 @@ public class Lighter extends Object {
   /** Constructs a new lighter object. The lighter is initialized with a specific image. */
   public Lighter() {
     super(new Image("/images/Inventory/lighter.png"));
-    this.message = "You have found a lighter";
-    this.itemIdentifier = "this is lighter";
+    this.message = "You have found a lighter.";
+    this.itemIdentifier = "This is a lighter.";
   }
 }

@@ -110,6 +110,7 @@ public class GameState {
   public static Map<Puzzle, BooleanProperty> puzzleSolved = new HashMap<Puzzle, BooleanProperty>();
 
   // Padlock Game
+
   public static String[] words = {"apple", "table", "chair", "piano", "dance"};
   public static String[] numbers = {"2019", "2008", "2001", "1945", "1840"};
   public static Random random = new Random();

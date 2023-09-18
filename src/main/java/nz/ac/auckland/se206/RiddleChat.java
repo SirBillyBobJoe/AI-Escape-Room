@@ -90,6 +90,7 @@ public class RiddleChat {
             " riddle with the answer \"2001\" that revolves around the idea of"
                 + " Twin Towers Terroist Attack. When the player has answered correctly,"
                 + " and only when they have answered correctly, saying the exact word \"";
+
       GameState.gameMaster.addMessage(
           contextName,
           "user",
@@ -100,9 +101,9 @@ public class RiddleChat {
               + answer
               + riddleAnswer
               + "\" you will reply exactly: \"Correct!\" and stop talking to the player. You do not"
-              + " give hints. You do not give away the answer. YOU NEVER SAY"
+              + " give hints. You do not give away the answer. YOU NEVER SAY \""
               + riddleAnswer
-              + "You only say"
+              + "\" You only say"
               + " \"Correct!\" if you the player explicitly says the exact answer to your"
               + " riddle.BEGIN THE RIDDLE WITH \"I am\"and end your response with the riddle dont"
               + " say anything else");

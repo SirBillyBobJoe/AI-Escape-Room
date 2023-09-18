@@ -8,7 +8,7 @@ public class Candle extends Object {
   public Candle() {
     super(new Image("/images/puzzleroom/unlitCandle.png"));
 
-    this.message = "candle is unlit";
+    this.message = "The candle is unlit.";
   }
 
   public boolean isLocked() {
@@ -18,11 +18,11 @@ public class Candle extends Object {
   public void changeCandle() {
     if (isLit) {
       isLit = false;
-      this.message = "you unlit the candle";
+      this.message = "You unlit the candle.";
       this.image = new Image("/images/puzzleroom/unlitCandle.png");
     } else {
       isLit = true;
-      this.message = "you lit the candle";
+      this.message = "You lit the candle.";
       this.image = new Image("/images/puzzleroom/litCandle.png");
     }
   }
