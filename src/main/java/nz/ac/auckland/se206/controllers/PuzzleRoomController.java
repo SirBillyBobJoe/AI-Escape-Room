@@ -41,7 +41,8 @@ public class PuzzleRoomController {
 
   @FXML
   public void initialize() {
-
+    // Initialise global variables for GameState from the puzle room
+    GameState.puzzleRoom = background;
     GameState.riddleGlow1 = riddleGlow1;
     candles = new ArrayList<ImageView>();
     candles.add(candle1);

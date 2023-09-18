@@ -18,6 +18,9 @@ public class RiddleRoomController {
   @FXML Rectangle computer;
   @FXML ImageView imgRoom;
 
+  // Brightness changes for the other rooms
+  private ColorAdjust colorAdjust = new ColorAdjust();
+
   public void initialize() {
     GameState.riddleRoomController = this;
   }
@@ -29,6 +32,9 @@ public class RiddleRoomController {
     GameState.riddleRoomActive = true;
     GameState.setRiddleGlow();
     GameState.isPuzzlesOn.set(false);
+    colorAdjust.setBrightness(-0.5);
+    GameState.mainRoom.setEffect(colorAdjust);
+    GameState.puzzleRoom.setEffect(colorAdjust);
   }
 
   /** Turns the lights off in the riddle room */
@@ -37,6 +43,9 @@ public class RiddleRoomController {
     imgRoom.setImage(new Image("/images/riddleRoom/riddleRoomDark.png"));
     GameState.riddleRoomActive = false;
     GameState.setRiddleGlow();
+    colorAdjust.setBrightness(0);
+    GameState.mainRoom.setEffect(colorAdjust);
+    GameState.puzzleRoom.setEffect(colorAdjust);
   }
 
   /**
