@@ -157,6 +157,31 @@ public class RiddleChat {
 
           // Player got the correct answer
           if (GameState.gameMaster.getLastResponse(contextName).getContent().equals("Correct!")) {
+            // Congratulate the player
+            GameState.gameMaster.addMessage(
+                "main",
+                "user",
+                "Commend the player very briefly for solving the riddle. Saying something along"
+                    + " lines of \"You're smarter than you look\".");
+            GameState.gameMaster.runContext("main");
+            Task<Void> generateCommendment =
+                new Task<Void>() {
+                  @Override
+                  protected Void call() throws Exception {
+                    GameState.gameMaster.waitForContext("main");
+                    return null;
+                  }
+                };
+
+            new Thread(generateCommendment).start();
+
+            generateCommendment.setOnSucceeded(
+                event -> {
+                  GameState.gameMasterActions.activate(
+                      GameState.gameMaster.getLastResponse("main").getContent());
+                  System.out.println(GameState.gameMaster.getLastResponse("main").getContent());
+                });
+
             // Which riddle was answered correctly?
             if (!GameState.riddle2019Solved) {
               GameState.riddle2019Solved = true;
