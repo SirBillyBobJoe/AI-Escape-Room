@@ -26,6 +26,7 @@ import nz.ac.auckland.se206.Items.Hammer;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
+import nz.ac.auckland.se206.speech.TextToSpeech;
 
 public class PuzzleRoomController {
   @FXML private ImageView background;
@@ -274,6 +275,9 @@ public class PuzzleRoomController {
         GameState.candlePuzzleSolved = true;
         GameState.isPuzzlesOn.set(false);
         GameState.riddleRoomController.turnLightsOn();
+        GameState.gameMasterActions.activate("Attention! You are to solve my riddle...");
+        TextToSpeech textToSpeech = TextToSpeech.getInstance();
+        textToSpeech.speak("Attention! You are to solve my riddle...");
         System.out.println("Lights off");
       } else {
         GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(false);

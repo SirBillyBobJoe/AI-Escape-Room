@@ -19,6 +19,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
+import nz.ac.auckland.se206.speech.TextToSpeech;
 
 /** A controller responsible for handling the Wirelinking mini-game logic and interactions. */
 public class WirelinkingController {
@@ -290,6 +291,9 @@ public class WirelinkingController {
     System.out.println(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).getValue());
     GameState.wirePuzzleSolved = true;
     GameState.riddleRoomController.turnLightsOn();
+    GameState.gameMasterActions.activate("Stop! You need to solve my riddle now...");
+    TextToSpeech textToSpeech = TextToSpeech.getInstance();
+    textToSpeech.speak("Stop! You need to solve my riddle now...");
     GameState.riddleChat.newRiddle("padlockRiddle", GameState.padlockAnswer);
     GameState.isPuzzlesOn.set(false);
     exitPuzzle(null);
