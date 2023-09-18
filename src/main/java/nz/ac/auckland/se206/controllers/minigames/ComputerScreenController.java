@@ -17,7 +17,7 @@ public class ComputerScreenController {
   private void initialize() {
     GameState.riddleChat.setTextArea(txaRiddle);
     GameState.riddleChat.setLoadingWheel(imgLoadingWheel);
-    GameState.riddleChat.newRiddle("riddle", "2019");
+    GameState.riddleChat.newRiddle("riddle", GameState.passcodeAnswer);
   }
 
   @FXML

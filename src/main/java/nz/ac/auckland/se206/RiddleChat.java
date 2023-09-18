@@ -57,27 +57,56 @@ public class RiddleChat {
 
     // New riddle with a new chat context
     GameState.gameMaster.createChatContext(contextName);
+
     this.contextName = contextName;
     if (riddleAnswer == "2019"
-        || riddleAnswer == "1945"
         || riddleAnswer == "2008"
-        || riddleAnswer == "2001"
-        || riddleAnswer == "1840") {
+        || riddleAnswer == "1945"
+        || riddleAnswer == "1840"
+        || riddleAnswer == "2001") {
+      String answer = "";
+      if (riddleAnswer == "2019")
+        answer =
+            " riddle with the answer \"2019\" that revolves around the idea of"
+                + " COVID-19 or the coronavirus. When the player has answered correctly,"
+                + " and only when they have answered correctly, saying the exact word \"";
+      if (riddleAnswer == "2008")
+        answer =
+            " riddle with the answer \"2008\" that revolves around the idea of"
+                + " the financial crisis. When the player has answered correctly,"
+                + " and only when they have answered correctly, saying the exact word \"";
+      if (riddleAnswer == "1945")
+        answer =
+            " riddle with the answer \"1945\" that revolves around the idea of"
+                + " World War. When the player has answered correctly,"
+                + " and only when they have answered correctly, saying the exact word \"";
+      if (riddleAnswer == "1840")
+        answer =
+            " riddle with the answer \"1840\" that revolves around the idea of"
+                + " Treaty of Waitangi. When the player has answered correctly,"
+                + " and only when they have answered correctly, saying the exact word \"";
+      if (riddleAnswer == "2001")
+        answer =
+            " riddle with the answer \"2001\" that revolves around the idea of"
+                + " Twin Towers Terroist Attack. When the player has answered correctly,"
+                + " and only when they have answered correctly, saying the exact word \"";
+
       GameState.gameMaster.addMessage(
           contextName,
           "user",
-          "You are a computer, you speak very concisely, you do not waste"
-              + " words. Concise. Strict. Stoic. You do not give hints. The player can't trick you."
-              + " Give the player a/an "
+          "You are a computer, you speak very concisely, you do not waste words. Concise."
+              + " Strict. Stoic. You do not give hints. The player can't trick you. Give"
+              + " the player a/an "
               + GameState.difficulty
-              + " riddle with the answer \"2019\" that revolves around the idea of COVID-19 or the"
-              + " coronavirus. When the player has answered correctly, and only when they have"
-              + " answered correctly, saying the exact word \""
+              + answer
               + riddleAnswer
               + "\" you will reply exactly: \"Correct!\" and stop talking to the player. You do not"
-              + " give hints. You do not give away the answer. YOU NEVER SAY \"2019\" You only say"
+              + " give hints. You do not give away the answer. YOU NEVER SAY \""
+              + riddleAnswer
+              + "\" You only say"
               + " \"Correct!\" if you the player explicitly says the exact answer to your"
-              + " riddle.ONLY GIVE THE RIDDLE QUESTION DO NOT SAY ANYTHING ELSE");
+              + " riddle.BEGIN THE RIDDLE WITH \"I am\"and end your response with the riddle dont"
+              + " say anything else");
     } else {
       GameState.gameMaster.addMessage(
           contextName,
@@ -91,9 +120,10 @@ public class RiddleChat {
               + ". When the player has answered correctly, and only when they have answered"
               + " correctly, saying the exact word \""
               + riddleAnswer
-              + "\" you will reply exactly: \"Correct!\" and stop talking to the player."
-              + " You do not give hints. You do not give away the answer. You only say \"Correct!\""
-              + " if you the player explicitly says the exact answer to your riddle.");
+              + "\" you will reply exactly: \"Correct!\" and stop talking to the player. You do not"
+              + " give hints. You do not give away the answer. You only say \"Correct!\" if you the"
+              + " player explicitly says the exact answer to your riddle.BEGIN THE RIDDLE WITH \"I"
+              + " am\"and end your response with the riddle dont say anything else");
     }
     GameState.gameMaster.runContext(contextName);
 
@@ -113,11 +143,9 @@ public class RiddleChat {
             loadingAnimation.stop();
             imgLoadingWheel.setVisible(false);
           }
-
-          textArea.appendText(
-              "Computer: "
-                  + GameState.gameMaster.getLastResponse(contextName).getContent()
-                  + "\n\n");
+          String lastResponse = GameState.gameMaster.getLastResponse(contextName).getContent();
+          String riddle = lastResponse.substring(lastResponse.indexOf("I am"));
+          textArea.appendText("Computer: " + riddle + "\n\n");
         });
 
     new Thread(waitForResponseTask).start();

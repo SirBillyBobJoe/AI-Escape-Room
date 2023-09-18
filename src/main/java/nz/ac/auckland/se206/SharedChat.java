@@ -136,7 +136,8 @@ public class SharedChat {
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
-              + " about the year that the COVID-19 virus was declared a pandemic (2019).";
+              + "a hint to the riddle with the answer of the year"
+              + GameState.passcodeAnswer;
     } else if (!GameState.chestPuzzleSolved) {
       stepBasedHintPrompt =
           "Tell the player a/an "
