@@ -58,7 +58,11 @@ public class RiddleChat {
     // New riddle with a new chat context
     GameState.gameMaster.createChatContext(contextName);
     this.contextName = contextName;
-    if (riddleAnswer == "2019") {
+    if (riddleAnswer == "2019"
+        || riddleAnswer == "1945"
+        || riddleAnswer == "2008"
+        || riddleAnswer == "2001"
+        || riddleAnswer == "1840") {
       GameState.gameMaster.addMessage(
           contextName,
           "user",
@@ -72,7 +76,8 @@ public class RiddleChat {
               + riddleAnswer
               + "\" you will reply exactly: \"Correct!\" and stop talking to the player. You do not"
               + " give hints. You do not give away the answer. YOU NEVER SAY \"2019\" You only say"
-              + " \"Correct!\" if you the player explicitly says the exact answer to your riddle.");
+              + " \"Correct!\" if you the player explicitly says the exact answer to your"
+              + " riddle.ONLY GIVE THE RIDDLE QUESTION DO NOT SAY ANYTHING ELSE");
     } else {
       GameState.gameMaster.addMessage(
           contextName,
