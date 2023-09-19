@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.speech;
 
+import javax.speech.AudioException;
 import javax.speech.Central;
 import javax.speech.EngineException;
 import javax.speech.synthesis.Synthesizer;
@@ -76,16 +77,16 @@ public class TextToSpeech {
    * @param sentence A string to speak.
    */
   public void speak(final String sentence) {
-    // if (sentence == null) {
-    //   throw new IllegalArgumentException("Text cannot be null.");
-    // }
-    // try {
-    //   synthesizer.resume();
-    //   synthesizer.speakPlainText(sentence, null);
-    //   synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
-    // } catch (final AudioException | InterruptedException e) {
-    //   throw new TextToSpeechException(e.getMessage());
-    // }
+    if (sentence == null) {
+      throw new IllegalArgumentException("Text cannot be null.");
+    }
+    try {
+      synthesizer.resume();
+      synthesizer.speakPlainText(sentence, null);
+      synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
+    } catch (final AudioException | InterruptedException e) {
+      throw new TextToSpeechException(e.getMessage());
+    }
   }
 
   /** Sleeps for a short duration to introduce a pause between sentences. */
