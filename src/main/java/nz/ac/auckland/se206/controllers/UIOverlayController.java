@@ -290,6 +290,7 @@ public class UIOverlayController {
     GameState.padlockAnswer = GameState.randomWord;
     GameState.passcodeAnswer = GameState.randomNumbers;
     GameState.isPuzzlesOn.set(true);
+    GameState.loading.set(true);
   }
 
   /**

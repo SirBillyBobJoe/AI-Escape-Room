@@ -31,6 +31,15 @@ public class CandlePaintingController {
         candle.setImage(new Image("/images/puzzleroom/unlitCandle.png"));
       }
     }
+    int count = 0;
+    for (Boolean bool : GameState.candleOrder) {
+      if (!bool) {
+        count++;
+      }
+    }
+    if (count == 4) {
+      GameState.candleOrder.set(0, true);
+    }
   }
 
   @FXML
