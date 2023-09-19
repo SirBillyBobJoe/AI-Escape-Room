@@ -2,6 +2,7 @@ package nz.ac.auckland.se206.controllers.minigames;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -12,12 +13,15 @@ public class ComputerScreenController {
   @FXML private TextField txfGuess;
   @FXML private TextArea txaRiddle;
   @FXML private ImageView imgLoadingWheel;
+  @FXML private Button sendButton;
 
   @FXML
   private void initialize() {
     GameState.riddleChat.setTextArea(txaRiddle);
     GameState.riddleChat.setLoadingWheel(imgLoadingWheel);
     GameState.riddleChat.newRiddle("riddle", GameState.passcodeAnswer);
+
+    sendButton.disableProperty().bind(GameState.riddleRoomActive.not());
   }
 
   @FXML

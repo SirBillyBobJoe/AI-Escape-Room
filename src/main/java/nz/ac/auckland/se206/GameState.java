@@ -68,7 +68,7 @@ public class GameState {
   public static RiddleRoomController riddleRoomController;
 
   /** Indicates whether the riddle room is active or not */
-  public static boolean riddleRoomActive = false;
+  public static SimpleBooleanProperty riddleRoomActive = new SimpleBooleanProperty(false);
 
   @FXML public static Rectangle riddleGlow;
   @FXML public static CubicCurve riddleGlow1;
@@ -76,7 +76,7 @@ public class GameState {
   @FXML public static ImageView puzzleRoom;
 
   public static void setRiddleGlow() {
-    if (riddleRoomActive) {
+    if (riddleRoomActive.getValue()) {
       riddleGlow1.setVisible(true);
       riddleGlow.setVisible(true);
     } else {
@@ -191,6 +191,7 @@ public class GameState {
     "lighter",
     "click",
     "object",
+    "help",
   };
 
   public static void resetGame() {
@@ -212,6 +213,6 @@ public class GameState {
     padlockPuzzleSolved = false;
     isRiddleResolved = false;
     isKeyFound = false;
-    riddleRoomActive = false;
+    riddleRoomActive.set(false);
   }
 }

@@ -29,7 +29,7 @@ public class RiddleRoomController {
   @FXML
   public void turnLightsOn() {
     imgRoom.setImage(new Image("/images/riddleRoom/riddleRoomLight.png"));
-    GameState.riddleRoomActive = true;
+    GameState.riddleRoomActive.set(true);
     GameState.setRiddleGlow();
     GameState.isPuzzlesOn.set(false);
     colorAdjust.setBrightness(-0.5);
@@ -41,7 +41,8 @@ public class RiddleRoomController {
   @FXML
   public void turnLightsOff() {
     imgRoom.setImage(new Image("/images/riddleRoom/riddleRoomDark.png"));
-    GameState.riddleRoomActive = false;
+    GameState.riddleRoomActive.set(false);
+    ;
     GameState.setRiddleGlow();
     colorAdjust.setBrightness(0);
     GameState.mainRoom.setEffect(colorAdjust);
@@ -62,7 +63,7 @@ public class RiddleRoomController {
 
       GameState.currentRoom.set(Rooms.MAINROOM);
     } else if (id.equals("computer")) {
-      if (GameState.riddleRoomActive) {
+      if (GameState.riddleRoomActive.getValue()) {
         GameState.currentPuzzle.set(Puzzle.COMPUTERSCREEN);
       }
     }
@@ -86,7 +87,7 @@ public class RiddleRoomController {
     } else {
       // Everything but the door shouldn't be hoverable if the riddle room is inactive
       if (source == computer) {
-        if (GameState.riddleRoomActive) {
+        if (GameState.riddleRoomActive.getValue()) {
           source.setOpacity(0.22);
         }
       } else {
