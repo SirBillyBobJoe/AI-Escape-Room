@@ -14,7 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
@@ -130,15 +129,8 @@ public class MainRoomController {
       if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
         GameState.timer.stop();
         GameState.escaped = true;
-        // gets the stage
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         SceneManager.setReinitialise(AppUi.ENDSCREEN);
         App.setUserInterface(AppUi.ENDSCREEN);
-        // sets the width
-        double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-        double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-        stage.setWidth(800 + additionalWidth);
-        stage.setHeight(600 + additionalHeight);
       } else {
         GameState.inventory.onRegularItemClicked(event);
       }

@@ -2,13 +2,11 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.MouseClick;
@@ -303,12 +301,7 @@ public class StartScreenController {
 
     // Start the timer.
     GameState.timer.start();
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     App.setUserInterface(AppUi.UIOVERLAY);
-    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-    stage.setWidth(1100 + additionalWidth);
-    stage.setHeight(600 + additionalHeight);
   }
 
   /** Helper method to navigate back in the options. */
