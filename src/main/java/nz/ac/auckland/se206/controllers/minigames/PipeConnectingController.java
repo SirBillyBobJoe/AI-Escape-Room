@@ -547,6 +547,7 @@ public class PipeConnectingController {
     checkCompleteness();
   }
 
+  /** Exits the current puzzle and resets the puzzle state to NONE. */
   @FXML
   private void exitPuzzle() {
     System.out.println("Exit");

@@ -15,6 +15,10 @@ import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.gpt.GameMaster;
 
+/**
+ * Controller for the End Screen of the game. Handles the state labels that indicate whether the
+ * player has escaped or not.
+ */
 public class EndScreenController {
   @FXML Label lblState;
   @FXML Label lblExit;
@@ -22,6 +26,9 @@ public class EndScreenController {
 
   private final DropShadow dropShadow = new DropShadow();
 
+  /**
+   * Initializes the end screen. Sets the state label text based on the GameState's escaped status.
+   */
   public void initialize() {
     if (GameState.escaped) {
       lblState.setText(GameState.escapeMessage);
