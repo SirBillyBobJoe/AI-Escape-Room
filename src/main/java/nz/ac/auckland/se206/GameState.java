@@ -88,7 +88,7 @@ public class GameState {
   public static List<Boolean> candleOrder = new ArrayList<Boolean>();
 
   public static StringProperty hints = new SimpleStringProperty("\u221E");
-
+  public static SimpleBooleanProperty loading = new SimpleBooleanProperty(true);
   public static int time = 6;
   public static String difficulty = "easy";
 

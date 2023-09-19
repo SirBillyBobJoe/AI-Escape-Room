@@ -196,6 +196,7 @@ public class SharedChat {
         e -> {
           gameMasterActions.activate(
               GameState.gameMaster.getLastResponse(room).getContent() + "\n\n");
+          GameState.loading.set(false);
         });
 
     new Thread(waitForResponseTask).start();

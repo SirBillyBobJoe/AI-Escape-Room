@@ -76,6 +76,11 @@
             <Image url="@../images/menu/gameMaster.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="glitch" fitHeight="231.0" fitWidth="261.0" layoutX="819.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/overlay/glitch.gif" />
+         </image>
+      </ImageView>
       <Button layoutX="822.0" layoutY="395.0" mnemonicParsing="false" onAction="#onSend" prefHeight="26.0" prefWidth="250.0" text="Send" />
       <Label fx:id="hintLabel" layoutX="1007.0" layoutY="26.0" prefHeight="37.0" prefWidth="25.0" text="10" textFill="#c9c9c9">
          <font>

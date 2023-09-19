@@ -42,7 +42,7 @@ public class UIOverlayController {
   @FXML private AnchorPane mainPane;
   @FXML private Label countdownLabel;
   @FXML private Label hintLabel;
-  @FXML private ImageView item0, item1, item2, item3, item4, item5;
+  @FXML private ImageView item0, item1, item2, item3, item4, item5, glitch;
   @FXML private TextArea promptArea;
   @FXML private TextArea itemChat;
 
@@ -63,6 +63,7 @@ public class UIOverlayController {
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
+    glitch.visibleProperty().bind(GameState.loading);
     GameState.gameMasterActions = new GameMasterActions(imgGameMaster, txaGameMaster);
 
     // Determine the hint text based on the game state
@@ -184,6 +185,7 @@ public class UIOverlayController {
         e -> {
           intro = GameState.gameMaster.getLastResponse("intro").getContent();
           GameState.gameMasterActions.activate(intro);
+          GameState.loading.set(false);
         });
   }
 
@@ -365,6 +367,7 @@ public class UIOverlayController {
    */
   @FXML
   private void onSend(ActionEvent event) {
+    GameState.loading.set(true);
     GameState.chat.onSend(promptArea, "main");
 
     // Reset the player interaction timer
