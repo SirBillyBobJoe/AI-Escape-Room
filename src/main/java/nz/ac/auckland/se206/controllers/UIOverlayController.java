@@ -82,7 +82,7 @@ public class UIOverlayController {
         "This game the player will have "
             + hint
             + " hints. You are \"The Singularity\", master of this escape room. We are in the main"
-            + " room. Only give one hint at a time. You speak extremely concisely, you do not waste"
+            + " room. You speak extremely concisely, you do not waste"
             + " words. Concise. Strict. Stoic.";
 
     // Add the initial message to the chat context and run it
