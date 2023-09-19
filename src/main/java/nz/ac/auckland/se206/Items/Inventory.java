@@ -348,4 +348,8 @@ public class Inventory {
   public boolean containsItem(Object object) {
     return inventoryProperty.contains(object);
   }
+
+  public void setTextChat(String msg) {
+    ItemChat.getInstance().printChatMessage(itemChat, msg);
+  }
 }
