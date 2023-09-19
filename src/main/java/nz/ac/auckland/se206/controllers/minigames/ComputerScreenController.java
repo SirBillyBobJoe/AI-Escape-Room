@@ -32,6 +32,10 @@ public class ComputerScreenController {
 
   @FXML
   private void onGuess(ActionEvent event) {
+    String text = txfGuess.getText();
+    if (text.trim().isEmpty()) {
+      return;
+    }
     GameState.riddleChat.onSend(txfGuess.getText());
     txaRiddle.appendText("You: " + txfGuess.getText() + "\n\n");
     txfGuess.clear();

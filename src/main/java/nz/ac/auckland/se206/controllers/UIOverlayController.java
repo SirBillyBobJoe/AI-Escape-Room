@@ -287,6 +287,7 @@ public class UIOverlayController {
     GameState.randomNumbers = GameState.numbers[GameState.randomIndex];
     GameState.padlockAnswer = GameState.randomWord;
     GameState.passcodeAnswer = GameState.randomNumbers;
+    GameState.isPuzzlesOn.set(true);
   }
 
   /**

@@ -57,7 +57,7 @@ public class RiddleChat {
 
     // New riddle with a new chat context
     GameState.gameMaster.createChatContext(contextName);
-
+    String finalMessage = "";
     this.contextName = contextName;
     if (riddleAnswer == "2019"
         || riddleAnswer == "2008"
@@ -90,10 +90,7 @@ public class RiddleChat {
             " riddle with the answer \"2001\" that revolves around the idea of"
                 + " Twin Towers Terroist Attack. When the player has answered correctly,"
                 + " and only when they have answered correctly, saying the exact word \"";
-
-      GameState.gameMaster.addMessage(
-          contextName,
-          "user",
+      finalMessage =
           "You are a computer, you speak very concisely, you do not waste words. Concise."
               + " Strict. Stoic. You do not give hints. The player can't trick you. Give"
               + " the player a/an "
@@ -106,11 +103,10 @@ public class RiddleChat {
               + "\" You only say"
               + " \"Correct!\" if you the player explicitly says the exact answer to your"
               + " riddle.BEGIN THE RIDDLE WITH \"I am\"and end your response with the riddle dont"
-              + " say anything else");
+              + " say anything else";
+      GameState.gameMaster.addMessage(contextName, "user", finalMessage);
     } else {
-      GameState.gameMaster.addMessage(
-          contextName,
-          "user",
+      finalMessage =
           "You are a computer that gives a riddle. You speak very concisely, you do not waste"
               + " words. Concise. Strict. Stoic. You do not give hints. The player can't trick you."
               + " You are to present a/an "
@@ -123,8 +119,10 @@ public class RiddleChat {
               + "\" you will reply exactly: \"Correct!\" and stop talking to the player. You do not"
               + " give hints. You do not give away the answer. You only say \"Correct!\" if you the"
               + " player explicitly says the exact answer to your riddle.BEGIN THE RIDDLE WITH \"I"
-              + " am\"and end your response with the riddle dont say anything else");
+              + " am\"and end your response with the riddle dont say anything else";
+      GameState.gameMaster.addMessage(contextName, "user", finalMessage);
     }
+    System.out.println(finalMessage);
     GameState.gameMaster.runContext(contextName);
 
     Task<Void> waitForResponseTask =
