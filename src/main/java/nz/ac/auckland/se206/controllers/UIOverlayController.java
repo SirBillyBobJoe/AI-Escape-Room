@@ -25,7 +25,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.Items.Inventory;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
@@ -33,6 +32,7 @@ import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.SharedChat;
 import nz.ac.auckland.se206.gpt.GameMaster;
+import nz.ac.auckland.se206.items.Inventory;
 
 /**
  * Controller class for Room 1 in the escape room game. Manages the UI elements and interactions for
@@ -46,7 +46,7 @@ public class UIOverlayController {
   @FXML private TextArea promptArea;
   @FXML private TextArea itemChat;
 
-  @FXML Label lblRestart;
+  @FXML private Label lblRestart;
   private final DropShadow dropShadow = new DropShadow();
 
   @FXML private TextArea txaGameMaster;

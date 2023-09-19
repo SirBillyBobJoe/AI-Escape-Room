@@ -18,16 +18,16 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.Items.Inventory;
-import nz.ac.auckland.se206.Items.Keys;
-import nz.ac.auckland.se206.Items.Lighter;
-import nz.ac.auckland.se206.Items.Lock;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.gpt.GameMaster;
+import nz.ac.auckland.se206.items.Inventory;
+import nz.ac.auckland.se206.items.Keys;
+import nz.ac.auckland.se206.items.Lighter;
+import nz.ac.auckland.se206.items.Lock;
 
 /**
  * Controller class for Room 1 in the escape room game. Manages the UI elements and interactions for
@@ -98,15 +98,18 @@ public class MainRoomController {
   private void onRestart(MouseEvent event) throws IOException {
     new MouseClick().play();
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    // when restart go to the startscreen
     App.setUserInterface(AppUi.STARTSCREEN);
+    // set the stage width
     double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
     double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
     stage.setWidth(800 + additionalWidth);
     stage.setHeight(600 + additionalHeight);
+    // stop the timer
     GameState.timer.stop();
-
+    // create new inventory
     GameState.inventory = new Inventory();
-
+    // create new gamemaster
     GameState.gameMaster = new GameMaster();
     GameState.chat.restart();
     SceneManager.setReinitialise(AppUi.UIOVERLAY);

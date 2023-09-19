@@ -16,16 +16,16 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Rectangle;
-import nz.ac.auckland.se206.Items.BlueWire;
-import nz.ac.auckland.se206.Items.GreenWire;
-import nz.ac.auckland.se206.Items.Inventory;
-import nz.ac.auckland.se206.Items.Object;
-import nz.ac.auckland.se206.Items.RedWire;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.controllers.GameMasterActions;
 import nz.ac.auckland.se206.controllers.RiddleRoomController;
 import nz.ac.auckland.se206.gpt.GameMaster;
+import nz.ac.auckland.se206.items.BlueWire;
+import nz.ac.auckland.se206.items.GreenWire;
+import nz.ac.auckland.se206.items.Inventory;
+import nz.ac.auckland.se206.items.Object;
+import nz.ac.auckland.se206.items.RedWire;
 
 /** Represents the state of the game. */
 public class GameState {
@@ -64,6 +64,9 @@ public class GameState {
 
   /** Indicates whether the key has been found. */
   public static boolean isKeyFound = false;
+
+  /** Indicates whether the wall is open. */
+  public static boolean isOpenWall = false;
 
   public static RiddleRoomController riddleRoomController;
 

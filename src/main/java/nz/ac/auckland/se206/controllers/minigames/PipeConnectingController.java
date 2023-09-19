@@ -22,11 +22,15 @@ public class PipeConnectingController {
 
   private int gridXSize, gridYSize;
   private double gridCellSize, rectWidth, rectHeight;
+  private int[][] mapSetup;
+  private List<Point> inlets;
+  private int[][] mapRotations;
+  private Pane[][] gridPanes;
 
   /** Represents a point in the grid. */
   private class Point {
-    private int x;
-    private int y;
+    private int xValue;
+    private int yValue;
 
     /**
      * Constructor to initialize the Point.
@@ -34,9 +38,9 @@ public class PipeConnectingController {
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    public Point(int x, int y) {
-      this.x = x;
-      this.y = y;
+    public Point(int xValue, int yValue) {
+      this.xValue = xValue;
+      this.yValue = yValue;
     }
 
     @Override
@@ -44,22 +48,17 @@ public class PipeConnectingController {
       if (this == obj) return true;
       if (obj == null || getClass() != obj.getClass()) return false;
       Point point = (Point) obj;
-      return x == point.x && y == point.y;
+      return xValue == point.xValue && yValue == point.yValue;
     }
 
     @Override
     public int hashCode() {
       int result = 17;
-      result = 31 * result + x;
-      result = 31 * result + y;
+      result = 31 * result + xValue;
+      result = 31 * result + yValue;
       return result;
     }
   }
-
-  private int[][] mapSetup;
-  private List<Point> inlets;
-  private int[][] mapRotations;
-  private Pane[][] gridPanes;
 
   /** Initializes the grid based on the game's difficulty. */
   @FXML
@@ -90,20 +89,24 @@ public class PipeConnectingController {
 
   /** Creates the grid represents by mapsetup and the game difficulty */
   private void createGrid() {
+    // initiates a random variable
     Random rand = new Random();
-
+    // randomly creates the grid
     gridAnchor.setLayoutX((800 - (gridXSize + 1) * gridCellSize) / 2);
     gridAnchor.setLayoutY((500 - (gridYSize + 1) * gridCellSize) / 2);
     gridAnchor.setPrefSize((gridXSize + 1) * gridCellSize, (gridYSize + 1) * gridCellSize);
     grid.setLayoutX(gridCellSize / 2);
     grid.setLayoutY(gridCellSize / 2);
+    // set the size
     grid.setPrefSize(gridXSize * gridCellSize, gridYSize * gridCellSize);
     for (int i = 0; i < gridXSize; i++) {
       grid.getColumnConstraints().add(new javafx.scene.layout.ColumnConstraints(gridCellSize));
     }
+    // loops through the grid
     for (int i = 0; i < gridYSize; i++) {
       grid.getRowConstraints().add(new javafx.scene.layout.RowConstraints(gridCellSize));
     }
+    // gives the grid a style color
     grid.setStyle("-fx-background-color: #FFFFFF;");
 
     for (int x = 0; x < gridXSize; x++) {
@@ -114,6 +117,7 @@ public class PipeConnectingController {
         grid.add(pane, x, y);
       }
     }
+    // create the rectangles
     createInletRectangles();
   }
 
@@ -218,12 +222,12 @@ public class PipeConnectingController {
 
       // Identify valid neighbors of the current point
       for (int[] d : directions) {
-        Point neighbor = new Point(current.x + d[0], current.y + d[1]);
+        Point neighbor = new Point(current.xValue + d[0], current.yValue + d[1]);
         if (isWithinGrid(neighbor)) {
           if (availableSquares.contains(neighbor)) {
             unvisitedNeighbors.add(neighbor);
           } else {
-            int connections = Integer.bitCount(mapSetup[neighbor.x][neighbor.y]);
+            int connections = Integer.bitCount(mapSetup[neighbor.xValue][neighbor.yValue]);
             if (connections == 2) {
               twoConnectedNeighbors.add(neighbor);
             }
@@ -255,18 +259,18 @@ public class PipeConnectingController {
       }
 
       // Update the map to record the path connection
-      if (chosenNeighbor.x > current.x) {
-        mapSetup[current.x][current.y] |= 0b0100;
-        mapSetup[chosenNeighbor.x][chosenNeighbor.y] |= 0b0001;
-      } else if (chosenNeighbor.x < current.x) {
-        mapSetup[current.x][current.y] |= 0b0001;
-        mapSetup[chosenNeighbor.x][chosenNeighbor.y] |= 0b0100;
-      } else if (chosenNeighbor.y > current.y) {
-        mapSetup[current.x][current.y] |= 0b0010;
-        mapSetup[chosenNeighbor.x][chosenNeighbor.y] |= 0b1000;
+      if (chosenNeighbor.xValue > current.xValue) {
+        mapSetup[current.xValue][current.yValue] |= 0b0100;
+        mapSetup[chosenNeighbor.xValue][chosenNeighbor.yValue] |= 0b0001;
+      } else if (chosenNeighbor.xValue < current.xValue) {
+        mapSetup[current.xValue][current.yValue] |= 0b0001;
+        mapSetup[chosenNeighbor.xValue][chosenNeighbor.yValue] |= 0b0100;
+      } else if (chosenNeighbor.yValue > current.yValue) {
+        mapSetup[current.xValue][current.yValue] |= 0b0010;
+        mapSetup[chosenNeighbor.xValue][chosenNeighbor.yValue] |= 0b1000;
       } else {
-        mapSetup[current.x][current.y] |= 0b1000;
-        mapSetup[chosenNeighbor.x][chosenNeighbor.y] |= 0b0010;
+        mapSetup[current.xValue][current.yValue] |= 0b1000;
+        mapSetup[chosenNeighbor.xValue][chosenNeighbor.yValue] |= 0b0010;
       }
     }
 
@@ -277,20 +281,21 @@ public class PipeConnectingController {
         if (Integer.bitCount(mapSetup[x][y]) == 1) {
           // Force a second connection for cells with only one connection
           for (int[] d : directions) {
-            Point neighbor = new Point(cell.x + d[0], cell.y + d[1]);
-            if (isWithinGrid(neighbor) && Integer.bitCount(mapSetup[neighbor.x][neighbor.y]) < 3) {
-              if (neighbor.x > cell.x) {
-                mapSetup[cell.x][cell.y] |= 0b0100;
-                mapSetup[neighbor.x][neighbor.y] |= 0b0001;
-              } else if (neighbor.x < cell.x) {
-                mapSetup[cell.x][cell.y] |= 0b0001;
-                mapSetup[neighbor.x][neighbor.y] |= 0b0100;
-              } else if (neighbor.y > cell.y) {
-                mapSetup[cell.x][cell.y] |= 0b0010;
-                mapSetup[neighbor.x][neighbor.y] |= 0b1000;
+            Point neighbor = new Point(cell.xValue + d[0], cell.yValue + d[1]);
+            if (isWithinGrid(neighbor)
+                && Integer.bitCount(mapSetup[neighbor.xValue][neighbor.yValue]) < 3) {
+              if (neighbor.xValue > cell.xValue) {
+                mapSetup[cell.xValue][cell.yValue] |= 0b0100;
+                mapSetup[neighbor.xValue][neighbor.yValue] |= 0b0001;
+              } else if (neighbor.xValue < cell.xValue) {
+                mapSetup[cell.xValue][cell.yValue] |= 0b0001;
+                mapSetup[neighbor.xValue][neighbor.yValue] |= 0b0100;
+              } else if (neighbor.yValue > cell.yValue) {
+                mapSetup[cell.xValue][cell.yValue] |= 0b0010;
+                mapSetup[neighbor.xValue][neighbor.yValue] |= 0b1000;
               } else {
-                mapSetup[cell.x][cell.y] |= 0b1000;
-                mapSetup[neighbor.x][neighbor.y] |= 0b0010;
+                mapSetup[cell.xValue][cell.yValue] |= 0b1000;
+                mapSetup[neighbor.xValue][neighbor.yValue] |= 0b0010;
               }
               break;
             }
@@ -307,7 +312,7 @@ public class PipeConnectingController {
    * @return true if within grid, false otherwise
    */
   private boolean isWithinGrid(Point p) {
-    return p.x >= 0 && p.x < gridXSize && p.y >= 0 && p.y < gridYSize;
+    return p.xValue >= 0 && p.xValue < gridXSize && p.yValue >= 0 && p.yValue < gridYSize;
   }
 
   /**
@@ -359,8 +364,8 @@ public class PipeConnectingController {
   private void createInletRectangles() {
     for (Point inlet : inlets) {
       // Determine the position of the inlet
-      int x = inlet.x;
-      int y = inlet.y;
+      int x = inlet.xValue;
+      int y = inlet.yValue;
 
       double layoutX, layoutY;
       double inletHeight = rectWidth * 1.5;
@@ -432,21 +437,25 @@ public class PipeConnectingController {
     Point adjacentCell;
 
     switch (direction) {
-      case 0b1000: // Top
+      case 0b1000:
+        // Top code so it does the logic
         oppositeDirectionMask = 0b0010;
-        adjacentCell = new Point(cell.x, cell.y - 1);
+        adjacentCell = new Point(cell.xValue, cell.yValue - 1);
         break;
-      case 0b0100: // Right
+      case 0b0100:
+        // Right code so it does the logic
         oppositeDirectionMask = 0b0001;
-        adjacentCell = new Point(cell.x + 1, cell.y);
+        adjacentCell = new Point(cell.xValue + 1, cell.yValue);
         break;
-      case 0b0010: // Bottom
+      case 0b0010:
+        // Bottom code so it does the logic
         oppositeDirectionMask = 0b1000;
-        adjacentCell = new Point(cell.x, cell.y + 1);
+        adjacentCell = new Point(cell.xValue, cell.yValue + 1);
         break;
-      default: // Left
+      default:
+        // Left code so it does the logiccode so it does the logic
         oppositeDirectionMask = 0b0100;
-        adjacentCell = new Point(cell.x - 1, cell.y);
+        adjacentCell = new Point(cell.xValue - 1, cell.yValue);
     }
 
     if (!isWithinGrid(adjacentCell)) {
@@ -454,12 +463,16 @@ public class PipeConnectingController {
       boolean isValidInlet = inlets.contains(adjacentCell);
       if (!isValidInlet) {
         System.out.println(
-            "An inlet at position " + adjacentCell.x + ", " + adjacentCell.y + " does not exist!");
+            "An inlet at position "
+                + adjacentCell.xValue
+                + ", "
+                + adjacentCell.yValue
+                + " does not exist!");
       }
       return isValidInlet;
     }
 
-    return (mapSetup[adjacentCell.x][adjacentCell.y] & oppositeDirectionMask) != 0;
+    return (mapSetup[adjacentCell.xValue][adjacentCell.yValue] & oppositeDirectionMask) != 0;
   }
 
   /**
@@ -467,18 +480,19 @@ public class PipeConnectingController {
    * found, they will be printed to the console.
    */
   public void checkCompleteness() {
+    // loops through and check if completed
     for (int i = 0; i < gridXSize; i++) {
       for (int j = 0; j < gridYSize; j++) {
         Point currentCell = new Point(i, j);
         int cellData = rotateCellData(mapSetup[i][j], mapRotations[i][j]);
-
+        // if all these are true then compelted
         if ((cellData & 0b1000) != 0 && !areAdjacentCellsConnected(currentCell, 0b1000)) return;
         if ((cellData & 0b0100) != 0 && !areAdjacentCellsConnected(currentCell, 0b0100)) return;
         if ((cellData & 0b0010) != 0 && !areAdjacentCellsConnected(currentCell, 0b0010)) return;
         if ((cellData & 0b0001) != 0 && !areAdjacentCellsConnected(currentCell, 0b0001)) return;
       }
     }
-
+    // check the inlet position if its true return
     for (Point inletPosition : inlets) {
       if (!isInletConnected(inletPosition)) return;
     }
@@ -498,30 +512,30 @@ public class PipeConnectingController {
     int mask = 0;
 
     // Top side
-    if (inlet.y == -1) {
-      adjacentPoint = new Point(inlet.x, 0);
+    if (inlet.yValue == -1) {
+      adjacentPoint = new Point(inlet.xValue, 0);
       mask = 0b1000; // Check for the upward pipe from the adjacent cell
     }
     // Right side
-    else if (inlet.x == gridXSize) {
-      adjacentPoint = new Point(gridXSize - 1, inlet.y);
+    else if (inlet.xValue == gridXSize) {
+      adjacentPoint = new Point(gridXSize - 1, inlet.yValue);
       mask = 0b0100; // Check for the rightward pipe from the adjacent cell
     }
     // Bottom side
-    else if (inlet.y == gridYSize) {
-      adjacentPoint = new Point(inlet.x, gridYSize - 1);
+    else if (inlet.yValue == gridYSize) {
+      adjacentPoint = new Point(inlet.xValue, gridYSize - 1);
       mask = 0b0010; // Check for the downward pipe from the adjacent cell
     }
     // Left side
-    else if (inlet.x == -1) {
-      adjacentPoint = new Point(0, inlet.y);
+    else if (inlet.xValue == -1) {
+      adjacentPoint = new Point(0, inlet.yValue);
       mask = 0b0001; // Check for the leftward pipe from the adjacent cell
     }
 
     if (adjacentPoint != null) {
-      int cellData = mapSetup[adjacentPoint.x][adjacentPoint.y];
+      int cellData = mapSetup[adjacentPoint.xValue][adjacentPoint.yValue];
       int rotatedCellData =
-          rotateCellData(cellData, mapRotations[adjacentPoint.x][adjacentPoint.y]);
+          rotateCellData(cellData, mapRotations[adjacentPoint.xValue][adjacentPoint.yValue]);
 
       // Check if the adjacent cell has a pipe in the direction of the inlet
       return (rotatedCellData & mask) != 0;
@@ -536,11 +550,12 @@ public class PipeConnectingController {
    * @param event The MouseEvent triggered by the click.
    */
   private void handlePaneClick(MouseEvent event) {
+    // get the value of the pippuzzle
     if (GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE).getValue()) return;
     Pane pane = (Pane) event.getSource();
     int x = GridPane.getColumnIndex(pane);
     int y = GridPane.getRowIndex(pane);
-
+    // rotates the pipes
     mapRotations[x][y] = (mapRotations[x][y] + 1) % 4;
     pane.setRotate(mapRotations[x][y] * 90);
 

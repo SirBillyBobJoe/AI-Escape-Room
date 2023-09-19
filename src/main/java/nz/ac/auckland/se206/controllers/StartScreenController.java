@@ -16,32 +16,32 @@ import nz.ac.auckland.se206.SceneManager.AppUi;
 
 /** Class responsible for controlling the Start Screen of the game. */
 public class StartScreenController {
-  @FXML AnchorPane anchorPane;
+
   // 0 is easy 1 is medium 2 is hard
   private int selectedLevel = 0;
   private int selectedTime = 2;
 
   private Boolean onLevel = true;
   private Boolean onTime = false;
+  @FXML private AnchorPane anchorPane;
+  @FXML private Label screenStage;
 
-  @FXML Label screenStage;
+  @FXML private Label lblExit;
 
-  @FXML Label lblExit;
+  @FXML private Label lblEasy;
+  @FXML private Label lblMedium;
+  @FXML private Label lblHard;
 
-  @FXML Label lblEasy;
-  @FXML Label lblMedium;
-  @FXML Label lblHard;
+  @FXML private Label lbl2Min;
+  @FXML private Label lbl4Min;
+  @FXML private Label lbl6Min;
 
-  @FXML Label lbl2Min;
-  @FXML Label lbl4Min;
-  @FXML Label lbl6Min;
+  @FXML private Label timeSummary;
+  @FXML private Label levelSummary;
+  @FXML private Label timeSummaryVal;
+  @FXML private Label levelSummaryVal;
 
-  @FXML Label timeSummary;
-  @FXML Label levelSummary;
-  @FXML Label timeSummaryVal;
-  @FXML Label levelSummaryVal;
-
-  @FXML Label lblStart;
+  @FXML private Label lblStart;
 
   private final DropShadow dropShadow = new DropShadow();
   private final DropShadow startDropShadow = new DropShadow();
