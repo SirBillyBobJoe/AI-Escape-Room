@@ -72,28 +72,10 @@ public class PipeConnectingController {
 
   /** Sets the size of the grid based on the game's difficulty. */
   private void setGamesDifficulty() {
-    if (GameState.difficulty.equals("easy")) {
-      // Easy difficulty
-      gridXSize = 4;
-      gridYSize = 3;
-      gridCellSize = 80;
-    } else if (GameState.difficulty.equals("medium")) {
-      // Medium difficulty
-      gridXSize = 5;
-      gridYSize = 4;
-      gridCellSize = 65;
-    } else if (GameState.difficulty.equals("hard")) {
-      // Hard difficulty
-      gridXSize = 6;
-      gridYSize = 5;
-      gridCellSize = 50;
-
-    } else {
-      // Default difficulty
-      gridXSize = 4;
-      gridYSize = 3;
-      gridCellSize = 80;
-    }
+    // Was variable but is now constant
+    gridXSize = 5;
+    gridYSize = 4;
+    gridCellSize = 65;
 
     rectWidth = gridCellSize / 4;
     rectHeight = gridCellSize / 2 + rectWidth / 2;
