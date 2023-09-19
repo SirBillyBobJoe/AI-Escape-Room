@@ -39,21 +39,46 @@ public class GameMaster {
 
   // Below are setter methods with fluent API style returning 'this' for chaining
 
+  /**
+   * Sets the value of 'nApiValue' and returns the GameMaster instance for method chaining.
+   *
+   * @param n The value to set for 'nApiValue'.
+   * @return The current instance of GameMaster.
+   */
   public GameMaster setN(int n) {
     this.nApiValue = n;
     return this;
   }
 
+  /**
+   * Sets the value of 'temperatureApiValue' and returns the GameMaster instance for method
+   * chaining.
+   *
+   * @param temperature The value to set for 'temperatureApiValue'.
+   * @return The current instance of GameMaster.
+   */
   public GameMaster setTemperature(double temperature) {
     this.temperatureApiValue = temperature;
     return this;
   }
 
+  /**
+   * Sets the value of 'topPApiValue' and returns the GameMaster instance for method chaining.
+   *
+   * @param topP The value to set for 'topPApiValue'.
+   * @return The current instance of GameMaster.
+   */
   public GameMaster setTopP(double topP) {
     this.topPApiValue = topP;
     return this;
   }
 
+  /**
+   * Sets the value of 'maxTokensApiValue' and returns the GameMaster instance for method chaining.
+   *
+   * @param maxTokens The value to set for 'maxTokensApiValue'.
+   * @return The current instance of GameMaster.
+   */
   public GameMaster setMaxTokens(int maxTokens) {
     this.maxTokensApiValue = maxTokens;
     return this;

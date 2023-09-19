@@ -2,19 +2,24 @@ package nz.ac.auckland.se206.Items;
 
 import javafx.scene.image.Image;
 
+/**
+ * Candle class extends Object to represent a candle item in the game. The candle has two states:
+ * lit and unlit, and its image changes accordingly.
+ */
 public class Candle extends Object {
   private boolean isLit = false;
 
+  /**
+   * Constructs a new Candle object. Initializes the state to "unlit" and sets the appropriate
+   * message.
+   */
   public Candle() {
     super(new Image("/images/puzzleroom/unlitCandle.png"));
 
     this.message = "The candle is unlit.";
   }
 
-  public boolean isLocked() {
-    return this.isLit;
-  }
-
+  /** Toggles the state of the candle between lit and unlit. */
   public void changeCandle() {
     if (isLit) {
       isLit = false;
@@ -27,6 +32,11 @@ public class Candle extends Object {
     }
   }
 
+  /**
+   * Checks if the candle is lit.
+   *
+   * @return true if the candle is lit, false otherwise.
+   */
   public boolean isLit() {
     return isLit;
   }

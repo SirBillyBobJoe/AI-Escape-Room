@@ -67,6 +67,11 @@ public class Object {
     this.message = message;
   }
 
+  /**
+   * gets the identifier message
+   *
+   * @return returns the identifier
+   */
   public String getItemIdentifier() {
     return itemIdentifier;
   }

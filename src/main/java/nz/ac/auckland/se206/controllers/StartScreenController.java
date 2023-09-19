@@ -315,6 +315,7 @@ public class StartScreenController {
   private void goBack() {
     new MouseClick().play();
     if (onTime) {
+      // when we go back
       lblEasy.setVisible(true);
       lblMedium.setVisible(true);
       lblHard.setVisible(true);
@@ -328,6 +329,7 @@ public class StartScreenController {
     } else if (onLevel) {
       System.exit(0);
     } else {
+      // sets visibility
       lbl2Min.setVisible(true);
       lbl4Min.setVisible(true);
       lbl6Min.setVisible(true);
@@ -337,6 +339,7 @@ public class StartScreenController {
       levelSummaryVal.setVisible(false);
       lblStart.setVisible(false);
       onTime = true;
+      // selectime
       screenStage.setText("Time Select");
     }
   }
@@ -354,19 +357,23 @@ public class StartScreenController {
     lbl2Min.setVisible(true);
     lbl4Min.setVisible(true);
     lbl6Min.setVisible(true);
-
+    // sets back
     lblExit.setText("Back");
     screenStage.setText("Time Select");
+    // level checks
     switch (selectedLevel) {
       case 0:
+        // if its easy
         GameState.hints.set("\u221E");
         GameState.difficulty = "easy";
         break;
       case 1:
+        // if medium
         GameState.hints.set("5");
         GameState.difficulty = "medium";
         break;
       case 2:
+        // if hard
         GameState.hints.set("0");
         GameState.difficulty = "hard";
         break;
@@ -387,11 +394,13 @@ public class StartScreenController {
     levelSummary.setVisible(true);
     timeSummaryVal.setVisible(true);
     levelSummaryVal.setVisible(true);
+    // asks if ur ready
 
     screenStage.setText("Ready?");
     String difficultyText =
         GameState.difficulty.substring(0, 1).toUpperCase() + GameState.difficulty.substring(1);
     levelSummaryVal.setText(difficultyText);
+    // set text
     timeSummaryVal.setText(selectedTime + " minutes");
     GameState.time = selectedTime;
     System.out.println("Level: " + selectedLevel);
