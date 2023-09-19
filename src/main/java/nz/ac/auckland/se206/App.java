@@ -69,6 +69,17 @@ public class App extends Application {
   public static void setUserInterface(AppUi ui) throws IOException {
     scene.setRoot(SceneManager.getUi(ui));
     scene.getRoot().requestFocus();
+    Stage stage = (Stage) scene.getWindow();
+    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
+    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
+    if (ui.equals(AppUi.UIOVERLAY)) {
+      stage.setWidth(1100 + additionalWidth);
+      stage.setHeight(600 + additionalHeight);
+    } else {
+      stage.setWidth(800 + additionalWidth);
+      stage.setHeight(600 + additionalHeight);
+      System.out.println("800");
+    }
     System.out.println(scene.getRoot().isFocused());
   }
 
