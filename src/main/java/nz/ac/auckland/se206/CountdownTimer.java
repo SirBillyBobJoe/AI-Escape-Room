@@ -7,6 +7,8 @@ import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.concurrent.Task;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.speech.TextToSpeech;
@@ -102,7 +104,6 @@ public class CountdownTimer {
                     SceneManager.setReinitialise(AppUi.ENDSCREEN);
                     App.setUserInterface(AppUi.ENDSCREEN);
                   } catch (IOException e1) {
-
                     e1.printStackTrace();
                   }
                 });

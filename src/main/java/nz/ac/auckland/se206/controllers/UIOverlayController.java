@@ -10,7 +10,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.ColorAdjust;
@@ -21,7 +20,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
@@ -264,16 +262,9 @@ public class UIOverlayController {
     // Play a click sound effect
     new MouseClick().play();
 
-    // Retrieve the stage and navigate to the start screen
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    // Navigate to the start screen
     SceneManager.setReinitialise(AppUi.UIOVERLAY);
     App.setUserInterface(AppUi.STARTSCREEN);
-
-    // Adjust the stage dimensions
-    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-    stage.setWidth(800 + additionalWidth);
-    stage.setHeight(600 + additionalHeight);
 
     // Stop the game timer and reset game state
     GameState.timer.stop();
