@@ -131,7 +131,7 @@ public class SharedChat {
           "Tell the player a/an "
               + GameState.difficulty
               + " hint about solving a pipe puzzle. There is a leak coming from some pipes in some"
-              + " room.";
+              + " rooms.";
     } else if (!GameState.wallRemoved) {
       stepBasedHintPrompt =
           "Tell the player a/an "
