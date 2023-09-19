@@ -21,11 +21,11 @@ import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.Items.Candle;
-import nz.ac.auckland.se206.Items.Hammer;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
+import nz.ac.auckland.se206.items.Candle;
+import nz.ac.auckland.se206.items.Hammer;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 
 /**
@@ -41,7 +41,6 @@ public class PuzzleRoomController {
   @FXML private ImageView waterdrop, puddle;
 
   private List<ImageView> candles;
-  boolean isOpenWall = false;
 
   /**
    * Initializes the Puzzle Room, setting up its various elements like candles, hammer, wires, and
@@ -102,7 +101,7 @@ public class PuzzleRoomController {
         new KeyFrame(
             Duration.millis(2), // 5 milliseconds, approx 60fps
             new EventHandler<ActionEvent>() {
-              double deltaY = 1; // Set how much the image will move in each frame
+              private double deltaY = 1; // Set how much the image will move in each frame
 
               @Override
               public void handle(ActionEvent event) {
@@ -245,12 +244,16 @@ public class PuzzleRoomController {
    */
   @FXML
   private void onDragExited(DragEvent event) {
+    // gets source node
     Node node = (Node) event.getSource();
+
     if (!GameState.isPuzzlesOn.getValue()
+        // if it contains the id and rectangle return
         && GameState.puzzleName.contains(node.getId())
         && node instanceof Rectangle) {
       return;
     }
+    // go to inventory and do its logic
     GameState.inventory.onDragExited(event);
   }
 
@@ -291,7 +294,7 @@ public class PuzzleRoomController {
       background.setImage(new Image("/images/puzzleroom/openwallroom.png"));
       GameState.wallRemoved = true;
       System.out.println("Wall Removed");
-      isOpenWall = true;
+      GameState.isOpenWall = true;
       candle1.setVisible(true);
       candle2.setVisible(true);
       candle3.setVisible(true);

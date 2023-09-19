@@ -75,7 +75,7 @@ public class RiddleChat {
 
     // New riddle with a new chat context
     GameState.gameMaster.createChatContext(contextName);
-    String finalMessage = "";
+    String finalMessage;
     this.contextName = contextName;
     // if its a year
     if (riddleAnswer == "2019"

@@ -10,9 +10,9 @@ import java.util.Map;
 public class GameMaster {
 
   // API specific values that affect the behavior of the chat
-  private int nApiValue = 1;
-  private double temperatureApiValue = 0.7;
-  private double topPApiValue = 0.85;
+  private int numberValue = 1;
+  private double temperatureValue = 0.7;
+  private double topParameterValue = 0.85;
   private int maxTokensApiValue = 100;
 
   // Maps a name of a context to its ChatContext instance
@@ -24,52 +24,51 @@ public class GameMaster {
   /**
    * Constructor allowing custom initialization of API values.
    *
-   * @param nApiValue Value affecting the chat.
-   * @param temperatureApiValue Value affecting the chat.
-   * @param topPApiValue Value affecting the chat.
+   * @param numberValue Value affecting the chat.
+   * @param temperatureValue Value affecting the chat.
+   * @param topParameterValue Value affecting the chat.
    * @param maxTokensApiValue Maximum tokens allowed.
    */
   public GameMaster(
-      int nApiValue, double temperatureApiValue, double topPApiValue, int maxTokensApiValue) {
-    this.nApiValue = nApiValue;
-    this.temperatureApiValue = temperatureApiValue;
-    this.topPApiValue = topPApiValue;
+      int numberValue, double temperatureValue, double topParameterValue, int maxTokensApiValue) {
+    this.numberValue = numberValue;
+    this.temperatureValue = temperatureValue;
+    this.topParameterValue = topParameterValue;
     this.maxTokensApiValue = maxTokensApiValue;
   }
 
   // Below are setter methods with fluent API style returning 'this' for chaining
 
   /**
-   * Sets the value of 'nApiValue' and returns the GameMaster instance for method chaining.
+   * Sets the value of 'numberValue' and returns the GameMaster instance for method chaining.
    *
-   * @param n The value to set for 'nApiValue'.
+   * @param n The value to set for 'numberValue'.
    * @return The current instance of GameMaster.
    */
   public GameMaster setN(int n) {
-    this.nApiValue = n;
+    this.numberValue = n;
     return this;
   }
 
   /**
-   * Sets the value of 'temperatureApiValue' and returns the GameMaster instance for method
-   * chaining.
+   * Sets the value of 'temperatureValue' and returns the GameMaster instance for method chaining.
    *
-   * @param temperature The value to set for 'temperatureApiValue'.
+   * @param temperature The value to set for 'temperatureValue'.
    * @return The current instance of GameMaster.
    */
   public GameMaster setTemperature(double temperature) {
-    this.temperatureApiValue = temperature;
+    this.temperatureValue = temperature;
     return this;
   }
 
   /**
-   * Sets the value of 'topPApiValue' and returns the GameMaster instance for method chaining.
+   * Sets the value of 'topParameterValue' and returns the GameMaster instance for method chaining.
    *
-   * @param topP The value to set for 'topPApiValue'.
+   * @param topP The value to set for 'topParameterValue'.
    * @return The current instance of GameMaster.
    */
   public GameMaster setTopP(double topP) {
-    this.topPApiValue = topP;
+    this.topParameterValue = topP;
     return this;
   }
 
@@ -93,7 +92,7 @@ public class GameMaster {
   public ChatContext createChatContext(String contextName) {
     ChatContext chatContext =
         new ChatContext(
-            contextName, nApiValue, temperatureApiValue, topPApiValue, maxTokensApiValue);
+            contextName, numberValue, temperatureValue, topParameterValue, maxTokensApiValue);
     chatContexts.put(contextName, chatContext);
     return chatContext;
   }

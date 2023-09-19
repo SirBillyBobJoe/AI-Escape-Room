@@ -16,7 +16,7 @@
             <Image url="@../images/Padlock/PadlockImage.png" />
           </image>
         </ImageView>
-        <HBox fx:id="hBox" alignment="CENTER" layoutX="0" layoutY="200" prefHeight="80" prefWidth="375.0">
+        <HBox fx:id="horozontalBox" alignment="CENTER" layoutX="0" layoutY="200" prefHeight="80" prefWidth="375.0">
           <children>
 
           </children>

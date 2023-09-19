@@ -95,12 +95,14 @@ public class WirelinkingController {
    * @return A new hole circle.
    */
   private Circle createHole(Color color, boolean isLeft) {
+    // creates a new hole
     Circle hole = new Circle(15, backgroundColor);
     hole.setStroke(color);
-
+    // determines if its a left or right
     if (isLeft) {
       hole.setOnDragDetected(handleStartDrag);
     } else {
+      // make it drooppable
       hole.setOnMouseDragEntered(event -> updateCurrentWireEndPosition(event));
       hole.setOnMouseDragReleased(this::handleDropOnRightHole);
     }
@@ -182,9 +184,10 @@ public class WirelinkingController {
    * @param event MouseEvent that holds the information about the mouse's current position.
    */
   private void initiateCurrentWire(Circle sourceHole, MouseEvent event) {
+    // gets the source of mouse event
     Point2D holeCenter = getHoleCenter(sourceHole);
     Color color = (Color) sourceHole.getStroke();
-
+    // creates a wire
     currentWire =
         new Line(holeCenter.getX(), holeCenter.getY(), holeCenter.getX(), holeCenter.getY());
     currentWire.setStroke(
@@ -197,12 +200,14 @@ public class WirelinkingController {
             CycleMethod.REPEAT,
             new Stop(0, color),
             new Stop(0.1, color.darker())));
+    // sets the size of the wire
     currentWire.setStrokeWidth(3);
-
+    // creates a shadow and off sets the positio
     DropShadow shadow = new DropShadow();
     shadow.setRadius(5.0);
     shadow.setOffsetX(3.0);
     shadow.setOffsetY(3.0);
+    // gives the wire color
     shadow.setColor(Color.GRAY);
     currentWire.setEffect(shadow);
 
@@ -230,20 +235,22 @@ public class WirelinkingController {
    * @param event MouseEvent that holds the information about the drop position and source.
    */
   private void finalizeWireConnection(MouseEvent event) {
+    // get the source
     Circle sourceHole = (Circle) event.getSource();
     Point2D holeCenter = getHoleCenter(sourceHole);
+    // creates a permanent wire
     Line permanentWire =
         new Line(
             currentWire.getStartX(), currentWire.getStartY(), holeCenter.getX(), holeCenter.getY());
     permanentWire.setStroke(currentWire.getStroke());
     permanentWire.setStrokeWidth(currentWire.getStrokeWidth());
     permanentWire.setEffect(currentWire.getEffect());
-
+    // this drags and if it reaches a source creates a permanent wire
     drawingArea.getChildren().add(permanentWire);
     sourceHole.setFill(permanentWire.getStroke());
     currentCorrectPath.startHole.setFill(permanentWire.getStroke());
     currentCorrectPath.setComplete();
-
+    // gives the wire some colour
     Paint colour = sourceHole.getStroke();
     if (colour.equals(Color.RED) && GameState.inventory.containsItem(GameState.redWire))
       GameState.inventory.removeObject(GameState.redWire);
@@ -282,17 +289,26 @@ public class WirelinkingController {
     currentCorrectPath = null;
   }
 
+  /**
+   * Checks if all paths in the wire puzzle are complete. If they are, various game states are
+   * updated to indicate that the puzzle is solved, lights are turned on, and a new riddle is
+   * activated.
+   */
   private void checkCompleteness() {
+    // check if its complete
     for (CorrectPath path : correctPaths.values()) {
       if (!path.isComplete()) return;
     }
+    // set wirepuzzle to true
     GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).set(true);
     System.out.println("Completed");
     System.out.println(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).getValue());
     GameState.wirePuzzleSolved = true;
+    // turns the lights on
     GameState.riddleRoomController.turnLightsOn();
     GameState.gameMasterActions.activate("Stop! You need to solve my riddle now...");
     TextToSpeech textToSpeech = TextToSpeech.getInstance();
+    // tell them to stop the riddless
     textToSpeech.speak("Stop! You need to solve my riddle now...");
     GameState.riddleChat.newRiddle("padlockRiddle", GameState.padlockAnswer);
     GameState.isPuzzlesOn.set(false);

@@ -9,20 +9,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.Items.Inventory;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.gpt.GameMaster;
+import nz.ac.auckland.se206.items.Inventory;
 
 /**
  * Controller for the End Screen of the game. Handles the state labels that indicate whether the
  * player has escaped or not.
  */
 public class EndScreenController {
-  @FXML Label lblState;
-  @FXML Label lblExit;
-  @FXML Label lblRestart;
+  @FXML private Label lblState;
+  @FXML private Label lblExit;
+  @FXML private Label lblRestart;
 
   private final DropShadow dropShadow = new DropShadow();
 
@@ -58,14 +58,17 @@ public class EndScreenController {
    */
   @FXML
   private void lblRestartClicked() throws IOException {
+    // sets the escape to false
     GameState.escaped = false;
     new MouseClick().play();
+    // stops the timers
     GameState.timer.stop();
-
+    // creates a new inventory
     GameState.inventory = new Inventory();
 
     GameState.gameMaster = new GameMaster();
     GameState.chat.restart();
+    // goes back to startscreen
     SceneManager.setReinitialise(AppUi.UIOVERLAY);
     SceneManager.setReinitialise(AppUi.STARTSCREEN);
     App.setUserInterface(AppUi.STARTSCREEN);
