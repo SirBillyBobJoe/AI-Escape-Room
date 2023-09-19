@@ -294,7 +294,7 @@ public class WirelinkingController {
     GameState.gameMasterActions.activate("Stop! You need to solve my riddle now...");
     TextToSpeech textToSpeech = TextToSpeech.getInstance();
     textToSpeech.speak("Stop! You need to solve my riddle now...");
-    GameState.riddleChat.newRiddle("padlockRiddle", GameState.padlockAnswer);
+    GameState.riddleChat.newRiddle(GameState.padlockAnswer);
     GameState.isPuzzlesOn.set(false);
     exitPuzzle(null);
   }

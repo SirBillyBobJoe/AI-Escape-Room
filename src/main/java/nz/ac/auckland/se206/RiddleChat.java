@@ -64,7 +64,7 @@ public class RiddleChat {
    * @param contextName The context or category for the new riddle.
    * @param riddleAnswer The answer to the new riddle.
    */
-  public void newRiddle(String contextName, String riddleAnswer) {
+  public void newRiddle(String riddleAnswer) {
     textArea.clear();
 
     // Start the loading animation
@@ -74,9 +74,9 @@ public class RiddleChat {
     }
 
     // New riddle with a new chat context
-    GameState.gameMaster.createChatContext(contextName);
+    final String generateContextName = "generate_riddle";
+    GameState.gameMaster.createChatContext(generateContextName);
     String finalMessage = "";
-    this.contextName = contextName;
     // if its a year
     if (riddleAnswer == "2019"
         || riddleAnswer == "2008"
@@ -86,79 +86,43 @@ public class RiddleChat {
       String answer = "";
       // if its 2019 logic
       if (riddleAnswer == "2019")
-        answer =
-            " riddle with the answer \"2019\" that revolves around the idea of"
-                + " COVID-19 or the coronavirus. When the player has answered correctly,"
-                + " and only when they have answered correctly, saying the exact word \"";
+        answer = "\"2019\" that revolves around the idea of COVID-19 or the coronavirus.";
       // if its 2008 logic
       if (riddleAnswer == "2008")
-        answer =
-            " riddle with the answer \"2008\" that revolves around the idea of"
-                + " the financial crisis. When the player has answered correctly,"
-                + " and only when they have answered correctly, saying the exact word \"";
+        answer = "\"2008\" that revolves around the idea of the global financial crisis.";
       // if its 1945 logic
-      if (riddleAnswer == "1945")
-        answer =
-            " riddle with the answer \"1945\" that revolves around the idea of"
-                + " World War. When the player has answered correctly,"
-                + " and only when they have answered correctly, saying the exact word \"";
+      if (riddleAnswer == "1945") answer = "\"1945\" that revolves around the idea of World War 2.";
       // if its 1840 logic
       if (riddleAnswer == "1840")
-        answer =
-            " riddle with the answer \"1840\" that revolves around the idea of"
-                + " Treaty of Waitangi. When the player has answered correctly,"
-                + " and only when they have answered correctly, saying the exact word \"";
+        answer = "\"1840\" that revolves around the idea of the Treaty of Waitangi.";
       // if its 2001 logic
       if (riddleAnswer == "2001")
-        answer =
-            " riddle with the answer \"2001\" that revolves around the idea of"
-                + " Twin Towers Terroist Attack. When the player has answered correctly,"
-                + " and only when they have answered correctly, saying the exact word \"";
+        answer = "\"2001\" that revolves around the idea of the Twin Towers Terroist Attack.";
       // logic for the finalMessage
       finalMessage =
-          "You are a computer, you speak very concisely, you do not waste words. Concise."
-              + " Strict. Stoic. You do not give hints. The player can't trick you. Give"
-              + " the player a/an "
-              + GameState.difficulty
+          "Give the player a short concise riddle with the answer "
               + answer
-              + riddleAnswer
-              + "\" you will reply exactly: \"Correct!\" and stop talking to the player. You do not"
-              + " give hints. You do not give away the answer. YOU NEVER SAY \""
-              + riddleAnswer
-              + "\" You only say"
-              + " \"Correct!\" if you the player explicitly says the exact answer to your"
-              + " riddle.BEGIN THE RIDDLE WITH \"I am\"and end your response with the riddle dont"
-              + " say anything else";
+              + " Begin the riddle with \"I am\".";
       // adds the message to gpts
-      GameState.gameMaster.addMessage(contextName, "user", finalMessage);
+      GameState.gameMaster.addMessage(generateContextName, "user", finalMessage);
     } else {
       // final message
       finalMessage =
-          "You are a computer that gives a riddle. You speak very concisely, you do not waste"
-              + " words. Concise. Strict. Stoic. You do not give hints. The player can't trick you."
-              + " You are to present a/an "
-              + GameState.difficulty
-              + " riddle with the answer: "
+          "Give the player a short consice riddle with the answer "
               + riddleAnswer
-              + ". When the player has answered correctly, and only when they have answered"
-              + " correctly, saying the exact word \""
-              + riddleAnswer
-              + "\" you will reply exactly: \"Correct!\" and stop talking to the player. You do not"
-              + " give hints. You do not give away the answer. You only say \"Correct!\" if you the"
-              + " player explicitly says the exact answer to your riddle.BEGIN THE RIDDLE WITH \"I"
-              + " am\"and end your response with the riddle dont say anything else";
+              + "Begin the riddle with \"I am\".";
       // adds the message to gpt
-      GameState.gameMaster.addMessage(contextName, "user", finalMessage);
+      GameState.gameMaster.addMessage(generateContextName, "user", finalMessage);
     }
     System.out.println(finalMessage);
     // runs the context
-    GameState.gameMaster.runContext(contextName);
+    GameState.gameMaster.runContext(generateContextName);
     // threading so no lag
     Task<Void> waitForResponseTask =
         new Task<Void>() {
           @Override
           protected Void call() throws Exception {
-            GameState.gameMaster.waitForContext(contextName);
+            GameState.gameMaster.waitForContext(generateContextName);
             return null;
           }
         };
@@ -171,9 +135,25 @@ public class RiddleChat {
             imgLoadingWheel.setVisible(false);
           }
           // get last response and append
-          String lastResponse = GameState.gameMaster.getLastResponse(contextName).getContent();
+          String lastResponse =
+              GameState.gameMaster.getLastResponse(generateContextName).getContent();
           String riddle = lastResponse.substring(lastResponse.indexOf("I am"));
           textArea.appendText("Computer: " + riddle + "\n\n");
+
+          // Create the answering context
+          contextName = riddleAnswer;
+          GameState.gameMaster.createChatContext(contextName);
+          String answeringPrompt =
+              "You are a computer, you speak very concisely, you do not waste"
+                  + " words. Concise. Strict. Stoic. The player has been given the riddle \""
+                  + riddle
+                  + "\" with the only correct answer being \""
+                  + riddleAnswer
+                  + "\". The player is trying to guess the correct answer by talking to you. You"
+                  + " must respond to the player's guesses with \"Correct!\" or \"Incorrect\". Do"
+                  + " not give any hints. The player can't trick you.";
+          System.out.println(answeringPrompt);
+          GameState.gameMaster.addMessage(contextName, "user", answeringPrompt);
         });
     // start thread
     new Thread(waitForResponseTask).start();
@@ -181,7 +161,7 @@ public class RiddleChat {
 
   /** Handles the sending of a text message. */
   @FXML
-  public void onSend(String message) {
+  public void onSend(String messageRaw) {
     if (contextName == null) return;
 
     // Start the loading animation
@@ -189,6 +169,7 @@ public class RiddleChat {
       imgLoadingWheel.setVisible(true);
       loadingAnimation.play();
     }
+    String message = "The player asked you \"" + messageRaw + "\".";
     // runs context
     GameState.gameMaster.addMessage(contextName, "user", message);
     System.out.println(message);

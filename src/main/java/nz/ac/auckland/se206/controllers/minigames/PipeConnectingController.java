@@ -73,9 +73,9 @@ public class PipeConnectingController {
   /** Sets the size of the grid based on the game's difficulty. */
   private void setGamesDifficulty() {
     // Was variable but is now constant
-    gridXSize = 5;
-    gridYSize = 4;
-    gridCellSize = 65;
+    gridXSize = 4;
+    gridYSize = 3;
+    gridCellSize = 80;
 
     rectWidth = gridCellSize / 4;
     rectHeight = gridCellSize / 2 + rectWidth / 2;
