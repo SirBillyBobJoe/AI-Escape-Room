@@ -46,34 +46,38 @@ public class CountdownTimer {
   private CountdownTimer(int time) {
     timeSeconds.set(time);
     timeline = new Timeline();
+    // set the time count
     timeline.setCycleCount(time);
+    // add frames
     timeline
         .getKeyFrames()
         .add(new KeyFrame(Duration.seconds(1), e -> timeSeconds.set(timeSeconds.get() - 1)));
     timeSeconds.addListener(
         (obs, oldTime, newTime) -> {
           if (newTime.intValue() % 30 == 0 && newTime.intValue() != 0) {
+            // starts the tasks
             Task<Void> task =
                 new Task<Void>() {
 
                   @Override
                   protected Void call() throws Exception {
-
+                    // uses tts
                     tts.speak(String.valueOf(newTime.intValue()) + "seconds left.");
 
                     return null;
                   }
                 };
-
+            // starts the thread
             new Thread(task).start();
           }
+          // if less than 5 logic
           if (newTime.intValue() <= 5) {
             Task<Void> task =
                 new Task<Void>() {
 
                   @Override
                   protected Void call() throws Exception {
-
+                    // tts speaks value
                     tts.speak(String.valueOf(newTime.intValue()));
 
                     return null;
@@ -82,10 +86,12 @@ public class CountdownTimer {
 
             new Thread(task).start();
           }
+          // stops when = 0
           if (newTime.intValue() == 0) {
             this.stop();
             Platform.runLater(
                 () -> {
+                  // starts new task
                   Task<Void> task =
                       new Task<Void>() {
 
@@ -99,7 +105,7 @@ public class CountdownTimer {
                       };
 
                   new Thread(task).start();
-
+                  // skips to endscreen when 0
                   try {
                     SceneManager.setReinitialise(AppUi.ENDSCREEN);
                     App.setUserInterface(AppUi.ENDSCREEN);

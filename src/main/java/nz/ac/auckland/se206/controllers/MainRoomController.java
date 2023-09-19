@@ -117,8 +117,8 @@ public class MainRoomController {
 
     String id = source.getId();
     new MouseClick().play();
-    if (!GameState.isPuzzlesOn.getValue()
-        && GameState.puzzleName.contains(source.getId())) { // when puzzles are turned off
+    if (!GameState.isPuzzlesOn.getValue() && GameState.puzzleName.contains(source.getId())) {
+      // when puzzles are turned off
 
       vibrate(source);
 
@@ -135,15 +135,18 @@ public class MainRoomController {
       }
       GameState.inventory.onRegularItemClicked(event);
 
-    } else if (id.equals("leftDoor")) { // if click on the left door
+    } else if (id.equals("leftDoor")) {
+      // if click on the left door
 
       GameState.currentRoom.set(Rooms.PUZZLEROOM);
 
-    } else if (id.equals("rightDoor")) { // if click on the right door
+    } else if (id.equals("rightDoor")) {
+      // if click on the right door
 
       GameState.currentRoom.set(Rooms.RIDDLEROOM);
 
-    } else if (id.equals("exitDoor")) { // if clicked on the centre exit door
+    } else if (id.equals("exitDoor")) {
+      // if clicked on the centre exit door
       if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
         GameState.timer.stop();
         GameState.escaped = true;
@@ -152,12 +155,14 @@ public class MainRoomController {
       } else {
         GameState.inventory.onRegularItemClicked(event);
       }
-
+      // if its a wirebox
     } else if (id.equals("wireBox")) {
       GameState.currentPuzzle.set(Puzzle.WIREPUZZLE);
     } else if (id.equals("candlePainting")) {
+      // if its a painting
       GameState.currentPuzzle.set(Puzzle.CANDLEPAINTING);
     } else if (id.equals("passcode")) {
+      // if its a passcode
       GameState.currentPuzzle.set(Puzzle.PASSCODE);
     } else if (id.equals("hide1") || id.equals("hide2")) {
       source.setVisible(false);
@@ -195,10 +200,12 @@ public class MainRoomController {
   @FXML
   private void onDragDropped(DragEvent event) {
     Node node = (Node) event.getSource();
+
+    // when u drop it checks values
     if (!GameState.isPuzzlesOn.getValue() && GameState.puzzleName.contains(node.getId())) {
 
       vibrate(node);
-
+      // gets keyframe for delays
       KeyFrame keyFrame =
           new KeyFrame(
               Duration.millis(500),
@@ -224,9 +231,10 @@ public class MainRoomController {
     Node source = (Node) event.getSource();
     String id = source.getId();
     ColorAdjust colorAdjust = new ColorAdjust();
-    if (!GameState.isPuzzlesOn.getValue()
-        && GameState.puzzleName.contains(source.getId())) { // when puzzles are turned off turn red
-      if (source instanceof Rectangle) { // if its a rectangle
+    if (!GameState.isPuzzlesOn.getValue() && GameState.puzzleName.contains(source.getId())) {
+      // when puzzles are turned off turn red
+      if (source instanceof Rectangle) {
+        // if its a rectangle
 
         if (!(id.equals("hide1") || id.equals("hide2"))) {
           source.setOpacity(0.22);
@@ -234,16 +242,20 @@ public class MainRoomController {
         Rectangle rectangle = (Rectangle) source;
         rectangle.setFill(Color.RED);
       } else {
-        colorAdjust.setHue(-0.5); // Max hue
-        colorAdjust.setSaturation(1); // Max saturation
+        colorAdjust.setHue(-0.5);
+        // Max hue
+        colorAdjust.setSaturation(1);
+        // Max saturation
         source.setEffect(colorAdjust);
       }
 
     } else if (source instanceof ImageView) {
       // Make it really blue when hovered over
       ImageView targetImageView = (ImageView) event.getSource();
-      colorAdjust.setHue(1); // Max hue
-      colorAdjust.setSaturation(1); // Max saturation
+      colorAdjust.setHue(1);
+      // Max hue
+      colorAdjust.setSaturation(1);
+      // Max saturation
       targetImageView.setEffect(colorAdjust);
     } else if (id.equals("hide1") || id.equals("hide2")) {
       Rectangle rectangle = (Rectangle) source;
@@ -264,10 +276,12 @@ public class MainRoomController {
     String id = source.getId();
     if (source instanceof ImageView) {
       ImageView targetImageView = (ImageView) source;
-      targetImageView.setEffect(null); // Remove the blue tint
+      targetImageView.setEffect(null);
+      // Remove the blue tint
     } else if (!GameState.isPuzzlesOn.getValue()
         && GameState.puzzleName.contains(source.getId())
-        && source instanceof Rectangle) { // when the puzzles are turned off turn red
+        && source instanceof Rectangle) {
+      // when the puzzles are turned off turn red
 
       Rectangle rectangle = (Rectangle) source;
 
@@ -277,15 +291,21 @@ public class MainRoomController {
       } else {
         rectangle.setFill(Color.web("#0c0f15"));
       }
-
+      // if its hide1 and hide2
     } else if (id.equals("hide1") || id.equals("hide2")) {
       Rectangle rectangle = (Rectangle) source;
       rectangle.setFill(Color.web("#0c0f15"));
     } else {
-      source.setOpacity(0); // Make the node invisible
+      source.setOpacity(0);
+      // Make the node invisible
     }
   }
 
+  /**
+   * Drops the given Node vertically by 200 units.
+   *
+   * @param node The Node to be dropped.
+   */
   private void drop(Node node) {
     TranslateTransition translate = new TranslateTransition();
     translate.setNode(node);
@@ -294,6 +314,11 @@ public class MainRoomController {
     translate.play();
   }
 
+  /**
+   * Vibrates the given Node horizontally, moving it back and forth.
+   *
+   * @param node The Node to be vibrated.
+   */
   public void vibrate(Node node) {
     TranslateTransition tt = new TranslateTransition(Duration.millis(15), node);
     tt.setFromX(0f);

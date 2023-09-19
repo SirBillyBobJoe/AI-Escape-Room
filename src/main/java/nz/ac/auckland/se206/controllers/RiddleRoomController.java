@@ -107,9 +107,11 @@ public class RiddleRoomController {
 
     if (source instanceof ImageView) {
       ImageView targetImageView = (ImageView) source;
-      targetImageView.setEffect(null); // Remove the blue tint
+      targetImageView.setEffect(null);
+      // Remove the blue tint
     } else {
-      source.setOpacity(0); // Make the node invisible
+      source.setOpacity(0);
+      // Make the node invisible
     }
   }
 }

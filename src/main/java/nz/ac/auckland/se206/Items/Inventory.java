@@ -36,6 +36,11 @@ public class Inventory {
     }
   }
 
+  /**
+   * sets the itemChat for the inventory
+   *
+   * @param itemChat text area
+   */
   public void setItemChat(TextArea itemChat) {
     this.itemChat = itemChat;
   }
@@ -92,14 +97,14 @@ public class Inventory {
       return; // out of bounds, do nothing
     }
     Object temp = inventoryProperty.get(i);
-
+    // logic for inventory
     Object jObj = (j < inventoryProperty.size()) ? inventoryProperty.get(j) : null;
-
+    // sets the position
     inventoryProperty.set(i, jObj);
     if (jObj != null) {
       jObj.setPosition(i);
     }
-
+    // sets the property
     inventoryProperty.set(j, temp);
     if (temp != null) {
       temp.setPosition(j);
@@ -174,27 +179,33 @@ public class Inventory {
       ColorAdjust colorAdjust = new ColorAdjust();
       event.acceptTransferModes(TransferMode.MOVE);
       Node targetImageNode = (Node) event.getSource();
-      if (!GameState.isPuzzlesOn.getValue()) { // when puzzles are off
+      // when puzzles are off
+      if (!GameState.isPuzzlesOn.getValue()) {
         if (targetImageNode instanceof Rectangle) {
           Rectangle rectangle = (Rectangle) targetImageNode;
           rectangle.setFill(Color.RED);
           targetImageNode.setOpacity(0.22);
           return;
         } else {
-          colorAdjust.setHue(-0.5); // Max hue
-          colorAdjust.setSaturation(1); // Max saturation
+          /// Max hue
+          colorAdjust.setHue(-0.5);
+          // Max saturation
+          colorAdjust.setSaturation(1);
           targetImageNode.setEffect(colorAdjust);
           return;
         }
       }
-      if (targetImageNode instanceof Rectangle) { // if its a rectangle
+      // if its a rectangle
+      if (targetImageNode instanceof Rectangle) {
         targetImageNode.setOpacity(0.22);
         return;
       }
       // Make it really blue when hovered over
       ImageView targetImageView = (ImageView) event.getSource();
-      colorAdjust.setHue(1); // Max hue
-      colorAdjust.setSaturation(1); // Max saturation
+      // Max hue
+      colorAdjust.setHue(1);
+      // Max saturation
+      colorAdjust.setSaturation(1);
       targetImageView.setEffect(colorAdjust);
     }
 
@@ -236,19 +247,18 @@ public class Inventory {
     // Check if Dragboard has a String (we stored earlier)
     if (db.hasString()) {
       int originalIndex = Integer.parseInt(db.getString());
-      Object draggedItem =
-          GameState.inventory.getObject(
-              originalIndex); // Retrieve the dragged object based on the index.
+      Object draggedItem = GameState.inventory.getObject(originalIndex);
+      // Retrieve the dragged object based on the index.
       if (targetImageNode instanceof Rectangle && targetImageNode.getId().equals("brickWall")) {
         System.out.println(GameState.wallCount);
         if (draggedItem instanceof Hammer) {
           new MouseClick().play();
-
+          // if wall count is 1
           if (!(GameState.wallCount-- > 1)) {
             targetImageNode.setVisible(false);
             ItemChat.getInstance().printChatMessage(itemChat, "You have broken the wall.");
           }
-
+          // prints a message
           ItemChat.getInstance().printChatMessage(itemChat, "You have cracked the wall.");
         } else {
           ItemChat.getInstance().printChatMessage(itemChat, "You need to use a hammer.");
@@ -302,6 +312,7 @@ public class Inventory {
         }
 
       } else {
+        // gets the userdata
         int targetIndex = (int) targetImageView.getUserData();
         GameState.inventory.swapObject(originalIndex, targetIndex);
         success = true;
@@ -312,6 +323,12 @@ public class Inventory {
     event.consume();
   }
 
+  /**
+   * Handles the event when a regular item in the game room is clicked. Displays messages to the
+   * chat and updates the game state accordingly.
+   *
+   * @param event The MouseEvent triggered by clicking on the item.
+   */
   public void onRegularItemClicked(MouseEvent event) {
     itemChat.clear();
     Node node = (Node) event.getSource();
@@ -339,16 +356,33 @@ public class Inventory {
     }
   }
 
+  /**
+   * Handles the event when an item in the inventory is clicked. Displays item information in the
+   * chat.
+   *
+   * @param event The MouseEvent triggered by clicking on the inventory item.
+   */
   public void onInventoryClicked(MouseEvent event) {
     int index = (int) ((ImageView) event.getSource()).getUserData();
     String message = inventoryProperty.get(index).getItemIdentifier();
     ItemChat.getInstance().printChatMessage(itemChat, message);
   }
 
+  /**
+   * Checks if the inventory contains a specific object.
+   *
+   * @param object The object to check for in the inventory.
+   * @return true if the inventory contains the object, false otherwise.
+   */
   public boolean containsItem(Object object) {
     return inventoryProperty.contains(object);
   }
 
+  /**
+   * Sets a message to be displayed in the item chat.
+   *
+   * @param msg The message string to be displayed.
+   */
   public void setTextChat(String msg) {
     ItemChat.getInstance().printChatMessage(itemChat, msg);
   }

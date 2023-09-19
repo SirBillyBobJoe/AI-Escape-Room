@@ -97,12 +97,21 @@ public class PasscodeController {
     System.out.println(answer);
   }
 
+  /** Exits the current puzzle and resets the puzzle state to NONE. */
   @FXML
   private void exitPuzzle() {
     System.out.println("Exit");
     GameState.currentPuzzle.setValue(Puzzle.NONE);
   }
 
+  /**
+   * Listens for changes in the selected letters and checks if the current selection forms the
+   * correct answer.
+   *
+   * @param o The observable value being watched, representing a selected letter.
+   * @param oldVal The old value of the observed letter.
+   * @param newVal The new value of the observed letter.
+   */
   private void onLetterChange(ObservableValue<? extends String> o, String oldVal, String newVal) {
     String currentAnswer = "";
     for (StringProperty letter : selectedLetters) {

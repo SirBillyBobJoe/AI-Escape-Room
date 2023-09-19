@@ -41,6 +41,7 @@ public class TextToSpeech {
    * default voice is set to English: com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory.
    */
   private TextToSpeech() {
+    // try the api call
     try {
       System.setProperty(
           "freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
@@ -49,6 +50,7 @@ public class TextToSpeech {
       synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(java.util.Locale.ENGLISH));
 
       synthesizer.allocate();
+      // if it dosent work
     } catch (final EngineException e) {
       throw new TextToSpeechException(e.getMessage());
     }
@@ -61,6 +63,7 @@ public class TextToSpeech {
    */
   public void speak(final String... sentences) {
     boolean isFirst = true;
+    // speaks the sentence
     for (final String sentence : sentences) {
       if (!isFirst) {
         // Add a pause between sentences.
@@ -81,9 +84,11 @@ public class TextToSpeech {
       throw new IllegalArgumentException("Text cannot be null.");
     }
     try {
+      // try if it dosent work
       synthesizer.resume();
       synthesizer.speakPlainText(sentence, null);
       synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
+      // plays audio
     } catch (final AudioException | InterruptedException e) {
       throw new TextToSpeechException(e.getMessage());
     }

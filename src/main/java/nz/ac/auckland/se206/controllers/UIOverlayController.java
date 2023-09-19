@@ -274,6 +274,7 @@ public class UIOverlayController {
     GameState.resetGame();
     SceneManager.initialisePuzzles();
     SceneManager.initialiseRooms();
+    // random logic
     GameState.random = new Random();
     GameState.randomIndex = GameState.random.nextInt(GameState.words.length);
     GameState.randomWord = GameState.words[GameState.randomIndex];
