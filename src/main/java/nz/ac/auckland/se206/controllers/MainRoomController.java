@@ -23,8 +23,6 @@ import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
-import nz.ac.auckland.se206.gpt.GameMaster;
-import nz.ac.auckland.se206.items.Inventory;
 import nz.ac.auckland.se206.items.Keys;
 import nz.ac.auckland.se206.items.Lighter;
 import nz.ac.auckland.se206.items.Lock;
@@ -86,33 +84,6 @@ public class MainRoomController {
     GameState.mainRoom = background;
     GameState.currentRoomItems.put(redWire, GameState.redWire);
     GameState.currentRoomItems.put(blueWire, GameState.blueWire);
-  }
-
-  /**
-   * Resets the game state and navigates back to the start screen.
-   *
-   * @param event MouseEvent for the restart button.
-   * @throws IOException If the FXML for the start screen can't be loaded.
-   */
-  @FXML
-  private void onRestart(MouseEvent event) throws IOException {
-    new MouseClick().play();
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    // when restart go to the startscreen
-    App.setUserInterface(AppUi.STARTSCREEN);
-    // set the stage width
-    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-    stage.setWidth(800 + additionalWidth);
-    stage.setHeight(600 + additionalHeight);
-    // stop the timer
-    GameState.timer.stop();
-    // create new inventory
-    GameState.inventory = new Inventory();
-    // create new gamemaster
-    GameState.gameMaster = new GameMaster();
-    GameState.chat.restart();
-    SceneManager.setReinitialise(AppUi.UIOVERLAY);
   }
 
   /**
