@@ -123,6 +123,17 @@ public class PuzzleRoomController {
     Node source = (Node) event.getSource();
     String id = source.getId();
     new MouseClick().play();
+    if (id.equals("candle1")
+        || id.equals("candle2")
+        || id.equals("candle3")
+        || id.equals("candle4")) {
+      GameState.inventory.setTextChat("You Need A Lighter");
+      return;
+    }
+    if (id.equals("brickWall")) {
+      GameState.inventory.setTextChat("You Need A Hammer");
+    }
+
     if (id.equals("rightDoor")) {
 
       GameState.currentRoom.set(Rooms.MAINROOM);

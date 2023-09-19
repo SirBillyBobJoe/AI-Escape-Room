@@ -39,28 +39,28 @@
          </fill>
       </CubicCurve>
       <CubicCurve fx:id="rightDoor" controlX1="-85.338134765625" controlX2="47.0" controlY1="-374.3333435058594" controlY2="-715.0" endX="29.00006103515625" endY="36.666656494140625" fill="DODGERBLUE" layoutX="771.0" layoutY="414.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" startX="-65.139892578125" startY="4.333343505859375" stroke="BLACK" />
-      <ImageView fx:id="candle1" fitHeight="64.0" fitWidth="49.0" layoutX="314.0" layoutY="246.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="candle1" fitHeight="64.0" fitWidth="49.0" layoutX="314.0" layoutY="246.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../images/puzzleroom/unlitCandle.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="candle2" fitHeight="64.0" fitWidth="49.0" layoutX="345.0" layoutY="246.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="candle2" fitHeight="64.0" fitWidth="49.0" layoutX="345.0" layoutY="246.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../images/puzzleroom/unlitCandle.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="candle3" fitHeight="64.0" fitWidth="49.0" layoutX="378.0" layoutY="247.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="candle3" fitHeight="64.0" fitWidth="49.0" layoutX="378.0" layoutY="247.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../images/puzzleroom/unlitCandle.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="candle4" fitHeight="64.0" fitWidth="49.0" layoutX="412.0" layoutY="247.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="candle4" fitHeight="64.0" fitWidth="49.0" layoutX="412.0" layoutY="247.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../images/puzzleroom/unlitCandle.png" />
          </image>
       </ImageView>
       <Rectangle fx:id="pipeGame" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="92.0" layoutX="213.0" layoutY="3.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="361.0" />
-      <Rectangle fx:id="brickWall" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="148.0" layoutX="301.0" layoutY="166.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="149.0" />
+      <Rectangle fx:id="brickWall" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="148.0" layoutX="301.0" layoutY="166.0" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="149.0" />
       <ImageView fx:id="greenWire" fitHeight="124.0" fitWidth="132.0" layoutX="312.0" layoutY="155.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../images/Inventory/greenWire.png" />
