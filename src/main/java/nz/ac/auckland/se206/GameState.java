@@ -134,9 +134,35 @@ public class GameState {
   public static Set<String> puzzleName = new HashSet<String>();
 
   public static String[] clueFirst = {
-    "help", "hint", "what", "how", "where", "who", "why", "can", "do", "stuck", "lost", "tell",
-    "show", "give", "need", "find", "solve", "figure", "unlock", "explain", "im", "i'm", "i",
-    "need", "hint", "wat", "opened", "unlock"
+    "help",
+    "hint",
+    "what",
+    "how",
+    "where",
+    "who",
+    "why",
+    "can",
+    "do",
+    "stuck",
+    "lost",
+    "tell",
+    "show",
+    "give",
+    "need",
+    "find",
+    "solve",
+    "figure",
+    "unlock",
+    "explain",
+    "im",
+    "i'm",
+    "i",
+    "need",
+    "hint",
+    "wat",
+    "opened",
+    "unlock",
+    "confused",
   };
 
   public static String[] clueSecond = {
