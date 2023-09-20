@@ -1,7 +1,6 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
-import java.util.Random;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -280,15 +279,6 @@ public class UIOverlayController {
     GameState.resetGame();
     SceneManager.initialisePuzzles();
     SceneManager.initialiseRooms();
-    // random logic
-    GameState.random = new Random();
-    GameState.randomIndex = GameState.random.nextInt(GameState.words.length);
-    GameState.randomWord = GameState.words[GameState.randomIndex];
-    GameState.randomNumbers = GameState.numbers[GameState.randomIndex];
-    GameState.padlockAnswer = GameState.randomWord;
-    GameState.passcodeAnswer = GameState.randomNumbers;
-    GameState.isPuzzlesOn.set(true);
-    GameState.loading.set(true);
   }
 
   /**

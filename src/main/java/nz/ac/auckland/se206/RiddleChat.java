@@ -65,6 +65,7 @@ public class RiddleChat {
    * @param riddleAnswer The answer to the new riddle.
    */
   public void newRiddle(String riddleAnswer) {
+    System.out.println("Generate new riddle");
     textArea.clear();
 
     // Start the loading animation
@@ -78,11 +79,7 @@ public class RiddleChat {
     GameState.gameMaster.createChatContext(generateContextName);
     String finalMessage;
     // if its a year
-    if (riddleAnswer == "2019"
-        || riddleAnswer == "2008"
-        || riddleAnswer == "1945"
-        || riddleAnswer == "1840"
-        || riddleAnswer == "2001") {
+    if (GameState.numbers.contains(riddleAnswer)) {
       String answer = "";
       // if its 2019 logic
       if (riddleAnswer == "2019")
@@ -95,9 +92,9 @@ public class RiddleChat {
       // if its 1840 logic
       if (riddleAnswer == "1840")
         answer = "\"1840\" that revolves around the idea of the Treaty of Waitangi.";
-      // if its 2001 logic
-      if (riddleAnswer == "2001")
-        answer = "\"2001\" that revolves around the idea of the Twin Towers Terroist Attack.";
+      // if its 1969 logic
+      if (riddleAnswer == "1969")
+        answer = "\"1969\" that revolves around the idea of the Apollo moon landing";
       // logic for the finalMessage
       finalMessage =
           "Give the player a short concise riddle with the answer "
@@ -137,7 +134,7 @@ public class RiddleChat {
           // get last response and append
           String lastResponse =
               GameState.gameMaster.getLastResponse(generateContextName).getContent();
-          String riddle = lastResponse.substring(lastResponse.indexOf("I am"));
+          String riddle = lastResponse;
           textArea.appendText("Computer: " + riddle + "\n\n");
 
           // Create the answering context
