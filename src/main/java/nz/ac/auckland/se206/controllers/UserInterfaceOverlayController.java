@@ -35,7 +35,7 @@ import nz.ac.auckland.se206.gpt.GameMaster;
  * Controller class for Room 1 in the escape room game. Manages the UI elements and interactions for
  * Room 1.
  */
-public class UIOverlayController {
+public class UserInterfaceOverlayController {
   @FXML private AnchorPane mainPane;
   @FXML private Label countdownLabel;
   @FXML private Label hintLabel;
@@ -71,7 +71,7 @@ public class UIOverlayController {
 
     // Determine the hint text based on the game state
     String hint;
-    if (GameState.hints.get().equals("\u221E")) {
+    if (GameState.hints.get().equals(GameState.infinity)) {
       hint = "infinite";
     } else {
       hint = GameState.hints.get();

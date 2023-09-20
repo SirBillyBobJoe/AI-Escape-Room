@@ -25,15 +25,6 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
 /** A controller responsible for handling the Wirelinking mini-game logic and interactions. */
 public class WirelinkingController {
 
-  @FXML private VBox leftHoleBox;
-  @FXML private VBox rightHoleBox;
-  @FXML private Pane drawingArea;
-
-  private Line currentWire;
-  private CorrectPath currentCorrectPath;
-  private Map<Circle, CorrectPath> correctPaths = new HashMap<>();
-  private Color backgroundColor = Color.WHITE;
-
   /** Internal class to represent the correct paths for wires. */
   private class CorrectPath {
     private Circle startHole;
@@ -65,6 +56,45 @@ public class WirelinkingController {
       isComplete = true;
     }
   }
+
+  @FXML private VBox leftHoleBox;
+  @FXML private VBox rightHoleBox;
+  @FXML private Pane drawingArea;
+
+  private Line currentWire;
+  private CorrectPath currentCorrectPath;
+  private Map<Circle, CorrectPath> correctPaths = new HashMap<>();
+  private Color backgroundColor = Color.WHITE;
+
+  /**
+   * Event handler for initiating a wire drag operation. Determines the correct path for the wire
+   * based on the hole that initiated the drag and starts the visual representation of the wire
+   * drag.
+   */
+  private EventHandler<MouseEvent> handleStartDrag =
+      event -> {
+        Circle sourceHole = (Circle) event.getSource();
+        Paint colour = sourceHole.getStroke();
+        if (colour.equals(Color.RED) && !GameState.inventory.containsItem(GameState.redWire)) {
+          return;
+        }
+        if (colour.equals(Color.BLUE) && !GameState.inventory.containsItem(GameState.blueWire)) {
+          return;
+        }
+        if (colour.equals(Color.GREEN) && !GameState.inventory.containsItem(GameState.greenWire)) {
+          return;
+        }
+
+        if (correctPaths.get(sourceHole).isComplete()) {
+          return;
+        }
+
+        currentCorrectPath = correctPaths.get(sourceHole);
+        drawingArea.startFullDrag();
+
+        resetCurrentWire();
+        initiateCurrentWire(sourceHole, event);
+      };
 
   /** Initializes the controller, sets up mouse event listeners and initiates holes. */
   @FXML
@@ -125,11 +155,11 @@ public class WirelinkingController {
     // Calculate the center of the hole relative to its parent VBox
     Point2D holeCenterLocal =
         new Point2D(hole.getLayoutBounds().getCenterX(), hole.getLayoutBounds().getCenterY());
-    Point2D holeCenterInVBox = hole.localToParent(holeCenterLocal);
+    Point2D holeCenterInVerticalox = hole.localToParent(holeCenterLocal);
 
     // Calculate the center of the hole relative to the scene
-    double finalCenterX = hole.getParent().getLayoutX() + holeCenterInVBox.getX();
-    double finalCenterY = hole.getParent().getLayoutY() + holeCenterInVBox.getY();
+    double finalCenterX = hole.getParent().getLayoutX() + holeCenterInVerticalox.getX();
+    double finalCenterY = hole.getParent().getLayoutY() + holeCenterInVerticalox.getY();
 
     return new Point2D(finalCenterX, finalCenterY);
   }
@@ -150,36 +180,6 @@ public class WirelinkingController {
     currentWire.setEndX(holeCenter.getX());
     currentWire.setEndY(holeCenter.getY());
   }
-
-  /**
-   * Event handler for initiating a wire drag operation. Determines the correct path for the wire
-   * based on the hole that initiated the drag and starts the visual representation of the wire
-   * drag.
-   */
-  private EventHandler<MouseEvent> handleStartDrag =
-      event -> {
-        Circle sourceHole = (Circle) event.getSource();
-        Paint colour = sourceHole.getStroke();
-        if (colour.equals(Color.RED) && !GameState.inventory.containsItem(GameState.redWire)) {
-          return;
-        }
-        if (colour.equals(Color.BLUE) && !GameState.inventory.containsItem(GameState.blueWire)) {
-          return;
-        }
-        if (colour.equals(Color.GREEN) && !GameState.inventory.containsItem(GameState.greenWire)) {
-          return;
-        }
-
-        if (correctPaths.get(sourceHole).isComplete()) {
-          return;
-        }
-
-        currentCorrectPath = correctPaths.get(sourceHole);
-        drawingArea.startFullDrag();
-
-        resetCurrentWire();
-        initiateCurrentWire(sourceHole, event);
-      };
 
   /** Removes the current wire visual from the drawing area if it exists. */
   private void resetCurrentWire() {

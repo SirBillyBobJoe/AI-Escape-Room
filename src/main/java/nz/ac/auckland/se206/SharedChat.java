@@ -9,7 +9,6 @@ import nz.ac.auckland.se206.controllers.GameMasterActions;
 /** A singleton class that manages the shared chat functionality in the application. */
 public class SharedChat {
   private static SharedChat instance;
-  private GameMasterActions gameMasterActions;
 
   /**
    * Retrieves the singleton instance of SharedChat.
@@ -23,6 +22,7 @@ public class SharedChat {
     return instance;
   }
 
+  private GameMasterActions gameMasterActions;
   private final StringProperty text;
 
   /** Constructs a new SharedChat instance with an initial welcome message. */
@@ -91,7 +91,7 @@ public class SharedChat {
         // if it contains both words
         if (msg.contains(keyWords1) && msg.contains(keyWords2)) {
           isHint = true;
-          if (GameState.hints.get().equals("\u221E")) {
+          if (GameState.hints.get().equals(GameState.infinity)) {
             // tell them they have infinite hints
             msg1 = "Do not mention a hint number or say \"Hint: \". ";
             break outerloop;

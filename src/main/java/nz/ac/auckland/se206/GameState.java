@@ -32,6 +32,8 @@ public class GameState {
 
   // Steps in the game, in order
 
+  public static String infinity = "\u221E";
+
   /** Indicates whether the pipe puzzle has been solved */
   public static boolean pipePuzzleSolved = false;
 
@@ -292,6 +294,34 @@ public class GameState {
     "space"
   };
 
+  /** A rectangle shape for highlighting riddles in the UI. */
+  @FXML public static Rectangle riddleGlow;
+
+  /** A cubic curve shape for adding visual effects to the riddles in the UI. */
+  @FXML public static CubicCurve riddleGlow1;
+
+  /** Image view representing the main room in the game. */
+  @FXML public static ImageView mainRoom;
+
+  /** Image view representing the puzzle room in the game. */
+  @FXML public static ImageView puzzleRoom;
+
+  /**
+   * Sets the visibility of riddle highlight indicators based on the riddleRoomActive field. If
+   * riddleRoomActive is true, the riddle indicators become visible. Otherwise, they are hidden.
+   */
+  public static void setRiddleGlow() {
+    // riddle glow logic
+    if (riddleRoomActive.getValue()) {
+      riddleGlow1.setVisible(true);
+      riddleGlow.setVisible(true);
+    } else {
+      // logic for riddles
+      riddleGlow1.setVisible(false);
+      riddleGlow.setVisible(false);
+    }
+  }
+
   /** Resets the game to its initial state. */
   public static void resetGame() {
     wallCount = 3;
@@ -330,33 +360,5 @@ public class GameState {
     passcodeAnswer = GameState.randomNumbers;
     isPuzzlesOn.set(true);
     loading.set(true);
-  }
-
-  /** A rectangle shape for highlighting riddles in the UI. */
-  @FXML public static Rectangle riddleGlow;
-
-  /** A cubic curve shape for adding visual effects to the riddles in the UI. */
-  @FXML public static CubicCurve riddleGlow1;
-
-  /** Image view representing the main room in the game. */
-  @FXML public static ImageView mainRoom;
-
-  /** Image view representing the puzzle room in the game. */
-  @FXML public static ImageView puzzleRoom;
-
-  /**
-   * Sets the visibility of riddle highlight indicators based on the riddleRoomActive field. If
-   * riddleRoomActive is true, the riddle indicators become visible. Otherwise, they are hidden.
-   */
-  public static void setRiddleGlow() {
-    // riddle glow logic
-    if (riddleRoomActive.getValue()) {
-      riddleGlow1.setVisible(true);
-      riddleGlow.setVisible(true);
-    } else {
-      // logic for riddles
-      riddleGlow1.setVisible(false);
-      riddleGlow.setVisible(false);
-    }
   }
 }

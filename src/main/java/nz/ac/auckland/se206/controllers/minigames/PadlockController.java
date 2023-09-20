@@ -85,7 +85,9 @@ public class PadlockController {
       // Handle down arrow click
       downArrow.setOnMouseClicked(
           e -> {
-            if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) return;
+            if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
+              return;
+            }
 
             int index = individualLetterOptions.indexOf(selectedLetter.getValue());
             if (index == individualLetterOptions.size() - 1) {
