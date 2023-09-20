@@ -73,7 +73,7 @@ public class SharedChat {
    * @param textField The TextField containing the user message.
    * @param room The room context for the message.
    */
-  public void onSend(TextArea textField, String room) {
+  public void onSend(TextArea textField) {
     Boolean isHint = false;
     // Get the player's message
     String msg1 = "";
@@ -97,7 +97,7 @@ public class SharedChat {
             break outerloop;
           } else if (Integer.parseInt(GameState.hints.get()) == 0) {
             // with no more hints tell them
-            msg =
+            msg1 =
                 "Tell the player they have no more hints left. YOU ARE TO NOT GIVE THEM ANY MORE"
                     + " ANSWERS TO HINTS";
             break outerloop;
@@ -195,9 +195,10 @@ public class SharedChat {
       System.out.println("Give hint");
     }
     // Get the Game Master's response
-    GameState.gameMaster.addMessage(room, "user", finalMessage);
+    final String chatContext = "main";
+    GameState.gameMaster.addMessage(chatContext, "user", finalMessage);
     System.out.println(finalMessage);
-    GameState.gameMaster.runContext(room);
+    GameState.gameMaster.runContext(chatContext);
 
     // create a task for threading
     Task<Void> waitForResponseTask =
@@ -205,7 +206,7 @@ public class SharedChat {
           @Override
           protected Void call() throws Exception {
             // chat for game master
-            GameState.gameMaster.waitForContext(room);
+            GameState.gameMaster.waitForContext(chatContext);
             return null;
           }
         };
@@ -214,7 +215,7 @@ public class SharedChat {
         e -> {
           gameMasterActions.activate(
               // get the last response
-              GameState.gameMaster.getLastResponse(room).getContent() + "\n\n");
+              GameState.gameMaster.getLastResponse(chatContext).getContent() + "\n\n");
           GameState.loading.set(false);
         });
 

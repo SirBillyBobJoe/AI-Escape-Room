@@ -370,7 +370,7 @@ public class UIOverlayController {
   @FXML
   private void onSend(ActionEvent event) {
     GameState.loading.set(true);
-    GameState.chat.onSend(promptArea, "main");
+    GameState.chat.onSend(promptArea);
 
     // Reset the player interaction timer
     playerInteractionTimer.stop();
