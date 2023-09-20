@@ -22,6 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
+import nz.ac.auckland.se206.GlitchSound;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
@@ -358,6 +359,8 @@ public class UIOverlayController {
   private void onSend(ActionEvent event) {
     GameState.loading.set(true);
     GameState.chat.onSend(promptArea);
+
+    new GlitchSound().play();
 
     // Reset the player interaction timer
     playerInteractionTimer.stop();

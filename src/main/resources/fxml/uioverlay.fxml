@@ -76,7 +76,7 @@
             <Image url="@../images/menu/gameMaster.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="glitch" fitHeight="231.0" fitWidth="261.0" layoutX="819.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="glitch" fitHeight="256.0" fitWidth="250.0" layoutX="822.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/overlay/glitch.gif" />
          </image>
