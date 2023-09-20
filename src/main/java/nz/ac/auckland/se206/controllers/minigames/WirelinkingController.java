@@ -317,9 +317,9 @@ public class WirelinkingController {
       }
     }
     // set wirepuzzle to true
-    GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).set(true);
+    GameState.puzzleSolved.get(Puzzle.WIRELINKING).set(true);
     System.out.println("Completed");
-    System.out.println(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).getValue());
+    System.out.println(GameState.puzzleSolved.get(Puzzle.WIRELINKING).getValue());
     GameState.wirePuzzleSolved = true;
     // turns the lights on
     GameState.riddleRoomController.turnLightsOn();

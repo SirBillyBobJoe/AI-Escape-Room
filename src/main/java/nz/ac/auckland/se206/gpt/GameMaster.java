@@ -155,7 +155,11 @@ public class GameMaster {
    * @return The last ChatMessage response.
    */
   public ChatMessage getLastResponse(String contextName) {
-    return chatContexts.get(contextName).getLastResponse();
+    ChatContext context = chatContexts.get(contextName);
+    if (context == null) {
+      return new ChatMessage("system", "");
+    }
+    return context.getLastResponse();
   }
 
   /**

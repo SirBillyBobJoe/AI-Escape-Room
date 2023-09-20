@@ -64,11 +64,22 @@ public class App extends Application {
    * Sets the root of the scene graph to a specific UI.
    *
    * @param ui The UI to set.
-   * @throws IOException If setting the UI fails.
+   * @throws IOException If loading the UI from fxml fails.
    */
   public static void setUserInterface(AppUi ui) throws IOException {
+    Parent uiParent = SceneManager.getUi(ui);
+    setUserInterface(ui, uiParent);
+  }
+
+  /**
+   * Sets the root of the scene graph to a specific Parent.
+   *
+   * @param ui The ui to set.
+   * @param uiParent the parent object to set.
+   */
+  public static void setUserInterface(AppUi ui, Parent uiParent) {
     // sets the root for the game
-    scene.setRoot(SceneManager.getUi(ui));
+    scene.setRoot(uiParent);
     scene.getRoot().requestFocus();
     Stage stage = (Stage) scene.getWindow();
     // get the dimensions for the stage
@@ -82,7 +93,6 @@ public class App extends Application {
       // sets the dimensions if not overlay
       stage.setWidth(800 + additionalWidth);
       stage.setHeight(600 + additionalHeight);
-      System.out.println("800");
     }
     System.out.println(scene.getRoot().isFocused());
   }

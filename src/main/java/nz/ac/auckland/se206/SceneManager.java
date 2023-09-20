@@ -2,6 +2,7 @@ package nz.ac.auckland.se206;
 
 import java.io.IOException;
 import java.util.HashMap;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Parent;
@@ -22,14 +23,13 @@ public class SceneManager {
     MAINROOM,
     RIDDLEROOM,
     PUZZLEROOM,
-    LEFTROOM,
   }
 
   /** Enumerates different puzzles in the application. */
   public enum Puzzle {
     NONE,
-    PIPEPUZZLE,
-    WIREPUZZLE,
+    PIPECONNECTING,
+    WIRELINKING,
     PADLOCK,
     CANDLEPAINTING,
     COMPUTERSCREEN,
@@ -51,13 +51,6 @@ public class SceneManager {
    */
   public static Parent getUi(AppUi ui) throws IOException {
     if (!reinitialize.containsKey(ui) || reinitialize.get(ui)) {
-      // initialises the rooms
-      if (ui.equals(AppUi.UIOVERLAY)) {
-        System.out.println("Initialise Rooms");
-        // If this room should be re-initialized, create a new instance of the puzzles.
-        initialisePuzzles();
-        initialiseRooms();
-      }
       // reintilise rooms
       reinitialize.put(ui, false);
       // assuming the method is static
@@ -65,6 +58,27 @@ public class SceneManager {
       map.put(ui, newUserInterface);
     }
     return map.get(ui);
+  }
+
+  /** Load UIOverlay Ui in a way that it doesn't have to be run from favafx main thread. */
+  public static void loadUIOverlay() {
+    try {
+      if (!reinitialize.containsKey(AppUi.UIOVERLAY) || reinitialize.get(AppUi.UIOVERLAY)) {
+        System.out.println("Initialise Rooms");
+        // If this room should be re-initialized, create a new instance of the puzzles.
+        initialisePuzzles();
+        initialiseRooms();
+      }
+      Parent uiParent = SceneManager.getUi(AppUi.UIOVERLAY);
+
+      Platform.runLater(
+          () -> {
+            App.setUserInterface(AppUi.UIOVERLAY, uiParent);
+          });
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -84,11 +98,17 @@ public class SceneManager {
    *
    * @throws IOException If the FXML files for rooms can't be loaded.
    */
-  public static void initialiseRooms() throws IOException {
+  private static void initialiseRooms() throws IOException {
     roomMap = new HashMap<Rooms, Pane>();
-    roomMap.put(Rooms.MAINROOM, (Pane) App.loadFxml("mainroom"));
-    roomMap.put(Rooms.PUZZLEROOM, (Pane) App.loadFxml("puzzleroom"));
-    roomMap.put(Rooms.RIDDLEROOM, (Pane) App.loadFxml("riddleroom"));
+    for (Rooms room : Rooms.values()) {
+      // Run each loadFxml call on the JavaFX thread seperately to avoid freezing the UI.
+      try {
+        roomMap.put(room, (Pane) App.loadFxml(room.toString().toLowerCase()));
+      } catch (IOException e) {
+        System.out.println("Error loading room: " + room.toString().toLowerCase());
+        e.printStackTrace();
+      }
+    }
   }
 
   /**
@@ -110,21 +130,23 @@ public class SceneManager {
    *
    * @throws IOException If the FXML files for puzzles can't be loaded.
    */
-  public static void initialisePuzzles() throws IOException {
+  private static void initialisePuzzles() throws IOException {
     // add the fxml files to the hashmap
     puzzleMap = new HashMap<Puzzle, Pane>();
-    puzzleMap.put(Puzzle.NONE, (Pane) App.loadFxml("none"));
-    puzzleMap.put(Puzzle.WIREPUZZLE, (Pane) App.loadFxml("wirelinking"));
-    puzzleMap.put(Puzzle.PIPEPUZZLE, (Pane) App.loadFxml("pipeconnecting"));
-    puzzleMap.put(Puzzle.PADLOCK, (Pane) App.loadFxml("padlock"));
-    puzzleMap.put(Puzzle.CANDLEPAINTING, (Pane) App.loadFxml("candlepainting"));
-    puzzleMap.put(Puzzle.COMPUTERSCREEN, (Pane) App.loadFxml("computerscreen"));
-    puzzleMap.put(Puzzle.PASSCODE, (Pane) App.loadFxml("passcode"));
+    for (Puzzle puzzle : Puzzle.values()) {
+      // Run each loadFxml call on the JavaFX thread seperately to avoid freezing the UI.
+      try {
+        puzzleMap.put(puzzle, (Pane) App.loadFxml(puzzle.toString().toLowerCase()));
+      } catch (IOException e) {
+        System.out.println("Error loading puzzle: " + puzzle.toString().toLowerCase());
+        e.printStackTrace();
+      }
+    }
 
     // add the logic for the solved puzzles to the game
     GameState.puzzleSolved = new HashMap<Puzzle, BooleanProperty>();
-    GameState.puzzleSolved.put(Puzzle.WIREPUZZLE, new SimpleBooleanProperty(false));
-    GameState.puzzleSolved.put(Puzzle.PIPEPUZZLE, new SimpleBooleanProperty(false));
+    GameState.puzzleSolved.put(Puzzle.WIRELINKING, new SimpleBooleanProperty(false));
+    GameState.puzzleSolved.put(Puzzle.PIPECONNECTING, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.PADLOCK, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.CANDLEPAINTING, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.COMPUTERSCREEN, new SimpleBooleanProperty(false));

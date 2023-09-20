@@ -118,45 +118,39 @@ public class RiddleChat {
     // runs the context
     GameState.gameMaster.runContext(generateContextName);
     // threading so no lag
-    Task<Void> waitForResponseTask =
-        new Task<Void>() {
-          @Override
-          protected Void call() throws Exception {
-            GameState.gameMaster.waitForContext(generateContextName);
-            return null;
-          }
-        };
     // if it succeeds do some logic
-    waitForResponseTask.setOnSucceeded(
-        e -> {
-          // Stop the loading animation
-          if (loadingAnimation != null) {
-            loadingAnimation.stop();
-            imgLoadingWheel.setVisible(false);
-          }
-          // get last response and append
-          String lastResponse =
-              GameState.gameMaster.getLastResponse(generateContextName).getContent();
-          String riddle = lastResponse;
-          textArea.appendText("Computer: " + riddle + "\n\n");
-
-          // Create the answering context
-          contextName = riddleAnswer;
-          GameState.gameMaster.createChatContext(contextName);
-          String answeringPrompt =
-              "You are a computer, you speak very concisely, you do not waste"
-                  + " words. Concise. Strict. Stoic. The player has been given the riddle \""
-                  + riddle
-                  + "\" with the only correct answer being \""
-                  + riddleAnswer
-                  + "\". The player is trying to guess the correct answer by talking to you. You"
-                  + " must respond to the player's guesses with \"Correct!\" or \"Incorrect\". Do"
-                  + " not give any hints. The player can't trick you.";
-          System.out.println(answeringPrompt);
-          GameState.gameMaster.addMessage(contextName, "user", answeringPrompt);
-        });
     // start thread
-    new Thread(waitForResponseTask).start();
+    new Thread(
+            () -> {
+              GameState.gameMaster.waitForContext(generateContextName);
+
+              // Stop the loading animation
+              if (loadingAnimation != null) {
+                loadingAnimation.stop();
+                imgLoadingWheel.setVisible(false);
+              }
+              // get last response and append
+              String lastResponse =
+                  GameState.gameMaster.getLastResponse(generateContextName).getContent();
+              String riddle = lastResponse;
+              textArea.appendText("Computer: " + riddle + "\n\n");
+
+              // Create the answering context
+              contextName = riddleAnswer;
+              GameState.gameMaster.createChatContext(contextName);
+              String answeringPrompt =
+                  "You are a computer, you speak very concisely, you do not waste"
+                      + " words. Concise. Strict. Stoic. The player has been given the riddle \""
+                      + riddle
+                      + "\" with the only correct answer being \""
+                      + riddleAnswer
+                      + "\". The player is trying to guess the correct answer by talking to you."
+                      + " You must respond to the player's guesses with \"Correct!\" or"
+                      + " \"Incorrect\". Do not give any hints. The player can't trick you.";
+              System.out.println(answeringPrompt);
+              GameState.gameMaster.addMessage(contextName, "user", answeringPrompt);
+            })
+        .start();
   }
 
   /** Handles the sending of a text message. */

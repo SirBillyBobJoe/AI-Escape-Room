@@ -6,7 +6,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -29,6 +28,7 @@ import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.SharedChat;
+import nz.ac.auckland.se206.gpt.ChatMessage;
 import nz.ac.auckland.se206.gpt.GameMaster;
 
 /**
@@ -173,23 +173,15 @@ public class UserInterfaceOverlayController {
         "You are The Singularity, an omnipresent AI. You don't want the player to escape from your"
             + " domain. You introduce yourself extremely briefly.");
     GameState.gameMaster.runContext("intro");
-    Task<Void> waitForIntro =
-        new Task<Void>() {
-          @Override
-          protected Void call() throws Exception {
-            GameState.gameMaster.waitForContext("intro");
-            return null;
-          }
-        };
 
-    new Thread(waitForIntro).start();
-
-    waitForIntro.setOnSucceeded(
-        e -> {
-          intro = GameState.gameMaster.getLastResponse("intro").getContent();
-          GameState.gameMasterActions.activate(intro);
-          GameState.loading.set(false);
-        });
+    new Thread(
+            () -> {
+              GameState.gameMaster.waitForContext("intro");
+              intro = GameState.gameMaster.getLastResponse("intro").getContent();
+              GameState.gameMasterActions.activate(intro);
+              GameState.loading.set(false);
+            })
+        .start();
   }
 
   /**
