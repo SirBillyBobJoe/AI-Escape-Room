@@ -22,7 +22,7 @@ public class App extends Application {
    *
    * @param args Command-line arguments.
    */
-  void main(final String[] args) {
+  public static void main(final String[] args) {
     launch();
   }
 
@@ -67,15 +67,19 @@ public class App extends Application {
    * @throws IOException If setting the UI fails.
    */
   public static void setUserInterface(AppUi ui) throws IOException {
+    // sets the root for the game
     scene.setRoot(SceneManager.getUi(ui));
     scene.getRoot().requestFocus();
     Stage stage = (Stage) scene.getWindow();
+    // get the dimensions for the stage
     double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
     double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
     if (ui.equals(AppUi.UIOVERLAY)) {
+      // sets the dimensions for the stage
       stage.setWidth(1100 + additionalWidth);
       stage.setHeight(600 + additionalHeight);
     } else {
+      // sets the dimensions if not overlay
       stage.setWidth(800 + additionalWidth);
       stage.setHeight(600 + additionalHeight);
       System.out.println("800");

@@ -276,7 +276,7 @@ public class Inventory {
         // Check whether the dragged item is a key and its ID matches the lock's ID
         if (draggedItem instanceof Keys && lockItem != null && lockItem.isLocked()) {
           Keys keyItem = (Keys) draggedItem;
-          if (keyItem.getID() == lockItem.getId()) {
+          if (keyItem.getIdentification() == lockItem.getId()) {
             lockItem.unlockLock();
             String message = lockItem.getMessage();
             ItemChat.getInstance().printChatMessage(itemChat, message);
