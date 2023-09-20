@@ -85,21 +85,22 @@ public class RiddleChat {
       if (riddleAnswer == "2019")
         answer = "\"2019\" that revolves around the idea of COVID-19 or the coronavirus.";
       // if its 2008 logic
-      if (riddleAnswer == "2008")
+      else if (riddleAnswer == "2008")
         answer = "\"2008\" that revolves around the idea of the global financial crisis.";
       // if its 1945 logic
-      if (riddleAnswer == "1945") answer = "\"1945\" that revolves around the idea of World War 2.";
+      else if (riddleAnswer == "1945")
+        answer = "\"1945\" that revolves around the idea of World War 2.";
       // if its 1840 logic
-      if (riddleAnswer == "1840")
+      else if (riddleAnswer == "1840")
         answer = "\"1840\" that revolves around the idea of the Treaty of Waitangi.";
       // if its 1969 logic
-      if (riddleAnswer == "1969")
+      else if (riddleAnswer == "1969")
         answer = "\"1969\" that revolves around the idea of the Apollo moon landing";
       // logic for the finalMessage
       finalMessage =
           "Give the player a short concise riddle with the answer "
               + answer
-              + " Begin the riddle with \"I am\".";
+              + " Begin the riddle with \"I am\". Do not include the answer in the riddle.";
       // adds the message to gpts
       GameState.gameMaster.addMessage(generateContextName, "user", finalMessage);
     } else {
@@ -107,7 +108,7 @@ public class RiddleChat {
       finalMessage =
           "Give the player a short consice riddle with the answer "
               + riddleAnswer
-              + "Begin the riddle with \"I am\".";
+              + "Begin the riddle with \"I am\". Do not include the answer in the riddle.";
       // adds the message to gpt
       GameState.gameMaster.addMessage(generateContextName, "user", finalMessage);
     }

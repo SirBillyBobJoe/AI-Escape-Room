@@ -96,7 +96,7 @@ public class WirelinkingController {
    */
   private Circle createHole(Color color, boolean isLeft) {
     // creates a new hole
-    Circle hole = new Circle(15, backgroundColor);
+    Circle hole = new Circle(10, backgroundColor);
     hole.setStroke(color);
     // determines if its a left or right
     if (isLeft) {
