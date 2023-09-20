@@ -6,9 +6,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.RiddleRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+   prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1"
+   xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="nz.ac.auckland.se206.controllers.RiddleRoomController">
    <children>
-      <ImageView fx:id="imgRoom" fitHeight="600.0" fitWidth="807.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgRoom" fitHeight="600.0" fitWidth="807.0" pickOnBounds="true"
+         preserveRatio="true">
          <image>
             <Image url="@../images/riddleRoom/riddleRoomDark.png" />
          </image>
@@ -16,7 +20,13 @@
             <InnerShadow choke="0.6" height="90.0" radius="44.5" width="90.0" />
          </effect>
       </ImageView>
-      <Rectangle fx:id="leftDoor" arcHeight="5.0" arcWidth="5.0" fill="#1f85ff" height="381.0" layoutX="-3.0" layoutY="114.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="115.0" />
-      <Rectangle fx:id="computer" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="61.0" layoutX="410.0" layoutY="239.0" onMouseClicked="#objectClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="128.0" />
+      <Rectangle fx:id="leftDoor" arcHeight="5.0" arcWidth="5.0" fill="#1f85ff" height="381.0"
+         layoutX="-3.0" layoutY="114.0" onMouseClicked="#objectClicked"
+         onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0"
+         stroke="BLACK" strokeType="INSIDE" width="115.0" />
+      <Rectangle fx:id="computer" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="61.0"
+         layoutX="410.0" layoutY="239.0" onMouseClicked="#objectClicked"
+         onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" opacity="0.0"
+         stroke="BLACK" strokeType="INSIDE" width="128.0" />
    </children>
 </AnchorPane>

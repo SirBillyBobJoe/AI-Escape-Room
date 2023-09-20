@@ -313,7 +313,7 @@ public class WirelinkingController {
               textToSpeech.speak("Stop! You need to solve my riddle now...");
             })
         .start();
-    GameState.riddleChat.newRiddle("padlockRiddle", GameState.padlockAnswer);
+    GameState.riddleChat.newRiddle(GameState.padlockAnswer);
     GameState.isPuzzlesOn.set(false);
     exitPuzzle(null);
   }

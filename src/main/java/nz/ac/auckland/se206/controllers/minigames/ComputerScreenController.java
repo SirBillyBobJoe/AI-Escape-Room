@@ -24,7 +24,7 @@ public class ComputerScreenController {
   private void initialize() {
     GameState.riddleChat.setTextArea(txaRiddle);
     GameState.riddleChat.setLoadingWheel(imgLoadingWheel);
-    GameState.riddleChat.newRiddle("riddle", GameState.passcodeAnswer);
+    GameState.riddleChat.newRiddle(GameState.passcodeAnswer);
 
     sendButton.disableProperty().bind(GameState.riddleRoomActive.not());
   }

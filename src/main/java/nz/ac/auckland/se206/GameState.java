@@ -274,6 +274,21 @@ public class GameState {
     "click",
     "object",
     "help",
+    "twin",
+    "tower",
+    "treaty",
+    "waitangi",
+    "year",
+    "signed",
+    "global",
+    "financial",
+    "crisis",
+    "gfc",
+    "WW2",
+    "world",
+    "war",
+    "covid",
+    "virus",
   };
 
   /** Resets the game to its initial state. */
