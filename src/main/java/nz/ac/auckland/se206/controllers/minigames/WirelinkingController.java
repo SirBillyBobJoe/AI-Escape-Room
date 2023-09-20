@@ -3,6 +3,7 @@ package nz.ac.auckland.se206.controllers.minigames;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
@@ -77,11 +78,14 @@ public class WirelinkingController {
 
   /** Initializes and positions the colored holes in the interface. */
   private void initializeHoles() {
+    Random random = new Random();
     for (Color color : List.of(Color.RED, Color.GREEN, Color.BLUE)) {
       Circle leftHole = createHole(color, true);
-      leftHoleBox.getChildren().add(leftHole);
+      leftHoleBox.getChildren().add(random.nextInt(leftHoleBox.getChildren().size() + 1), leftHole);
       Circle rightHole = createHole(color, false);
-      rightHoleBox.getChildren().add(rightHole);
+      rightHoleBox
+          .getChildren()
+          .add(random.nextInt(rightHoleBox.getChildren().size() + 1), rightHole);
       correctPaths.put(
           leftHole, new CorrectPath(leftHole, rightHole)); // Associate holes with correct paths
     }
@@ -98,6 +102,7 @@ public class WirelinkingController {
     // creates a new hole
     Circle hole = new Circle(10, backgroundColor);
     hole.setStroke(color);
+    hole.setStrokeWidth(2.5);
     // determines if its a left or right
     if (isLeft) {
       hole.setOnDragDetected(handleStartDrag);
