@@ -16,16 +16,16 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Rectangle;
-import nz.ac.auckland.se206.Items.BlueWire;
-import nz.ac.auckland.se206.Items.GreenWire;
-import nz.ac.auckland.se206.Items.Inventory;
-import nz.ac.auckland.se206.Items.Object;
-import nz.ac.auckland.se206.Items.RedWire;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.controllers.GameMasterActions;
 import nz.ac.auckland.se206.controllers.RiddleRoomController;
 import nz.ac.auckland.se206.gpt.GameMaster;
+import nz.ac.auckland.se206.items.BlueWire;
+import nz.ac.auckland.se206.items.GreenWire;
+import nz.ac.auckland.se206.items.Inventory;
+import nz.ac.auckland.se206.items.Object;
+import nz.ac.auckland.se206.items.RedWire;
 
 /** Represents the state of the game. */
 public class GameState {
@@ -64,6 +64,9 @@ public class GameState {
 
   /** Indicates whether the key has been found. */
   public static boolean isKeyFound = false;
+
+  /** Indicates whether the wall is open. */
+  public static boolean isOpenWall = false;
 
   public static RiddleRoomController riddleRoomController;
 
@@ -188,9 +191,35 @@ public class GameState {
 
   /** Array of first clue words for hints or help. */
   public static String[] clueFirst = {
-    "help", "hint", "what", "how", "where", "who", "why", "can", "do", "stuck", "lost", "tell",
-    "show", "give", "need", "find", "solve", "figure", "unlock", "explain", "im", "i'm", "i",
-    "need", "hint", "wat", "opened", "unlock"
+    "help",
+    "hint",
+    "what",
+    "how",
+    "where",
+    "who",
+    "why",
+    "can",
+    "do",
+    "stuck",
+    "lost",
+    "tell",
+    "show",
+    "give",
+    "need",
+    "find",
+    "solve",
+    "figure",
+    "unlock",
+    "explain",
+    "im",
+    "i'm",
+    "i",
+    "need",
+    "hint",
+    "wat",
+    "opened",
+    "unlock",
+    "confused",
   };
 
   /** Array of second clue words for more specific hints or help. */
@@ -202,21 +231,20 @@ public class GameState {
     "hammer",
     "key",
     "lock",
+    "padlock",
+    "puzzle",
     "door",
     "safe",
     "code",
-    "box",
-    "flashlight",
     "painting",
     "candle",
     "computer",
     "water",
+    "pipe",
+    "riddle",
     "drip",
     "puddle",
-    "chessboard",
     "cards",
-    "symbols",
-    "dice",
     "password",
     "riddle",
     "sequence",
@@ -234,7 +262,6 @@ public class GameState {
     "numbers",
     "letters",
     "compartment",
-    "trapdoor",
     "light",
     "sound",
     "next",

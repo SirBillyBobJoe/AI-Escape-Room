@@ -35,23 +35,23 @@ public class CandlePaintingController {
       boolean randomBoolean = random.nextBoolean();
       GameState.candleOrder.add(randomBoolean);
       ImageView candle = candles.get(i);
+      int count = 0;
+      // ensures its not always turned off all of them
+      for (Boolean bool : GameState.candleOrder) {
+        if (!bool) {
+          count++;
+        }
+      }
+      // if it is set the first one to true
+      if (count == 4) {
+        GameState.candleOrder.set(0, true);
+      }
       // links array to images
       if (randomBoolean) {
         candle.setImage(new Image("/images/puzzleroom/litCandle.png"));
       } else {
         candle.setImage(new Image("/images/puzzleroom/unlitCandle.png"));
       }
-    }
-    int count = 0;
-    // ensures its not always turned off all of them
-    for (Boolean bool : GameState.candleOrder) {
-      if (!bool) {
-        count++;
-      }
-    }
-    // if it is set the first one to true
-    if (count == 4) {
-      GameState.candleOrder.set(0, true);
     }
   }
 

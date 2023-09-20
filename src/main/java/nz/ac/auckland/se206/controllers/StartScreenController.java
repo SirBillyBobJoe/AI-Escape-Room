@@ -2,13 +2,11 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.MouseClick;
@@ -16,32 +14,32 @@ import nz.ac.auckland.se206.SceneManager.AppUi;
 
 /** Class responsible for controlling the Start Screen of the game. */
 public class StartScreenController {
-  @FXML AnchorPane anchorPane;
+
   // 0 is easy 1 is medium 2 is hard
   private int selectedLevel = 0;
   private int selectedTime = 2;
 
   private Boolean onLevel = true;
   private Boolean onTime = false;
+  @FXML private AnchorPane anchorPane;
+  @FXML private Label screenStage;
 
-  @FXML Label screenStage;
+  @FXML private Label lblExit;
 
-  @FXML Label lblExit;
+  @FXML private Label lblEasy;
+  @FXML private Label lblMedium;
+  @FXML private Label lblHard;
 
-  @FXML Label lblEasy;
-  @FXML Label lblMedium;
-  @FXML Label lblHard;
+  @FXML private Label lbl2Min;
+  @FXML private Label lbl4Min;
+  @FXML private Label lbl6Min;
 
-  @FXML Label lbl2Min;
-  @FXML Label lbl4Min;
-  @FXML Label lbl6Min;
+  @FXML private Label timeSummary;
+  @FXML private Label levelSummary;
+  @FXML private Label timeSummaryVal;
+  @FXML private Label levelSummaryVal;
 
-  @FXML Label timeSummary;
-  @FXML Label levelSummary;
-  @FXML Label timeSummaryVal;
-  @FXML Label levelSummaryVal;
-
-  @FXML Label lblStart;
+  @FXML private Label lblStart;
 
   private final DropShadow dropShadow = new DropShadow();
   private final DropShadow startDropShadow = new DropShadow();
@@ -303,12 +301,7 @@ public class StartScreenController {
 
     // Start the timer.
     GameState.timer.start();
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     App.setUserInterface(AppUi.UIOVERLAY);
-    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-    stage.setWidth(1100 + additionalWidth);
-    stage.setHeight(600 + additionalHeight);
   }
 
   /** Helper method to navigate back in the options. */

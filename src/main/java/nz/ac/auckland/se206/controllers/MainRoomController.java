@@ -14,20 +14,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.Items.Inventory;
-import nz.ac.auckland.se206.Items.Keys;
-import nz.ac.auckland.se206.Items.Lighter;
-import nz.ac.auckland.se206.Items.Lock;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
-import nz.ac.auckland.se206.gpt.GameMaster;
+import nz.ac.auckland.se206.items.Keys;
+import nz.ac.auckland.se206.items.Lighter;
+import nz.ac.auckland.se206.items.Lock;
 
 /**
  * Controller class for Room 1 in the escape room game. Manages the UI elements and interactions for
@@ -89,30 +86,6 @@ public class MainRoomController {
   }
 
   /**
-   * Resets the game state and navigates back to the start screen.
-   *
-   * @param event MouseEvent for the restart button.
-   * @throws IOException If the FXML for the start screen can't be loaded.
-   */
-  @FXML
-  private void onRestart(MouseEvent event) throws IOException {
-    new MouseClick().play();
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    App.setUserInterface(AppUi.STARTSCREEN);
-    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-    stage.setWidth(800 + additionalWidth);
-    stage.setHeight(600 + additionalHeight);
-    GameState.timer.stop();
-
-    GameState.inventory = new Inventory();
-
-    GameState.gameMaster = new GameMaster();
-    GameState.chat.restart();
-    SceneManager.setReinitialise(AppUi.UIOVERLAY);
-  }
-
-  /**
    * Handles clicking on game objects in the room.
    *
    * @param event MouseEvent for clicking an object.
@@ -156,15 +129,8 @@ public class MainRoomController {
       if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
         GameState.timer.stop();
         GameState.escaped = true;
-        // gets the stage
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         SceneManager.setReinitialise(AppUi.ENDSCREEN);
         App.setUserInterface(AppUi.ENDSCREEN);
-        // sets the width
-        double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-        double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-        stage.setWidth(800 + additionalWidth);
-        stage.setHeight(600 + additionalHeight);
       } else {
         GameState.inventory.onRegularItemClicked(event);
       }

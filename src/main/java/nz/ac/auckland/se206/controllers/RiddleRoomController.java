@@ -14,9 +14,9 @@ import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 
 public class RiddleRoomController {
-  @FXML Rectangle leftDoor;
-  @FXML Rectangle computer;
-  @FXML ImageView imgRoom;
+  @FXML private Rectangle leftDoor;
+  @FXML private Rectangle computer;
+  @FXML private ImageView imgRoom;
 
   // Brightness changes for the other rooms
   private ColorAdjust colorAdjust = new ColorAdjust();
@@ -28,10 +28,13 @@ public class RiddleRoomController {
   /** Turns the lights on in the riddle room */
   @FXML
   public void turnLightsOn() {
+    // changes the lights in the rom
     imgRoom.setImage(new Image("/images/riddleRoom/riddleRoomLight.png"));
+    // activates the riddles
     GameState.riddleRoomActive.set(true);
     GameState.setRiddleGlow();
     GameState.isPuzzlesOn.set(false);
+    // cahnge brightness
     colorAdjust.setBrightness(-0.5);
     GameState.mainRoom.setEffect(colorAdjust);
     GameState.puzzleRoom.setEffect(colorAdjust);
@@ -40,11 +43,13 @@ public class RiddleRoomController {
   /** Turns the lights off in the riddle room */
   @FXML
   public void turnLightsOff() {
+    // gets the image for dark and turns it off
     imgRoom.setImage(new Image("/images/riddleRoom/riddleRoomDark.png"));
     GameState.riddleRoomActive.set(false);
-    ;
+    // set the riddle glow
     GameState.setRiddleGlow();
     colorAdjust.setBrightness(0);
+    // adjust colors
     GameState.mainRoom.setEffect(colorAdjust);
     GameState.puzzleRoom.setEffect(colorAdjust);
   }
@@ -56,13 +61,16 @@ public class RiddleRoomController {
    */
   @FXML
   private void objectClicked(MouseEvent event) throws IOException {
+    // gets sourcenode
     Node source = (Node) event.getSource();
     String id = source.getId();
     new MouseClick().play();
+    // if its the leftdoor go to main room
     if (id.equals("leftDoor")) {
 
       GameState.currentRoom.set(Rooms.MAINROOM);
     } else if (id.equals("computer")) {
+      // if its the computer go to the computerscreen
       if (GameState.riddleRoomActive.getValue()) {
         GameState.currentPuzzle.set(Puzzle.COMPUTERSCREEN);
       }

@@ -22,7 +22,7 @@ import nz.ac.auckland.se206.SceneManager.Puzzle;
 /** Controller for the Pipe Connecting Mini-game. */
 public class PadlockController {
   @FXML private AnchorPane gridAnchor;
-  @FXML private Pane hBox;
+  @FXML private Pane horozontalBox;
   private String answer;
   private List<List<String>> letterOptions = new ArrayList<List<String>>();
   private List<StringProperty> selectedLetters = new ArrayList<StringProperty>();
@@ -97,7 +97,7 @@ public class PadlockController {
       selectedLetter.addListener(this::onLetterChange);
       selectedLetters.add(selectedLetter);
       letterOptions.add(individualLetterOptions);
-      hBox.getChildren().add(newLetterField);
+      horozontalBox.getChildren().add(newLetterField);
     }
     System.out.println(answer);
   }
@@ -118,10 +118,11 @@ public class PadlockController {
    * @param newVal The new value of the observed letter.
    */
   private void onLetterChange(ObservableValue<? extends String> o, String oldVal, String newVal) {
-    String currentAnswer = "";
+    StringBuilder currentAnswerBuilder = new StringBuilder();
     for (StringProperty letter : selectedLetters) {
-      currentAnswer += letter.getValue();
+      currentAnswerBuilder.append(letter.getValue());
     }
+    String currentAnswer = currentAnswerBuilder.toString();
     if (answer.equals(currentAnswer)) {
       onComplete();
     }

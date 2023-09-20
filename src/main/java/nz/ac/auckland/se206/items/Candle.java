@@ -1,4 +1,4 @@
-package nz.ac.auckland.se206.Items;
+package nz.ac.auckland.se206.items;
 
 import javafx.scene.image.Image;
 
@@ -21,12 +21,15 @@ public class Candle extends Object {
 
   /** Toggles the state of the candle between lit and unlit. */
   public void changeCandle() {
+    // do the opposite of its current light status
     if (isLit) {
       isLit = false;
+      // changes the image to unlit
       this.message = "You unlit the candle.";
       this.image = new Image("/images/puzzleroom/unlitCandle.png");
     } else {
       isLit = true;
+      // changes image to lit
       this.message = "You lit the candle.";
       this.image = new Image("/images/puzzleroom/litCandle.png");
     }

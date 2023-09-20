@@ -10,7 +10,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.ColorAdjust;
@@ -21,11 +20,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.Items.Inventory;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
@@ -33,6 +30,7 @@ import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.SharedChat;
 import nz.ac.auckland.se206.gpt.GameMaster;
+import nz.ac.auckland.se206.items.Inventory;
 
 /**
  * Controller class for Room 1 in the escape room game. Manages the UI elements and interactions for
@@ -46,7 +44,7 @@ public class UIOverlayController {
   @FXML private TextArea promptArea;
   @FXML private TextArea itemChat;
 
-  @FXML Label lblRestart;
+  @FXML private Label lblRestart;
   private final DropShadow dropShadow = new DropShadow();
 
   @FXML private TextArea txaGameMaster;
@@ -82,7 +80,7 @@ public class UIOverlayController {
         "This game the player will have "
             + hint
             + " hints. You are \"The Singularity\", master of this escape room. We are in the main"
-            + " room. Only give one hint at a time. You speak extremely concisely, you do not waste"
+            + " room. You speak extremely concisely, you do not waste"
             + " words. Concise. Strict. Stoic.";
 
     // Add the initial message to the chat context and run it
@@ -264,16 +262,9 @@ public class UIOverlayController {
     // Play a click sound effect
     new MouseClick().play();
 
-    // Retrieve the stage and navigate to the start screen
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    // Navigate to the start screen
     SceneManager.setReinitialise(AppUi.UIOVERLAY);
     App.setUserInterface(AppUi.STARTSCREEN);
-
-    // Adjust the stage dimensions
-    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-    stage.setWidth(800 + additionalWidth);
-    stage.setHeight(600 + additionalHeight);
 
     // Stop the game timer and reset game state
     GameState.timer.stop();

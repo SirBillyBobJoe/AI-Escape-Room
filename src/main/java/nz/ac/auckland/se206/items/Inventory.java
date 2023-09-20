@@ -1,4 +1,4 @@
-package nz.ac.auckland.se206.Items;
+package nz.ac.auckland.se206.items;
 
 import java.util.HashMap;
 import javafx.beans.property.ListProperty;
@@ -267,7 +267,6 @@ public class Inventory {
       }
       // Remove the blue tint after dropping
       ImageView targetImageView = (ImageView) event.getSource();
-      targetImageView = (ImageView) event.getSource(); // renamed to match the same variable name
 
       // Check if it's a lock
       if ("lock".equals(targetImageView.getUserData())) {
@@ -298,7 +297,6 @@ public class Inventory {
 
         // Check whether the dragged item is a lighter
         if (draggedItem instanceof Lighter && candleItem != null) {
-          Lighter lighterItem = (Lighter) draggedItem;
 
           candleItem.changeCandle();
           targetImageView.setImage(candleItem.getImage());

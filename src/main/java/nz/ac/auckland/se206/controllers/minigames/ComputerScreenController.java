@@ -43,10 +43,13 @@ public class ComputerScreenController {
    */
   @FXML
   private void onGuess(ActionEvent event) {
+    // gets the text
     String text = txfGuess.getText();
+    // return if empty
     if (text.trim().isEmpty()) {
       return;
     }
+    // send to gpt
     GameState.riddleChat.onSend(txfGuess.getText());
     txaRiddle.appendText("You: " + txfGuess.getText() + "\n\n");
     txfGuess.clear();
