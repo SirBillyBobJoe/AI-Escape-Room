@@ -22,6 +22,7 @@ public class ComputerScreenController {
    */
   @FXML
   private void initialize() {
+    System.out.println("Initialise Computer Screen Controller");
     GameState.riddleChat.setTextArea(txaRiddle);
     GameState.riddleChat.setLoadingWheel(imgLoadingWheel);
     GameState.riddleChat.newRiddle(GameState.passcodeAnswer);

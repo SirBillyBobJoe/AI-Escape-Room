@@ -29,7 +29,6 @@ import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.SharedChat;
 import nz.ac.auckland.se206.gpt.GameMaster;
-import nz.ac.auckland.se206.items.Inventory;
 
 /**
  * Controller class for Room 1 in the escape room game. Manages the UI elements and interactions for
@@ -273,12 +272,9 @@ public class UIOverlayController {
 
     // Stop the game timer and reset game state
     GameState.timer.stop();
-    GameState.inventory = new Inventory();
     GameState.gameMaster = new GameMaster();
     GameState.chat.restart();
     GameState.resetGame();
-    SceneManager.initialisePuzzles();
-    SceneManager.initialiseRooms();
   }
 
   /**

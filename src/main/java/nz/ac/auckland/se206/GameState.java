@@ -318,6 +318,10 @@ public class GameState {
     isKeyFound = false;
     riddleRoomActive.set(false);
 
+    inventory = new Inventory();
+    escaped = false;
+    gameMaster = new GameMaster();
+
     // Random values
     random = new Random();
     randomWord = GameState.words[random.nextInt(words.length)];
