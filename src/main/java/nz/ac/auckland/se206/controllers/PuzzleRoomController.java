@@ -288,8 +288,12 @@ public class PuzzleRoomController {
         GameState.isPuzzlesOn.set(false);
         GameState.riddleRoomController.turnLightsOn();
         GameState.gameMasterActions.activate("Attention! You are to solve my riddle...");
-        TextToSpeech textToSpeech = TextToSpeech.getInstance();
-        textToSpeech.speak("Attention! You are to solve my riddle...");
+        new Thread(
+                () -> {
+                  TextToSpeech textToSpeech = TextToSpeech.getInstance();
+                  textToSpeech.speak("Attention! You are to solve my riddle...");
+                })
+            .start();
         System.out.println("Lights off");
       } else {
         GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(false);
