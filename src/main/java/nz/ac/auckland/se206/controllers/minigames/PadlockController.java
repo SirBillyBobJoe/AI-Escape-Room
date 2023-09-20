@@ -66,7 +66,9 @@ public class PadlockController {
       // Handle up arrow click
       upArrow.setOnMouseClicked(
           e -> {
-            if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) return;
+            if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
+              return;
+            }
 
             int index = individualLetterOptions.indexOf(selectedLetter.getValue());
             if (index == 0) {
@@ -135,7 +137,9 @@ public class PadlockController {
    */
   @FXML
   private void onMouseEntered(MouseEvent event) {
-    if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) return;
+    if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
+      return;
+    }
 
     Node source = (Polygon) event.getSource();
     ColorAdjust colorAdjust = new ColorAdjust();

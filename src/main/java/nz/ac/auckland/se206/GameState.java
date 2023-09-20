@@ -77,7 +77,7 @@ public class GameState {
   public static List<Boolean> candleOrder = new ArrayList<Boolean>();
 
   /** The current hints available for the game. Initially set to infinity symbol. */
-  public static StringProperty hints = new SimpleStringProperty("\u221E");
+  public static StringProperty hints = new SimpleStringProperty("5");
 
   /** Indicates if the game is in a loading state. Initially set to true. */
   public static SimpleBooleanProperty loading = new SimpleBooleanProperty(true);

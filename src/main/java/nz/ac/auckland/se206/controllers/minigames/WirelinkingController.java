@@ -140,7 +140,9 @@ public class WirelinkingController {
    * @param event MouseEvent that holds the information about the mouse's current position.
    */
   private void updateCurrentWireEndPosition(MouseEvent event) {
-    if (currentWire == null) return;
+    if (currentWire == null) {
+      return;
+    }
 
     Circle sourceHole = (Circle) event.getSource();
     Point2D holeCenter = getHoleCenter(sourceHole);
@@ -158,14 +160,19 @@ public class WirelinkingController {
       event -> {
         Circle sourceHole = (Circle) event.getSource();
         Paint colour = sourceHole.getStroke();
-        if (colour.equals(Color.RED) && !GameState.inventory.containsItem(GameState.redWire))
+        if (colour.equals(Color.RED) && !GameState.inventory.containsItem(GameState.redWire)) {
           return;
-        if (colour.equals(Color.BLUE) && !GameState.inventory.containsItem(GameState.blueWire))
+        }
+        if (colour.equals(Color.BLUE) && !GameState.inventory.containsItem(GameState.blueWire)) {
           return;
-        if (colour.equals(Color.GREEN) && !GameState.inventory.containsItem(GameState.greenWire))
+        }
+        if (colour.equals(Color.GREEN) && !GameState.inventory.containsItem(GameState.greenWire)) {
           return;
+        }
 
-        if (correctPaths.get(sourceHole).isComplete()) return;
+        if (correctPaths.get(sourceHole).isComplete()) {
+          return;
+        }
 
         currentCorrectPath = correctPaths.get(sourceHole);
         drawingArea.startFullDrag();
@@ -257,12 +264,15 @@ public class WirelinkingController {
     currentCorrectPath.setComplete();
     // gives the wire some colour
     Paint colour = sourceHole.getStroke();
-    if (colour.equals(Color.RED) && GameState.inventory.containsItem(GameState.redWire))
+    if (colour.equals(Color.RED) && GameState.inventory.containsItem(GameState.redWire)) {
       GameState.inventory.removeObject(GameState.redWire);
-    if (colour.equals(Color.BLUE) && GameState.inventory.containsItem(GameState.blueWire))
+    }
+    if (colour.equals(Color.BLUE) && GameState.inventory.containsItem(GameState.blueWire)) {
       GameState.inventory.removeObject(GameState.blueWire);
-    if (colour.equals(Color.GREEN) && GameState.inventory.containsItem(GameState.greenWire))
+    }
+    if (colour.equals(Color.GREEN) && GameState.inventory.containsItem(GameState.greenWire)) {
       GameState.inventory.removeObject(GameState.greenWire);
+    }
 
     checkCompleteness();
   }
@@ -302,7 +312,9 @@ public class WirelinkingController {
   private void checkCompleteness() {
     // check if its complete
     for (CorrectPath path : correctPaths.values()) {
-      if (!path.isComplete()) return;
+      if (!path.isComplete()) {
+        return;
+      }
     }
     // set wirepuzzle to true
     GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).set(true);

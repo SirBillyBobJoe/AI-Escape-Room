@@ -20,7 +20,8 @@ public class PipeConnectingController {
 
   @FXML private GridPane grid;
 
-  private int gridHorizontalSize, gridverticalSize;
+  private int gridHorizontalSize;
+  private int gridverticalSize;
   private double gridCellSize;
   private double rectWidth;
   private double rectHeight;
@@ -46,8 +47,12 @@ public class PipeConnectingController {
 
     @Override
     public boolean equals(Object obj) {
-      if (this == obj) return true;
-      if (obj == null || getClass() != obj.getClass()) return false;
+      if (this == obj) {
+        return true;
+      }
+      if (obj == null || getClass() != obj.getClass()) {
+        return false;
+      }
       Position Position = (Position) obj;
       return horizontalValue == Position.horizontalValue && verticalValue == Position.verticalValue;
     }
@@ -396,7 +401,8 @@ public class PipeConnectingController {
       }
 
       // Create the rectangle for the inlet
-      double width, height;
+      double width;
+      double height;
       if (horizontal) {
         width = inletHeight;
         height = rectWidth;
@@ -423,12 +429,16 @@ public class PipeConnectingController {
    */
   private int rotateCellData(int cellData, int rotation) {
     rotation = rotation % 4; // since there are only 4 possible states
-    if (rotation < 0) rotation += 4; // handle negative rotations
+    if (rotation < 0) {
+      rotation += 4;
+    } // handle negative rotations
 
     while (rotation-- > 0) {
       boolean leftMostBit = (cellData & 0b1000) != 0;
       cellData = (cellData << 1) & 0b1111; // left shift and mask to ensure only 4 bits remain
-      if (leftMostBit) cellData |= 0b0001; // wrap around
+      if (leftMostBit) {
+        cellData |= 0b0001;
+      } // wrap around
     }
 
     return cellData;
@@ -497,15 +507,25 @@ public class PipeConnectingController {
         Position currentCell = new Position(i, j);
         int cellData = rotateCellData(mapSetup[i][j], mapRotations[i][j]);
         // if all these are true then compelted
-        if ((cellData & 0b1000) != 0 && !areAdjacentCellsConnected(currentCell, 0b1000)) return;
-        if ((cellData & 0b0100) != 0 && !areAdjacentCellsConnected(currentCell, 0b0100)) return;
-        if ((cellData & 0b0010) != 0 && !areAdjacentCellsConnected(currentCell, 0b0010)) return;
-        if ((cellData & 0b0001) != 0 && !areAdjacentCellsConnected(currentCell, 0b0001)) return;
+        if ((cellData & 0b1000) != 0 && !areAdjacentCellsConnected(currentCell, 0b1000)) {
+          return;
+        }
+        if ((cellData & 0b0100) != 0 && !areAdjacentCellsConnected(currentCell, 0b0100)) {
+          return;
+        }
+        if ((cellData & 0b0010) != 0 && !areAdjacentCellsConnected(currentCell, 0b0010)) {
+          return;
+        }
+        if ((cellData & 0b0001) != 0 && !areAdjacentCellsConnected(currentCell, 0b0001)) {
+          return;
+        }
       }
     }
     // check the inlet position if its true return
     for (Position inletPosition : inlets) {
-      if (!isInletConnected(inletPosition)) return;
+      if (!isInletConnected(inletPosition)) {
+        return;
+      }
     }
 
     onComplete();
@@ -526,19 +546,16 @@ public class PipeConnectingController {
     if (inlet.verticalValue == -1) {
       adjacentPosition = new Position(inlet.horizontalValue, 0);
       mask = 0b1000; // Check for the upward pipe from the adjacent cell
-    }
-    // Right side
-    else if (inlet.horizontalValue == gridHorizontalSize) {
+    } else if (inlet.horizontalValue == gridHorizontalSize) {
+      // Right side
       adjacentPosition = new Position(gridHorizontalSize - 1, inlet.verticalValue);
       mask = 0b0100; // Check for the rightward pipe from the adjacent cell
-    }
-    // Bottom side
-    else if (inlet.verticalValue == gridverticalSize) {
+    } else if (inlet.verticalValue == gridverticalSize) {
+      // Bottom side
       adjacentPosition = new Position(inlet.horizontalValue, gridverticalSize - 1);
       mask = 0b0010; // Check for the downward pipe from the adjacent cell
-    }
-    // Left side
-    else if (inlet.horizontalValue == -1) {
+    } else if (inlet.horizontalValue == -1) {
+      // Left side
       adjacentPosition = new Position(0, inlet.verticalValue);
       mask = 0b0001; // Check for the leftward pipe from the adjacent cell
     }
@@ -564,7 +581,9 @@ public class PipeConnectingController {
    */
   private void handlePaneClick(MouseEvent event) {
     // get the value of the pippuzzle
-    if (GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE).getValue()) return;
+    if (GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE).getValue()) {
+      return;
+    }
     Pane pane = (Pane) event.getSource();
     int x = GridPane.getColumnIndex(pane);
     int y = GridPane.getRowIndex(pane);
