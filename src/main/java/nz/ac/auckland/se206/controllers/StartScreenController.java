@@ -2,13 +2,11 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.MouseClick;
@@ -16,32 +14,32 @@ import nz.ac.auckland.se206.SceneManager.AppUi;
 
 /** Class responsible for controlling the Start Screen of the game. */
 public class StartScreenController {
-  @FXML AnchorPane anchorPane;
+
   // 0 is easy 1 is medium 2 is hard
   private int selectedLevel = 0;
   private int selectedTime = 2;
 
   private Boolean onLevel = true;
   private Boolean onTime = false;
+  @FXML private AnchorPane anchorPane;
+  @FXML private Label screenStage;
 
-  @FXML Label screenStage;
+  @FXML private Label lblExit;
 
-  @FXML Label lblExit;
+  @FXML private Label lblEasy;
+  @FXML private Label lblMedium;
+  @FXML private Label lblHard;
 
-  @FXML Label lblEasy;
-  @FXML Label lblMedium;
-  @FXML Label lblHard;
+  @FXML private Label lbl2Min;
+  @FXML private Label lbl4Min;
+  @FXML private Label lbl6Min;
 
-  @FXML Label lbl2Min;
-  @FXML Label lbl4Min;
-  @FXML Label lbl6Min;
+  @FXML private Label timeSummary;
+  @FXML private Label levelSummary;
+  @FXML private Label timeSummaryVal;
+  @FXML private Label levelSummaryVal;
 
-  @FXML Label timeSummary;
-  @FXML Label levelSummary;
-  @FXML Label timeSummaryVal;
-  @FXML Label levelSummaryVal;
-
-  @FXML Label lblStart;
+  @FXML private Label lblStart;
 
   private final DropShadow dropShadow = new DropShadow();
   private final DropShadow startDropShadow = new DropShadow();
@@ -303,18 +301,14 @@ public class StartScreenController {
 
     // Start the timer.
     GameState.timer.start();
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     App.setUserInterface(AppUi.UIOVERLAY);
-    double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
-    double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
-    stage.setWidth(1100 + additionalWidth);
-    stage.setHeight(600 + additionalHeight);
   }
 
   /** Helper method to navigate back in the options. */
   private void goBack() {
     new MouseClick().play();
     if (onTime) {
+      // when we go back
       lblEasy.setVisible(true);
       lblMedium.setVisible(true);
       lblHard.setVisible(true);
@@ -328,6 +322,7 @@ public class StartScreenController {
     } else if (onLevel) {
       System.exit(0);
     } else {
+      // sets visibility
       lbl2Min.setVisible(true);
       lbl4Min.setVisible(true);
       lbl6Min.setVisible(true);
@@ -337,6 +332,7 @@ public class StartScreenController {
       levelSummaryVal.setVisible(false);
       lblStart.setVisible(false);
       onTime = true;
+      // selectime
       screenStage.setText("Time Select");
     }
   }
@@ -354,19 +350,23 @@ public class StartScreenController {
     lbl2Min.setVisible(true);
     lbl4Min.setVisible(true);
     lbl6Min.setVisible(true);
-
+    // sets back
     lblExit.setText("Back");
     screenStage.setText("Time Select");
+    // level checks
     switch (selectedLevel) {
       case 0:
+        // if its easy
         GameState.hints.set("\u221E");
         GameState.difficulty = "easy";
         break;
       case 1:
+        // if medium
         GameState.hints.set("5");
         GameState.difficulty = "medium";
         break;
       case 2:
+        // if hard
         GameState.hints.set("0");
         GameState.difficulty = "hard";
         break;
@@ -387,11 +387,13 @@ public class StartScreenController {
     levelSummary.setVisible(true);
     timeSummaryVal.setVisible(true);
     levelSummaryVal.setVisible(true);
+    // asks if ur ready
 
     screenStage.setText("Ready?");
     String difficultyText =
         GameState.difficulty.substring(0, 1).toUpperCase() + GameState.difficulty.substring(1);
     levelSummaryVal.setText(difficultyText);
+    // set text
     timeSummaryVal.setText(selectedTime + " minutes");
     GameState.time = selectedTime;
     System.out.println("Level: " + selectedLevel);

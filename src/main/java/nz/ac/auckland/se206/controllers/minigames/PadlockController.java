@@ -22,7 +22,7 @@ import nz.ac.auckland.se206.SceneManager.Puzzle;
 /** Controller for the Pipe Connecting Mini-game. */
 public class PadlockController {
   @FXML private AnchorPane gridAnchor;
-  @FXML private Pane hBox;
+  @FXML private Pane horozontalBox;
   private String answer;
   private List<List<String>> letterOptions = new ArrayList<List<String>>();
   private List<StringProperty> selectedLetters = new ArrayList<StringProperty>();
@@ -34,7 +34,7 @@ public class PadlockController {
 
   /** Initializes the grid based on the game's difficulty. */
   @FXML
-  public void initialize() throws IOException {
+  private void initialize() throws IOException {
     Random rand = new Random();
     answer = GameState.padlockAnswer.toUpperCase();
 
@@ -97,22 +97,32 @@ public class PadlockController {
       selectedLetter.addListener(this::onLetterChange);
       selectedLetters.add(selectedLetter);
       letterOptions.add(individualLetterOptions);
-      hBox.getChildren().add(newLetterField);
+      horozontalBox.getChildren().add(newLetterField);
     }
     System.out.println(answer);
   }
 
+  /** Exits the current puzzle and returns to the main game. */
   @FXML
   private void exitPuzzle() {
     System.out.println("Exit");
     GameState.currentPuzzle.setValue(Puzzle.NONE);
   }
 
+  /**
+   * Listens for changes in the selected letters and checks if the current selection forms the
+   * correct answer.
+   *
+   * @param o The observable value being watched, representing a selected letter.
+   * @param oldVal The old value of the observed letter.
+   * @param newVal The new value of the observed letter.
+   */
   private void onLetterChange(ObservableValue<? extends String> o, String oldVal, String newVal) {
-    String currentAnswer = "";
+    StringBuilder currentAnswerBuilder = new StringBuilder();
     for (StringProperty letter : selectedLetters) {
-      currentAnswer += letter.getValue();
+      currentAnswerBuilder.append(letter.getValue());
     }
+    String currentAnswer = currentAnswerBuilder.toString();
     if (answer.equals(currentAnswer)) {
       onComplete();
     }
@@ -123,6 +133,7 @@ public class PadlockController {
    *
    * @param event MouseEvent for turning object blue or showing clickable
    */
+  @FXML
   private void onMouseEntered(MouseEvent event) {
     if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) return;
 
@@ -138,6 +149,7 @@ public class PadlockController {
    *
    * @param event MouseEvent for turning object blue
    */
+  @FXML
   private void onMouseExited(MouseEvent event) {
     Polygon source = (Polygon) event.getSource();
     source.setEffect(null);

@@ -1,4 +1,5 @@
-package nz.ac.auckland.se206.Items;
+package nz.ac.auckland.se206.items;
+
 
 import javafx.scene.image.Image;
 
@@ -67,6 +68,11 @@ public class Object {
     this.message = message;
   }
 
+  /**
+   * gets the identifier message
+   *
+   * @return returns the identifier
+   */
   public String getItemIdentifier() {
     return itemIdentifier;
   }

@@ -17,6 +17,7 @@ public class SceneManager {
     PIPECONNECTING,
   }
 
+  /** Enumerates different rooms in the application. */
   public enum Rooms {
     MAINROOM,
     RIDDLEROOM,
@@ -24,6 +25,7 @@ public class SceneManager {
     LEFTROOM,
   }
 
+  /** Enumerates different puzzles in the application. */
   public enum Puzzle {
     NONE,
     PIPEPUZZLE,
@@ -34,6 +36,7 @@ public class SceneManager {
     PASSCODE,
   }
 
+  // initialise the puzzles and rooms
   private static HashMap<AppUi, Parent> map = new HashMap<AppUi, Parent>();
   private static HashMap<AppUi, Boolean> reinitialize = new HashMap<AppUi, Boolean>();
   private static HashMap<Rooms, Pane> roomMap = new HashMap<Rooms, Pane>();
@@ -51,15 +54,15 @@ public class SceneManager {
       // If this room should be re-initialized, create a new instance of the UI.
       // For example, load a new instance from a FXML file:
       initialisePuzzles();
+      // initialises the rooms
       if (ui.equals(AppUi.UIOVERLAY)) {
         System.out.println("Initialise Rooms");
         initialiseRooms();
       }
-
+      // reintilise rooms
       reinitialize.put(ui, false);
-
-      Parent newUserInterface =
-          App.loadFxml(ui.toString().toLowerCase()); // assuming the method is static
+      // assuming the method is static
+      Parent newUserInterface = App.loadFxml(ui.toString().toLowerCase());
       map.put(ui, newUserInterface);
     }
     return map.get(ui);
@@ -75,6 +78,13 @@ public class SceneManager {
     reinitialize.put(ui, true);
   }
 
+  /**
+   * Initializes room panes by loading them from their corresponding FXML files.
+   *
+   * <p>This method populates the roomMap with panes that correspond to different rooms in the game.
+   *
+   * @throws IOException If the FXML files for rooms can't be loaded.
+   */
   public static void initialiseRooms() throws IOException {
     roomMap = new HashMap<Rooms, Pane>();
     roomMap.put(Rooms.MAINROOM, (Pane) App.loadFxml("mainroom"));
@@ -82,11 +92,27 @@ public class SceneManager {
     roomMap.put(Rooms.RIDDLEROOM, (Pane) App.loadFxml("riddleroom"));
   }
 
+  /**
+   * Retrieves the associated Pane for a given Rooms enum value.
+   *
+   * @param room The Rooms enum value for which to retrieve the associated Pane.
+   * @return The Pane corresponding to the given Rooms enum value, or null if the Rooms enum value
+   *     is not found.
+   */
   public static Pane getRoomPane(Rooms room) {
     return roomMap.get(room);
   }
 
+  /**
+   * Initializes puzzle panes and their solved states.
+   *
+   * <p>This method populates the puzzleMap with panes for different puzzles and sets their initial
+   * solved states.
+   *
+   * @throws IOException If the FXML files for puzzles can't be loaded.
+   */
   public static void initialisePuzzles() throws IOException {
+    // add the fxml files to the hashmap
     puzzleMap = new HashMap<Puzzle, Pane>();
     puzzleMap.put(Puzzle.NONE, (Pane) App.loadFxml("none"));
     puzzleMap.put(Puzzle.WIREPUZZLE, (Pane) App.loadFxml("wirelinking"));
@@ -96,6 +122,7 @@ public class SceneManager {
     puzzleMap.put(Puzzle.COMPUTERSCREEN, (Pane) App.loadFxml("computerscreen"));
     puzzleMap.put(Puzzle.PASSCODE, (Pane) App.loadFxml("passcode"));
 
+    // add the logic for the solved puzzles to the game
     GameState.puzzleSolved = new HashMap<Puzzle, BooleanProperty>();
     GameState.puzzleSolved.put(Puzzle.WIREPUZZLE, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.PIPEPUZZLE, new SimpleBooleanProperty(false));
@@ -104,6 +131,7 @@ public class SceneManager {
     GameState.puzzleSolved.put(Puzzle.COMPUTERSCREEN, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.PASSCODE, new SimpleBooleanProperty(false));
 
+    // adds the puzzles to the names
     GameState.puzzleName.add("wireBox");
     GameState.puzzleName.add("candlePainting");
     GameState.puzzleName.add("pipeGame");
@@ -114,6 +142,14 @@ public class SceneManager {
     GameState.puzzleName.add("passcode");
   }
 
+  /**
+   * Retrieves the associated Pane for a given Puzzle object.
+   *
+   * <p>This method looks up the Puzzle object in the puzzleMap and returns the corresponding Pane.
+   *
+   * @param puzzle The Puzzle object for which to retrieve the associated Pane.
+   * @return The Pane associated with the given Puzzle object, or null if the Puzzle is not found.
+   */
   public static Pane getPuzzlePane(Puzzle puzzle) {
     return puzzleMap.get(puzzle);
   }

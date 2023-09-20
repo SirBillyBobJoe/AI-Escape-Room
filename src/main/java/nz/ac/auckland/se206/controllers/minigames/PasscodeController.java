@@ -24,10 +24,10 @@ public class PasscodeController {
   /** Controller for the Pipe Connecting Mini-game. */
   @FXML private AnchorPane gridAnchor;
 
-  @FXML private Pane hBox;
+  @FXML private Pane horozontalBox;
   private String answer;
-  private List<List<String>> letterOptions = new ArrayList<List<String>>();
-  private List<StringProperty> selectedLetters = new ArrayList<StringProperty>();
+  private List<List<String>> numberOptions = new ArrayList<List<String>>();
+  private List<StringProperty> selectedNumbers = new ArrayList<StringProperty>();
 
   private final String[] numbers = {"9", "8", "7", "6", "5", "4", "3", "2", "1", "0"};
 
@@ -37,77 +37,87 @@ public class PasscodeController {
     Random rand = new Random();
     answer = GameState.passcodeAnswer;
 
-    // Loop through each letter in the answer
+    // Loop through each number in the answer
     for (int i = 0; i < answer.length(); i++) {
-      Pane newLetterField = (Pane) App.loadFxml("padlockselector");
-      List<String> individualLetterOptions = new ArrayList<String>();
+      Pane newNumberField = (Pane) App.loadFxml("padlockselector");
+      List<String> individualNumberOptions = new ArrayList<String>();
       int numOptions = 10;
 
-      // Generate random letter options
+      // Generate random number options
       for (int n = 0; n < numOptions; n++) {
-        String nextLetter = numbers[n];
+        String nextNumber = numbers[n];
 
-        individualLetterOptions.add(nextLetter);
+        individualNumberOptions.add(nextNumber);
       }
 
-      // Set one of the options to be the correct letter
+      // Set one of the options to be the correct number
 
-      StringProperty selectedLetter =
+      StringProperty selectedNumber =
           new SimpleStringProperty(
-              individualLetterOptions.get(rand.nextInt(individualLetterOptions.size())));
-      ((Label) newLetterField.lookup("#label")).textProperty().bind(selectedLetter);
-      Node upArrow = newLetterField.lookup("#upArrow");
+              individualNumberOptions.get(rand.nextInt(individualNumberOptions.size())));
+      ((Label) newNumberField.lookup("#label")).textProperty().bind(selectedNumber);
+      Node upArrow = newNumberField.lookup("#upArrow");
 
       // Handle up arrow click
       upArrow.setOnMouseClicked(
           e -> {
             if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) return;
 
-            int index = individualLetterOptions.indexOf(selectedLetter.getValue());
+            int index = individualNumberOptions.indexOf(selectedNumber.getValue());
             if (index == 0) {
-              selectedLetter.setValue(
-                  individualLetterOptions.get(individualLetterOptions.size() - 1));
+              selectedNumber.setValue(
+                  individualNumberOptions.get(individualNumberOptions.size() - 1));
             } else {
-              selectedLetter.setValue(individualLetterOptions.get(index - 1));
+              selectedNumber.setValue(individualNumberOptions.get(index - 1));
             }
           });
       upArrow.setOnMouseEntered(this::onMouseEntered);
       upArrow.setOnMouseExited(this::onMouseExited);
-      Node downArrow = newLetterField.lookup("#downArrow");
+      Node downArrow = newNumberField.lookup("#downArrow");
 
       // Handle down arrow click
       downArrow.setOnMouseClicked(
           e -> {
             if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) return;
 
-            int index = individualLetterOptions.indexOf(selectedLetter.getValue());
-            if (index == individualLetterOptions.size() - 1) {
-              selectedLetter.setValue(individualLetterOptions.get(0));
+            int index = individualNumberOptions.indexOf(selectedNumber.getValue());
+            if (index == individualNumberOptions.size() - 1) {
+              selectedNumber.setValue(individualNumberOptions.get(0));
             } else {
-              selectedLetter.setValue(individualLetterOptions.get(index + 1));
+              selectedNumber.setValue(individualNumberOptions.get(index + 1));
             }
           });
       downArrow.setOnMouseEntered(this::onMouseEntered);
       downArrow.setOnMouseExited(this::onMouseExited);
-      selectedLetter.addListener(this::onLetterChange);
-      selectedLetters.add(selectedLetter);
-      letterOptions.add(individualLetterOptions);
-      hBox.getChildren().add(newLetterField);
+      selectedNumber.addListener(this::onNumberChange);
+      selectedNumbers.add(selectedNumber);
+      numberOptions.add(individualNumberOptions);
+      horozontalBox.getChildren().add(newNumberField);
     }
     System.out.println(answer);
   }
 
+  /** Exits the current puzzle and resets the puzzle state to NONE. */
   @FXML
   private void exitPuzzle() {
     System.out.println("Exit");
     GameState.currentPuzzle.setValue(Puzzle.NONE);
   }
 
-  private void onLetterChange(ObservableValue<? extends String> o, String oldVal, String newVal) {
-    String currentAnswer = "";
-    for (StringProperty letter : selectedLetters) {
-      currentAnswer += letter.getValue();
+  /**
+   * Listens for changes in the selected numbers and checks if the current selection forms the
+   * correct answer.
+   *
+   * @param o The observable value being watched, representing a selected number.
+   * @param oldVal The old value of the observed number.
+   * @param newVal The new value of the observed number.
+   */
+  private void onNumberChange(ObservableValue<? extends String> o, String oldVal, String newVal) {
+    StringBuilder currentAnswerBuilder = new StringBuilder();
+    for (StringProperty number : selectedNumbers) {
+      currentAnswerBuilder.append(number.getValue());
     }
+    String currentAnswer = currentAnswerBuilder.toString();
     if (answer.equals(currentAnswer)) {
       onComplete();
     }

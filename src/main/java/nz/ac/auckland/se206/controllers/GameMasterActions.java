@@ -9,14 +9,25 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+/**
+ * Manages the actions of the Game Master within the game. Handles displaying text and images for
+ * Game Master actions.
+ */
 public class GameMasterActions {
   private Thread thread;
   private ImageView image;
   private TextArea textArea;
   private boolean active;
 
+  /** Default constructor. */
   public GameMasterActions() {}
 
+  /**
+   * Constructor that initializes the GameMasterActions with an image and text area.
+   *
+   * @param image The ImageView object where the Game Master's image will be displayed.
+   * @param textArea The TextArea object where the Game Master's messages will be displayed.
+   */
   public GameMasterActions(ImageView image, TextArea textArea) {
     this.image = image;
     this.image.setOpacity(0);
@@ -29,6 +40,11 @@ public class GameMasterActions {
     textArea.setEffect(innerShadow);
   }
 
+  /**
+   * Sets the active status of the GameMasterActions.
+   *
+   * @param active A boolean indicating whether the GameMasterActions is currently active.
+   */
   public void isActive(boolean active) {
     this.active = active;
   }
@@ -123,18 +139,26 @@ public class GameMasterActions {
     thread.start();
   }
 
+  /** Clears the text from the text area. */
   public void clear() {
     textArea.clear();
   }
 
+  /**
+   * Checks whether the GameMasterActions is currently active.
+   *
+   * @return A boolean value indicating the active status.
+   */
   public boolean isActive() {
     return this.active;
   }
 
+  /** Sets the active status of GameMasterActions to true. */
   private void setActive() {
     this.active = true;
   }
 
+  /** Sets the active status of GameMasterActions to false. */
   private void setInactive() {
     this.active = false;
   }

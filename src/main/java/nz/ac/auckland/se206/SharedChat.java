@@ -88,17 +88,21 @@ public class SharedChat {
     outerloop:
     for (String keyWords1 : GameState.clueFirst) {
       for (String keyWords2 : GameState.clueSecond) {
+        // if it contains both words
         if (msg.contains(keyWords1) && msg.contains(keyWords2)) {
           isHint = true;
           if (GameState.hints.get().equals("\u221E")) {
+            // tell them they have infinite hints
             msg1 = "Do not mention a hint number or say \"Hint: \". ";
             break outerloop;
           } else if (Integer.parseInt(GameState.hints.get()) == 0) {
+            // with no more hints tell them
             msg =
                 "Tell the player they have no more hints left. YOU ARE TO NOT GIVE THEM ANY MORE"
                     + " ANSWERS TO HINTS";
             break outerloop;
           } else {
+            // remove 1 hint and ask gpt
             GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
             msg1 = "Do not mention a hint number or say \"Hint: \". ";
             break outerloop;
@@ -111,6 +115,7 @@ public class SharedChat {
     String stepBasedHintPrompt = "";
     if (GameState.riddleRoomActive.getValue()) {
       if (!GameState.riddle2019Solved) {
+        // logic for the riddles
         stepBasedHintPrompt =
             "Tell the player a/an "
                 + GameState.difficulty
@@ -118,6 +123,7 @@ public class SharedChat {
                 + GameState.passcodeAnswer
                 + "but never under any circumstance give them the answer";
       } else if (!GameState.riddlePadlockSolved) {
+        // logic for the padlock
         stepBasedHintPrompt =
             "Tell the player a/an "
                 + GameState.difficulty
@@ -127,54 +133,64 @@ public class SharedChat {
       }
 
     } else if (!GameState.pipePuzzleSolved) {
+      // logic for the pipe
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
               + " hint about solving a pipe puzzle. There is a leak coming from some pipes in some"
               + " rooms.";
     } else if (!GameState.wallRemoved) {
+      // logic for the wall
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
               + " hint about breaking down a brick wall or using a hammer. There is a brick wall.";
     } else if (!GameState.wallPiecesFound) {
+      // logic for pieces
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
               + " hint about a looking for items in a wall in the main room. They are next to the"
               + " escape door.";
     } else if (!GameState.candlePuzzleSolved) {
+      // logic for candkle game
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
               + " hint about lighting some candles. Maybe the painting of candles can help the"
               + " player?";
     } else if (!GameState.chestPuzzleSolved) {
+      // logic for chest puzzle
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
               + " hint about a chest. There is a chest in the main room with a number lock. The"
               + " player should remember their previous riddle answer: 2019";
     } else if (!GameState.wirePuzzleSolved) {
+      // logic for the wire
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
               + " hint about wires. There is a electrical box with wires that are disconnected. The"
               + " player might have missed a red wire in behind the wall in the main room";
     } else if (!GameState.padlockPuzzleSolved) {
+      // logic for the padlock
       stepBasedHintPrompt =
           "Tell the player a/an "
               + GameState.difficulty
               + " hint about a lock. There is a combination word padlock in the main room.";
     } else {
+      // logic for the escape
       stepBasedHintPrompt =
           "Tell the player a/an " + GameState.difficulty + " about using their wit to escape.";
     }
     String finalMessage;
+    // tell them no more hitns when hitns are out
     if (GameState.hints.get().equals("0") || !isHint) {
       finalMessage = msg1 + "The player says: " + msg + ". ";
       System.out.println("no hint");
     } else {
+      // give step based hint
       finalMessage = msg1 + "The player says: " + msg + ". " + stepBasedHintPrompt;
       System.out.println("Give hint");
     }
@@ -183,18 +199,21 @@ public class SharedChat {
     System.out.println(finalMessage);
     GameState.gameMaster.runContext(room);
 
+    // create a task for threading
     Task<Void> waitForResponseTask =
         new Task<Void>() {
           @Override
           protected Void call() throws Exception {
+            // chat for game master
             GameState.gameMaster.waitForContext(room);
             return null;
           }
         };
-
+    // logic for success
     waitForResponseTask.setOnSucceeded(
         e -> {
           gameMasterActions.activate(
+              // get the last response
               GameState.gameMaster.getLastResponse(room).getContent() + "\n\n");
           GameState.loading.set(false);
         });

@@ -21,13 +21,17 @@ import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.Items.Candle;
-import nz.ac.auckland.se206.Items.Hammer;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
+import nz.ac.auckland.se206.items.Candle;
+import nz.ac.auckland.se206.items.Hammer;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 
+/**
+ * This class is the controller for the Puzzle Room. It handles the initialization and interaction
+ * of puzzle items within the room.
+ */
 public class PuzzleRoomController {
   @FXML private ImageView background;
   @FXML private ImageView candle1, candle2, candle3, candle4;
@@ -37,14 +41,18 @@ public class PuzzleRoomController {
   @FXML private ImageView waterdrop, puddle;
 
   private List<ImageView> candles;
-  boolean isOpenWall = false;
 
+  /**
+   * Initializes the Puzzle Room, setting up its various elements like candles, hammer, wires, and
+   * so on.
+   */
   @FXML
   public void initialize() {
     // Initialise global variables for GameState from the puzle room
     GameState.puzzleRoom = background;
     GameState.riddleGlow1 = riddleGlow1;
     candles = new ArrayList<ImageView>();
+    // logic for adding candles
     candles.add(candle1);
     candles.add(candle2);
     candles.add(candle3);
@@ -53,12 +61,13 @@ public class PuzzleRoomController {
     candle2.setUserData("candle");
     candle3.setUserData("candle");
     candle4.setUserData("candle");
+    // logic for the wires
     GameState.currentRoomItems.put(greenWire, GameState.greenWire);
     GameState.currentRoomItems.put(candle1, new Candle());
     GameState.currentRoomItems.put(candle2, new Candle());
     GameState.currentRoomItems.put(candle3, new Candle());
     GameState.currentRoomItems.put(candle4, new Candle());
-
+    // hammer logic
     hammer.setUserData("hammer");
     GameState.currentRoomItems.put(hammer, new Hammer());
     hammer.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE));
@@ -92,7 +101,7 @@ public class PuzzleRoomController {
         new KeyFrame(
             Duration.millis(2), // 5 milliseconds, approx 60fps
             new EventHandler<ActionEvent>() {
-              double deltaY = 1; // Set how much the image will move in each frame
+              private double deltaY = 1; // Set how much the image will move in each frame
 
               @Override
               public void handle(ActionEvent event) {
@@ -123,6 +132,7 @@ public class PuzzleRoomController {
     Node source = (Node) event.getSource();
     String id = source.getId();
     new MouseClick().play();
+    // if candles
     if (id.equals("candle1")
         || id.equals("candle2")
         || id.equals("candle3")
@@ -130,23 +140,27 @@ public class PuzzleRoomController {
       GameState.inventory.setTextChat("You Need A Lighter");
       return;
     }
+    // if its a brickwall
     if (id.equals("brickWall")) {
       GameState.inventory.setTextChat("You Need A Hammer");
     }
-
+    // if its a door
     if (id.equals("rightDoor")) {
 
       GameState.currentRoom.set(Rooms.MAINROOM);
     } else if (!GameState.isPuzzlesOn.getValue()
         && GameState.puzzleName.contains(source.getId())
-        && source instanceof Rectangle) { // when puzzles are turned off
+        && source instanceof Rectangle) {
+      // when puzzles are turned off
 
       Rectangle rectangle = (Rectangle) source;
       vibrate(rectangle);
 
     } else if (source.getId().equals("pipeGame")) {
+      // if its pipgame
       GameState.currentPuzzle.set(Puzzle.PIPEPUZZLE);
     } else if (source instanceof ImageView) {
+      // if its a imageView
       System.out.println("unbinded" + source.getId());
       source.visibleProperty().unbind();
 
@@ -166,12 +180,15 @@ public class PuzzleRoomController {
     if (source instanceof ImageView) {
       // Make it really blue when hovered over
       ImageView targetImageView = (ImageView) event.getSource();
-      colorAdjust.setHue(1); // Max hue
-      colorAdjust.setSaturation(1); // Max saturation
+      colorAdjust.setHue(1);
+      // Max hue
+      colorAdjust.setSaturation(1);
+      // Max saturation
       targetImageView.setEffect(colorAdjust);
     } else if (!GameState.isPuzzlesOn.getValue()
         && GameState.puzzleName.contains(source.getId())
-        && source instanceof Rectangle) { // when puzzles are turned off turn red
+        && source instanceof Rectangle) {
+      // when puzzles are turned off turn red
 
       source.setOpacity(0.22);
       Rectangle rectangle = (Rectangle) source;
@@ -193,17 +210,20 @@ public class PuzzleRoomController {
 
     if (source instanceof ImageView) {
       ImageView targetImageView = (ImageView) source;
-      targetImageView.setEffect(null); // Remove the blue tint
+      targetImageView.setEffect(null);
+      // Remove the blue tint
     } else if (!GameState.isPuzzlesOn.getValue()
         && GameState.puzzleName.contains(source.getId())
-        && source instanceof Rectangle) { // when the puzzles are turned off turn red
+        && source instanceof Rectangle) {
+      // when the puzzles are turned off turn red
 
       Rectangle rectangle = (Rectangle) source;
       rectangle.setFill(Color.web("#1F85FF"));
       source.setOpacity(0);
 
     } else {
-      source.setOpacity(0); // Make the node invisible
+      source.setOpacity(0);
+      // Make the node invisible
     }
   }
 
@@ -224,12 +244,16 @@ public class PuzzleRoomController {
    */
   @FXML
   private void onDragExited(DragEvent event) {
+    // gets source node
     Node node = (Node) event.getSource();
+
     if (!GameState.isPuzzlesOn.getValue()
+        // if it contains the id and rectangle return
         && GameState.puzzleName.contains(node.getId())
         && node instanceof Rectangle) {
       return;
     }
+    // go to inventory and do its logic
     GameState.inventory.onDragExited(event);
   }
 
@@ -240,15 +264,16 @@ public class PuzzleRoomController {
    */
   @FXML
   private void onDragDropped(DragEvent event) {
+    // when its dropped
     Node node = (Node) event.getSource();
     if (!GameState.isPuzzlesOn.getValue()
         && GameState.puzzleName.contains(node.getId())
         && node instanceof Rectangle) {
-
+      // if its a rectangle
       Rectangle rectangle = (Rectangle) node;
 
       vibrate(rectangle);
-
+      // keyframe for logic
       KeyFrame keyFrame =
           new KeyFrame(
               Duration.millis(500),
@@ -262,30 +287,36 @@ public class PuzzleRoomController {
 
       return;
     }
+    // use inventory logic
     GameState.inventory.onDragDropped(event, GameState.currentRoomItems);
-
+    // if wall count is 0
     if (GameState.wallCount <= 0) {
       background.setImage(new Image("/images/puzzleroom/openwallroom.png"));
       GameState.wallRemoved = true;
       System.out.println("Wall Removed");
-      isOpenWall = true;
+      GameState.isOpenWall = true;
       candle1.setVisible(true);
       candle2.setVisible(true);
       candle3.setVisible(true);
       candle4.setVisible(true);
+      // if its 2
     } else if (GameState.wallCount == 2) {
       background.setImage(new Image("/images/puzzleroom/crack1.png"));
     } else if (GameState.wallCount == 1) {
+      // if its 1
       background.setImage(new Image("/images/puzzleroom/crack2.png"));
     }
     if (node.getUserData() != null && node.getUserData().equals("candle")) {
+      // if its a candle
       System.out.println(checkCandleGame());
       System.out.println(GameState.candleOrder);
+      // check candlegame
       if (checkCandleGame()) {
         GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(true);
         System.out.println("Complete");
         GameState.candlePuzzleSolved = true;
         GameState.isPuzzlesOn.set(false);
+        // logic for when u solve the candle
         GameState.riddleRoomController.turnLightsOn();
         GameState.gameMasterActions.activate("Attention! You are to solve my riddle...");
         new Thread(
@@ -296,17 +327,28 @@ public class PuzzleRoomController {
             .start();
         System.out.println("Lights off");
       } else {
+        // set it to false
         GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING).set(false);
       }
     }
   }
 
+  /**
+   * Sets the current puzzle state to 'PADLOCK' when called.
+   *
+   * @param event The ActionEvent that triggered this method.
+   */
   @FXML
   private void onPadlock(ActionEvent event) {
     new MouseClick().play();
     GameState.currentPuzzle.set(Puzzle.PADLOCK);
   }
 
+  /**
+   * Checks if the candle game is complete based on the current state.
+   *
+   * @return true if the candle game is complete, false otherwise.
+   */
   private boolean checkCandleGame() {
 
     for (int i = 0; i < GameState.candleOrder.size(); i++) {
@@ -320,6 +362,11 @@ public class PuzzleRoomController {
     return true;
   }
 
+  /**
+   * Drops a given Node by a specified amount.
+   *
+   * @param node The Node to be dropped.
+   */
   private void drop(Node node) {
     TranslateTransition translate = new TranslateTransition();
     translate.setNode(node);
@@ -328,6 +375,11 @@ public class PuzzleRoomController {
     translate.play();
   }
 
+  /**
+   * Vibrates a given Node to simulate shaking.
+   *
+   * @param node The Node to be vibrated.
+   */
   public void vibrate(Node node) {
     TranslateTransition tt = new TranslateTransition(Duration.millis(15), node);
     tt.setFromX(0f);
