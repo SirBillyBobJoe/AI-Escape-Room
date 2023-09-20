@@ -119,7 +119,7 @@ public class PipeConnectingController {
         grid.add(pane, x, y);
       }
     }
-    // create the rectangles
+    // initialise the rectangles in the game
     createInletRectangles();
   }
 

@@ -23,7 +23,7 @@ public class Keys extends Object {
    *
    * @return The unique identifier for this key.
    */
-  public int getID() {
+  public int getIdentification() {
     return id;
   }
 }
