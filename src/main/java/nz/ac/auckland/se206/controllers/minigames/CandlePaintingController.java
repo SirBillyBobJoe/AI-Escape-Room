@@ -24,37 +24,35 @@ public class CandlePaintingController {
    * unlit.
    */
   public void initialize() {
-    // intiialise values
-    List<ImageView> candles = new ArrayList<ImageView>();
-    candles.add(candle0);
-    candles.add(candle1);
-    candles.add(candle2);
-    candles.add(candle3);
-    GameState.candleOrder = new ArrayList<Boolean>();
-    // only allows 4 candles
+    // Create a list of ImageView objects representing candles.
+    List<ImageView> candles = List.of(candle0, candle1, candle2, candle3);
+
+    // Initialize a list to store the random candle order.
+    GameState.candleOrder = new ArrayList<>();
+    Random random = new Random();
+
+    // Generate a random order for the candles.
     for (int i = 0; i < 4; i++) {
-      Random random = new Random();
-      // random logic
       boolean randomBoolean = random.nextBoolean();
       GameState.candleOrder.add(randomBoolean);
+    }
+
+    // Count the number of unlit candles in the random order.
+    long unlitCount = GameState.candleOrder.stream().filter(b -> !b).count();
+
+    // Ensure that at least one candle is lit by setting the first one to true if all are unlit.
+    if (unlitCount == 4) {
+      GameState.candleOrder.set(random.nextInt(4), true);
+    }
+
+    // Update the images of the candles based on the random order.
+    for (int i = 0; i < 4; i++) {
       ImageView candle = candles.get(i);
-      int count = 0;
-      // ensures its not always turned off all of them
-      for (Boolean bool : GameState.candleOrder) {
-        if (!bool) {
-          count++;
-        }
-      }
-      // if it is set the first one to true
-      if (count == 4) {
-        GameState.candleOrder.set(0, true);
-      }
-      // links array to images
-      if (randomBoolean) {
-        candle.setImage(new Image("/images/puzzleroom/litCandle.png"));
-      } else {
-        candle.setImage(new Image("/images/puzzleroom/unlitCandle.png"));
-      }
+      String imagePath =
+          GameState.candleOrder.get(i)
+              ? "/images/puzzleroom/litCandle.png"
+              : "/images/puzzleroom/unlitCandle.png";
+      candle.setImage(new Image(imagePath));
     }
   }
 

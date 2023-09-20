@@ -116,7 +116,7 @@ public class GameState {
   public static SharedChat chat = new SharedChat();
 
   /** Instance of RiddleChat for managing riddles in the game. */
-  public static RiddleChat riddleChat = new RiddleChat();
+  public static RiddleChat riddleChat = RiddleChat.getInstance();
 
   /** Instance of GameMasterActions to manage actions related to the game master. */
   public static GameMasterActions gameMasterActions;
@@ -145,19 +145,16 @@ public class GameState {
   public static String[] words = {"apple", "table", "chair", "piano", "dance"};
 
   /** Array of numbers used in the padlock game. */
-  public static String[] numbers = {"2019", "2008", "2001", "1945", "1840"};
+  public static List<String> numbers = List.of("2019", "2008", "1969", "1945", "1840");
 
   /** Random generator for selecting words and numbers in the padlock game. */
   public static Random random = new Random();
 
-  /** Random index used to select a word from the 'words' array. */
-  public static int randomIndex = random.nextInt(words.length);
-
   /** Random word selected from the 'words' array. */
-  public static String randomWord = words[randomIndex];
+  public static String randomWord = words[random.nextInt(words.length)];
 
   /** Random number selected from the 'numbers' array. */
-  public static String randomNumbers = numbers[randomIndex];
+  public static String randomNumbers = numbers.get(random.nextInt(numbers.size()));
 
   /** The answer for the padlock puzzle, initialized to a randomly selected word. */
   public static String padlockAnswer = randomWord;
@@ -289,6 +286,10 @@ public class GameState {
     "war",
     "covid",
     "virus",
+    "apollo",
+    "moon",
+    "landing",
+    "space"
   };
 
   /** Resets the game to its initial state. */
@@ -316,6 +317,15 @@ public class GameState {
     // reset the keys and actives
     isKeyFound = false;
     riddleRoomActive.set(false);
+
+    // Random values
+    random = new Random();
+    randomWord = GameState.words[random.nextInt(words.length)];
+    randomNumbers = GameState.numbers.get(random.nextInt(numbers.size()));
+    padlockAnswer = GameState.randomWord;
+    passcodeAnswer = GameState.randomNumbers;
+    isPuzzlesOn.set(true);
+    loading.set(true);
   }
 
   /** A rectangle shape for highlighting riddles in the UI. */
