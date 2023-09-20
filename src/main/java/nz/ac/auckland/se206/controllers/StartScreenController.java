@@ -1,13 +1,16 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.MouseClick;
@@ -44,6 +47,9 @@ public class StartScreenController {
   @FXML private Label levelSummaryVal;
 
   @FXML private Label lblStart;
+
+  @FXML private ImageView imgLoading;
+  @FXML private Rectangle loadingBackground;
 
   private final DropShadow dropShadow = new DropShadow();
   private final DropShadow startDropShadow = new DropShadow();
@@ -323,9 +329,33 @@ public class StartScreenController {
     new MouseClick().play();
     GameState.timer.setTimeSecondsProperty(selectedTime * 60);
 
-    // Start the timer.
-    GameState.timer.start();
-    App.setUserInterface(AppUi.UIOVERLAY);
+    // Loading screen
+    imgLoading.setVisible(true);
+    loadingBackground.setVisible(true);
+
+    // Start the timer and set the UI in a new thread
+    new Thread(
+            () -> {
+              try {
+                Thread.sleep(1000);
+              } catch (InterruptedException e) {
+                e.printStackTrace();
+              }
+
+              // Use Platform.runLater to update the UI on the JavaFX Application Thread
+              Platform.runLater(
+                  () -> {
+                    try {
+                      App.setUserInterface(AppUi.UIOVERLAY);
+                      GameState.timer.start();
+                      imgLoading.setVisible(false);
+                      loadingBackground.setVisible(false);
+                    } catch (IOException e) {
+                      e.printStackTrace();
+                    }
+                  });
+            })
+        .start();
   }
 
   /** Helper method to navigate back in the options. */
