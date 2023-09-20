@@ -12,8 +12,6 @@ import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
-import nz.ac.auckland.se206.gpt.GameMaster;
-import nz.ac.auckland.se206.items.Inventory;
 
 /**
  * Controller for the End Screen of the game. Handles the state labels that indicate whether the
@@ -64,10 +62,7 @@ public class EndScreenController {
     // stops the timers
     GameState.timer.stop();
     // creates a new inventory
-    GameState.inventory = new Inventory();
-
-    GameState.gameMaster = new GameMaster();
-    GameState.chat.restart();
+    GameState.resetGame();
     // goes back to startscreen
     SceneManager.setReinitialise(AppUi.UIOVERLAY);
     SceneManager.setReinitialise(AppUi.STARTSCREEN);

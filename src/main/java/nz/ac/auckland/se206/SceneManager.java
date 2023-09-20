@@ -51,12 +51,11 @@ public class SceneManager {
    */
   public static Parent getUi(AppUi ui) throws IOException {
     if (!reinitialize.containsKey(ui) || reinitialize.get(ui)) {
-      // If this room should be re-initialized, create a new instance of the UI.
-      // For example, load a new instance from a FXML file:
-      initialisePuzzles();
       // initialises the rooms
       if (ui.equals(AppUi.UIOVERLAY)) {
         System.out.println("Initialise Rooms");
+        // If this room should be re-initialized, create a new instance of the puzzles.
+        initialisePuzzles();
         initialiseRooms();
       }
       // reintilise rooms
