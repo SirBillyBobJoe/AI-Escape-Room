@@ -41,7 +41,7 @@ public class MainRoomController {
   @FXML private Rectangle wireBox;
   @FXML private Rectangle passcode;
   @FXML private CubicCurve leftDoor;
-  @FXML private Rectangle exitDoor;
+  @FXML private CubicCurve exitDoor;
   @FXML private Rectangle riddleGlow;
   @FXML private Rectangle hide1;
   @FXML private Rectangle hide2;
