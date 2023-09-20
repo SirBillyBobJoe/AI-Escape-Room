@@ -40,7 +40,13 @@ public class UIOverlayController {
   @FXML private AnchorPane mainPane;
   @FXML private Label countdownLabel;
   @FXML private Label hintLabel;
-  @FXML private ImageView item0, item1, item2, item3, item4, item5, glitch;
+  @FXML private ImageView item0;
+  @FXML private ImageView item1;
+  @FXML private ImageView item2;
+  @FXML private ImageView item3;
+  @FXML private ImageView item4;
+  @FXML private ImageView item5;
+  @FXML private ImageView glitch;
   @FXML private TextArea promptArea;
   @FXML private TextArea itemChat;
 

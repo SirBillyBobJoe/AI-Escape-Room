@@ -34,11 +34,15 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
  */
 public class PuzzleRoomController {
   @FXML private ImageView background;
-  @FXML private ImageView candle1, candle2, candle3, candle4;
+  @FXML private ImageView candle1;
+  @FXML private ImageView candle2;
+  @FXML private ImageView candle3;
+  @FXML private ImageView candle4;
   @FXML private ImageView hammer;
   @FXML private ImageView greenWire;
   @FXML private CubicCurve riddleGlow1;
-  @FXML private ImageView waterdrop, puddle;
+  @FXML private ImageView waterdrop;
+  @FXML private ImageView puddle;
 
   private List<ImageView> candles;
 

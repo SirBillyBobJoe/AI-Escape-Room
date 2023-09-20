@@ -14,7 +14,10 @@ import nz.ac.auckland.se206.SceneManager.Puzzle;
  * on the UI.
  */
 public class CandlePaintingController {
-  @FXML private ImageView candle0, candle1, candle2, candle3;
+  @FXML private ImageView candle0;
+  @FXML private ImageView candle1;
+  @FXML private ImageView candle2;
+  @FXML private ImageView candle3;
 
   /**
    * Initializes the state of the CandlePaintingController. Randomly sets candles as either lit or
