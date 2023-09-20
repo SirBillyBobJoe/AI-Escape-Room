@@ -16,19 +16,6 @@ import nz.ac.auckland.se206.SceneManager.Puzzle;
 
 /** Controller for the Pipe Connecting Mini-game. */
 public class PipeConnectingController {
-  @FXML private AnchorPane gridAnchor;
-
-  @FXML private GridPane grid;
-
-  private int gridHorizontalSize;
-  private int gridverticalSize;
-  private double gridCellSize;
-  private double rectWidth;
-  private double rectHeight;
-  private int[][] mapSetup;
-  private List<Position> inlets;
-  private int[][] mapRotations;
-
   /** Represents a Position in the grid. */
   private class Position {
     private int horizontalValue;
@@ -47,14 +34,17 @@ public class PipeConnectingController {
 
     @Override
     public boolean equals(Object obj) {
+      // checks if 2 objects are equal
       if (this == obj) {
         return true;
       }
+      // returns the classes
       if (obj == null || getClass() != obj.getClass()) {
         return false;
       }
-      Position Position = (Position) obj;
-      return horizontalValue == Position.horizontalValue && verticalValue == Position.verticalValue;
+      // get position of object
+      Position position = (Position) obj;
+      return horizontalValue == position.horizontalValue && verticalValue == position.verticalValue;
     }
 
     @Override
@@ -65,6 +55,19 @@ public class PipeConnectingController {
       return result;
     }
   }
+
+  @FXML private AnchorPane gridAnchor;
+
+  @FXML private GridPane grid;
+
+  private int gridHorizontalSize;
+  private int gridverticalSize;
+  private double gridCellSize;
+  private double rectWidth;
+  private double rectHeight;
+  private int[][] mapSetup;
+  private List<Position> inlets;
+  private int[][] mapRotations;
 
   /** Initializes the grid based on the game's difficulty. */
   @FXML
@@ -381,7 +384,8 @@ public class PipeConnectingController {
       int x = inlet.horizontalValue;
       int y = inlet.verticalValue;
 
-      double layoutX, layoutY;
+      double layoutX;
+      double layoutY;
       double inletHeight = rectWidth * 1.5;
       boolean horizontal = false;
       if (y == -1) { // Top side

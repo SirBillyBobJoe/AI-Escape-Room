@@ -49,6 +49,15 @@ public class GameMasterActions {
     this.active = active;
   }
 
+  /**
+   * Checks whether the GameMasterActions is currently active.
+   *
+   * @return A boolean value indicating the active status.
+   */
+  public boolean isActive() {
+    return this.active;
+  }
+
   /** Shows the GameMaster with a fade-in animation. */
   public void activate() {
     if (isActive()) {
@@ -142,15 +151,6 @@ public class GameMasterActions {
   /** Clears the text from the text area. */
   public void clear() {
     textArea.clear();
-  }
-
-  /**
-   * Checks whether the GameMasterActions is currently active.
-   *
-   * @return A boolean value indicating the active status.
-   */
-  public boolean isActive() {
-    return this.active;
   }
 
   /** Sets the active status of GameMasterActions to true. */

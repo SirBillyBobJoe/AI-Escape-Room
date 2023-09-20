@@ -411,7 +411,7 @@ public class StartScreenController {
     switch (selectedLevel) {
       case 0:
         // if its easy
-        GameState.hints.set("\u221E");
+        GameState.hints.set(GameState.infinity);
         GameState.difficulty = "easy";
         break;
       case 1:
@@ -456,11 +456,13 @@ public class StartScreenController {
 
   @FXML
   private void howClicked(MouseEvent event) {
+    // plays clicking sounds
     new MouseClick().play();
     if (txaHow.isVisible()) {
       txaHow.setVisible(false);
       lblHow.setText("How to Play");
     } else {
+      // closes the how to play
       txaHow.setVisible(true);
       lblHow.setText("Close");
     }

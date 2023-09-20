@@ -98,11 +98,11 @@ public class Inventory {
     }
     Object temp = inventoryProperty.get(i);
     // logic for inventory
-    Object jObj = (j < inventoryProperty.size()) ? inventoryProperty.get(j) : null;
+    Object object = (j < inventoryProperty.size()) ? inventoryProperty.get(j) : null;
     // sets the position
-    inventoryProperty.set(i, jObj);
-    if (jObj != null) {
-      jObj.setPosition(i);
+    inventoryProperty.set(i, object);
+    if (object != null) {
+      object.setPosition(i);
     }
     // sets the property
     inventoryProperty.set(j, temp);

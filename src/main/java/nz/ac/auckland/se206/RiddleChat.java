@@ -12,12 +12,6 @@ import javafx.util.Duration;
 /** Manages the chat for the riddles. */
 public class RiddleChat {
   private static RiddleChat instance;
-  private String contextName;
-  @FXML private TextArea textArea;
-  @FXML private ImageView imgLoadingWheel;
-
-  // Create a RotateTransition for the loading wheel
-  private RotateTransition loadingAnimation;
 
   /**
    * Retrieves the singleton instance of SharedChat.
@@ -30,6 +24,13 @@ public class RiddleChat {
     }
     return instance;
   }
+
+  @FXML private TextArea textArea;
+  @FXML private ImageView imgLoadingWheel;
+  private String contextName;
+
+  // Create a RotateTransition for the loading wheel
+  private RotateTransition loadingAnimation;
 
   /** Sets the text area to display the text message content. */
   public void setTextArea(TextArea textArea) {
@@ -84,21 +85,17 @@ public class RiddleChat {
       // if its 2019 logic
       if (riddleAnswer == "2019") {
         answer = "\"2019\" that revolves around the idea of COVID-19 or the coronavirus.";
-      }
-      // if its 2008 logic
-      else if (riddleAnswer == "2008") {
+      } else if (riddleAnswer == "2008") {
+        // if its 2008 logic
         answer = "\"2008\" that revolves around the idea of the global financial crisis.";
-      }
-      // if its 1945 logic
-      else if (riddleAnswer == "1945") {
+      } else if (riddleAnswer == "1945") {
+        // if its 1945 logic
         answer = "\"1945\" that revolves around the idea of World War 2.";
-      }
-      // if its 1840 logic
-      else if (riddleAnswer == "1840") {
+      } else if (riddleAnswer == "1840") {
+        // if its 1840 logic
         answer = "\"1840\" that revolves around the idea of the Treaty of Waitangi.";
-      }
-      // if its 1969 logic
-      else if (riddleAnswer == "1969") {
+      } else if (riddleAnswer == "1969") {
+        // if its 1969 logic
         answer = "\"1969\" that revolves around the idea of the Apollo moon landing";
       }
       // logic for the finalMessage

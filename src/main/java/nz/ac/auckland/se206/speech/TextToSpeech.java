@@ -8,11 +8,15 @@ import javax.speech.synthesis.SynthesizerModeDesc;
 
 /** Text-to-speech API using the JavaX speech library. */
 public class TextToSpeech {
+  /** Custom unchecked exception for Text-to-speech issues. */
+  static class TextToSpeechException extends RuntimeException {
+    public TextToSpeechException(final String message) {
+      super(message);
+    }
+  }
 
   /** Singleton instance of the TextToSpeech class. */
   private static TextToSpeech instance = new TextToSpeech();
-
-  private final Synthesizer synthesizer;
 
   /**
    * Returns the singleton instance of the TextToSpeech class.
@@ -31,12 +35,7 @@ public class TextToSpeech {
     instance = null;
   }
 
-  /** Custom unchecked exception for Text-to-speech issues. */
-  static class TextToSpeechException extends RuntimeException {
-    public TextToSpeechException(final String message) {
-      super(message);
-    }
-  }
+  private final Synthesizer synthesizer;
 
   /**
    * Constructs the TextToSpeech object by creating and allocating the speech synthesizer. The

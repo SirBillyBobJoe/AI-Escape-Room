@@ -6,10 +6,6 @@ import javafx.scene.control.TextArea;
 
 public class ItemChat {
   private static ItemChat instance;
-  private Thread currentThread;
-
-  /** Private constructor for the singleton pattern. */
-  private ItemChat() {}
 
   /**
    * Returns the singleton instance of ItemChat.
@@ -22,6 +18,11 @@ public class ItemChat {
     }
     return instance;
   }
+
+  private Thread currentThread;
+
+  /** Private constructor for the singleton pattern. */
+  private ItemChat() {}
 
   /**
    * Prints a chat message to the specified TextArea simulating typing.
