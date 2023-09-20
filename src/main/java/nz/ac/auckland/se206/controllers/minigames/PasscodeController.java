@@ -61,7 +61,9 @@ public class PasscodeController {
       // Handle up arrow click
       upArrow.setOnMouseClicked(
           e -> {
-            if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) return;
+            if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
+              return;
+            }
 
             int index = individualNumberOptions.indexOf(selectedNumber.getValue());
             if (index == 0) {
@@ -78,7 +80,9 @@ public class PasscodeController {
       // Handle down arrow click
       downArrow.setOnMouseClicked(
           e -> {
-            if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) return;
+            if (GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
+              return;
+            }
 
             int index = individualNumberOptions.indexOf(selectedNumber.getValue());
             if (index == individualNumberOptions.size() - 1) {
@@ -129,7 +133,9 @@ public class PasscodeController {
    * @param event MouseEvent for turning object blue or showing clickable
    */
   private void onMouseEntered(MouseEvent event) {
-    if (GameState.puzzleSolved.get(Puzzle.PASSCODE).getValue()) return;
+    if (GameState.puzzleSolved.get(Puzzle.PASSCODE).getValue()) {
+      return;
+    }
 
     Node source = (Polygon) event.getSource();
     ColorAdjust colorAdjust = new ColorAdjust();

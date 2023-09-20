@@ -20,7 +20,9 @@ public class TextToSpeech {
    * @return The singleton instance of the TextToSpeech class.
    */
   public static synchronized TextToSpeech getInstance() {
-    if (instance == null) instance = new TextToSpeech();
+    if (instance == null) {
+      instance = new TextToSpeech();
+    }
     return instance;
   }
 
