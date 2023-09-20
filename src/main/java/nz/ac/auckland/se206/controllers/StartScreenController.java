@@ -3,6 +3,7 @@ package nz.ac.auckland.se206.controllers;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -33,6 +34,9 @@ public class StartScreenController {
   @FXML private Label lbl2Min;
   @FXML private Label lbl4Min;
   @FXML private Label lbl6Min;
+
+  @FXML private Label lblHow;
+  @FXML private TextArea txaHow;
 
   @FXML private Label timeSummary;
   @FXML private Label levelSummary;
@@ -106,6 +110,26 @@ public class StartScreenController {
   @FXML
   private void lblExitExited(MouseEvent event) {
     setExited(lblExit);
+  }
+
+  /**
+   * Updates the "How to Play" button when the mouse hovers over it.
+   *
+   * @param event MouseEvent for hovering over the button.
+   */
+  @FXML
+  private void lblHowEntered(MouseEvent event) {
+    setEntered(lblHow);
+  }
+
+  /**
+   * Updates the "How to Play" button when the mouse leaves its area.
+   *
+   * @param event MouseEvent for leaving the button.
+   */
+  @FXML
+  private void lblHowExited(MouseEvent event) {
+    setExited(lblHow);
   }
 
   /**
@@ -398,5 +422,17 @@ public class StartScreenController {
     GameState.time = selectedTime;
     System.out.println("Level: " + selectedLevel);
     System.out.println("Time: " + selectedTime);
+  }
+
+  @FXML
+  private void howClicked(MouseEvent event) {
+    new MouseClick().play();
+    if (txaHow.isVisible()) {
+      txaHow.setVisible(false);
+      lblHow.setText("How to Play");
+    } else {
+      txaHow.setVisible(true);
+      lblHow.setText("Close");
+    }
   }
 }
