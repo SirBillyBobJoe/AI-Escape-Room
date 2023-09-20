@@ -23,14 +23,25 @@ public class GlitchSound {
    *
    * @return
    */
-  public void MouseClick() {
+  public GlitchSound() {
+    // pick a random sound (1 or 2)
+    int sound = (int) (Math.random() * 2) + 1;
+
     try {
       // get the sounds
-      InputStream audioSrc = getClass().getResourceAsStream("/sounds/glitchSound.wav");
-      AudioInputStream inputStream = AudioSystem.getAudioInputStream(audioSrc);
-      // play the clip
-      clip = AudioSystem.getClip();
-      clip.open(inputStream);
+      if (sound == 1) {
+        InputStream audioSrc = getClass().getResourceAsStream("/sounds/glitchSound.wav");
+        AudioInputStream inputStream = AudioSystem.getAudioInputStream(audioSrc);
+        // play the clip
+        clip = AudioSystem.getClip();
+        clip.open(inputStream);
+      } else {
+        InputStream audioSrc = getClass().getResourceAsStream("/sounds/droneSound.wav");
+        AudioInputStream inputStream = AudioSystem.getAudioInputStream(audioSrc);
+        // play the clip
+        clip = AudioSystem.getClip();
+        clip.open(inputStream);
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
