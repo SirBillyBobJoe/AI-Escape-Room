@@ -87,7 +87,7 @@
             <DropShadow height="82.07" radius="42.0" spread="0.82" width="87.93" />
          </effect>
       </Label>
-      <TextArea fx:id="txaHow" editable="false" layoutX="405.0" layoutY="164.0" prefHeight="323.0" prefWidth="337.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px; -fx-control-inner-background: black;" text="         How To Play&#10;&#10;• Highlighted items are clickable.&#10;&#10;• Solve puzzles and riddles to progress through the game.&#10;&#10;• Drag items from your inventory to interact with the room" visible="false" wrapText="true">
+      <TextArea fx:id="txaHow" editable="false" layoutX="386.0" layoutY="182.0" prefHeight="262.0" prefWidth="338.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px; -fx-control-inner-background: black;" text="• Highlighted items are clickable.&#10;&#10;• Solve puzzles and riddles to progress through the game.&#10;&#10;• Drag items from your inventory to interact with the room" visible="false" wrapText="true">
          <font>
             <Font name="Consolas Bold" size="18.0" />
          </font>
@@ -95,7 +95,7 @@
             <DropShadow height="255.0" radius="127.0" spread="0.75" width="255.0" />
          </effect>
       </TextArea>
-      <Label fx:id="lblHow" alignment="CENTER" layoutX="496.0" layoutY="172.0" onMouseClicked="#howClicked" onMouseEntered="#lblHowEntered" onMouseExited="#lblHowExited" prefHeight="39.0" prefWidth="154.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="How to Play" textFill="#bfbfbf">
+      <Label fx:id="lblHow" alignment="CENTER" layoutX="587.0" layoutY="510.0" onMouseClicked="#howClicked" onMouseEntered="#lblHowEntered" onMouseExited="#lblHowExited" prefHeight="39.0" prefWidth="154.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="How to Play" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
