@@ -319,8 +319,12 @@ public class PuzzleRoomController {
         // logic for when u solve the candle
         GameState.riddleRoomController.turnLightsOn();
         GameState.gameMasterActions.activate("Attention! You are to solve my riddle...");
-        TextToSpeech textToSpeech = TextToSpeech.getInstance();
-        textToSpeech.speak("Attention! You are to solve my riddle...");
+        new Thread(
+                () -> {
+                  TextToSpeech textToSpeech = TextToSpeech.getInstance();
+                  textToSpeech.speak("Attention! You are to solve my riddle...");
+                })
+            .start();
         System.out.println("Lights off");
       } else {
         // set it to false

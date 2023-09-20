@@ -307,9 +307,12 @@ public class WirelinkingController {
     // turns the lights on
     GameState.riddleRoomController.turnLightsOn();
     GameState.gameMasterActions.activate("Stop! You need to solve my riddle now...");
-    TextToSpeech textToSpeech = TextToSpeech.getInstance();
-    // tell them to stop the riddless
-    textToSpeech.speak("Stop! You need to solve my riddle now...");
+    new Thread(
+            () -> {
+              TextToSpeech textToSpeech = TextToSpeech.getInstance();
+              textToSpeech.speak("Stop! You need to solve my riddle now...");
+            })
+        .start();
     GameState.riddleChat.newRiddle("padlockRiddle", GameState.padlockAnswer);
     GameState.isPuzzlesOn.set(false);
     exitPuzzle(null);
