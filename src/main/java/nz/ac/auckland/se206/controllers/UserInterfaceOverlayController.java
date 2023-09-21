@@ -403,15 +403,13 @@ public class UserInterfaceOverlayController {
       imgGameMaster.setVisible(false);
       promptArea.setVisible(false);
       btnSend.setVisible(false);
-      glitch.setX(400);
-      glitch.setY(100);
+      glitch.visibleProperty().unbind();
     } else {
       txaGameMaster.setVisible(true);
       imgGameMaster.setVisible(true);
       promptArea.setVisible(true);
       btnSend.setVisible(true);
-      glitch.setX(822);
-      glitch.setY(53);
+      glitch.visibleProperty().bind(GameState.loading);
     }
   }
 
