@@ -398,18 +398,22 @@ public class UserInterfaceOverlayController {
   /** Hide and move Game Master to a different location for immersion */
   @FXML
   public void moveGameMaster() {
+    // turns the right master invisible
     if (txaGameMaster.isVisible()) {
       txaGameMaster.setVisible(false);
       imgGameMaster.setVisible(false);
       promptArea.setVisible(false);
       btnSend.setVisible(false);
+      // change properties
       glitch.visibleProperty().unbind();
       glitch.setVisible(false);
     } else {
+      // set visible in the game
       txaGameMaster.setVisible(true);
       imgGameMaster.setVisible(true);
       promptArea.setVisible(true);
       btnSend.setVisible(true);
+      // bind glitch property
       glitch.visibleProperty().bind(GameState.loading);
     }
   }

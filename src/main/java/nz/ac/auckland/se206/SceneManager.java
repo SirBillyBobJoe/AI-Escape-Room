@@ -61,7 +61,7 @@ public class SceneManager {
   }
 
   /** Load UIOverlay Ui in a way that it doesn't have to be run from favafx main thread. */
-  public static void loadUIOverlay() {
+  public static void loadUserInterfaceOverlay() {
     try {
       if (!reinitialize.containsKey(AppUi.UIOVERLAY) || reinitialize.get(AppUi.UIOVERLAY)) {
         System.out.println("Initialise Rooms");
