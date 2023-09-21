@@ -333,7 +333,7 @@ public class Inventory {
     if (node.getId().equals("exitDoor") // if its the exit door tell them u cant escape yet
         && !GameState.puzzleSolved.get(Puzzle.PADLOCK).getValue()) {
       ItemChat.getInstance()
-          .printChatMessage(itemChat, "You need to solve the padLock combination.");
+          .printChatMessage(itemChat, "You need to solve the padlock combination.");
       return;
     }
     ImageView imageView = (ImageView) event.getSource();

@@ -13,7 +13,7 @@ public class GameMaster {
   private int numberValue = 1;
   private double temperatureValue = 0.7;
   private double topParameterValue = 0.85;
-  private int maxTokensApiValue = 100;
+  private int maxTokensApiValue = 200;
 
   // Maps a name of a context to its ChatContext instance
   private Map<String, ChatContext> chatContexts = new HashMap<String, ChatContext>();
