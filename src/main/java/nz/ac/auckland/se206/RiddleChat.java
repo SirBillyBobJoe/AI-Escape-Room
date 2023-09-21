@@ -159,82 +159,74 @@ public class RiddleChat {
     if (contextName == null) {
       return;
     }
-
-    // Start the loading animation
-    if (loadingAnimation != null) {
-      imgLoadingWheel.setVisible(true);
-      loadingAnimation.play();
+    if (!GameState.containsHint(messageRaw)) {
+      if (!GameState.riddle2019Solved) {
+        // logic for the riddles
+        if (messageRaw.contains(GameState.passcodeAnswer)) {
+          textArea.appendText("Computer: Correct! \n\n");
+          createComment();
+          changeStatus();
+        } else {
+          textArea.appendText("Computer: Incorrect! \n\n");
+        }
+      } else if (!GameState.riddlePadlockSolved) {
+        // logic for the padlock
+        if (messageRaw.contains(GameState.padlockAnswer)) {
+          textArea.appendText("Computer: Correct! \n\n");
+          createComment();
+          changeStatus();
+        } else {
+          textArea.appendText("Computer: Incorrect! \n\n");
+        }
+      }
+    } else {
+      textArea.appendText(
+          "Computer: Sorry I am a computer I dont give hints you need to ask the GameMaster \n\n");
     }
-    String message = "The player asked you \"" + messageRaw + "\".";
-    // runs context
-    GameState.gameMaster.addMessage(contextName, "user", message);
-    System.out.println(message);
-    GameState.gameMaster.runContext(contextName);
+  }
 
-    // waits for the response to finish
-    Task<Void> waitForResponseTask =
+  /*Handles creating a comment for solving the game. */
+  public void createComment() {
+    // add message to game master
+    GameState.gameMaster.addMessage(
+        "main",
+        "user",
+        "Commend the player very briefly for solving the riddle. Saying something along"
+            + " lines of \"You're smarter than you look\".");
+    GameState.gameMaster.runContext("main");
+    // generate the comments
+    Task<Void> generateCommendment =
         new Task<Void>() {
           @Override
           protected Void call() throws Exception {
-            GameState.gameMaster.waitForContext(contextName);
+            GameState.gameMaster.waitForContext("main");
             return null;
           }
         };
-    // logic when succeeded
-    waitForResponseTask.setOnSucceeded(
-        e -> {
-          // Stop the loading animation
-          if (loadingAnimation != null) {
-            loadingAnimation.stop();
-            imgLoadingWheel.setVisible(false);
-          }
-          // appends the text
-          textArea.appendText(
-              "Computer: "
-                  + GameState.gameMaster.getLastResponse(contextName).getContent()
-                  + "\n\n");
-
-          // Player got the correct answer
-          if (GameState.gameMaster.getLastResponse(contextName).getContent().equals("Correct!")) {
-            // Congratulate the player
-            GameState.gameMaster.addMessage(
-                "main",
-                "user",
-                "Commend the player very briefly for solving the riddle. Saying something along"
-                    + " lines of \"You're smarter than you look\".");
-            GameState.gameMaster.runContext("main");
-            // generate the comments
-            Task<Void> generateCommendment =
-                new Task<Void>() {
-                  @Override
-                  protected Void call() throws Exception {
-                    GameState.gameMaster.waitForContext("main");
-                    return null;
-                  }
-                };
-            // start the thread
-            new Thread(generateCommendment).start();
-            // when succeded generate  the comments
-            generateCommendment.setOnSucceeded(
-                event -> {
-                  GameState.gameMasterActions.activate(
-                      GameState.gameMaster.getLastResponse("main").getContent());
-                  System.out.println(GameState.gameMaster.getLastResponse("main").getContent());
-                });
-
-            // Which riddle was answered correctly?
-            if (!GameState.riddle2019Solved) {
-              GameState.riddle2019Solved = true;
-              GameState.riddleRoomController.turnLightsOff();
-              GameState.isPuzzlesOn.set(true);
-            } else if (!GameState.riddlePadlockSolved) {
-              GameState.riddlePadlockSolved = true;
-              GameState.riddleRoomController.turnLightsOff();
-              GameState.isPuzzlesOn.set(true);
-            }
-          }
+    // start the thread
+    new Thread(generateCommendment).start();
+    // when succeded generate  the comments
+    generateCommendment.setOnSucceeded(
+        event -> {
+          GameState.gameMasterActions.activate(
+              GameState.gameMaster.getLastResponse("main").getContent());
+          System.out.println(GameState.gameMaster.getLastResponse("main").getContent());
         });
+  }
 
-    new Thread(waitForResponseTask).start();
+  /*Handles logic for chagning status of the riddle solved. */
+  public void changeStatus() {
+    // Which riddle was answered correctly?
+    if (!GameState.riddle2019Solved) {
+      // if number puzzle solved
+      GameState.riddle2019Solved = true;
+      GameState.riddleRoomController.turnLightsOff();
+      GameState.isPuzzlesOn.set(true);
+    } else if (!GameState.riddlePadlockSolved) {
+      // if word puzzle solved
+      GameState.riddlePadlockSolved = true;
+      GameState.riddleRoomController.turnLightsOff();
+      GameState.isPuzzlesOn.set(true);
+    }
   }
 }

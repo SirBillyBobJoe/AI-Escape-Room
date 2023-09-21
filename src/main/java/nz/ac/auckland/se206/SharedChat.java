@@ -84,30 +84,23 @@ public class SharedChat {
     }
     msg = msg.toLowerCase();
     textField.clear();
-    // determines if its a hint from keywords or if its a general conversation
-    outerloop:
-    for (String keyWords1 : GameState.clueFirst) {
-      for (String keyWords2 : GameState.clueSecond) {
-        // if it contains both words
-        if (msg.contains(keyWords1) && msg.contains(keyWords2)) {
-          isHint = true;
-          if (GameState.hints.get().equals(GameState.infinity)) {
-            // tell them they have infinite hints
-            msg1 = "Do not mention a hint number or say \"Hint: \". ";
-            break outerloop;
-          } else if (Integer.parseInt(GameState.hints.get()) == 0) {
-            // with no more hints tell them
-            msg1 =
-                "Tell the player they have no more hints left. YOU ARE TO NOT GIVE THEM ANY MORE"
-                    + " ANSWERS TO HINTS";
-            break outerloop;
-          } else {
-            // remove 1 hint and ask gpt
-            GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
-            msg1 = "Do not mention a hint number or say \"Hint: \". ";
-            break outerloop;
-          }
-        }
+    // if it contains both words
+    if (GameState.containsHint(msg)) {
+      isHint = true;
+      if (GameState.hints.get().equals(GameState.infinity)) {
+        // tell them they have infinite hints
+        msg1 = "Do not mention a hint number or say \"Hint: \". ";
+
+      } else if (Integer.parseInt(GameState.hints.get()) == 0) {
+        // with no more hints tell them
+        msg1 =
+            "Tell the player they have no more hints left. YOU ARE TO NOT GIVE THEM ANY MORE"
+                + " ANSWERS TO HINTS";
+
+      } else {
+        // remove 1 hint and ask gpt
+        GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
+        msg1 = "Do not mention a hint number or say \"Hint: \". ";
       }
     }
 
@@ -119,17 +112,22 @@ public class SharedChat {
         stepBasedHintPrompt =
             "Tell the player a/an "
                 + GameState.difficulty
-                + "a hint to the riddle with the answer of the year"
+                + "a hint to the riddle with the answer of the year: "
                 + GameState.passcodeAnswer
-                + "but never under any circumstance give them the answer";
+                + " BUT NEVER UNDER ANY CIRCUMSTANCE REVEAL THE ANSWER: "
+                + GameState.passcodeAnswer
+                + " TO THE PLAYER";
       } else if (!GameState.riddlePadlockSolved) {
         // logic for the padlock
         stepBasedHintPrompt =
             "Tell the player a/an "
                 + GameState.difficulty
-                + " hint about the answer to a riddle they are solving. The answer is: "
+                + " hint about the answer to a riddle they are solving. The answer is to the riddle"
+                + " is: "
                 + GameState.padlockAnswer
-                + "but never under any circumstance give them the answer.";
+                + " BUT NEVER UNDER ANY CIRCUMSTANCE REVEAL THE ANSWER: "
+                + GameState.padlockAnswer
+                + " TO THE PLAYER";
       }
 
     } else if (!GameState.pipePuzzleSolved) {

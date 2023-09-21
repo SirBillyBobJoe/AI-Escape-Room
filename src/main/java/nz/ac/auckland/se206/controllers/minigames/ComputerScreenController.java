@@ -50,9 +50,9 @@ public class ComputerScreenController {
     if (text.trim().isEmpty()) {
       return;
     }
+    txaRiddle.appendText("You: " + txfGuess.getText() + "\n\n");
     // send to gpt
     GameState.riddleChat.onSend(txfGuess.getText());
-    txaRiddle.appendText("You: " + txfGuess.getText() + "\n\n");
     txfGuess.clear();
   }
 }
