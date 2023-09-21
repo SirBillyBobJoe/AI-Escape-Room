@@ -44,7 +44,7 @@
       <ImageView fx:id="item3" fitHeight="34.0" fitWidth="37.0" layoutX="950.0" layoutY="475.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="item4" fitHeight="34.0" fitWidth="37.0" layoutX="992.0" layoutY="475.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="item5" fitHeight="34.0" fitWidth="37.0" layoutX="1034.0" layoutY="474.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="countdownLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="670.0" layoutY="30.0" prefHeight="1.0" prefWidth="90.0" text="120" textAlignment="CENTER" textFill="RED">
+      <Label fx:id="countdownLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="831.0" layoutY="2.0" prefHeight="1.0" prefWidth="90.0" text="120" textAlignment="CENTER" textFill="RED">
          <font>
             <Font name="Consolas" size="45.0" />
          </font>
