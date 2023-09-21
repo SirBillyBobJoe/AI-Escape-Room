@@ -210,9 +210,9 @@ public class GameState {
     "figure",
     "unlock",
     "explain",
-    "im",
+    "im ",
     "i'm",
-    "i",
+    "i ",
     "need",
     "hint",
     "wat",
@@ -291,7 +291,14 @@ public class GameState {
     "apollo",
     "moon",
     "landing",
-    "space"
+    "space",
+    "riddle",
+    "apple",
+    "table",
+    "chair",
+    "piano",
+    "dance",
+    "happened",
   };
 
   /** A rectangle shape for highlighting riddles in the UI. */
@@ -360,5 +367,21 @@ public class GameState {
     passcodeAnswer = GameState.randomNumbers;
     isPuzzlesOn.set(true);
     loading.set(true);
+  }
+
+  public static boolean containsHint(String msg) {
+    // determines if its a hint from keywords or if its a general conversation
+
+    for (String keyWords1 : GameState.clueFirst) {
+      for (String keyWords2 : GameState.clueSecond) {
+        // if contains return true
+        if (msg.contains(keyWords1) && msg.contains(keyWords2)) {
+          System.out.println(keyWords1 + " " + keyWords2);
+          return true;
+        }
+      }
+    }
+    // if it dosent return false
+    return false;
   }
 }
