@@ -404,6 +404,7 @@ public class UserInterfaceOverlayController {
       promptArea.setVisible(false);
       btnSend.setVisible(false);
       glitch.visibleProperty().unbind();
+      glitch.setVisible(false);
     } else {
       txaGameMaster.setVisible(true);
       imgGameMaster.setVisible(true);
