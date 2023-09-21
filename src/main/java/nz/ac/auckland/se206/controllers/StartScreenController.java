@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.GlitchSound;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 
@@ -336,7 +335,7 @@ public class StartScreenController {
     // Start the timer and set the UI in a new thread
     new Thread(
             () -> {
-              SceneManager.loadUIOverlay();
+              SceneManager.loadUserInterfaceOverlay();
 
               // Use Platform.runLater to update the UI on the JavaFX Application Thread
               Platform.runLater(
