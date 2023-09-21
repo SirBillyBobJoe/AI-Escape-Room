@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.GameState;
+import nz.ac.auckland.se206.GlitchSound;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 

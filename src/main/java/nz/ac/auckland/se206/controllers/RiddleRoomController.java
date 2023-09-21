@@ -73,6 +73,9 @@ public class RiddleRoomController {
       // if its the computer go to the computerscreen
       if (GameState.riddleRoomActive.getValue()) {
         GameState.currentPuzzle.set(Puzzle.COMPUTERSCREEN);
+        GameState.userInterfaceOverlayController.moveGameMaster();
+        GameState.computerScreenController.setGameMaster(
+            GameState.userInterfaceOverlayController.getGameMaster());
       }
     }
   }

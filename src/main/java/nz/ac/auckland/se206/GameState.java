@@ -20,6 +20,8 @@ import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 import nz.ac.auckland.se206.controllers.GameMasterActions;
 import nz.ac.auckland.se206.controllers.RiddleRoomController;
+import nz.ac.auckland.se206.controllers.UserInterfaceOverlayController;
+import nz.ac.auckland.se206.controllers.minigames.ComputerScreenController;
 import nz.ac.auckland.se206.gpt.GameMaster;
 import nz.ac.auckland.se206.items.BlueWire;
 import nz.ac.auckland.se206.items.GreenWire;
@@ -71,6 +73,10 @@ public class GameState {
   public static boolean isOpenWall = false;
 
   public static RiddleRoomController riddleRoomController;
+
+  public static UserInterfaceOverlayController userInterfaceOverlayController;
+
+  public static ComputerScreenController computerScreenController;
 
   /** Indicates whether the riddle room is active or not */
   public static SimpleBooleanProperty riddleRoomActive = new SimpleBooleanProperty(false);

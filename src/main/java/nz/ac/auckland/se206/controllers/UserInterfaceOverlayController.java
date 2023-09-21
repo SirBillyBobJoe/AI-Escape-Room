@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.ColorAdjust;
@@ -53,6 +54,7 @@ public class UserInterfaceOverlayController {
 
   @FXML private TextArea txaGameMaster;
   @FXML private ImageView imgGameMaster;
+  @FXML private Button btnSend;
 
   @FXML private Pane roomPane; // Must remain so it can be swapped at the start
   private Pane loadedRoom;
@@ -67,6 +69,7 @@ public class UserInterfaceOverlayController {
   public void initialize() {
     glitch.visibleProperty().bind(GameState.loading);
     GameState.gameMasterActions = new GameMasterActions(imgGameMaster, txaGameMaster);
+    GameState.userInterfaceOverlayController = this;
 
     // Determine the hint text based on the game state
     String hint;
@@ -338,7 +341,7 @@ public class UserInterfaceOverlayController {
   }
 
   /**
-   * Handles text message sending for the chat feature in Room 1.
+   * Handles text message sending for the chat feature in the main room.
    *
    * @param event ActionEvent for sending a message.
    */
@@ -390,5 +393,33 @@ public class UserInterfaceOverlayController {
   private void onInventoryClicked(MouseEvent event) {
     new MouseClick().play();
     GameState.inventory.onInventoryClicked(event);
+  }
+
+  /** Hide and move Game Master to a different location for immersion */
+  @FXML
+  public void moveGameMaster() {
+    if (txaGameMaster.isVisible()) {
+      txaGameMaster.setVisible(false);
+      imgGameMaster.setVisible(false);
+      promptArea.setVisible(false);
+      btnSend.setVisible(false);
+      glitch.setX(400);
+      glitch.setY(100);
+    } else {
+      txaGameMaster.setVisible(true);
+      imgGameMaster.setVisible(true);
+      promptArea.setVisible(true);
+      btnSend.setVisible(true);
+      glitch.setX(822);
+      glitch.setY(53);
+    }
+  }
+
+  public String getGameMaster() {
+    return txaGameMaster.getText();
+  }
+
+  public void setGameMaster(String message) {
+    txaGameMaster.setText(message);
   }
 }
