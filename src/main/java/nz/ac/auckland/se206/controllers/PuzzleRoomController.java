@@ -74,11 +74,11 @@ public class PuzzleRoomController {
     // hammer logic
     hammer.setUserData("hammer");
     GameState.currentRoomItems.put(hammer, new Hammer());
-    hammer.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE));
+    hammer.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPECONNECTING));
 
     greenWire.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.CANDLEPAINTING));
-    puddle.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE).not());
-    waterdrop.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPEPUZZLE).not());
+    puddle.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPECONNECTING).not());
+    waterdrop.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PIPECONNECTING).not());
     // Add a listener to the visible property
     greenWire
         .visibleProperty()
@@ -162,7 +162,7 @@ public class PuzzleRoomController {
 
     } else if (source.getId().equals("pipeGame")) {
       // if its pipgame
-      GameState.currentPuzzle.set(Puzzle.PIPEPUZZLE);
+      GameState.currentPuzzle.set(Puzzle.PIPECONNECTING);
     } else if (source instanceof ImageView) {
       // if its a imageView
       System.out.println("unbinded" + source.getId());

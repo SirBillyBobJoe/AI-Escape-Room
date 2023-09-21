@@ -54,7 +54,7 @@ public class MainRoomController {
     lock1.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PADLOCK).not());
     // binds the keys visibility to solving the wire game
     // Bind the visible property to some condition (in your case, puzzle solved)
-    key1.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE));
+    key1.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.WIRELINKING));
 
     // Add a listener to the visible property
     key1.visibleProperty()
@@ -65,7 +65,7 @@ public class MainRoomController {
               }
             });
 
-    wireBox.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.WIREPUZZLE).not());
+    wireBox.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.WIRELINKING).not());
     passcode.visibleProperty().bind(GameState.puzzleSolved.get(Puzzle.PASSCODE).not());
     // Add a listener to the visible property
     passcode
@@ -142,7 +142,7 @@ public class MainRoomController {
       }
       // if its a wirebox
     } else if (id.equals("wireBox")) {
-      GameState.currentPuzzle.set(Puzzle.WIREPUZZLE);
+      GameState.currentPuzzle.set(Puzzle.WIRELINKING);
     } else if (id.equals("candlePainting")) {
       // if its a painting
       GameState.currentPuzzle.set(Puzzle.CANDLEPAINTING);

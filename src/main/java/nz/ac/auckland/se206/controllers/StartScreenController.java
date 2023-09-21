@@ -11,10 +11,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.MouseClick;
-import nz.ac.auckland.se206.SceneManager.AppUi;
+import nz.ac.auckland.se206.SceneManager;
 
 /** Class responsible for controlling the Start Screen of the game. */
 public class StartScreenController {
@@ -336,23 +335,14 @@ public class StartScreenController {
     // Start the timer and set the UI in a new thread
     new Thread(
             () -> {
-              try {
-                Thread.sleep(1000);
-              } catch (InterruptedException e) {
-                e.printStackTrace();
-              }
+              SceneManager.loadUIOverlay();
 
               // Use Platform.runLater to update the UI on the JavaFX Application Thread
               Platform.runLater(
                   () -> {
-                    try {
-                      App.setUserInterface(AppUi.UIOVERLAY);
-                      GameState.timer.start();
-                      imgLoading.setVisible(false);
-                      loadingBackground.setVisible(false);
-                    } catch (IOException e) {
-                      e.printStackTrace();
-                    }
+                    GameState.timer.start();
+                    imgLoading.setVisible(false);
+                    loadingBackground.setVisible(false);
                   });
             })
         .start();
