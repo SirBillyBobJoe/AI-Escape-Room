@@ -167,16 +167,16 @@ public class RiddleChat {
           createComment();
           changeStatus();
         } else {
-          textArea.appendText("Computer: Incorrect! \n\n");
+          textArea.appendText("Computer: Incorrect. \n\n");
         }
       } else if (!GameState.riddlePadlockSolved) {
         // logic for the padlock
-        if (messageRaw.contains(GameState.padlockAnswer)) {
+        if (messageRaw.toLowerCase().contains(GameState.padlockAnswer.toLowerCase())) {
           textArea.appendText("Computer: Correct! \n\n");
           createComment();
           changeStatus();
         } else {
-          textArea.appendText("Computer: Incorrect! \n\n");
+          textArea.appendText("Computer: Incorrect. \n\n");
         }
       }
     } else {

@@ -68,16 +68,11 @@ public class ChatContext {
    * @throws ApiProxyException if there's an error communicating with the API proxy
    */
   private ChatMessage runGpt() throws ApiProxyException {
-    try {
-      ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
-      // Assuming we only ever want 1 response
-      Choice result = chatCompletionResult.getChoices().iterator().next();
-      chatCompletionRequest.addMessage(result.getChatMessage());
-      return result.getChatMessage();
-    } catch (ApiProxyException e) {
-      e.printStackTrace();
-      return null;
-    }
+    ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
+    // Assuming we only ever want 1 response
+    Choice result = chatCompletionResult.getChoices().iterator().next();
+    chatCompletionRequest.addMessage(result.getChatMessage());
+    return result.getChatMessage();
   }
 
   /**
@@ -89,8 +84,19 @@ public class ChatContext {
     Task<Void> runApiTask =
         new Task<Void>() {
           @Override
-          protected Void call() throws Exception {
-            lastResponse = runGpt();
+          protected Void call() throws ApiProxyException {
+            try {
+              lastResponse = runGpt();
+            } catch (ApiProxyException e) {
+              System.err.println("Failed to run GPT in context " + contextName);
+              e.printStackTrace();
+              lastResponse =
+                  new ChatMessage(
+                      "system",
+                      "GPT Error or Wifi Error: Please check your connection and restart.\n\n"
+                          + e.getMessage());
+              didFail = true;
+            }
 
             isBusy = false;
 
@@ -101,14 +107,6 @@ public class ChatContext {
             return null;
           }
         };
-
-    runApiTask.setOnFailed(
-        (e) -> {
-          System.err.println("Failed to run GPT in context " + contextName);
-          System.err.println(e);
-          isBusy = false;
-          didFail = true;
-        });
 
     runApiThread = new Thread(runApiTask);
     runApiThread.start();
