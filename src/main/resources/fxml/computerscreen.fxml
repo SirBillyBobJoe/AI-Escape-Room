@@ -14,37 +14,58 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.minigames.ComputerScreenController">
-  <children>
-      <Rectangle fill="#000000cc" height="600.0" onMouseClicked="#exitPuzzle" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
-      <AnchorPane fx:id="computerScreen" layoutX="65.0" layoutY="110.0" prefHeight="381.0" prefWidth="670.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-color: grey; -fx-border-radius: 10px; -fx-border-width: 2px;">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1"
+   xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="nz.ac.auckland.se206.controllers.minigames.ComputerScreenController">
+   <children>
+      <Rectangle fill="#000000cc" height="600.0" onMouseClicked="#exitPuzzle" stroke="BLACK"
+         strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
+      <AnchorPane fx:id="computerScreen" layoutX="65.0" layoutY="110.0" prefHeight="381.0"
+         prefWidth="670.0"
+         style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-color: grey; -fx-border-radius: 10px; -fx-border-width: 2px;">
          <children>
-            <ImageView fitHeight="352.0" fitWidth="620.0" layoutX="25.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="352.0" fitWidth="620.0" layoutX="25.0" layoutY="24.0"
+               pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/riddleRoom/computerBackground.png" />
                </image>
             </ImageView>
-            <AnchorPane fx:id="computerScreenWindow" layoutX="31.0" layoutY="34.0" prefHeight="298.0" prefWidth="350.0" style="-fx-background-color: rgba(255,255,255,0.5);">
+            <AnchorPane fx:id="computerScreenWindow" layoutX="31.0" layoutY="34.0"
+               prefHeight="298.0" prefWidth="350.0"
+               style="-fx-background-color: rgba(255,255,255,0.5);">
                <children>
-                  <TextField fx:id="txfGuess" layoutX="23.0" layoutY="250.0" onKeyPressed="#uiOverlayOnKeyPressed" prefHeight="26.0" prefWidth="249.0" promptText="Type here" />
-                  <Button fx:id="sendButton" layoutX="283.0" layoutY="250.0" mnemonicParsing="false" onAction="#onGuess" text="Send" />
-                  <TextArea fx:id="txaRiddle" editable="false" layoutX="23.0" layoutY="47.0" prefHeight="190.0" prefWidth="304.0" wrapText="true" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0" layoutX="1.0" layoutY="-1.0" stroke="TRANSPARENT" strokeType="INSIDE" width="348.0" />
-                  <Circle fill="#ff5b5b" layoutX="331.0" layoutY="13.0" radius="6.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <ImageView fx:id="imgLoadingWheel" fitHeight="25.0" fitWidth="21.0" layoutX="248.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
+                  <TextField fx:id="txfGuess" layoutX="23.0" layoutY="250.0"
+                     onKeyPressed="#riddleComputerOnKeyPressed" prefHeight="26.0" prefWidth="249.0"
+                     promptText="Type here" />
+                  <Button fx:id="sendButton" layoutX="283.0" layoutY="250.0" mnemonicParsing="false"
+                     onAction="#onGuess" text="Send" />
+                  <TextArea fx:id="txaRiddle" editable="false" layoutX="23.0" layoutY="47.0"
+                     prefHeight="190.0" prefWidth="304.0" wrapText="true" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0" layoutX="1.0"
+                     layoutY="-1.0" stroke="TRANSPARENT" strokeType="INSIDE" width="348.0" />
+                  <Circle fill="#ff5b5b" layoutX="331.0" layoutY="13.0" radius="6.0"
+                     stroke="TRANSPARENT" strokeType="INSIDE" />
+                  <ImageView fx:id="imgLoadingWheel" fitHeight="25.0" fitWidth="21.0"
+                     layoutX="248.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/riddleRoom/loadingWheel.png" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="370.0" layoutY="63.0" prefHeight="289.0" prefWidth="257.0" style="-fx-background-color: rgb(0,0,0,0.5);">
+            <AnchorPane layoutX="370.0" layoutY="63.0" prefHeight="289.0" prefWidth="257.0"
+               style="-fx-background-color: rgb(0,0,0,0.5);">
                <children>
-                  <TextArea fx:id="txaGameMaster2" editable="false" focusTraversable="false" layoutX="21.0" layoutY="45.0" prefHeight="142.0" prefWidth="212.0" style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" text="Hello, I am the Game Master. I will have some cool animations at some point." wrapText="true">
+                  <TextArea fx:id="txaGameMaster2" editable="false" focusTraversable="false"
+                     layoutX="21.0" layoutY="45.0" prefHeight="142.0" prefWidth="212.0"
+                     style="-fx-control-inner-background: black; -fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;"
+                     text="Hello, I am the Game Master. I will have some cool animations at some point."
+                     wrapText="true">
                      <effect>
                         <InnerShadow height="44.09" radius="21.635" width="44.45">
                            <color>
-                              <Color red="0.5254902243614197" green="0.054901961237192154" blue="0.054901961237192154" />
+                              <Color red="0.5254902243614197" green="0.054901961237192154"
+                                 blue="0.054901961237192154" />
                            </color>
                         </InnerShadow>
                      </effect>
@@ -61,20 +82,27 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </TextArea>
-                  <TextArea fx:id="promptArea2" layoutX="21.0" layoutY="187.0" onKeyPressed="#uiOverlayOnKeyPressedGameMaster" prefHeight="53.0" prefWidth="212.0" promptText="Chat to me if you must..." wrapText="true">
+                  <TextArea fx:id="promptArea2" layoutX="21.0" layoutY="187.0"
+                     onKeyPressed="#riddleComputerGameMasterOnKeyPress" prefHeight="53.0"
+                     prefWidth="212.0" promptText="Chat to me if you must..." wrapText="true">
                      <font>
                         <Font name="Consolas" size="12.0" />
                      </font>
                   </TextArea>
-                  <Button layoutX="21.0" layoutY="240.0" mnemonicParsing="false" onAction="#onSend" prefHeight="26.0" prefWidth="212.0" text="Send" />
-                  <ImageView fx:id="imgGameMaster2" fitHeight="53.0" fitWidth="58.0" layoutX="101.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
+                  <Button layoutX="21.0" layoutY="240.0" mnemonicParsing="false" onAction="#onSend"
+                     prefHeight="26.0" prefWidth="212.0" text="Send" />
+                  <ImageView fx:id="imgGameMaster2" fitHeight="53.0" fitWidth="58.0" layoutX="101.0"
+                     layoutY="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/menu/gameMaster.png" />
                      </image>
                   </ImageView>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0" stroke="TRANSPARENT" strokeType="INSIDE" width="257.0" />
-                  <Circle fill="#ff5b5b" layoutX="243.0" layoutY="14.0" radius="6.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <ImageView fx:id="glitch" fitHeight="238.0" fitWidth="226.0" layoutX="16.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0"
+                     stroke="TRANSPARENT" strokeType="INSIDE" width="257.0" />
+                  <Circle fill="#ff5b5b" layoutX="243.0" layoutY="14.0" radius="6.0"
+                     stroke="TRANSPARENT" strokeType="INSIDE" />
+                  <ImageView fx:id="glitch" fitHeight="238.0" fitWidth="226.0" layoutX="16.0"
+                     layoutY="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/overlay/glitch.gif" />
                      </image>
@@ -83,5 +111,5 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-  </children>
+   </children>
 </AnchorPane>
