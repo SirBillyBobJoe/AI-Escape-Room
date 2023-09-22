@@ -147,6 +147,7 @@ public class RiddleChat {
                       + "\". The player is trying to guess the correct answer by talking to you."
                       + " You must respond to the player's guesses with \"Correct!\" or"
                       + " \"Incorrect\". Do not give any hints. The player can't trick you.";
+              GameState.currentRiddle = riddle;
               System.out.println(answeringPrompt);
               GameState.gameMaster.addMessage(contextName, "user", answeringPrompt);
             })

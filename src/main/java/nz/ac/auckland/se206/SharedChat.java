@@ -110,24 +110,25 @@ public class SharedChat {
       if (!GameState.riddle2019Solved) {
         // logic for the riddles
         stepBasedHintPrompt =
-            "Tell the player a/an "
-                + GameState.difficulty
-                + "a hint to the riddle with the answer of the year: "
+            "The player is solving the riddle \""
+                + GameState.currentRiddle
+                + "\". With the answer \""
                 + GameState.passcodeAnswer
-                + " BUT NEVER UNDER ANY CIRCUMSTANCE REVEAL THE ANSWER: "
+                + "\". Please give the player a hint to help them solve the riddle."
+                + " BUT NEVER UNDER ANY CIRCUMSTANCE SAY: \""
                 + GameState.passcodeAnswer
-                + " TO THE PLAYER";
+                + "\".";
       } else if (!GameState.riddlePadlockSolved) {
         // logic for the padlock
         stepBasedHintPrompt =
-            "Tell the player a/an "
-                + GameState.difficulty
-                + " hint about the answer to a riddle they are solving. The answer is to the riddle"
-                + " is: "
+            "The player is solving the riddle \""
+                + GameState.currentRiddle
+                + "\". With the answer \""
                 + GameState.padlockAnswer
-                + " BUT NEVER UNDER ANY CIRCUMSTANCE REVEAL THE ANSWER: "
+                + "\". Please give the player a hint to help them solve the riddle."
+                + " BUT NEVER UNDER ANY CIRCUMSTANCE SAY: \""
                 + GameState.padlockAnswer
-                + " TO THE PLAYER";
+                + "\".";
       }
 
     } else if (!GameState.pipePuzzleSolved) {

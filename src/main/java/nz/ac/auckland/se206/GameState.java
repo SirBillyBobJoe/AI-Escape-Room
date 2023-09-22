@@ -126,6 +126,9 @@ public class GameState {
   /** Instance of RiddleChat for managing riddles in the game. */
   public static RiddleChat riddleChat = RiddleChat.getInstance();
 
+  /** Stores the riddle the player is currently trying to solve */
+  public static String currentRiddle = "";
+
   /** Instance of GameMasterActions to manage actions related to the game master. */
   public static GameMasterActions gameMasterActions;
 
@@ -216,11 +219,12 @@ public class GameState {
     "figure",
     "unlock",
     "explain",
+    "when",
     "im ",
     "i'm",
     "i ",
     "need",
-    "hint",
+    "hints",
     "wat",
     "opened",
     "unlock",
