@@ -88,7 +88,17 @@
             <DropShadow height="82.07" radius="42.0" spread="0.82" width="87.93" />
          </effect>
       </Label>
-      <TextArea fx:id="txaHow" editable="false" layoutX="386.0" layoutY="182.0" prefHeight="262.0" prefWidth="338.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px; -fx-control-inner-background: black;" text="• Highlighted items are clickable.&#10;&#10;• Solve puzzles and riddles to progress through the game.&#10;&#10;• Drag items from your inventory to interact with the room" visible="false" wrapText="true">
+      <ImageView fitHeight="100.0" fitWidth="109.0" layoutX="608.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/menu/arrowS.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="120.0" fitWidth="100.0" layoutX="466.0" layoutY="409.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/menu/arrowSE.png" />
+         </image>
+      </ImageView>
+      <TextArea fx:id="txaHow" editable="false" layoutX="391.0" layoutY="201.0" prefHeight="262.0" prefWidth="338.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px; -fx-control-inner-background: black;" text="• Highlighted items are clickable.&#10;&#10;• Solve puzzles and riddles to progress through the game.&#10;&#10;• Drag items from your inventory to interact with the room" visible="false" wrapText="true">
          <font>
             <Font name="Consolas Bold" size="18.0" />
          </font>
@@ -101,16 +111,6 @@
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <ImageView fitHeight="100.0" fitWidth="109.0" layoutX="608.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/menu/arrowS.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="120.0" fitWidth="100.0" layoutX="466.0" layoutY="409.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/menu/arrowSE.png" />
-         </image>
-      </ImageView>
       <Rectangle fx:id="loadingBackground" arcHeight="5.0" arcWidth="5.0" height="603.0" layoutX="-3.0" layoutY="-2.0" stroke="TRANSPARENT" strokeType="INSIDE" visible="false" width="806.0" />
       <ImageView fx:id="imgLoading" fitHeight="206.0" fitWidth="214.0" layoutX="300.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
