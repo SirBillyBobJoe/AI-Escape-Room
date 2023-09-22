@@ -15,6 +15,8 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -338,6 +340,18 @@ public class UserInterfaceOverlayController {
   @FXML
   private void onDragDropped(DragEvent event) {
     GameState.inventory.onDragDropped(event, GameState.currentRoomItems);
+  }
+
+  /**
+   * Handles text message sending for the chat feature in the main room.
+   *
+   * @param event keypress event
+   */
+  @FXML
+  private void uiOverlayOnKeyPressed(KeyEvent event) {
+    if (event.getCode() == KeyCode.ENTER) {
+      onSend(new ActionEvent());
+    }
   }
 
   /**

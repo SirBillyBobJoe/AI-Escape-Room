@@ -26,7 +26,7 @@
             </ImageView>
             <AnchorPane fx:id="computerScreenWindow" layoutX="31.0" layoutY="34.0" prefHeight="298.0" prefWidth="350.0" style="-fx-background-color: rgba(255,255,255,0.5);">
                <children>
-                  <TextField fx:id="txfGuess" layoutX="23.0" layoutY="250.0" prefHeight="26.0" prefWidth="249.0" promptText="Type here" />
+                  <TextField fx:id="txfGuess" layoutX="23.0" layoutY="250.0" onKeyPressed="#uiOverlayOnKeyPressed" prefHeight="26.0" prefWidth="249.0" promptText="Type here" />
                   <Button fx:id="sendButton" layoutX="283.0" layoutY="250.0" mnemonicParsing="false" onAction="#onGuess" text="Send" />
                   <TextArea fx:id="txaRiddle" editable="false" layoutX="23.0" layoutY="47.0" prefHeight="190.0" prefWidth="304.0" wrapText="true" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0" layoutX="1.0" layoutY="-1.0" stroke="TRANSPARENT" strokeType="INSIDE" width="348.0" />
@@ -61,7 +61,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </TextArea>
-                  <TextArea fx:id="promptArea2" layoutX="21.0" layoutY="187.0" prefHeight="53.0" prefWidth="212.0" promptText="Chat to me if you must..." wrapText="true">
+                  <TextArea fx:id="promptArea2" layoutX="21.0" layoutY="187.0" onKeyPressed="#uiOverlayOnKeyPressedGameMaster" prefHeight="53.0" prefWidth="212.0" promptText="Chat to me if you must..." wrapText="true">
                      <font>
                         <Font name="Consolas" size="12.0" />
                      </font>
