@@ -72,8 +72,8 @@ public class ComputerScreenController {
    * @param event keypress event
    */
   @FXML
-  private void uiOverlayOnKeyPressed(KeyEvent event) {
-    if (event.getCode() == KeyCode.ENTER) {
+  private void riddleComputerOnKeyPressed(KeyEvent event) {
+    if (event.getCode() == KeyCode.ENTER && GameState.riddleRoomActive.getValue()) {
       onGuess(new ActionEvent());
     }
   }
@@ -103,7 +103,7 @@ public class ComputerScreenController {
    * @param event keypress event
    */
   @FXML
-  private void uiOverlayOnKeyPressedGameMaster(KeyEvent event) {
+  private void riddleComputerGameMasterOnKeyPress(KeyEvent event) {
     if (event.getCode() == KeyCode.ENTER) {
       onSend(new ActionEvent());
     }
