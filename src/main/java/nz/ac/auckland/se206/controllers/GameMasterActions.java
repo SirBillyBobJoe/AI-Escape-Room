@@ -78,6 +78,10 @@ public class GameMasterActions {
     textArea.setEffect(innerShadow);
   }
 
+  public TextArea getTextArea() {
+    return textArea;
+  }
+
   /** Shows the GameMaster with a message */
   public void activate(String message) {
     activate();
