@@ -30,7 +30,7 @@ public class MouseClick {
       clip = AudioSystem.getClip();
       clip.open(inputStream);
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println("Uh oh, stinky...");
     }
   }
 
