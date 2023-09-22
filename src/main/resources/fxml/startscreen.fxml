@@ -107,5 +107,15 @@
             <Image url="@../images/startScreen/loading.gif" />
          </image>
       </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="109.0" layoutX="608.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/menu/arrowS.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="120.0" fitWidth="100.0" layoutX="466.0" layoutY="409.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/menu/arrowSE.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

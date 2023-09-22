@@ -93,8 +93,7 @@ public class ChatContext {
               lastResponse =
                   new ChatMessage(
                       "system",
-                      "GPT Error or Wifi Error: Please check your connection and restart.\n\n"
-                          + e.getMessage());
+                      "GPT Error or Wifi Error: Please check your connection and restart.");
               didFail = true;
             }
 
