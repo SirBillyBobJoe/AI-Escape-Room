@@ -41,10 +41,14 @@ public class MouseClick {
    * from the beginning.
    */
   public void play() {
-    if (clip.isRunning()) {
-      clip.stop(); // Stop the player if it is still running
+    try {
+      if (clip.isRunning()) {
+        clip.stop(); // Stop the player if it is still running
+      }
+      clip.setFramePosition(0); // Must always rewind!
+      clip.start();
+    } catch (Exception e) {
+      System.out.println("Uh oh, stinky...");
     }
-    clip.setFramePosition(0); // Must always rewind!
-    clip.start();
   }
 }
