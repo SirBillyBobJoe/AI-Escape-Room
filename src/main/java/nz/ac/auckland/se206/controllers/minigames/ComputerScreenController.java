@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.GlitchSound;
@@ -65,6 +67,18 @@ public class ComputerScreenController {
   }
 
   /**
+   * Handles text message sending for the chat feature in the main room.
+   *
+   * @param event keypress event
+   */
+  @FXML
+  private void uiOverlayOnKeyPressed(KeyEvent event) {
+    if (event.getCode() == KeyCode.ENTER) {
+      onGuess(new ActionEvent());
+    }
+  }
+
+  /**
    * Handles the event when the user makes a guess.
    *
    * @param event The ActionEvent object representing the triggering event.
@@ -81,6 +95,18 @@ public class ComputerScreenController {
     // send to gpt
     GameState.riddleChat.onSend(txfGuess.getText());
     txfGuess.clear();
+  }
+
+  /**
+   * Handles text message sending for the gamemaster feature in the computer.
+   *
+   * @param event keypress event
+   */
+  @FXML
+  private void uiOverlayOnKeyPressedGameMaster(KeyEvent event) {
+    if (event.getCode() == KeyCode.ENTER) {
+      onSend(new ActionEvent());
+    }
   }
 
   /**
