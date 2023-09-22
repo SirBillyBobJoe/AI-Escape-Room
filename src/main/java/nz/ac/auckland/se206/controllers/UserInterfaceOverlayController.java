@@ -347,10 +347,11 @@ public class UserInterfaceOverlayController {
    */
   @FXML
   private void onSend(ActionEvent event) {
-    GameState.loading.set(true);
-    GameState.chat.onSend(promptArea);
-
-    new GlitchSound().play();
+    if (!promptArea.getText().trim().equals("")) {
+      GameState.loading.set(true);
+      GameState.chat.onSend(promptArea);
+      new GlitchSound().play();
+    }
 
     // Reset the player interaction timer
     playerInteractionTimer.stop();
