@@ -55,6 +55,11 @@ public class WirelinkingController {
     public void setComplete() {
       isComplete = true;
     }
+
+    /** Checks if it has found the correct end */
+    public boolean isCorrect(Circle start, Circle end) {
+      return start == startHole && end == endHole || start == endHole && end == startHole;
+    }
   }
 
   @FXML private VBox leftHoleBox;
@@ -63,6 +68,7 @@ public class WirelinkingController {
 
   private Line currentWire;
   private CorrectPath currentCorrectPath;
+  private Circle currentStartHole;
   private Map<Circle, CorrectPath> correctPaths = new HashMap<>();
   private Color backgroundColor = Color.WHITE;
 
@@ -89,6 +95,7 @@ public class WirelinkingController {
           return;
         }
 
+        currentStartHole = sourceHole;
         currentCorrectPath = correctPaths.get(sourceHole);
         drawingArea.startFullDrag();
 
@@ -116,8 +123,9 @@ public class WirelinkingController {
       rightHoleBox
           .getChildren()
           .add(random.nextInt(rightHoleBox.getChildren().size() + 1), rightHole);
-      correctPaths.put(
-          leftHole, new CorrectPath(leftHole, rightHole)); // Associate holes with correct paths
+      CorrectPath path = new CorrectPath(leftHole, rightHole);
+      correctPaths.put(leftHole, path); // Associate holes with correct paths
+      correctPaths.put(rightHole, path); // Associate holes with correct paths
     }
   }
 
@@ -134,13 +142,10 @@ public class WirelinkingController {
     hole.setStroke(color);
     hole.setStrokeWidth(2.5);
     // determines if its a left or right
-    if (isLeft) {
-      hole.setOnDragDetected(handleStartDrag);
-    } else {
-      // make it drooppable
-      hole.setOnMouseDragEntered(event -> updateCurrentWireEndPosition(event));
-      hole.setOnMouseDragReleased(this::handleDropOnRightHole);
-    }
+    hole.setOnDragDetected(handleStartDrag);
+    // make it drooppable
+    hole.setOnMouseDragEntered(event -> updateCurrentWireEndPosition(event));
+    hole.setOnMouseDragReleased(this::handleDropOnRightHole);
 
     return hole;
   }
@@ -234,7 +239,8 @@ public class WirelinkingController {
    */
   private void handleDropOnRightHole(MouseEvent event) {
     drawingArea.getChildren().remove(currentWire);
-    if (currentWire != null && currentCorrectPath.endHole == (Circle) event.getSource()) {
+    if (currentWire != null
+        && currentCorrectPath.isCorrect(currentStartHole, (Circle) event.getSource())) {
       finalizeWireConnection(event);
     }
     resetCurrentWireAndPath();
@@ -260,7 +266,7 @@ public class WirelinkingController {
     // this drags and if it reaches a source creates a permanent wire
     drawingArea.getChildren().add(permanentWire);
     sourceHole.setFill(permanentWire.getStroke());
-    currentCorrectPath.startHole.setFill(permanentWire.getStroke());
+    currentStartHole.setFill(permanentWire.getStroke());
     currentCorrectPath.setComplete();
     // gives the wire some colour
     Paint colour = sourceHole.getStroke();
@@ -302,6 +308,7 @@ public class WirelinkingController {
   private void resetCurrentWireAndPath() {
     resetCurrentWire();
     currentCorrectPath = null;
+    currentStartHole = null;
   }
 
   /**
