@@ -43,7 +43,7 @@ public class GlitchSound {
         clip.open(inputStream);
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println("Uh oh, stinky...");
     }
   }
 
