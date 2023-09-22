@@ -90,11 +90,13 @@ public class ComputerScreenController {
    */
   @FXML
   private void onSend(ActionEvent event) {
-    GameState.loading.set(true);
-    GameState.chat.onSend(promptArea2);
-    GameState.chat.setGameMasterActions(new GameMasterActions(imgGameMaster2, txaGameMaster2));
+    if (!promptArea2.getText().trim().isEmpty()) {
+      GameState.loading.set(true);
+      GameState.chat.onSend(promptArea2);
+      GameState.chat.setGameMasterActions(new GameMasterActions(imgGameMaster2, txaGameMaster2));
 
-    new GlitchSound().play();
+      new GlitchSound().play();
+    }
 
     // Reset the player interaction timer
     playerInteractionTimer.stop();
