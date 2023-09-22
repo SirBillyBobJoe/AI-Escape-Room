@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.SceneManager.AppUi;
 
@@ -85,14 +87,43 @@ public class App extends Application {
     // get the dimensions for the stage
     double additionalWidth = stage.getWidth() - stage.getScene().getWidth();
     double additionalHeight = stage.getHeight() - stage.getScene().getHeight();
+
     if (ui.equals(AppUi.UIOVERLAY)) {
       // sets the dimensions for the stage
       stage.setWidth(1100 + additionalWidth);
       stage.setHeight(600 + additionalHeight);
+
+      // Calculate screen dimensions
+      Screen screen = Screen.getPrimary();
+      Rectangle2D bounds = screen.getVisualBounds();
+
+      // Calculate the position for the top-left corner
+      double centerX =
+          bounds.getMinX() + (bounds.getWidth() - 1100) / 2; // Adjust "800" for your window width
+      double centerY =
+          bounds.getMinY() + (bounds.getHeight() - 600) / 2; // Adjust "600" for your window height
+
+      // Set the stage's position
+      stage.setX(centerX);
+      stage.setY(centerY);
     } else {
       // sets the dimensions if not overlay
       stage.setWidth(800 + additionalWidth);
       stage.setHeight(600 + additionalHeight);
+
+      // Calculate screen dimensions
+      Screen screen = Screen.getPrimary();
+      Rectangle2D bounds = screen.getVisualBounds();
+
+      // Calculate the position for the top-left corner
+      double centerX =
+          bounds.getMinX() + (bounds.getWidth() - 800) / 2; // Adjust "800" for your window width
+      double centerY =
+          bounds.getMinY() + (bounds.getHeight() - 600) / 2; // Adjust "600" for your window height
+
+      // Set the stage's position
+      stage.setX(centerX);
+      stage.setY(centerY);
     }
     System.out.println(scene.getRoot().isFocused());
   }
@@ -111,6 +142,21 @@ public class App extends Application {
     // resizes not possible
     stage.setResizable(false);
     stage.setScene(scene);
+
+    // Calculate screen dimensions
+    Screen screen = Screen.getPrimary();
+    Rectangle2D bounds = screen.getVisualBounds();
+
+    // Calculate the position for the top-left corner
+    double centerX =
+        bounds.getMinX() + (bounds.getWidth() - 800) / 2; // Adjust "800" for your window width
+    double centerY =
+        bounds.getMinY() + (bounds.getHeight() - 600) / 2; // Adjust "600" for your window height
+
+    // Set the stage's position
+    stage.setX(centerX);
+    stage.setY(centerY);
+
     stage.show();
     // ends app after closing
     stage.setOnCloseRequest(
