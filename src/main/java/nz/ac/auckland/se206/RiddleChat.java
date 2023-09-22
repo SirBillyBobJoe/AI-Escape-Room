@@ -208,7 +208,11 @@ public class RiddleChat {
     // when succeded generate  the comments
     generateCommendment.setOnSucceeded(
         event -> {
-          GameState.gameMasterActions.activate(
+          GameState.gameMasterActions.say(
+              GameState.gameMaster.getLastResponse("main").getContent());
+          GameState.computerScreenController.setGameMaster(
+              GameState.gameMaster.getLastResponse("main").getContent());
+          GameState.userInterfaceOverlayController.setGameMaster(
               GameState.gameMaster.getLastResponse("main").getContent());
           System.out.println(GameState.gameMaster.getLastResponse("main").getContent());
         });
