@@ -52,7 +52,7 @@ public class CountdownTimer {
         .add(new KeyFrame(Duration.seconds(1), e -> timeSeconds.set(timeSeconds.get() - 1)));
     timeSeconds.addListener(
         (obs, oldTime, newTime) -> {
-          if (newTime.intValue() % 30 == 0 && newTime.intValue() != 0) {
+          if (newTime.intValue() % 60 == 0 && newTime.intValue() != 0) {
             // starts the tasks
             Task<Void> task =
                 new Task<Void>() {
@@ -60,7 +60,7 @@ public class CountdownTimer {
                   @Override
                   protected Void call() throws Exception {
                     // uses tts
-                    tts.speak(String.valueOf(newTime.intValue()) + "seconds left.");
+                    tts.speak(String.valueOf(newTime.intValue() / 60) + "minutes left.");
 
                     return null;
                   }
