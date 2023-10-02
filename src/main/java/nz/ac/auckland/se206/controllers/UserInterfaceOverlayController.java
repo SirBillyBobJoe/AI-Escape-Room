@@ -5,6 +5,8 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.StringBinding;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -97,7 +99,18 @@ public class UserInterfaceOverlayController {
     GameState.gameMaster.runContext("main");
 
     // Bind UI elements to game state properties
-    countdownLabel.textProperty().bind(GameState.timer.timeSecondsProperty().asString());
+    StringBinding timeDisplayBinding =
+        Bindings.createStringBinding(
+            () -> {
+              // convert to seconds and minutes
+              int totalSeconds = GameState.timer.timeSecondsProperty().get();
+              int minutes = totalSeconds / 60;
+              int seconds = totalSeconds % 60;
+              // return minutes:seconds Format
+              return String.format("%02d:%02d", minutes, seconds);
+            },
+            GameState.timer.timeSecondsProperty());
+    countdownLabel.textProperty().bind(timeDisplayBinding);
     hintLabel.textProperty().bind(GameState.hints);
 
     // Initialize inventory control images
