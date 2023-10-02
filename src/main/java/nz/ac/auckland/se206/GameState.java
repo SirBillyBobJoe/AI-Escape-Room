@@ -341,6 +341,9 @@ public class GameState {
 
   /** Resets the game to its initial state. */
   public static void resetGame() {
+    if (difficulty.equals("medium")) {
+      hints.set("5");
+    }
     wallCount = 3;
     // Assuming you want to empty the list
     candleOrder.clear();
