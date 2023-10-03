@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyCode;
@@ -54,6 +55,7 @@ public class UserInterfaceOverlayController {
   @FXML private TextArea itemChat;
 
   @FXML private Label lblRestart;
+  @FXML private ImageView muteSound;
   private final DropShadow dropShadow = new DropShadow();
 
   @FXML private TextArea txaGameMaster;
@@ -68,6 +70,9 @@ public class UserInterfaceOverlayController {
   private Timeline playerInteractionTimer;
 
   private String intro;
+
+  private final Image SOUND_OFF_IMAGE = new Image("/images/overlay/sound-off.png");
+  private final Image SOUND_ON_IMAGE = new Image("/images/overlay/sound-on.png");
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
@@ -158,6 +163,9 @@ public class UserInterfaceOverlayController {
     GameState.currentRoom.set(Rooms.MAINROOM);
     changeRoom(Rooms.MAINROOM);
 
+    // Add a empty pane to the end of the ui overlay. This is what is swapped out when there are
+    // puzzles
+    mainPane.getChildren().add(SceneManager.getPuzzlePane(Puzzle.NONE));
     GameState.currentPuzzle.addListener(
         (ObservableValue<? extends Puzzle> o, Puzzle oldVal, Puzzle newVal) -> {
           changePuzzle(oldVal, newVal);
@@ -199,6 +207,8 @@ public class UserInterfaceOverlayController {
               GameState.loading.set(false);
             })
         .start();
+
+    setMuteSoundImage(GameState.isGameMuted);
   }
 
   /**
@@ -443,6 +453,49 @@ public class UserInterfaceOverlayController {
       btnSend.setVisible(true);
       // bind glitch property
       glitch.visibleProperty().bind(GameState.loading);
+    }
+  }
+
+  /** Mutes the sound when the mute button is clicked */
+  @FXML
+  public void onMuteSoundClicked(MouseEvent event) {
+    GameState.isGameMuted = !GameState.isGameMuted;
+    new MouseClick().play();
+    setMuteSoundImage(GameState.isGameMuted);
+  }
+
+  /**
+   * Updates the muteSound button when the mouse hovers over it.
+   *
+   * @param event MouseEvent for hovering over the muteSound button.
+   */
+  @FXML
+  private void muteSoundEntered(MouseEvent event) {
+    muteSound.setEffect(dropShadow);
+    muteSound.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: white; -fx-background-radius: 5px;"
+            + " -fx-background-color: black; -fx-padding: 7px;");
+  }
+
+  /**
+   * Updates the muteSound button when the mouse leaves its area.
+   *
+   * @param event MouseEvent for leaving the muteSound button.
+   */
+  @FXML
+  private void muteSoundExited(MouseEvent event) {
+    muteSound.setEffect(null);
+    muteSound.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: #bfbfbf; -fx-background-radius: 5px;"
+            + " -fx-background-color: black; -fx-padding: 7px;");
+  }
+
+  /** Sets the mute sound image */
+  public void setMuteSoundImage(boolean muted) {
+    if (muted) {
+      muteSound.setImage(SOUND_OFF_IMAGE);
+    } else {
+      muteSound.setImage(SOUND_ON_IMAGE);
     }
   }
 
