@@ -32,8 +32,9 @@ import nz.ac.auckland.se206.items.RedWire;
 /** Represents the state of the game. */
 public class GameState {
 
-  // Steps in the game, in order
+  public static boolean isGameMuted = false;
 
+  /** The infinity symbol. */
   public static String infinity = "\u221E";
 
   /** Indicates whether the pipe puzzle has been solved */

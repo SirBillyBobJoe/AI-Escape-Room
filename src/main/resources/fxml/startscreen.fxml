@@ -19,7 +19,13 @@
       <Label fx:id="lblExit" layoutX="40.0" layoutY="40.0" onMouseClicked="#lblExitClicked" onMouseEntered="#lblExitEntered" onMouseExited="#lblExitExited" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Exit" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
-         </font></Label>
+         </font>
+      </Label>
+      <ImageView fx:id="muteSound" fitHeight="40.0" fitWidth="40.0" layoutX="115.0" layoutY="40.0" onMouseClicked="#onMuteSoundClicked" onMouseEntered="#muteSoundEntered" onMouseExited="#muteSoundExited" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/overlay/sound-on.png" />
+         </image>
+      </ImageView>
       <Label fx:id="lblEasy" alignment="CENTER" layoutX="109.0" layoutY="260.0" onMouseClicked="#levelClicked" onMouseEntered="#lblEasyEntered" onMouseExited="#lblEasyExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Easy" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
