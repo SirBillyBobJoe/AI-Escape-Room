@@ -334,6 +334,7 @@ public class WirelinkingController {
     new Thread(
             () -> {
               TextToSpeech textToSpeech = TextToSpeech.getInstance();
+              GameState.speechList.add(textToSpeech);
               textToSpeech.speak("Stop! You need to solve my riddle now...");
             })
         .start();

@@ -471,6 +471,8 @@ public class StartScreenController {
     GameState.isGameMuted = !GameState.isGameMuted;
     new MouseClick().play();
     setMuteSoundImage(GameState.isGameMuted);
+    GameState.cancelAllSpeech();
+    GameState.glitchSound.stop();
   }
 
   /**

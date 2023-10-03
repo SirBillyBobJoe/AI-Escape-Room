@@ -27,7 +27,6 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.GlitchSound;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager;
 import nz.ac.auckland.se206.SceneManager.AppUi;
@@ -387,7 +386,7 @@ public class UserInterfaceOverlayController {
     if (!promptArea.getText().trim().equals("")) {
       GameState.loading.set(true);
       GameState.chat.onSend(promptArea);
-      new GlitchSound().play();
+      GameState.glitchSound.play();
     }
 
     // Reset the player interaction timer
@@ -461,6 +460,8 @@ public class UserInterfaceOverlayController {
   public void onMuteSoundClicked(MouseEvent event) {
     GameState.isGameMuted = !GameState.isGameMuted;
     new MouseClick().play();
+    GameState.cancelAllSpeech();
+    GameState.glitchSound.stop();
     setMuteSoundImage(GameState.isGameMuted);
   }
 

@@ -8,14 +8,14 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.EndScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.EndScreenController">
    <children>
-      <ImageView fitHeight="675.0" fitWidth="816.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="611.0" fitWidth="1114.0" layoutX="-6.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/endScreen/endScreen.png" />
          </image>
       </ImageView>
-      <Label contentDisplay="CENTER" layoutX="196.0" layoutY="56.0" text="The Singularity's Grip" textFill="#23699a">
+      <Label contentDisplay="CENTER" layoutX="324.0" layoutY="61.0" text="The Singularity's Grip" textFill="#23699a">
          <font>
             <Font name="Consolas Bold Italic" size="35.0" />
          </font>
@@ -26,17 +26,17 @@
                </color></DropShadow>
          </effect>
       </Label>
-      <Label fx:id="lblExit" alignment="CENTER" layoutX="538.0" layoutY="342.0" onMouseClicked="#lblExitClicked" onMouseEntered="#lblExitEntered" onMouseExited="#lblExitExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Exit" textFill="#bfbfbf">
+      <Label fx:id="lblExit" alignment="CENTER" layoutX="465.0" layoutY="406.0" onMouseClicked="#lblExitClicked" onMouseEntered="#lblExitEntered" onMouseExited="#lblExitExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Exit" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblRestart" alignment="CENTER" layoutX="538.0" layoutY="394.0" onMouseClicked="#lblRestartClicked" onMouseEntered="#lblRestartEntered" onMouseExited="#lblRestartExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Restart" textFill="#bfbfbf">
+      <Label fx:id="lblRestart" alignment="CENTER" layoutX="465.0" layoutY="481.0" onMouseClicked="#lblRestartClicked" onMouseEntered="#lblRestartEntered" onMouseExited="#lblRestartExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Restart" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblState" alignment="CENTER" layoutX="80.0" layoutY="287.0" prefHeight="197.0" prefWidth="395.0" style="-fx-background-color: rgba(255,255,255,0.3); -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px;" text="Time's up, you didn't make it..." textFill="WHITE" wrapText="true">
+      <Label fx:id="lblState" alignment="CENTER" layoutX="308.0" layoutY="288.0" prefHeight="77.0" prefWidth="440.0" style="-fx-background-color: rgba(255,255,255,0.3); -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px;" text="Time's up, you didn't make it!" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Consolas" size="25.0" />
          </font>

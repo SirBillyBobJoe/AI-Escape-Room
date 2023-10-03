@@ -326,6 +326,7 @@ public class PuzzleRoomController {
         new Thread(
                 () -> {
                   TextToSpeech textToSpeech = TextToSpeech.getInstance();
+                  GameState.speechList.add(textToSpeech);
                   textToSpeech.speak("Attention! You are to solve my riddle...");
                 })
             .start();

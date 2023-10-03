@@ -42,6 +42,7 @@ public class CountdownTimer {
    * @param time The time (in seconds) for the countdown.
    */
   private CountdownTimer(int time) {
+    GameState.speechList.add(tts);
     timeSeconds.set(time);
     timeline = new Timeline();
     // set the time count
