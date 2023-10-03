@@ -112,7 +112,7 @@
             <DropShadow height="255.0" radius="127.0" spread="0.75" width="255.0" />
          </effect>
       </TextArea>
-      <Label fx:id="lblHow" alignment="CENTER" layoutX="870.0" layoutY="494.0" onMouseClicked="#howClicked" onMouseEntered="#lblHowEntered" onMouseExited="#lblHowExited" prefHeight="39.0" prefWidth="154.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="How to Play" textFill="#bfbfbf">
+      <Label fx:id="lblHow" alignment="CENTER" layoutX="870.0" layoutY="494.0" onMouseClicked="#howClicked" onMouseEntered="#lblHowEntered" onMouseExited="#lblHowExited" prefHeight="39.0" prefWidth="154.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Close" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
