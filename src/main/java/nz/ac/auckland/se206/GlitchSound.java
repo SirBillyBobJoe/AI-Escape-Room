@@ -54,6 +54,9 @@ public class GlitchSound {
    * from the beginning.
    */
   public void play() {
+    if (GameState.isGameMuted) {
+      return;
+    }
     try {
       if (clip.isRunning()) {
         clip.stop(); // Stop the player if it is still running
