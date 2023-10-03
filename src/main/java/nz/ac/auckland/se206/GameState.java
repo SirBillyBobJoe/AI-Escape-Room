@@ -28,9 +28,14 @@ import nz.ac.auckland.se206.items.GreenWire;
 import nz.ac.auckland.se206.items.Inventory;
 import nz.ac.auckland.se206.items.Object;
 import nz.ac.auckland.se206.items.RedWire;
+import nz.ac.auckland.se206.speech.TextToSpeech;
 
 /** Represents the state of the game. */
 public class GameState {
+
+  public static GlitchSound glitchSound = new GlitchSound();
+
+  public static List<TextToSpeech> speechList = new ArrayList<TextToSpeech>();
 
   public static boolean isGameMuted = false;
 
@@ -397,5 +402,11 @@ public class GameState {
     }
     // if it dosent return false
     return false;
+  }
+
+  public static void cancelAllSpeech() {
+    for (TextToSpeech speech : speechList) {
+      speech.cancel();
+    }
   }
 }

@@ -9,9 +9,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.StartScreenController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.StartScreenController">
    <children>
-      <ImageView fitHeight="614.0" fitWidth="816.0" layoutX="-3.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="603.0" fitWidth="1134.0" layoutX="-4.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/startScreen/startScreen.png" />
          </image>
@@ -21,72 +21,72 @@
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <ImageView fx:id="muteSound" fitHeight="40.0" fitWidth="40.0" layoutX="115.0" layoutY="40.0" onMouseClicked="#onMuteSoundClicked" onMouseEntered="#muteSoundEntered" onMouseExited="#muteSoundExited" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="muteSound" fitHeight="40.0" fitWidth="40.0" layoutX="992.0" layoutY="41.0" onMouseClicked="#onMuteSoundClicked" onMouseEntered="#muteSoundEntered" onMouseExited="#muteSoundExited" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/overlay/sound-on.png" />
          </image>
       </ImageView>
-      <Label fx:id="lblEasy" alignment="CENTER" layoutX="109.0" layoutY="260.0" onMouseClicked="#levelClicked" onMouseEntered="#lblEasyEntered" onMouseExited="#lblEasyExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Easy" textFill="#bfbfbf">
+      <Label fx:id="lblEasy" alignment="CENTER" layoutX="259.0" layoutY="284.0" onMouseClicked="#levelClicked" onMouseEntered="#lblEasyEntered" onMouseExited="#lblEasyExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Easy" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblMedium" alignment="CENTER" layoutX="109.0" layoutY="313.0" onMouseClicked="#levelClicked" onMouseEntered="#lblMediumEntered" onMouseExited="#lblMediumExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Medium" textFill="#bfbfbf">
+      <Label fx:id="lblMedium" alignment="CENTER" layoutX="259.0" layoutY="366.0" onMouseClicked="#levelClicked" onMouseEntered="#lblMediumEntered" onMouseExited="#lblMediumExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Medium" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblHard" alignment="CENTER" layoutX="109.0" layoutY="366.0" onMouseClicked="#levelClicked" onMouseEntered="#lblHardEntered" onMouseExited="#lblHardExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Hard" textFill="#bfbfbf">
+      <Label fx:id="lblHard" alignment="CENTER" layoutX="259.0" layoutY="445.0" onMouseClicked="#levelClicked" onMouseEntered="#lblHardEntered" onMouseExited="#lblHardExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Hard" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="screenStage" alignment="CENTER" layoutX="40.0" layoutY="192.0" prefHeight="44.0" prefWidth="256.0" style="-fx-background-color: rgba(255,255,255,0.3); -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px;" text="Difficulty Select" textFill="WHITE">
+      <Label fx:id="screenStage" alignment="CENTER" layoutX="193.0" layoutY="200.0" prefHeight="44.0" prefWidth="256.0" style="-fx-background-color: rgba(255,255,255,0.3); -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px;" text="Difficulty Select" textFill="WHITE">
          <font>
             <Font name="Consolas" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="lbl2Min" alignment="CENTER" layoutX="109.0" layoutY="260.0" onMouseClicked="#timeClicked" onMouseEntered="#lbl2MinEntered" onMouseExited="#lbl2MinExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="2 minutes" textFill="#bfbfbf" visible="false">
+      <Label fx:id="lbl2Min" alignment="CENTER" layoutX="259.0" layoutY="286.0" onMouseClicked="#timeClicked" onMouseEntered="#lbl2MinEntered" onMouseExited="#lbl2MinExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="2 minutes" textFill="#bfbfbf" visible="false">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lbl4Min" alignment="CENTER" layoutX="109.0" layoutY="313.0" onMouseClicked="#timeClicked" onMouseEntered="#lbl4MinEntered" onMouseExited="#lbl4MinExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="4 minutes" textFill="#bfbfbf" visible="false">
+      <Label fx:id="lbl4Min" alignment="CENTER" layoutX="259.0" layoutY="367.0" onMouseClicked="#timeClicked" onMouseEntered="#lbl4MinEntered" onMouseExited="#lbl4MinExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="4 minutes" textFill="#bfbfbf" visible="false">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lbl6Min" alignment="CENTER" layoutX="109.0" layoutY="366.0" onMouseClicked="#timeClicked" onMouseEntered="#lbl6MinEntered" onMouseExited="#lbl6MinExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="6 minutes" textFill="#bfbfbf" visible="false">
+      <Label fx:id="lbl6Min" alignment="CENTER" layoutX="259.0" layoutY="445.0" onMouseClicked="#timeClicked" onMouseEntered="#lbl6MinEntered" onMouseExited="#lbl6MinExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="6 minutes" textFill="#bfbfbf" visible="false">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="levelSummary" layoutX="40.0" layoutY="257.0" prefHeight="44.0" prefWidth="256.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px;" text="Difficulty:" textFill="WHITE" visible="false">
+      <Label fx:id="levelSummary" layoutX="190.0" layoutY="284.0" prefHeight="44.0" prefWidth="256.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px;" text="Difficulty:" textFill="WHITE" visible="false">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="timeSummary" layoutX="40.0" layoutY="310.0" prefHeight="44.0" prefWidth="256.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px;" text="Time:" textFill="WHITE" visible="false">
+      <Label fx:id="timeSummary" layoutX="193.0" layoutY="365.0" prefHeight="44.0" prefWidth="256.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px;" text="Time:" textFill="WHITE" visible="false">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="levelSummaryVal" alignment="TOP_RIGHT" layoutX="153.0" layoutY="261.0" prefHeight="44.0" prefWidth="131.0" style="-fx-padding: 7px;" text="Hard" textFill="WHITE" visible="false">
+      <Label fx:id="levelSummaryVal" alignment="TOP_RIGHT" layoutX="300.0" layoutY="286.0" prefHeight="44.0" prefWidth="131.0" style="-fx-padding: 7px;" text="Hard" textFill="WHITE" visible="false">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="timeSummaryVal" alignment="CENTER_RIGHT" layoutX="92.0" layoutY="310.0" prefHeight="44.0" prefWidth="193.0" style="-fx-padding: 7px;" text="X minutes" textFill="WHITE" visible="false">
+      <Label fx:id="timeSummaryVal" alignment="CENTER_RIGHT" layoutX="259.0" layoutY="364.0" prefHeight="44.0" prefWidth="193.0" style="-fx-padding: 7px;" text="X minutes" textFill="WHITE" visible="false">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblStart" alignment="CENTER" layoutX="109.0" layoutY="430.0" onMouseClicked="#lblStartClicked" onMouseEntered="#lblStartEntered" onMouseExited="#lblStartExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Start" textFill="WHITE" visible="false">
+      <Label fx:id="lblStart" alignment="CENTER" layoutX="197.0" layoutY="445.0" onMouseClicked="#lblStartClicked" onMouseEntered="#lblStartEntered" onMouseExited="#lblStartExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Start" textFill="WHITE" visible="false">
          <font>
             <Font name="Consolas Bold Italic" size="35.0" />
          </font>
       </Label>
-      <Label contentDisplay="CENTER" layoutX="193.0" layoutY="39.0" text="The Singularity's Grip" textFill="#c31212">
+      <Label contentDisplay="CENTER" layoutX="366.0" layoutY="39.0" text="The Singularity's Grip" textFill="#c31212">
          <font>
             <Font name="Consolas Bold Italic" size="35.0" />
          </font>
@@ -94,17 +94,17 @@
             <DropShadow height="82.07" radius="42.0" spread="0.82" width="87.93" />
          </effect>
       </Label>
-      <ImageView fitHeight="100.0" fitWidth="109.0" layoutX="608.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="100.0" fitWidth="109.0" layoutX="946.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/menu/arrowS.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="120.0" fitWidth="100.0" layoutX="466.0" layoutY="409.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="120.0" fitWidth="100.0" layoutX="810.0" layoutY="405.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/menu/arrowSE.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="txaHow" editable="false" layoutX="391.0" layoutY="201.0" prefHeight="262.0" prefWidth="338.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px; -fx-control-inner-background: black;" text="• Highlighted items are clickable.&#10;&#10;• Solve puzzles and riddles to progress through the game.&#10;&#10;• Drag items from your inventory to interact with the room" wrapText="true">
+      <TextArea fx:id="txaHow" editable="false" layoutX="674.0" layoutY="202.0" prefHeight="262.0" prefWidth="338.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px; -fx-control-inner-background: black;" text="• Highlighted items are clickable.&#10;&#10;• Solve puzzles and riddles to progress through the game.&#10;&#10;• Drag items from your inventory to interact with the room" wrapText="true">
          <font>
             <Font name="Consolas Bold" size="18.0" />
          </font>
@@ -112,13 +112,13 @@
             <DropShadow height="255.0" radius="127.0" spread="0.75" width="255.0" />
          </effect>
       </TextArea>
-      <Label fx:id="lblHow" alignment="CENTER" layoutX="587.0" layoutY="510.0" onMouseClicked="#howClicked" onMouseEntered="#lblHowEntered" onMouseExited="#lblHowExited" prefHeight="39.0" prefWidth="154.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="How to Play" textFill="#bfbfbf">
+      <Label fx:id="lblHow" alignment="CENTER" layoutX="919.0" layoutY="509.0" onMouseClicked="#howClicked" onMouseEntered="#lblHowEntered" onMouseExited="#lblHowExited" prefHeight="39.0" prefWidth="154.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="How to Play" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Rectangle fx:id="loadingBackground" arcHeight="5.0" arcWidth="5.0" height="603.0" layoutX="-3.0" layoutY="-2.0" stroke="TRANSPARENT" strokeType="INSIDE" visible="false" width="806.0" />
-      <ImageView fx:id="imgLoading" fitHeight="206.0" fitWidth="214.0" layoutX="300.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <Rectangle fx:id="loadingBackground" arcHeight="5.0" arcWidth="5.0" height="603.0" layoutX="-3.0" layoutY="-2.0" stroke="TRANSPARENT" strokeType="INSIDE" visible="false" width="1108.0" />
+      <ImageView fx:id="imgLoading" fitHeight="206.0" fitWidth="214.0" layoutX="468.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../images/startScreen/loading.gif" />
          </image>

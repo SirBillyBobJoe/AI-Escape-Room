@@ -12,7 +12,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.GameState;
-import nz.ac.auckland.se206.GlitchSound;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.controllers.GameMasterActions;
 
@@ -64,6 +63,10 @@ public class ComputerScreenController {
     GameState.chat.setGameMasterActions(GameState.gameMasterActions);
     GameState.userInterfaceOverlayController.moveGameMaster();
     GameState.userInterfaceOverlayController.setGameMaster(getGameMaster());
+
+    if (GameState.riddle2019Solved) {
+      GameState.riddleChat.newRiddle(GameState.padlockAnswer);
+    }
   }
 
   /**
@@ -121,7 +124,7 @@ public class ComputerScreenController {
       GameState.chat.onSend(promptArea2);
       GameState.chat.setGameMasterActions(new GameMasterActions(imgGameMaster2, txaGameMaster2));
 
-      new GlitchSound().play();
+      GameState.glitchSound.play();
     }
 
     // Reset the player interaction timer

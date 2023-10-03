@@ -22,11 +22,6 @@
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <ImageView fx:id="muteSound" fitHeight="40.0" fitWidth="40.0" layoutX="160.0" layoutY="40.0" onMouseClicked="#onMuteSoundClicked" onMouseEntered="#muteSoundEntered" onMouseExited="#muteSoundExited" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/overlay/sound-on.png" />
-         </image>
-      </ImageView>
       <TextArea fx:id="itemChat" editable="false" focusTraversable="false" layoutX="821.0" layoutY="527.0" mouseTransparent="true" prefHeight="44.0" prefWidth="250.0" style="-fx-background-color: transparent; -fx-control-inner-background: black; -fx-border-color: white; -fx-border-radius: 5;" wrapText="true">
          <effect>
             <DropShadow height="159.56" radius="39.39" spread="0.42" width="0.0" />
@@ -49,7 +44,7 @@
       <ImageView fx:id="item3" fitHeight="34.0" fitWidth="37.0" layoutX="950.0" layoutY="475.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="item4" fitHeight="34.0" fitWidth="37.0" layoutX="992.0" layoutY="475.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="item5" fitHeight="34.0" fitWidth="37.0" layoutX="1034.0" layoutY="474.0" onDragDetected="#onDragDetected" onDragDropped="#onDragDropped" onDragExited="#onDragExited" onDragOver="#onDragOver" onMouseClicked="#onInventoryClicked" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="countdownLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="831.0" layoutY="2.0" prefHeight="53.0" prefWidth="140.0" text="120" textAlignment="CENTER" textFill="RED">
+      <Label fx:id="countdownLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="866.0" layoutY="2.0" prefHeight="53.0" prefWidth="140.0" text="120" textAlignment="CENTER" textFill="RED">
          <font>
             <Font name="Consolas" size="45.0" />
          </font>
@@ -103,5 +98,10 @@
          </font>
       </TextArea>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="2.0" layoutX="822.0" layoutY="447.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="250.0" />
+      <ImageView fx:id="muteSound" fitHeight="40.0" fitWidth="40.0" layoutX="819.0" layoutY="16.0" onMouseClicked="#onMuteSoundClicked" onMouseEntered="#muteSoundEntered" onMouseExited="#muteSoundExited" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/overlay/sound-on.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

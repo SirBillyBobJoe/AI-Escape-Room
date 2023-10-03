@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.speech;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import javax.speech.AudioException;
 import javax.speech.Central;
 import javax.speech.EngineException;
@@ -37,6 +38,7 @@ public class TextToSpeech {
   }
 
   private final Synthesizer synthesizer;
+  private AtomicBoolean cancelRequested;
 
   /**
    * Constructs the TextToSpeech object by creating and allocating the speech synthesizer. The
@@ -50,7 +52,7 @@ public class TextToSpeech {
       Central.registerEngineCentral("com.sun.speech.freetts.jsapi.FreeTTSEngineCentral");
 
       synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(java.util.Locale.ENGLISH));
-
+      cancelRequested = new AtomicBoolean(false);
       synthesizer.allocate();
       // if it dosent work
     } catch (final EngineException e) {
@@ -65,15 +67,25 @@ public class TextToSpeech {
    */
   public void speak(final String... sentences) {
     boolean isFirst = true;
-    // speaks the sentence
+    // cancels if requested
     for (final String sentence : sentences) {
-      if (!isFirst) {
-        // Add a pause between sentences.
+      if (cancelRequested.get()) {
+        break;
+      }
+      // speaks and cancels
+      if (isFirst) {
+        isFirst = false;
+      } else {
         sleep();
       }
+
       speak(sentence);
-      isFirst = false;
     }
+  }
+
+  public void cancel() {
+    synthesizer.cancel();
+    cancelRequested.set(true);
   }
 
   /**

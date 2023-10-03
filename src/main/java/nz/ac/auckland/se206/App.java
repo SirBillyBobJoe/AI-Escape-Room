@@ -108,7 +108,7 @@ public class App extends Application {
       stage.setY(centerY);
     } else {
       // sets the dimensions if not overlay
-      stage.setWidth(800 + additionalWidth);
+      stage.setWidth(1100 + additionalWidth);
       stage.setHeight(600 + additionalHeight);
 
       // Calculate screen dimensions
@@ -117,7 +117,7 @@ public class App extends Application {
 
       // Calculate the position for the top-left corner
       double centerX =
-          bounds.getMinX() + (bounds.getWidth() - 800) / 2; // Adjust "800" for your window width
+          bounds.getMinX() + (bounds.getWidth() - 1100) / 2; // Adjust "800" for your window width
       double centerY =
           bounds.getMinY() + (bounds.getHeight() - 600) / 2; // Adjust "600" for your window height
 
@@ -137,7 +137,7 @@ public class App extends Application {
   @Override
   public void start(final Stage stage) throws IOException {
     // starts the room
-    scene = new Scene(SceneManager.getUi(AppUi.STARTSCREEN), 800, 600);
+    scene = new Scene(SceneManager.getUi(AppUi.STARTSCREEN), 1100, 600);
     scene.getRoot().requestFocus();
     // resizes not possible
     stage.setResizable(false);
@@ -149,7 +149,7 @@ public class App extends Application {
 
     // Calculate the position for the top-left corner
     double centerX =
-        bounds.getMinX() + (bounds.getWidth() - 800) / 2; // Adjust "800" for your window width
+        bounds.getMinX() + (bounds.getWidth() - 1100) / 2; // Adjust "800" for your window width
     double centerY =
         bounds.getMinY() + (bounds.getHeight() - 600) / 2; // Adjust "600" for your window height
 

@@ -67,4 +67,8 @@ public class GlitchSound {
       System.out.println("Uh oh, stinky...");
     }
   }
+
+  public void stop() {
+    clip.stop();
+  }
 }
