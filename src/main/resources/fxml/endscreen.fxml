@@ -41,5 +41,10 @@
             <Font name="Consolas" size="25.0" />
          </font>
       </Label>
+      <ImageView fitHeight="89.0" fitWidth="89.0" layoutX="29.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/endScreen/gameMasterClear.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
