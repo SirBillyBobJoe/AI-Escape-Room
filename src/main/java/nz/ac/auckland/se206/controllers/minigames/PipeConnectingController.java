@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.GameState;
+import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 
 /** Controller for the Pipe Connecting Mini-game. */
@@ -588,6 +589,7 @@ public class PipeConnectingController {
     if (GameState.puzzleSolved.get(Puzzle.PIPECONNECTING).getValue()) {
       return;
     }
+    new MouseClick().play();
     Pane pane = (Pane) event.getSource();
     int x = GridPane.getColumnIndex(pane);
     int y = GridPane.getRowIndex(pane);

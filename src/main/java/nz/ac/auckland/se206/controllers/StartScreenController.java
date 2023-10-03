@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -28,6 +29,7 @@ public class StartScreenController {
   @FXML private Label screenStage;
 
   @FXML private Label lblExit;
+  @FXML private ImageView muteSound;
 
   @FXML private Label lblEasy;
   @FXML private Label lblMedium;
@@ -53,6 +55,9 @@ public class StartScreenController {
   private final DropShadow dropShadow = new DropShadow();
   private final DropShadow startDropShadow = new DropShadow();
 
+  private final Image SOUND_OFF_IMAGE = new Image("/images/overlay/sound-off.png");
+  private final Image SOUND_ON_IMAGE = new Image("/images/overlay/sound-on.png");
+
   /** Initializes the ScreenStartController, setting focus on anchorPane. */
   public void initialize() {
     anchorPane.requestFocus();
@@ -65,6 +70,8 @@ public class StartScreenController {
     // Start button drop shadow
     startDropShadow.setColor(Color.web("#c31212"));
     startDropShadow.setRadius(10.0);
+
+    setMuteSoundImage(GameState.isGameMuted);
   }
 
   /**
@@ -455,6 +462,49 @@ public class StartScreenController {
       // closes the how to play
       txaHow.setVisible(true);
       lblHow.setText("Close");
+    }
+  }
+
+  /** Mutes the sound when the mute button is clicked */
+  @FXML
+  public void onMuteSoundClicked(MouseEvent event) {
+    GameState.isGameMuted = !GameState.isGameMuted;
+    new MouseClick().play();
+    setMuteSoundImage(GameState.isGameMuted);
+  }
+
+  /**
+   * Updates the muteSound button when the mouse hovers over it.
+   *
+   * @param event MouseEvent for hovering over the muteSound button.
+   */
+  @FXML
+  private void muteSoundEntered(MouseEvent event) {
+    muteSound.setEffect(dropShadow);
+    muteSound.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: white; -fx-background-radius: 5px;"
+            + " -fx-background-color: black; -fx-padding: 7px;");
+  }
+
+  /**
+   * Updates the muteSound button when the mouse leaves its area.
+   *
+   * @param event MouseEvent for leaving the muteSound button.
+   */
+  @FXML
+  private void muteSoundExited(MouseEvent event) {
+    muteSound.setEffect(null);
+    muteSound.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: #bfbfbf; -fx-background-radius: 5px;"
+            + " -fx-background-color: black; -fx-padding: 7px;");
+  }
+
+  /** Sets the mute sound image */
+  public void setMuteSoundImage(boolean muted) {
+    if (muted) {
+      muteSound.setImage(SOUND_OFF_IMAGE);
+    } else {
+      muteSound.setImage(SOUND_ON_IMAGE);
     }
   }
 }
