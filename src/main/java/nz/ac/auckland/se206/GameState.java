@@ -45,11 +45,29 @@ public class GameState {
   /** Indicates whether the pipe puzzle has been solved */
   public static boolean pipePuzzleSolved = false;
 
+  /* Indicates whether the hammer has been found */
+  public static boolean isHammerFound = false;
+
+  /* Indicates whether the lighter has been found */
+  public static boolean isLighterFound = false;
+
+  /* Indicates whether the red wire has been found */
+  public static boolean isRedWire = false;
+
+  /* Indicates whether the greenWire has been found */
+  public static boolean isGreenWire = false;
+
+  /* Indicates whether the blue wire has been found */
+  public static boolean isBlueWire = false;
+
   /** Indicates whether the player has hammered down the wall */
   public static boolean wallRemoved = false;
 
   /** Indicates whether the both wall panels have been removed */
-  public static boolean wallPiecesFound = false;
+  public static boolean lighter = false;
+
+  /** Indicates whether the both wall panels have been removed */
+  public static boolean wire = false;
 
   /** Indicates whether the player has solved the candle puzzle */
   public static boolean candlePuzzleSolved = false;
@@ -361,7 +379,8 @@ public class GameState {
     // reset the puzzles
     pipePuzzleSolved = false;
     wallRemoved = false;
-    wallPiecesFound = false;
+    lighter = false;
+    wire = false;
     candlePuzzleSolved = false;
     chestPuzzleSolved = false;
     riddle2019Solved = false;
@@ -373,10 +392,20 @@ public class GameState {
     // reset the keys and actives
     isKeyFound = false;
     riddleRoomActive.set(false);
+    isHammerFound = false;
 
     inventory = new Inventory();
     escaped = false;
     gameMaster = new GameMaster();
+
+    // reset items
+    isLighterFound = false;
+
+    isRedWire = false;
+
+    isGreenWire = false;
+
+    isBlueWire = false;
 
     // Random values
     random = new Random();

@@ -14,7 +14,7 @@ public class Hammer extends Object {
    */
   public Hammer() {
     super(new Image("/images/Inventory/hammer.png"));
-    this.message = "You have found a hammer.";
-    this.itemIdentifier = "This is a hammer.";
+    this.message = "You have found a hammer. Drag It To Interact With Objects In The Room";
+    this.itemIdentifier = "This is a hammer. Drag It To Interact With Objects In The Room";
   }
 }

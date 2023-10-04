@@ -109,8 +109,16 @@ public class MainRoomController {
 
     } else if (source instanceof ImageView) {
 
+      // sets found for the items
       if (id.equals("key1")) {
+        GameState.isKeyFound = true;
         source.visibleProperty().unbind();
+      } else if (id.equals("lighter1")) {
+        GameState.isLighterFound = true;
+      } else if (id.equals("redWire")) {
+        GameState.isRedWire = true;
+      } else if (id.equals("blueWire")) {
+        GameState.isBlueWire = true;
       }
 
       if (id.equals("lock1") && !(((Lock) GameState.currentRoomItems.get(lock1)).isLocked())) {
@@ -151,8 +159,11 @@ public class MainRoomController {
       GameState.currentPuzzle.set(Puzzle.PASSCODE);
     } else if (id.equals("hide1") || id.equals("hide2")) {
       source.setVisible(false);
-      if (hide1.isVisible() == false && hide2.isVisible() == false) {
-        GameState.wallPiecesFound = true;
+      if (hide2.isVisible() == false) {
+        GameState.lighter = true;
+      }
+      if (hide1.isVisible() == false) {
+        GameState.wire = true;
       }
     }
   }
