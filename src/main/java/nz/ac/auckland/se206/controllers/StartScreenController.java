@@ -81,6 +81,7 @@ public class StartScreenController {
               change.setAnchor(change.getCaretPosition());
               return change;
             }));
+    txaHow.setMouseTransparent(true);
   }
 
   /**
