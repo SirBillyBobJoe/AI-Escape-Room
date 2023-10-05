@@ -1,16 +1,24 @@
 package nz.ac.auckland.se206.controllers.minigames;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
+import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
@@ -62,28 +70,37 @@ public class PipeConnectingController {
   @FXML private GridPane grid;
 
   private int gridHorizontalSize;
-  private int gridverticalSize;
+  private int gridVerticalSize;
   private double gridCellSize;
   private double rectWidth;
   private double rectHeight;
   private int[][] mapSetup;
   private List<Position> inlets;
+  private List<SimpleBooleanProperty> waterLeaksShowing;
   private int[][] mapRotations;
+
+  enum Direction {
+    TOP,
+    RIGHT,
+    BOTTOM,
+    LEFT
+  }
 
   /** Initializes the grid based on the game's difficulty. */
   @FXML
-  public void initialize() {
+  public void initialize() throws IOException {
     setGamesDifficulty();
     initializeDataStructures();
     generateMapSetup();
     createGrid();
+    checkCompleteness();
   }
 
   /** Sets the size of the grid based on the game's difficulty. */
   private void setGamesDifficulty() {
     // Was variable but is now constant
     gridHorizontalSize = 4;
-    gridverticalSize = 3;
+    gridVerticalSize = 3;
     gridCellSize = 80;
 
     rectWidth = gridCellSize / 4;
@@ -92,42 +109,50 @@ public class PipeConnectingController {
 
   /** Resets the datastructures to default values */
   private void initializeDataStructures() {
-    mapRotations = new int[gridHorizontalSize][gridverticalSize];
+    mapRotations = new int[gridHorizontalSize][gridVerticalSize];
 
     inlets = new ArrayList<Position>();
   }
 
-  /** Creates the grid represents by mapsetup and the game difficulty */
-  private void createGrid() {
+  /**
+   * Creates the grid represents by mapsetup and the game difficulty
+   *
+   * @throws IOException
+   */
+  private void createGrid() throws IOException {
     // initiates a random variable
     Random rand = new Random();
     // randomly creates the grid
     gridAnchor.setLayoutX((800 - (gridHorizontalSize + 1) * gridCellSize) / 2);
-    gridAnchor.setLayoutY((500 - (gridverticalSize + 1) * gridCellSize) / 2);
+    gridAnchor.setLayoutY((500 - (gridVerticalSize + 1) * gridCellSize) / 2);
     gridAnchor.setPrefSize(
-        (gridHorizontalSize + 1) * gridCellSize, (gridverticalSize + 1) * gridCellSize);
+        (gridHorizontalSize + 1) * gridCellSize, (gridVerticalSize + 1) * gridCellSize);
     grid.setLayoutX(gridCellSize / 2);
     grid.setLayoutY(gridCellSize / 2);
     // set the size
-    grid.setPrefSize(gridHorizontalSize * gridCellSize, gridverticalSize * gridCellSize);
+    grid.setPrefSize(gridHorizontalSize * gridCellSize, gridVerticalSize * gridCellSize);
     for (int i = 0; i < gridHorizontalSize; i++) {
       grid.getColumnConstraints().add(new javafx.scene.layout.ColumnConstraints(gridCellSize));
     }
     // loops through the grid
-    for (int i = 0; i < gridverticalSize; i++) {
+    for (int i = 0; i < gridVerticalSize; i++) {
       grid.getRowConstraints().add(new javafx.scene.layout.RowConstraints(gridCellSize));
     }
     // gives the grid a style color
     grid.setStyle("-fx-background-color: #FFFFFF;");
 
     for (int x = 0; x < gridHorizontalSize; x++) {
-      for (int y = 0; y < gridverticalSize; y++) {
+      for (int y = 0; y < gridVerticalSize; y++) {
         mapRotations[x][y] = rand.nextInt(4);
         Pane pane = createPane(mapSetup[x][y], x, y);
-        ;
         grid.add(pane, x, y);
       }
     }
+
+    waterLeaksShowing =
+        new ArrayList<SimpleBooleanProperty>(gridHorizontalSize * gridVerticalSize * 4);
+    createWaterLeaks();
+
     // initialise the rectangles in the game
     createInletRectangles();
   }
@@ -143,7 +168,7 @@ public class PipeConnectingController {
     Random rand = new Random();
 
     // Initialize the grid based on provided dimensions
-    mapSetup = new int[gridHorizontalSize][gridverticalSize];
+    mapSetup = new int[gridHorizontalSize][gridVerticalSize];
 
     // Variable to store the starting Position for the grid paths
     Position start = null;
@@ -151,13 +176,18 @@ public class PipeConnectingController {
     // List to store inlet Positions around the grid boundary
     inlets = new ArrayList<Position>();
 
-    // Randomly decide the number of inlets, minimum 2 and maximum 5
-    int numInlets = rand.nextInt(4) + 2;
+    // Set to 2 inlet
+    int numInlets = 2;
     System.out.println(numInlets);
 
     // Randomly place inlets on the grid boundary, starting from the top-left and moving clockwise
+    ArrayList<Integer> inletPositions = new ArrayList<Integer>();
     for (int i = 0; i < numInlets; i++) {
-      int position = rand.nextInt(gridHorizontalSize * 2 + gridverticalSize * 2);
+      int position = rand.nextInt(gridHorizontalSize * 2 + gridVerticalSize * 2);
+      while (inletPositions.contains(position)) {
+        position = rand.nextInt(gridHorizontalSize * 2 + gridVerticalSize * 2);
+      }
+      inletPositions.add(position);
 
       // Place on top edge
       if (position < gridHorizontalSize) {
@@ -168,7 +198,7 @@ public class PipeConnectingController {
         }
 
         // Place on right edge
-      } else if (position < gridHorizontalSize + gridverticalSize) {
+      } else if (position < gridHorizontalSize + gridVerticalSize) {
         int x = gridHorizontalSize - 1;
         int y = position - gridHorizontalSize;
         mapSetup[x][y] |= 0b0100;
@@ -178,11 +208,11 @@ public class PipeConnectingController {
         }
 
         // Place on bottom edge
-      } else if (position < gridHorizontalSize * 2 + gridverticalSize) {
-        int x = gridHorizontalSize - 1 - (position - gridHorizontalSize - gridverticalSize);
-        int y = gridverticalSize - 1;
+      } else if (position < gridHorizontalSize * 2 + gridVerticalSize) {
+        int x = gridHorizontalSize - 1 - (position - gridHorizontalSize - gridVerticalSize);
+        int y = gridVerticalSize - 1;
         mapSetup[x][y] |= 0b0010;
-        inlets.add(new Position(x, gridverticalSize));
+        inlets.add(new Position(x, gridVerticalSize));
         if (start == null) {
           start = new Position(x, y);
         }
@@ -190,7 +220,7 @@ public class PipeConnectingController {
         // Place on left edge
       } else {
         int x = 0;
-        int y = gridverticalSize - 1 - (position - gridHorizontalSize * 2 - gridverticalSize);
+        int y = gridVerticalSize - 1 - (position - gridHorizontalSize * 2 - gridVerticalSize);
         mapSetup[x][y] |= 0b0001;
         inlets.add(new Position(-1, y));
         if (start == null) {
@@ -202,7 +232,7 @@ public class PipeConnectingController {
     // Set up a list of available squares for path generation
     Set<Position> availableSquares = new HashSet<>();
     for (int x = 0; x < gridHorizontalSize; x++) {
-      for (int y = 0; y < gridverticalSize; y++) {
+      for (int y = 0; y < gridVerticalSize; y++) {
         availableSquares.add(new Position(x, y));
       }
     }
@@ -289,7 +319,7 @@ public class PipeConnectingController {
 
     // After main path generation, ensure all grid cells have at least two connections
     for (int x = 0; x < gridHorizontalSize; x++) {
-      for (int y = 0; y < gridverticalSize; y++) {
+      for (int y = 0; y < gridVerticalSize; y++) {
         Position cell = new Position(x, y);
         if (Integer.bitCount(mapSetup[x][y]) == 1) {
           // Force a second connection for cells with only one connection
@@ -330,7 +360,7 @@ public class PipeConnectingController {
     return p.horizontalValue >= 0
         && p.horizontalValue < gridHorizontalSize
         && p.verticalValue >= 0
-        && p.verticalValue < gridverticalSize;
+        && p.verticalValue < gridVerticalSize;
   }
 
   /**
@@ -341,7 +371,7 @@ public class PipeConnectingController {
    * @param y y-coordinate
    * @return Pane for the grid cell
    */
-  private Pane createPane(int stucture, int x, int y) {
+  private Pane createPane(int stucture, int x, int y) throws IOException {
     Pane pane = new Pane();
     pane.setPrefSize(gridCellSize, gridCellSize);
     pane.setOnMouseClicked(this::handlePaneClick);
@@ -379,7 +409,7 @@ public class PipeConnectingController {
   }
 
   /** Creates rectangles to represent inlets in the grid. */
-  private void createInletRectangles() {
+  private void createInletRectangles() throws IOException {
     for (Position inlet : inlets) {
       // Determine the position of the inlet
       int x = inlet.horizontalValue;
@@ -389,20 +419,39 @@ public class PipeConnectingController {
       double layoutY;
       double inletHeight = rectWidth * 1.5;
       boolean horizontal = false;
+      double waterLeakLayoutX;
+      double waterLeakLayoutY;
+      double waterLeakRotation;
       if (y == -1) { // Top side
         layoutX = (x + 1) * gridCellSize - 0.5 * rectWidth;
         layoutY = gridCellSize / 2 - inletHeight;
+
+        waterLeakLayoutX = (x + 0.5) * gridCellSize;
+        waterLeakLayoutY = -gridCellSize / 2;
+        waterLeakRotation = 180;
       } else if (x == gridHorizontalSize) { // Right side
         layoutX = (gridHorizontalSize + 0.5) * gridCellSize;
         layoutY = (y + 1) * gridCellSize - 0.5 * rectWidth;
         horizontal = true;
-      } else if (y == gridverticalSize) { // Bottom side
+
+        waterLeakLayoutX = (gridHorizontalSize + 0.5) * gridCellSize;
+        waterLeakLayoutY = (y + 0.5) * gridCellSize;
+        waterLeakRotation = 270;
+      } else if (y == gridVerticalSize) { // Bottom side
         layoutX = (x + 1) * gridCellSize - 0.5 * rectWidth;
-        layoutY = (gridverticalSize + 0.5) * gridCellSize;
+        layoutY = (gridVerticalSize + 0.5) * gridCellSize;
+
+        waterLeakLayoutX = (x + 0.5) * gridCellSize;
+        waterLeakLayoutY = layoutY;
+        waterLeakRotation = 0;
       } else { // Left side
         layoutX = gridCellSize / 2 - inletHeight;
         layoutY = (y + 1) * gridCellSize - 0.5 * rectWidth;
         horizontal = true;
+
+        waterLeakLayoutX = -gridCellSize / 2;
+        waterLeakLayoutY = (y + 0.5) * gridCellSize;
+        waterLeakRotation = 90;
       }
 
       // Create the rectangle for the inlet
@@ -421,7 +470,103 @@ public class PipeConnectingController {
       inletRectangle.setStrokeWidth(0);
 
       gridAnchor.getChildren().add(inletRectangle);
+
+      var waterLeak = createWaterLeak(waterLeakLayoutX, waterLeakLayoutY, waterLeakRotation);
+      gridAnchor.getChildren().add(waterLeak);
     }
+  }
+
+  private void createWaterLeaks() throws IOException {
+    for (int x = 0; x < gridHorizontalSize; x++) {
+      for (int y = 0; y < gridVerticalSize; y++) {
+        gridAnchor.getChildren().add(createGridWaterLeak(x, y, Direction.TOP));
+        gridAnchor.getChildren().add(createGridWaterLeak(x, y, Direction.RIGHT));
+        gridAnchor.getChildren().add(createGridWaterLeak(x, y, Direction.BOTTOM));
+        gridAnchor.getChildren().add(createGridWaterLeak(x, y, Direction.LEFT));
+      }
+    }
+  }
+
+  private Pane createGridWaterLeak(int x, int y, Direction d) throws IOException {
+    double layoutX = x * gridCellSize + 0.5 * gridCellSize;
+    double layoutY = y * gridCellSize + 0.5 * gridCellSize;
+    double rotate = 0;
+    switch (d) {
+      case TOP:
+        rotate = 0;
+        break;
+      case RIGHT:
+        rotate = 90;
+        break;
+      case BOTTOM:
+        rotate = 180;
+        break;
+      case LEFT:
+        rotate = 270;
+        break;
+    }
+    return createWaterLeak(layoutX, layoutY, rotate);
+  }
+
+  private Pane createWaterLeak(double layoutX, double layoutY, double rotate) throws IOException {
+    Pane topWaterLeak = (Pane) App.loadFxml("waterleak");
+    topWaterLeak.setPrefSize(gridCellSize, gridCellSize);
+    topWaterLeak.setLayoutX(layoutX);
+    topWaterLeak.setLayoutY(layoutY);
+    topWaterLeak.setRotate(rotate);
+
+    topWaterLeak.setMouseTransparent(true);
+    topWaterLeak.setVisible(false);
+
+    var leakShowing = new SimpleBooleanProperty(false);
+
+    FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), topWaterLeak);
+    fadeIn.setFromValue(0);
+    fadeIn.setToValue(0.8);
+
+    FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), topWaterLeak);
+    fadeOut.setToValue(0);
+
+    Timeline waterFlow =
+        new Timeline(
+            new KeyFrame(Duration.ZERO, new KeyValue(topWaterLeak.opacityProperty(), 0.7)),
+            new KeyFrame(Duration.seconds(0.8), new KeyValue(topWaterLeak.opacityProperty(), 1)));
+    waterFlow.setAutoReverse(true);
+    waterFlow.setCycleCount(Timeline.INDEFINITE);
+
+    leakShowing.addListener(
+        (observable, oldValue, newValue) -> {
+          if (oldValue == newValue) {
+            return;
+          }
+          if (newValue) {
+            topWaterLeak.opacityProperty().set(0);
+            topWaterLeak.setVisible(true);
+            fadeIn.setOnFinished(
+                e -> {
+                  if (!leakShowing.get()) {
+                    // If the player presses the button fast
+                    return;
+                  }
+                  waterFlow.play();
+                });
+            fadeIn.play();
+          } else {
+            waterFlow.stop();
+            fadeOut.play();
+            fadeOut.setOnFinished(
+                e -> {
+                  if (leakShowing.get()) {
+                    // If the player presses the button fast
+                    return;
+                  }
+                  topWaterLeak.setVisible(false);
+                });
+          }
+        });
+    waterLeaksShowing.add(leakShowing);
+
+    return topWaterLeak;
   }
 
   /**
@@ -439,10 +584,10 @@ public class PipeConnectingController {
     } // handle negative rotations
 
     while (rotation-- > 0) {
-      boolean leftMostBit = (cellData & 0b1000) != 0;
-      cellData = (cellData << 1) & 0b1111; // left shift and mask to ensure only 4 bits remain
-      if (leftMostBit) {
-        cellData |= 0b0001;
+      boolean rightMostBit = (cellData & 0b0001) != 0;
+      cellData = (cellData >> 1) & 0b1111; // right shift and mask to ensure only 4 bits remain
+      if (rightMostBit) {
+        cellData |= 0b1000;
       } // wrap around
     }
 
@@ -496,7 +641,9 @@ public class PipeConnectingController {
       return isValidInlet;
     }
 
-    return (mapSetup[adjacentCell.horizontalValue][adjacentCell.verticalValue]
+    return (rotateCellData(
+                mapSetup[adjacentCell.horizontalValue][adjacentCell.verticalValue],
+                mapRotations[adjacentCell.horizontalValue][adjacentCell.verticalValue])
             & oppositeDirectionMask)
         != 0;
   }
@@ -507,30 +654,49 @@ public class PipeConnectingController {
    */
   public void checkCompleteness() {
     // loops through and check if completed
+    boolean complete = true;
+    boolean[] waterLeakShowing = new boolean[waterLeaksShowing.size()];
     for (int i = 0; i < gridHorizontalSize; i++) {
-      for (int j = 0; j < gridverticalSize; j++) {
+      for (int j = 0; j < gridVerticalSize; j++) {
         Position currentCell = new Position(i, j);
         int cellData = rotateCellData(mapSetup[i][j], mapRotations[i][j]);
         // if all these are true then compelted
         if ((cellData & 0b1000) != 0 && !areAdjacentCellsConnected(currentCell, 0b1000)) {
-          return;
+          complete = false;
+          waterLeakShowing[getWaterLeakIndex(i, j, Direction.TOP)] = true;
         }
         if ((cellData & 0b0100) != 0 && !areAdjacentCellsConnected(currentCell, 0b0100)) {
-          return;
+          complete = false;
+          waterLeakShowing[getWaterLeakIndex(i, j, Direction.RIGHT)] = true;
         }
         if ((cellData & 0b0010) != 0 && !areAdjacentCellsConnected(currentCell, 0b0010)) {
-          return;
+          complete = false;
+          waterLeakShowing[getWaterLeakIndex(i, j, Direction.BOTTOM)] = true;
         }
         if ((cellData & 0b0001) != 0 && !areAdjacentCellsConnected(currentCell, 0b0001)) {
-          return;
+          complete = false;
+          waterLeakShowing[getWaterLeakIndex(i, j, Direction.LEFT)] = true;
         }
       }
     }
-    // check the inlet position if its true return
-    for (Position inletPosition : inlets) {
-      if (!isInletConnected(inletPosition)) {
-        return;
+    // Check the inlet position if its true return
+    for (int i = 0; i < inlets.size(); i++) {
+      if (!isInletConnected(inlets.get(i))) {
+        complete = false;
+        waterLeakShowing[getInletWaterLeakIndex(i)] = true;
       }
+    }
+
+    // Update different water leaks
+    for (int i = 0; i < waterLeakShowing.length; i++) {
+      var booleanProperty = waterLeaksShowing.get(i);
+      if (booleanProperty.get() != waterLeakShowing[i]) {
+        booleanProperty.set(waterLeakShowing[i]);
+      }
+    }
+
+    if (!complete) {
+      return;
     }
 
     onComplete();
@@ -555,27 +721,46 @@ public class PipeConnectingController {
       // Right side
       adjacentPosition = new Position(gridHorizontalSize - 1, inlet.verticalValue);
       mask = 0b0100; // Check for the rightward pipe from the adjacent cell
-    } else if (inlet.verticalValue == gridverticalSize) {
+    } else if (inlet.verticalValue == gridVerticalSize) {
       // Bottom side
-      adjacentPosition = new Position(inlet.horizontalValue, gridverticalSize - 1);
+      adjacentPosition = new Position(inlet.horizontalValue, gridVerticalSize - 1);
       mask = 0b0010; // Check for the downward pipe from the adjacent cell
     } else if (inlet.horizontalValue == -1) {
       // Left side
       adjacentPosition = new Position(0, inlet.verticalValue);
       mask = 0b0001; // Check for the leftward pipe from the adjacent cell
+    } else {
+      throw new IllegalArgumentException("Position is not an inlet!");
     }
 
-    if (adjacentPosition != null) {
-      int cellData = mapSetup[adjacentPosition.horizontalValue][adjacentPosition.verticalValue];
-      int rotatedCellData =
-          rotateCellData(
-              cellData,
-              mapRotations[adjacentPosition.horizontalValue][adjacentPosition.verticalValue]);
+    int cellData = mapSetup[adjacentPosition.horizontalValue][adjacentPosition.verticalValue];
+    int rotatedCellData =
+        rotateCellData(
+            cellData,
+            mapRotations[adjacentPosition.horizontalValue][adjacentPosition.verticalValue]);
 
-      // Check if the adjacent cell has a pipe in the direction of the inlet
-      return (rotatedCellData & mask) != 0;
+    // Check if the adjacent cell has a pipe in the direction of the inlet
+    return (rotatedCellData & mask) != 0;
+  }
+
+  private int getWaterLeakIndex(int x, int y, Direction d) {
+    var index = (x * gridVerticalSize + y) * 4;
+    switch (d) {
+      case TOP:
+        return index;
+      case RIGHT:
+        return index + 1;
+      case BOTTOM:
+        return index + 2;
+      case LEFT:
+        return index + 3;
+      default:
+        return -1;
     }
-    return false;
+  }
+
+  private int getInletWaterLeakIndex(int inletIndex) {
+    return gridHorizontalSize * gridVerticalSize * 4 + inletIndex;
   }
 
   /**

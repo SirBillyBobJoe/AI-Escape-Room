@@ -7,7 +7,7 @@
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.minigames.PipeConnectingController">
   <children>
       <Rectangle fill="#000000cc" height="600.0" onMouseClicked="#exitPuzzle" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
-    <AnchorPane fx:id="gridAnchor" layoutX="213.0" layoutY="100.0" prefHeight="300" prefWidth="375.0" style="-fx-background-color: #909090;">
+    <AnchorPane fx:id="gridAnchor" layoutX="213.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300" prefWidth="375.0" style="-fx-background-color: #909090;">
       <children>
         <GridPane fx:id="grid" gridLinesVisible="true" layoutX="37.5" layoutY="37.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="300.0">
         </GridPane>
