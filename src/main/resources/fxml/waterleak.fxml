@@ -11,5 +11,10 @@
             <Image url="@../images/PipeConnecting/water.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="39.0" fitWidth="66.0" layoutX="21.0" layoutY="-20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/PipeConnecting/waterSpray.gif" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
