@@ -18,6 +18,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
@@ -143,7 +145,7 @@ public class PipeConnectingController {
       grid.getRowConstraints().add(new javafx.scene.layout.RowConstraints(gridCellSize));
     }
     // gives the grid a style color
-    grid.setStyle("-fx-background-color: #FFFFFF;");
+    grid.setStyle("-fx-background-color: #140a07;");
 
     for (int x = 0; x < gridHorizontalSize; x++) {
       for (int y = 0; y < gridVerticalSize; y++) {
@@ -388,24 +390,28 @@ public class PipeConnectingController {
       // top
       Rectangle rect = new Rectangle(offsetIncrement, 0, rectWidth, rectHeight);
       rect.setStrokeWidth(0);
+      rect.setFill(Color.web("#8a7f80"));
       children.add(rect);
     }
     if ((stucture & 0b0100) != 0) {
       // right
       Rectangle rect = new Rectangle(offsetIncrement, offsetIncrement, rectHeight, rectWidth);
       rect.setStrokeWidth(0);
+      rect.setFill(Color.web("#8a7f80"));
       children.add(rect);
     }
     if ((stucture & 0b0010) != 0) {
       // bottom
       Rectangle rect = new Rectangle(offsetIncrement, offsetIncrement, rectWidth, rectHeight);
       rect.setStrokeWidth(0);
+      rect.setFill(Color.web("#8a7f80"));
       children.add(rect);
     }
     if ((stucture & 0b0001) != 0) {
       // left
       Rectangle rect = new Rectangle(0, offsetIncrement, rectHeight, rectWidth);
       rect.setStrokeWidth(0);
+      rect.setFill(Color.web("#8a7f80"));
       children.add(rect);
     }
 
@@ -472,6 +478,7 @@ public class PipeConnectingController {
       inletRectangle.setLayoutX(layoutX);
       inletRectangle.setLayoutY(layoutY);
       inletRectangle.setStrokeWidth(0);
+      inletRectangle.setFill(Color.web("#8a7f80"));
 
       gridAnchor.getChildren().add(inletRectangle);
 
