@@ -6,9 +6,9 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="80.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="39.0" fitWidth="29.0" layoutX="26.0" layoutY="-8.0">
+      <ImageView fitHeight="27.0" fitWidth="31.0" layoutX="25.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/PipeConnecting/water.png" />
+            <Image url="@../images/PipeConnecting/waterSpray.gif" />
          </image>
       </ImageView>
    </children>
