@@ -19,7 +19,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
@@ -531,11 +530,11 @@ public class PipeConnectingController {
 
     var leakShowing = new SimpleBooleanProperty(false);
 
-    FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), topWaterLeak);
+    FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), topWaterLeak);
     fadeIn.setFromValue(0);
     fadeIn.setToValue(0.8);
 
-    FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), topWaterLeak);
+    FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), topWaterLeak);
     fadeOut.setToValue(0);
 
     Timeline waterFlow =
