@@ -530,11 +530,11 @@ public class PipeConnectingController {
 
     var leakShowing = new SimpleBooleanProperty(false);
 
-    FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), topWaterLeak);
+    FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.2), topWaterLeak);
     fadeIn.setFromValue(0);
     fadeIn.setToValue(0.8);
 
-    FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), topWaterLeak);
+    FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.2), topWaterLeak);
     fadeOut.setToValue(0);
 
     Timeline waterFlow =
