@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.DropShadow?>
@@ -21,11 +22,6 @@
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <ImageView fx:id="muteSound" fitHeight="40.0" fitWidth="40.0" layoutX="998.0" layoutY="41.0" onMouseClicked="#onMuteSoundClicked" onMouseEntered="#muteSoundEntered" onMouseExited="#muteSoundExited" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/overlay/sound-on.png" />
-         </image>
-      </ImageView>
       <Label fx:id="lblEasy" alignment="CENTER" layoutX="149.0" layoutY="266.0" onMouseClicked="#levelClicked" onMouseEntered="#lblEasyEntered" onMouseExited="#lblEasyExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Easy" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
@@ -104,13 +100,16 @@
             <Image url="@../images/menu/arrowSE.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="txaHow" editable="false" layoutX="647.0" layoutY="181.0" prefHeight="262.0" prefWidth="338.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px; -fx-control-inner-background: black;" text="• Highlighted items are clickable.&#10;&#10;• Solve puzzles and riddles to progress through the game.&#10;&#10;• Drag items from your inventory to interact with the room" wrapText="true">
+      <TextArea fx:id="txaHow" editable="false" focusTraversable="false" layoutX="647.0" layoutY="181.0" prefHeight="262.0" prefWidth="338.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-padding: 7px; -fx-border-radius: 5px; -fx-control-inner-background: black; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" text="• Highlighted items are clickable.&#10;&#10;• Solve puzzles and riddles to progress through the game.&#10;&#10;• Drag items from your inventory to interact with the room" wrapText="true">
          <font>
             <Font name="Consolas Bold" size="18.0" />
          </font>
          <effect>
             <DropShadow height="255.0" radius="127.0" spread="0.75" width="255.0" />
          </effect>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
       </TextArea>
       <Label fx:id="lblHow" alignment="CENTER" layoutX="740.0" layoutY="447.0" onMouseClicked="#howClicked" onMouseEntered="#lblHowEntered" onMouseExited="#lblHowExited" prefHeight="39.0" prefWidth="154.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Close" textFill="#bfbfbf">
          <font>
@@ -121,6 +120,11 @@
       <ImageView fx:id="imgLoading" fitHeight="206.0" fitWidth="214.0" layoutX="468.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../images/startScreen/loading.gif" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="muteSound" fitHeight="40.0" fitWidth="40.0" layoutX="998.0" layoutY="41.0" onMouseClicked="#onMuteSoundClicked" onMouseEntered="#muteSoundEntered" onMouseExited="#muteSoundExited" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/overlay/sound-on.png" />
          </image>
       </ImageView>
    </children>

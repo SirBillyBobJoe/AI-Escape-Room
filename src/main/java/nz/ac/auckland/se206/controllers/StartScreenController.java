@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -72,6 +73,15 @@ public class StartScreenController {
     startDropShadow.setRadius(10.0);
 
     setMuteSoundImage(GameState.isGameMuted);
+
+    // Disable text selection in the how to play text area
+    txaHow.setTextFormatter(
+        new TextFormatter<String>(
+            change -> {
+              change.setAnchor(change.getCaretPosition());
+              return change;
+            }));
+    txaHow.setMouseTransparent(true);
   }
 
   /**

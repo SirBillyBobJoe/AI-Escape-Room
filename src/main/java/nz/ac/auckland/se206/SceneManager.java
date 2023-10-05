@@ -34,6 +34,7 @@ public class SceneManager {
     CANDLEPAINTING,
     COMPUTERSCREEN,
     PASSCODE,
+    HINT,
   }
 
   // initialise the puzzles and rooms
@@ -151,6 +152,7 @@ public class SceneManager {
     GameState.puzzleSolved.put(Puzzle.CANDLEPAINTING, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.COMPUTERSCREEN, new SimpleBooleanProperty(false));
     GameState.puzzleSolved.put(Puzzle.PASSCODE, new SimpleBooleanProperty(false));
+    GameState.puzzleSolved.put(Puzzle.HINT, new SimpleBooleanProperty(false));
 
     // adds the puzzles to the names
     GameState.puzzleName.add("wireBox");

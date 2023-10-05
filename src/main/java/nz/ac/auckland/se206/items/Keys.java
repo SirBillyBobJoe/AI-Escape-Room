@@ -14,8 +14,8 @@ public class Keys extends Object {
   public Keys(int id) {
     super(new Image("/images/Inventory/key.png"));
     this.id = id;
-    this.message = "You have found a key.";
-    this.itemIdentifier = "This is a key.";
+    this.message = "You have found a key. Drag It To Interact With Objects In The Room";
+    this.itemIdentifier = "This is a key. Drag It To Interact With Objects In The Room";
   }
 
   /**

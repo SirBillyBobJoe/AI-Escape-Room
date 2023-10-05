@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.minigames.HintController">
+   <children>
+      <Rectangle fill="#000000cc" height="600.0" onMouseClicked="#exitPuzzle" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
+      <AnchorPane fx:id="gridAnchor" layoutX="213.0" layoutY="100.0" prefHeight="398.0" prefWidth="375.0" style="-fx-background-color: #909090;">
+         <children>
+            <ImageView fitHeight="222.0" fitWidth="325.0" layoutX="25.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/PipeConnecting/hintImage.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="71.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Goal is to ensure all the water stops leaking by connecting all the pipes together. For Example look at the picture below. Ensure both ends of the Pipe is Connected and there are no disconnected Pipes. THIS IS NOT THE SOLUTION" textAlignment="CENTER" wrappingWidth="232.873046875">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="clue" fitHeight="67.0" fitWidth="80.0" layoutX="629.0" layoutY="249.0" onMouseClicked="#clickClue" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/PipeConnecting/clueWhite.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
