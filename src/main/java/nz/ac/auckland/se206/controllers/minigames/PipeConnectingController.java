@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -60,6 +62,8 @@ public class PipeConnectingController {
   @FXML private AnchorPane gridAnchor;
 
   @FXML private GridPane grid;
+
+  @FXML private ImageView clue;
 
   private int gridHorizontalSize;
   private int gridverticalSize;
@@ -605,6 +609,60 @@ public class PipeConnectingController {
   private void exitPuzzle() {
     System.out.println("Exit");
     GameState.currentPuzzle.setValue(Puzzle.NONE);
+  }
+
+  /**
+   * Event handler for clue clicks.
+   *
+   * @param event The MouseEvent triggered by the click.
+   */
+  @FXML
+  private void clickClue(MouseEvent event) {
+    new MouseClick().play();
+    if (GameState.isClue) {
+      GameState.currentPuzzle.setValue(Puzzle.HINT);
+      return;
+    }
+    try {
+      if (Integer.parseInt(GameState.hints.get()) == 0) {
+        // with no more hints tell them
+
+        GameState.gameMasterActions.clear();
+        GameState.gameMasterActions.say("Sorry You Have No Hints Left. Proceed Alone.\n\n");
+        return;
+      }
+    } catch (Exception e) {
+
+    }
+
+    if (!GameState.isClue) {
+      GameState.isClue = true;
+      if (!GameState.hints.get().equals(GameState.infinity)) {
+        // remove 1 hint and ask gpt
+        GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
+      }
+    }
+    GameState.currentPuzzle.setValue(Puzzle.HINT);
+  }
+
+  /**
+   * Event handler for entering mouse.
+   *
+   * @param event The MouseEvent triggered by the entering.
+   */
+  @FXML
+  private void onMouseEntered(MouseEvent event) {
+    clue.setImage(new Image("/images/PipeConnecting/clueWhite.png"));
+  }
+
+  /**
+   * Event handler for exiting mouse.
+   *
+   * @param event The MouseEvent triggered by the exiting
+   */
+  @FXML
+  private void onMouseExited(MouseEvent event) {
+    clue.setImage(new Image("/images/PipeConnecting/clueBlack.png"));
   }
 
   /** Called when the map is found to be complete. Prints a completion message to the console. */
