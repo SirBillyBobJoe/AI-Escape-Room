@@ -134,54 +134,88 @@ public class SharedChat {
     } else if (!GameState.pipePuzzleSolved) {
       // logic for the pipe
       stepBasedHintPrompt =
-          "Tell the player a/an "
-              + GameState.difficulty
-              + " hint about solving a pipe puzzle. There is a leak coming from some pipes in some"
-              + " rooms.";
+          "Tell the player a hint about solving a pipe puzzle. They need tp fix the pipes that are"
+              + " leaking in the left room. Please Specify The Room";
+    } else if (!GameState.isHammerFound) {
+      // logic for the wall
+      stepBasedHintPrompt =
+          "Tell the player a hint about clicking on the hammer to pick it up in the left room."
+              + " Please Specify The Room";
     } else if (!GameState.wallRemoved) {
       // logic for the wall
       stepBasedHintPrompt =
-          "Tell the player a/an "
-              + GameState.difficulty
-              + " hint about breaking down a brick wall or using a hammer. There is a brick wall.";
-    } else if (!GameState.wallPiecesFound) {
+          "Tell the player a hint about breaking down a brick wall or using a hammer. There is a"
+              + " brick wall they need to break in the left room. Please Specify The Room";
+    } else if (!GameState.lighter) {
       // logic for pieces
       stepBasedHintPrompt =
-          "Tell the player a/an "
-              + GameState.difficulty
-              + " hint about a looking for items in a wall in the main room. They are next to the"
-              + " escape door.";
+          "Tell the player a"
+              + " hint about a looking for items in a wall in the center room. They are next to the"
+              + " escape door. Please Specify The Room";
+    } else if (!GameState.isLighterFound) {
+      // logic for pieces
+      stepBasedHintPrompt =
+          "Tell the player a hint about a looking clicking on the lighter in the center room to add"
+              + " it to the inventory. Please Specify The Room";
     } else if (!GameState.candlePuzzleSolved) {
       // logic for candkle game
       stepBasedHintPrompt =
-          "Tell the player a/an "
-              + GameState.difficulty
-              + " hint about lighting some candles. Maybe the painting of candles can help the"
-              + " player?";
+          "Tell the player a hint about lighting the candles in the left room. The painting of"
+              + " candles in the center room can help the player.  Please Specify The Rooms";
     } else if (!GameState.chestPuzzleSolved) {
       // logic for chest puzzle
       stepBasedHintPrompt =
-          "Tell the player a/an "
-              + GameState.difficulty
-              + " hint about a chest. There is a chest in the main room with a number lock. The"
-              + " player should remember their previous riddle answer: 2019";
+          "Tell the player a"
+              + " hint about a chest. There is a chest in the center room with a number lock. The"
+              + " player should remember their previous riddle answer: "
+              + GameState.passcodeAnswer
+              + " Please Specify The Room";
+    } else if (!GameState.wire) {
+      // logic for the wire
+      stepBasedHintPrompt =
+          "Tell the player a hint about wires. The player might have missed a red wire in behind"
+              + " the wall in the center room. Please Specify The Room";
+
+    } else if (!GameState.isRedWire) {
+      // logic for the wire
+      stepBasedHintPrompt =
+          "Tell the player a hint clicking on the red Wire in the center room to pick it up. Please"
+              + " Specify The Room";
+    } else if (!GameState.isBlueWire) {
+      // logic for the wire
+      stepBasedHintPrompt =
+          "Tell the player a hint clicking on the blue Wire in the center room to pick it up."
+              + " Please Specify The Room";
+    } else if (!GameState.isGreenWire) {
+      // logic for the wire
+      stepBasedHintPrompt =
+          "Tell the player a hint clicking on the green Wire in the left room to pick it up. Please"
+              + " Specify The Room";
     } else if (!GameState.wirePuzzleSolved) {
       // logic for the wire
       stepBasedHintPrompt =
-          "Tell the player a/an "
-              + GameState.difficulty
-              + " hint about wires. There is a electrical box with wires that are disconnected. The"
-              + " player might have missed a red wire in behind the wall in the main room";
+          "Tell the player a hint about wires. There is a electrical box with wires that are"
+              + " disconnected in the center room. Please Specify The Room";
+    } else if (!GameState.isKeyFound) {
+      // logic for key
+      stepBasedHintPrompt =
+          "Tell the player a hint about clicking on the key to pick it up in the center room."
+              + " Please Specify The Room";
     } else if (!GameState.padlockPuzzleSolved) {
       // logic for the padlock
       stepBasedHintPrompt =
-          "Tell the player a/an "
-              + GameState.difficulty
-              + " hint about a lock. There is a combination word padlock in the main room.";
+          "Tell the player a"
+              + " hint about a lock. There is a combination word padlock in the center room. Use a"
+              + " Key To Unlock It and the player should remember the previous riddle answer: "
+              + GameState.padlockAnswer
+              + " to open the lock. Please Specify The Room";
     } else {
       // logic for the escape
       stepBasedHintPrompt =
-          "Tell the player a/an " + GameState.difficulty + " about using their wit to escape.";
+          "Tell the player a "
+              + GameState.difficulty
+              + " about using their wit to escape through the center door in the center room."
+              + " Please Specify The Room";
     }
     String finalMessage;
     // tell them no more hitns when hitns are out

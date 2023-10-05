@@ -167,6 +167,11 @@ public class PuzzleRoomController {
       // if its a imageView
       System.out.println("unbinded" + source.getId());
       source.visibleProperty().unbind();
+      if (id.equals("hammer")) {
+        GameState.isHammerFound = true;
+      } else if (id.equals("greenWire")) {
+        GameState.isGreenWire = true;
+      }
 
       GameState.inventory.onRegularItemClicked(event);
     }

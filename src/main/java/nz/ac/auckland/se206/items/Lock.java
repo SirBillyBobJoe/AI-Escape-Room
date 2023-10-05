@@ -22,7 +22,7 @@ public class Lock extends Object {
   public Lock(int id) {
     super(new Image("/images/Inventory/lock.png"));
     this.id = id;
-    this.message = "This padlock is locked.";
+    this.message = "This padlock is locked. Use A Key To Unlock It";
   }
 
   /**
