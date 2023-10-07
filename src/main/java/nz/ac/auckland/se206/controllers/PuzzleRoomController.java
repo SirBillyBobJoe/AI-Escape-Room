@@ -141,12 +141,12 @@ public class PuzzleRoomController {
         || id.equals("candle2")
         || id.equals("candle3")
         || id.equals("candle4")) {
-      GameState.inventory.setTextChat("You Need A Lighter");
+      GameState.inventory.setTextChat("You need a lighter");
       return;
     }
     // if its a brickwall
     if (id.equals("brickWall")) {
-      GameState.inventory.setTextChat("You Need A Hammer");
+      GameState.inventory.setTextChat("You need a hammer");
     }
     // if its a door
     if (id.equals("rightDoor")) {
@@ -298,7 +298,7 @@ public class PuzzleRoomController {
     }
     if (node.getUserData() != null && node.getUserData().equals("candle")) {
       if (!GameState.isPuzzlesOn.getValue()) {
-        GameState.inventory.setTextChat("You Need To Solve Riddle");
+        GameState.inventory.setTextChat("You need to the solve riddle");
         return;
       }
     }
