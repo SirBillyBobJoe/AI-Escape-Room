@@ -353,6 +353,22 @@ public class PipeConnectingController {
         }
       }
     }
+
+    // Not sure if this works
+    int[][] solutionRotations = new int[gridHorizontalSize][gridVerticalSize];
+    for (int x = 0; x < gridHorizontalSize; x++) {
+      for (int y = 0; y < gridVerticalSize; y++) {
+        solutionRotations[x][y] = mapRotations[x][y];
+      }
+    }
+
+    // Apply random rotations to shuf`fle the grid
+    Random random = new Random();
+    for (int x = 0; x < gridHorizontalSize; x++) {
+      for (int y = 0; y < gridVerticalSize; y++) {
+        mapRotations[x][y] = (mapRotations[x][y] + rand.nextInt(4)) % 4;
+      }
+    }
   }
 
   /**
