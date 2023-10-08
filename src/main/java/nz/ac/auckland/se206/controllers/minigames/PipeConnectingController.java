@@ -210,6 +210,7 @@ public class PipeConnectingController {
       // Place on top edge
       if (position < gridHorizontalSize) {
         mapSetup[position][0] |= 0b1000;
+        mapSolution[position][0] |= 0b1000;
         inlets.add(new Position(position, -1));
         if (start == null) {
           start = new Position(position, 0);
@@ -220,6 +221,7 @@ public class PipeConnectingController {
         int x = gridHorizontalSize - 1;
         int y = position - gridHorizontalSize;
         mapSetup[x][y] |= 0b0100;
+        mapSolution[x][y] |= 0b0100;
         inlets.add(new Position(gridHorizontalSize, y));
         if (start == null) {
           start = new Position(x, y);
@@ -230,6 +232,7 @@ public class PipeConnectingController {
         int x = gridHorizontalSize - 1 - (position - gridHorizontalSize - gridVerticalSize);
         int y = gridVerticalSize - 1;
         mapSetup[x][y] |= 0b0010;
+        mapSolution[x][y] |= 0b0010;
         inlets.add(new Position(x, gridVerticalSize));
         if (start == null) {
           start = new Position(x, y);
@@ -240,6 +243,7 @@ public class PipeConnectingController {
         int x = 0;
         int y = gridVerticalSize - 1 - (position - gridHorizontalSize * 2 - gridVerticalSize);
         mapSetup[x][y] |= 0b0001;
+        mapSolution[x][y] |= 0b0001;
         inlets.add(new Position(-1, y));
         if (start == null) {
           start = new Position(x, y);
