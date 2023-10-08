@@ -85,7 +85,8 @@ public class PipeConnectingController {
   private List<Position> inlets;
   private List<SimpleBooleanProperty> waterLeaksShowing;
   private int[][] mapRotations;
-  private int[][] solutionRotations;
+
+  private boolean clueShowing;
 
   enum Direction {
     TOP,
@@ -102,6 +103,8 @@ public class PipeConnectingController {
     generateMapSetup();
     createGrid();
     checkCompleteness();
+
+    clueShowing = false;
   }
 
   /** Sets the size of the grid based on the game's difficulty. */
@@ -871,7 +874,7 @@ public class PipeConnectingController {
    */
   private void handlePaneClick(MouseEvent event) {
     // get the value of the pippuzzle
-    if (GameState.puzzleSolved.get(Puzzle.PIPECONNECTING).getValue()) {
+    if (GameState.puzzleSolved.get(Puzzle.PIPECONNECTING).getValue() || clueShowing) {
       return;
     }
     new MouseClick().play();
