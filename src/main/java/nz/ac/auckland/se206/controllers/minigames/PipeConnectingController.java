@@ -86,8 +86,6 @@ public class PipeConnectingController {
   private List<SimpleBooleanProperty> waterLeaksShowing;
   private int[][] mapRotations;
 
-  private boolean clueShowing;
-
   enum Direction {
     TOP,
     RIGHT,
@@ -103,8 +101,6 @@ public class PipeConnectingController {
     generateMapSetup();
     createGrid();
     checkCompleteness();
-
-    clueShowing = false;
   }
 
   /** Sets the size of the grid based on the game's difficulty. */
@@ -465,14 +461,11 @@ public class PipeConnectingController {
    * Creates the correct pane for a grid cell based on its structure.
    *
    * @param structure Configuration of the pipes
-   * @param x x-coordinate
-   * @param y y-coordinate
    * @return Pane for the grid cell
    */
   private Pane createCorrectPane(int stucture) throws IOException {
     Pane pane = new Pane();
     pane.setPrefSize(gridCellSize, gridCellSize);
-    pane.setOnMouseClicked(this::handlePaneClick);
     pane.setRotate(0);
 
     double offsetIncrement = (gridCellSize - rectWidth) / 2;
@@ -874,7 +867,7 @@ public class PipeConnectingController {
    */
   private void handlePaneClick(MouseEvent event) {
     // get the value of the pippuzzle
-    if (GameState.puzzleSolved.get(Puzzle.PIPECONNECTING).getValue() || clueShowing) {
+    if (GameState.puzzleSolved.get(Puzzle.PIPECONNECTING).getValue()) {
       return;
     }
     new MouseClick().play();
