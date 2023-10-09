@@ -56,8 +56,8 @@ public class StartScreenController {
   private final DropShadow dropShadow = new DropShadow();
   private final DropShadow startDropShadow = new DropShadow();
 
-  private final Image SOUND_OFF_IMAGE = new Image("/images/overlay/sound-off.png");
-  private final Image SOUND_ON_IMAGE = new Image("/images/overlay/sound-on.png");
+  private final Image soundOffImage = new Image("/images/overlay/sound-off.png");
+  private final Image soundOnImage = new Image("/images/overlay/sound-on.png");
 
   /** Initializes the ScreenStartController, setting focus on anchorPane. */
   public void initialize() {
@@ -478,9 +478,11 @@ public class StartScreenController {
   /** Mutes the sound when the mute button is clicked */
   @FXML
   public void onMuteSoundClicked(MouseEvent event) {
+    // sets the mute function
     GameState.isGameMuted = !GameState.isGameMuted;
     new MouseClick().play();
     setMuteSoundImage(GameState.isGameMuted);
+    // stops all sounds
     GameState.cancelAllSpeech();
     GameState.glitchSound.stop();
     GameState.type.stop();
@@ -515,9 +517,9 @@ public class StartScreenController {
   /** Sets the mute sound image */
   public void setMuteSoundImage(boolean muted) {
     if (muted) {
-      muteSound.setImage(SOUND_OFF_IMAGE);
+      muteSound.setImage(soundOffImage);
     } else {
-      muteSound.setImage(SOUND_ON_IMAGE);
+      muteSound.setImage(soundOnImage);
     }
   }
 }

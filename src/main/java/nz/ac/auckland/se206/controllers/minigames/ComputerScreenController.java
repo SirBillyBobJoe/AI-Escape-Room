@@ -100,7 +100,9 @@ public class ComputerScreenController {
     txaRiddle.appendText("You: " + txfGuess.getText() + "\n\n");
     // send to gpt
     if (GameState.riddleChat.onSend(txfGuess.getText())) exit();
-    txfGuess.clear();
+    {
+      txfGuess.clear();
+    }
   }
 
   /**

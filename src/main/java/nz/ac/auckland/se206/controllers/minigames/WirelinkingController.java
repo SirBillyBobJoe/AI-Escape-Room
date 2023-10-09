@@ -138,29 +138,36 @@ public class WirelinkingController {
 
   /** Initializes and positions the colored holes in the interface. */
   private void initializeHoles() {
+    // list of colors
     List<Color> colorsLeft = new ArrayList<>(List.of(Color.RED, Color.GREEN, Color.BLUE));
     List<Color> colorsRight = new ArrayList<>(List.of(Color.RED, Color.GREEN, Color.BLUE));
     Random random = new Random();
-
+    // sets bound for the vertical boxes
     leftHoleBox.setPickOnBounds(false);
     rightHoleBox.setPickOnBounds(false);
     HashMap<Color, List<Circle>> map = new HashMap<Color, List<Circle>>();
     int count = 0;
+    // loops until one of the lists is empty
     while (!colorsLeft.isEmpty()) {
+      // chooses a random color
       int index = random.nextInt(colorsLeft.size());
       Color leftColor = colorsLeft.remove(index);
       Circle leftHole = createHole(leftColor, true);
       leftHoleBox.getChildren().add(count, leftHole);
+      // adds color to map and path
       map.putIfAbsent(leftColor, new ArrayList<Circle>());
       map.get(leftColor).add(leftHole);
 
+      // chooses random color
       index = random.nextInt(colorsRight.size());
+      // adds it randomly
       Color rightColor = colorsRight.remove(index);
       Circle rightHole = createHole(rightColor, false);
       rightHoleBox.getChildren().add(count, rightHole);
       map.putIfAbsent(rightColor, new ArrayList<Circle>());
       map.get(rightColor).add(rightHole);
 
+      // sets the position based on order of adding them
       if (leftHole.getStroke() == Color.RED) {
         if (count == 0) {
           startCenter = new Point2D(10, 67);
@@ -170,7 +177,7 @@ public class WirelinkingController {
           startCenter = new Point2D(10, 133);
         }
       }
-
+      // logic for right hole
       if (rightHole.getStroke() == Color.RED) {
         if (count == 0) {
           endCenter = new Point2D(280, 67);
@@ -183,9 +190,12 @@ public class WirelinkingController {
       count++;
     }
     System.out.println(map);
+    // loops through map to set the correct path
     for (Color val : map.keySet()) {
       List<Circle> circle = map.get(val);
-      if (circle == null || circle.isEmpty()) continue;
+      if (circle == null || circle.isEmpty()) {
+        continue;
+      }
       CorrectPath path = new CorrectPath(circle.get(0), circle.get(1));
       correctPaths.put(circle.get(0), path); // Associate holes with correct paths
       correctPaths.put(circle.get(1), path); // Associate holes with correct paths

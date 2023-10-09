@@ -9,7 +9,7 @@ import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 
 public class HintController {
-  @FXML ImageView clue;
+  @FXML private ImageView clue;
 
   /** Exits the current puzzle and resets the puzzle state to NONE. */
   @FXML
