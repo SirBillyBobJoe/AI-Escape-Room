@@ -101,6 +101,8 @@ public class PipeConnectingController {
     generateMapSetup();
     createGrid();
     checkCompleteness();
+
+    solutionGrid.setVisible(false);
   }
 
   /** Sets the size of the grid based on the game's difficulty. */
@@ -896,30 +898,24 @@ public class PipeConnectingController {
   @FXML
   private void clickClue(MouseEvent event) {
     new MouseClick().play();
-    if (GameState.isClue) {
-      GameState.currentPuzzle.setValue(Puzzle.HINT);
-      return;
-    }
-    try {
-      if (Integer.parseInt(GameState.hints.get()) == 0) {
-        // with no more hints tell them
-
+    if (!solutionGrid.isVisible()) {
+      System.out.println("The solution is not visible");
+      if (!GameState.hints.get().equals(GameState.infinity)
+          && Integer.parseInt(GameState.hints.get()) < 1) {
         GameState.gameMasterActions.clear();
-        GameState.gameMasterActions.say("Sorry You Have No Hints Left. Proceed Alone.\n\n");
+        GameState.gameMasterActions.say("You have no hints left.");
+        System.out.println("I'm not going to change anything.");
         return;
+      } else {
+        System.out.println("I should set the solution to visible");
+        solutionGrid.setVisible(true);
+        if (!GameState.hints.get().equals(GameState.infinity))
+          GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
       }
-    } catch (Exception e) {
-
+    } else {
+      System.out.println("The solution is visible");
+      solutionGrid.setVisible(false);
     }
-
-    if (!GameState.isClue) {
-      GameState.isClue = true;
-      if (!GameState.hints.get().equals(GameState.infinity)) {
-        // remove 1 hint and ask gpt
-        GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
-      }
-    }
-    GameState.currentPuzzle.setValue(Puzzle.HINT);
   }
 
   /**
