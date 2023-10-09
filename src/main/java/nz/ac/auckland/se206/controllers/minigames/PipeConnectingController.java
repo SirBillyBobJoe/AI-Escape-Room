@@ -136,8 +136,8 @@ public class PipeConnectingController {
         (gridHorizontalSize + 1) * gridCellSize, (gridVerticalSize + 1) * gridCellSize);
     grid.setLayoutX(gridCellSize / 2);
     grid.setLayoutY(gridCellSize / 2);
-    solutionGrid.setLayoutX(gridCellSize / 2);
-    solutionGrid.setLayoutY(gridCellSize / 2);
+    solutionGrid.setLayoutX(grid.getLayoutX() + gridAnchor.getLayoutX());
+    solutionGrid.setLayoutY(grid.getLayoutY() + gridAnchor.getLayoutY());
     // set the size
     grid.setPrefSize(gridHorizontalSize * gridCellSize, gridVerticalSize * gridCellSize);
     solutionGrid.setPrefSize(gridHorizontalSize * gridCellSize, gridVerticalSize * gridCellSize);
