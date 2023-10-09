@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.minigames.PipeConnectingController">
   <children>
       <Rectangle fill="#000000cc" height="600.0" onMouseClicked="#exitPuzzle" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
-    <AnchorPane fx:id="gridAnchor" layoutX="213.0" layoutY="100.0" prefHeight="300" prefWidth="375.0" style="-fx-background-color: #301d0d; -fx-border-color: #fff;">
+    <AnchorPane fx:id="gridAnchor" layoutX="213.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300" prefWidth="375.0" style="-fx-background-color: #301d0d; -fx-border-color: #fff;">
       <children>
         <GridPane fx:id="grid" gridLinesVisible="true" layoutX="37.5" layoutY="37.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="300.0">
         </GridPane>
       </children>
     </AnchorPane>
-      <ImageView fx:id="clue" fitHeight="67.0" fitWidth="80.0" layoutX="629.0" layoutY="249.0" onMouseClicked="#clickClue" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#00000096" height="517.0" layoutX="51.0" layoutY="38.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="710.0">
+         <effect>
+            <GaussianBlur radius="6.29" />
+         </effect>
+      </Rectangle>
+      <GridPane fx:id="solutionGrid" gridLinesVisible="true" layoutX="250.0" layoutY="375.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="300.0" />
+      <ImageView fitHeight="60.0" fitWidth="56.0" layoutX="684.0" layoutY="220.0" onMouseClicked="#clickClue" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/PipeConnecting/clueBlack.png" />
-         </image>
-      </ImageView>
+            <Image url="@../images/hint.png" />
+         </image></ImageView>
+      <Label fx:id="lblClose" alignment="CENTER" layoutX="677.0" layoutY="255.0" onMouseClicked="#clickClue" prefHeight="19.0" prefWidth="65.0" style="-fx-background-color: rgba(255,255,255,0.8);" text="CLOSE">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font>
+      </Label>
   </children>
 </AnchorPane>

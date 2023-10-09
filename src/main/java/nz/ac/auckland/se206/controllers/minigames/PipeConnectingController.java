@@ -12,8 +12,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -71,8 +70,10 @@ public class PipeConnectingController {
   @FXML private AnchorPane gridAnchor;
 
   @FXML private GridPane grid;
+  @FXML private GridPane solutionGrid;
 
-  @FXML private ImageView clue;
+  @FXML private Rectangle rectangle;
+  @FXML private Label lblClose;
 
   private int gridHorizontalSize;
   private int gridVerticalSize;
@@ -80,6 +81,7 @@ public class PipeConnectingController {
   private double rectWidth;
   private double rectHeight;
   private int[][] mapSetup;
+  private int[][] mapSolution;
   private List<Position> inlets;
   private List<SimpleBooleanProperty> waterLeaksShowing;
   private int[][] mapRotations;
@@ -99,6 +101,10 @@ public class PipeConnectingController {
     generateMapSetup();
     createGrid();
     checkCompleteness();
+
+    solutionGrid.setVisible(false);
+    rectangle.setVisible(false);
+    lblClose.setVisible(false);
   }
 
   /** Sets the size of the grid based on the game's difficulty. */
@@ -134,23 +140,33 @@ public class PipeConnectingController {
         (gridHorizontalSize + 1) * gridCellSize, (gridVerticalSize + 1) * gridCellSize);
     grid.setLayoutX(gridCellSize / 2);
     grid.setLayoutY(gridCellSize / 2);
+    solutionGrid.setLayoutX(grid.getLayoutX() + gridAnchor.getLayoutX());
+    solutionGrid.setLayoutY(grid.getLayoutY() + gridAnchor.getLayoutY());
     // set the size
     grid.setPrefSize(gridHorizontalSize * gridCellSize, gridVerticalSize * gridCellSize);
+    solutionGrid.setPrefSize(gridHorizontalSize * gridCellSize, gridVerticalSize * gridCellSize);
     for (int i = 0; i < gridHorizontalSize; i++) {
       grid.getColumnConstraints().add(new javafx.scene.layout.ColumnConstraints(gridCellSize));
+      solutionGrid
+          .getColumnConstraints()
+          .add(new javafx.scene.layout.ColumnConstraints(gridCellSize));
     }
     // loops through the grid
     for (int i = 0; i < gridVerticalSize; i++) {
       grid.getRowConstraints().add(new javafx.scene.layout.RowConstraints(gridCellSize));
+      solutionGrid.getRowConstraints().add(new javafx.scene.layout.RowConstraints(gridCellSize));
     }
     // gives the grid a style color
     grid.setStyle("-fx-background-color: #140a07;");
+    solutionGrid.setStyle("-fx-background-color: #3a1d14;");
 
     for (int x = 0; x < gridHorizontalSize; x++) {
       for (int y = 0; y < gridVerticalSize; y++) {
         mapRotations[x][y] = rand.nextInt(4);
         Pane pane = createPane(mapSetup[x][y], x, y);
         grid.add(pane, x, y);
+        Pane solutionPane = createCorrectPane(mapSolution[x][y]);
+        solutionGrid.add(solutionPane, x, y);
       }
     }
 
@@ -174,6 +190,7 @@ public class PipeConnectingController {
 
     // Initialize the grid based on provided dimensions
     mapSetup = new int[gridHorizontalSize][gridVerticalSize];
+    mapSolution = new int[gridHorizontalSize][gridVerticalSize];
 
     // Variable to store the starting Position for the grid paths
     Position start = null;
@@ -183,7 +200,6 @@ public class PipeConnectingController {
 
     // Set to 2 inlet
     int numInlets = 2;
-    System.out.println(numInlets);
 
     // Randomly place inlets on the grid boundary, starting from the top-left and moving clockwise
     ArrayList<Integer> inletPositions = new ArrayList<Integer>();
@@ -197,6 +213,7 @@ public class PipeConnectingController {
       // Place on top edge
       if (position < gridHorizontalSize) {
         mapSetup[position][0] |= 0b1000;
+        mapSolution[position][0] |= 0b1000;
         inlets.add(new Position(position, -1));
         if (start == null) {
           start = new Position(position, 0);
@@ -207,6 +224,7 @@ public class PipeConnectingController {
         int x = gridHorizontalSize - 1;
         int y = position - gridHorizontalSize;
         mapSetup[x][y] |= 0b0100;
+        mapSolution[x][y] |= 0b0100;
         inlets.add(new Position(gridHorizontalSize, y));
         if (start == null) {
           start = new Position(x, y);
@@ -217,6 +235,7 @@ public class PipeConnectingController {
         int x = gridHorizontalSize - 1 - (position - gridHorizontalSize - gridVerticalSize);
         int y = gridVerticalSize - 1;
         mapSetup[x][y] |= 0b0010;
+        mapSolution[x][y] |= 0b0010;
         inlets.add(new Position(x, gridVerticalSize));
         if (start == null) {
           start = new Position(x, y);
@@ -227,6 +246,7 @@ public class PipeConnectingController {
         int x = 0;
         int y = gridVerticalSize - 1 - (position - gridHorizontalSize * 2 - gridVerticalSize);
         mapSetup[x][y] |= 0b0001;
+        mapSolution[x][y] |= 0b0001;
         inlets.add(new Position(-1, y));
         if (start == null) {
           start = new Position(x, y);
@@ -310,15 +330,27 @@ public class PipeConnectingController {
       if (chosenNeighbor.horizontalValue > current.horizontalValue) {
         mapSetup[current.horizontalValue][current.verticalValue] |= 0b0100;
         mapSetup[chosenNeighbor.horizontalValue][chosenNeighbor.verticalValue] |= 0b0001;
+
+        mapSolution[current.horizontalValue][current.verticalValue] |= 0b0100;
+        mapSolution[chosenNeighbor.horizontalValue][chosenNeighbor.verticalValue] |= 0b0001;
       } else if (chosenNeighbor.horizontalValue < current.horizontalValue) {
         mapSetup[current.horizontalValue][current.verticalValue] |= 0b0001;
         mapSetup[chosenNeighbor.horizontalValue][chosenNeighbor.verticalValue] |= 0b0100;
+
+        mapSolution[current.horizontalValue][current.verticalValue] |= 0b0001;
+        mapSolution[chosenNeighbor.horizontalValue][chosenNeighbor.verticalValue] |= 0b0100;
       } else if (chosenNeighbor.verticalValue > current.verticalValue) {
         mapSetup[current.horizontalValue][current.verticalValue] |= 0b0010;
         mapSetup[chosenNeighbor.horizontalValue][chosenNeighbor.verticalValue] |= 0b1000;
+
+        mapSolution[current.horizontalValue][current.verticalValue] |= 0b0010;
+        mapSolution[chosenNeighbor.horizontalValue][chosenNeighbor.verticalValue] |= 0b1000;
       } else {
         mapSetup[current.horizontalValue][current.verticalValue] |= 0b1000;
         mapSetup[chosenNeighbor.horizontalValue][chosenNeighbor.verticalValue] |= 0b0010;
+
+        mapSolution[current.horizontalValue][current.verticalValue] |= 0b1000;
+        mapSolution[chosenNeighbor.horizontalValue][chosenNeighbor.verticalValue] |= 0b0010;
       }
     }
 
@@ -337,15 +369,27 @@ public class PipeConnectingController {
               if (neighbor.horizontalValue > cell.horizontalValue) {
                 mapSetup[cell.horizontalValue][cell.verticalValue] |= 0b0100;
                 mapSetup[neighbor.horizontalValue][neighbor.verticalValue] |= 0b0001;
+
+                mapSolution[cell.horizontalValue][cell.verticalValue] |= 0b0100;
+                mapSolution[neighbor.horizontalValue][neighbor.verticalValue] |= 0b0001;
               } else if (neighbor.horizontalValue < cell.horizontalValue) {
                 mapSetup[cell.horizontalValue][cell.verticalValue] |= 0b0001;
                 mapSetup[neighbor.horizontalValue][neighbor.verticalValue] |= 0b0100;
+
+                mapSolution[cell.horizontalValue][cell.verticalValue] |= 0b0001;
+                mapSolution[neighbor.horizontalValue][neighbor.verticalValue] |= 0b0100;
               } else if (neighbor.verticalValue > cell.verticalValue) {
                 mapSetup[cell.horizontalValue][cell.verticalValue] |= 0b0010;
                 mapSetup[neighbor.horizontalValue][neighbor.verticalValue] |= 0b1000;
+
+                mapSolution[cell.horizontalValue][cell.verticalValue] |= 0b0010;
+                mapSolution[neighbor.horizontalValue][neighbor.verticalValue] |= 0b1000;
               } else {
                 mapSetup[cell.horizontalValue][cell.verticalValue] |= 0b1000;
                 mapSetup[neighbor.horizontalValue][neighbor.verticalValue] |= 0b0010;
+
+                mapSolution[cell.horizontalValue][cell.verticalValue] |= 0b1000;
+                mapSolution[neighbor.horizontalValue][neighbor.verticalValue] |= 0b0010;
               }
               break;
             }
@@ -381,6 +425,52 @@ public class PipeConnectingController {
     pane.setPrefSize(gridCellSize, gridCellSize);
     pane.setOnMouseClicked(this::handlePaneClick);
     pane.setRotate(mapRotations[x][y] * 90);
+
+    double offsetIncrement = (gridCellSize - rectWidth) / 2;
+    var children = pane.getChildren();
+    // Add pipes
+    if ((stucture & 0b1000) != 0) {
+      // top
+      Rectangle rect = new Rectangle(offsetIncrement, 0, rectWidth, rectHeight);
+      rect.setStrokeWidth(0);
+      rect.setFill(Color.web("#8a7f80"));
+      children.add(rect);
+    }
+    if ((stucture & 0b0100) != 0) {
+      // right
+      Rectangle rect = new Rectangle(offsetIncrement, offsetIncrement, rectHeight, rectWidth);
+      rect.setStrokeWidth(0);
+      rect.setFill(Color.web("#8a7f80"));
+      children.add(rect);
+    }
+    if ((stucture & 0b0010) != 0) {
+      // bottom
+      Rectangle rect = new Rectangle(offsetIncrement, offsetIncrement, rectWidth, rectHeight);
+      rect.setStrokeWidth(0);
+      rect.setFill(Color.web("#8a7f80"));
+      children.add(rect);
+    }
+    if ((stucture & 0b0001) != 0) {
+      // left
+      Rectangle rect = new Rectangle(0, offsetIncrement, rectHeight, rectWidth);
+      rect.setStrokeWidth(0);
+      rect.setFill(Color.web("#8a7f80"));
+      children.add(rect);
+    }
+
+    return pane;
+  }
+
+  /**
+   * Creates the correct pane for a grid cell based on its structure.
+   *
+   * @param structure Configuration of the pipes
+   * @return Pane for the grid cell
+   */
+  private Pane createCorrectPane(int stucture) throws IOException {
+    Pane pane = new Pane();
+    pane.setPrefSize(gridCellSize, gridCellSize);
+    pane.setRotate(0);
 
     double offsetIncrement = (gridCellSize - rectWidth) / 2;
     var children = pane.getChildren();
@@ -810,50 +900,28 @@ public class PipeConnectingController {
   @FXML
   private void clickClue(MouseEvent event) {
     new MouseClick().play();
-    if (GameState.isClue) {
-      GameState.currentPuzzle.setValue(Puzzle.HINT);
+    System.out.println(GameState.pipePuzzleSolved);
+    if (GameState.pipePuzzleSolved) {
       return;
     }
-    try {
-      if (Integer.parseInt(GameState.hints.get()) == 0) {
-        // with no more hints tell them
-
+    if (!solutionGrid.isVisible()) {
+      if (!GameState.hints.get().equals(GameState.infinity)
+          && Integer.parseInt(GameState.hints.get()) < 1) {
         GameState.gameMasterActions.clear();
-        GameState.gameMasterActions.say("Sorry You Have No Hints Left. Proceed Alone.\n\n");
+        GameState.gameMasterActions.say("You have no hints left.");
         return;
+      } else {
+        solutionGrid.setVisible(true);
+        rectangle.setVisible(true);
+        lblClose.setVisible(true);
+        if (!GameState.hints.get().equals(GameState.infinity))
+          GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
       }
-    } catch (Exception e) {
-
+    } else {
+      solutionGrid.setVisible(false);
+      rectangle.setVisible(false);
+      lblClose.setVisible(false);
     }
-
-    if (!GameState.isClue) {
-      GameState.isClue = true;
-      if (!GameState.hints.get().equals(GameState.infinity)) {
-        // remove 1 hint and ask gpt
-        GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
-      }
-    }
-    GameState.currentPuzzle.setValue(Puzzle.HINT);
-  }
-
-  /**
-   * Event handler for entering mouse.
-   *
-   * @param event The MouseEvent triggered by the entering.
-   */
-  @FXML
-  private void onMouseEntered(MouseEvent event) {
-    clue.setImage(new Image("/images/PipeConnecting/clueWhite.png"));
-  }
-
-  /**
-   * Event handler for exiting mouse.
-   *
-   * @param event The MouseEvent triggered by the exiting
-   */
-  @FXML
-  private void onMouseExited(MouseEvent event) {
-    clue.setImage(new Image("/images/PipeConnecting/clueBlack.png"));
   }
 
   /** Called when the map is found to be complete. Prints a completion message to the console. */

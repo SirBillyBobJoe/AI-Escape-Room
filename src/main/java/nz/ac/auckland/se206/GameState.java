@@ -96,8 +96,6 @@ public class GameState {
   /** Indicates whether the wall is open. */
   public static boolean isOpenWall = false;
 
-  public static boolean isClue = false;
-
   public static RiddleRoomController riddleRoomController;
 
   public static UserInterfaceOverlayController userInterfaceOverlayController;
@@ -408,8 +406,6 @@ public class GameState {
     isGreenWire = false;
 
     isBlueWire = false;
-
-    isClue = false;
 
     // Random values
     random = new Random();
