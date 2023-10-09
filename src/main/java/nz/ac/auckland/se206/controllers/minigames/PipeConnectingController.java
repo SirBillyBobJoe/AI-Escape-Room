@@ -12,6 +12,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -72,6 +73,7 @@ public class PipeConnectingController {
   @FXML private GridPane solutionGrid;
 
   @FXML private Rectangle rectangle;
+  @FXML private Label lblClose;
 
   private int gridHorizontalSize;
   private int gridVerticalSize;
@@ -102,6 +104,7 @@ public class PipeConnectingController {
 
     solutionGrid.setVisible(false);
     rectangle.setVisible(false);
+    lblClose.setVisible(false);
   }
 
   /** Sets the size of the grid based on the game's difficulty. */
@@ -155,7 +158,7 @@ public class PipeConnectingController {
     }
     // gives the grid a style color
     grid.setStyle("-fx-background-color: #140a07;");
-    solutionGrid.setStyle("-fx-background-color: #140a07;");
+    solutionGrid.setStyle("-fx-background-color: #3a1d14;");
 
     for (int x = 0; x < gridHorizontalSize; x++) {
       for (int y = 0; y < gridVerticalSize; y++) {
@@ -906,12 +909,14 @@ public class PipeConnectingController {
       } else {
         solutionGrid.setVisible(true);
         rectangle.setVisible(true);
+        lblClose.setVisible(true);
         if (!GameState.hints.get().equals(GameState.infinity))
           GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
       }
     } else {
       solutionGrid.setVisible(false);
       rectangle.setVisible(false);
+      lblClose.setVisible(false);
     }
   }
 

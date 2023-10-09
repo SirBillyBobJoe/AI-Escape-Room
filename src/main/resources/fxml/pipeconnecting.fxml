@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.minigames.PipeConnectingController">
   <children>
@@ -26,5 +28,10 @@
          <image>
             <Image url="@../images/hint.png" />
          </image></ImageView>
+      <Label fx:id="lblClose" alignment="CENTER" layoutX="677.0" layoutY="255.0" onMouseClicked="#clickClue" prefHeight="19.0" prefWidth="65.0" style="-fx-background-color: rgba(255,255,255,0.8);" text="CLOSE">
+         <font>
+            <Font name="Consolas" size="16.0" />
+         </font>
+      </Label>
   </children>
 </AnchorPane>
