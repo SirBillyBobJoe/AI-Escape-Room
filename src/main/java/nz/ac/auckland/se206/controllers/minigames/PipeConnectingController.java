@@ -900,6 +900,10 @@ public class PipeConnectingController {
   @FXML
   private void clickClue(MouseEvent event) {
     new MouseClick().play();
+    System.out.println(GameState.pipePuzzleSolved);
+    if (GameState.pipePuzzleSolved) {
+      return;
+    }
     if (!solutionGrid.isVisible()) {
       if (!GameState.hints.get().equals(GameState.infinity)
           && Integer.parseInt(GameState.hints.get()) < 1) {
