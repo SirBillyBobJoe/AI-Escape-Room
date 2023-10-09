@@ -115,6 +115,8 @@ public class WirelinkingController {
 
   /** Initializes and positions the colored holes in the interface. */
   private void initializeHoles() {
+    leftHoleBox.setPickOnBounds(false);
+    rightHoleBox.setPickOnBounds(false);
     Random random = new Random();
     for (Color color : List.of(Color.RED, Color.GREEN, Color.BLUE)) {
       Circle leftHole = createHole(color, true);
