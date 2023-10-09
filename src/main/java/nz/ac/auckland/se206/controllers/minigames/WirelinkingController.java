@@ -1,13 +1,19 @@
 package nz.ac.auckland.se206.controllers.minigames;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -18,7 +24,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.util.Duration;
 import nz.ac.auckland.se206.GameState;
+import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 
@@ -66,11 +74,16 @@ public class WirelinkingController {
   @FXML private VBox rightHoleBox;
   @FXML private Pane drawingArea;
 
+  private Line animationWire;
+  private ImageView image = new ImageView(new Image("/images/wireConnecting/cursor.png"));
+
   private Line currentWire;
   private CorrectPath currentCorrectPath;
   private Circle currentStartHole;
   private Map<Circle, CorrectPath> correctPaths = new HashMap<>();
   private Color backgroundColor = Color.WHITE;
+  private Point2D startCenter;
+  private Point2D endCenter;
 
   /**
    * Event handler for initiating a wire drag operation. Determines the correct path for the wire
@@ -82,18 +95,25 @@ public class WirelinkingController {
         Circle sourceHole = (Circle) event.getSource();
         Paint colour = sourceHole.getStroke();
         if (colour.equals(Color.RED) && !GameState.inventory.containsItem(GameState.redWire)) {
+          new MouseClick().play();
+          GameState.inventory.setTextChat("You Need a Red Wire");
           return;
         }
         if (colour.equals(Color.BLUE) && !GameState.inventory.containsItem(GameState.blueWire)) {
+          GameState.inventory.setTextChat("You Need a Blue Wire");
+          new MouseClick().play();
           return;
         }
         if (colour.equals(Color.GREEN) && !GameState.inventory.containsItem(GameState.greenWire)) {
+          GameState.inventory.setTextChat("You Need a Green Wire");
+          new MouseClick().play();
           return;
         }
 
         if (correctPaths.get(sourceHole).isComplete()) {
           return;
         }
+        GameState.userStartedDragging.set(true);
 
         currentStartHole = sourceHole;
         currentCorrectPath = correctPaths.get(sourceHole);
@@ -111,24 +131,109 @@ public class WirelinkingController {
         this::handleWireDragging); // Set up mouse drag over event handler
     drawingArea.setOnMouseDragReleased(
         this::handleDragStop); // Set up mouse drag release event handler
+    startRedWireAnimation();
+    animationWire.visibleProperty().bind(GameState.userStartedDragging.not());
+    image.visibleProperty().bind(GameState.userStartedDragging.not());
   }
 
   /** Initializes and positions the colored holes in the interface. */
   private void initializeHoles() {
+    List<Color> colorsLeft = new ArrayList<>(List.of(Color.RED, Color.GREEN, Color.BLUE));
+    List<Color> colorsRight = new ArrayList<>(List.of(Color.RED, Color.GREEN, Color.BLUE));
+    Random random = new Random();
+
     leftHoleBox.setPickOnBounds(false);
     rightHoleBox.setPickOnBounds(false);
-    Random random = new Random();
-    for (Color color : List.of(Color.RED, Color.GREEN, Color.BLUE)) {
-      Circle leftHole = createHole(color, true);
-      leftHoleBox.getChildren().add(random.nextInt(leftHoleBox.getChildren().size() + 1), leftHole);
-      Circle rightHole = createHole(color, false);
-      rightHoleBox
-          .getChildren()
-          .add(random.nextInt(rightHoleBox.getChildren().size() + 1), rightHole);
-      CorrectPath path = new CorrectPath(leftHole, rightHole);
-      correctPaths.put(leftHole, path); // Associate holes with correct paths
-      correctPaths.put(rightHole, path); // Associate holes with correct paths
+    HashMap<Color, List<Circle>> map = new HashMap<Color, List<Circle>>();
+    int count = 0;
+    while (!colorsLeft.isEmpty()) {
+      int index = random.nextInt(colorsLeft.size());
+      Color leftColor = colorsLeft.remove(index);
+      Circle leftHole = createHole(leftColor, true);
+      leftHoleBox.getChildren().add(count, leftHole);
+      map.putIfAbsent(leftColor, new ArrayList<Circle>());
+      map.get(leftColor).add(leftHole);
+
+      index = random.nextInt(colorsRight.size());
+      Color rightColor = colorsRight.remove(index);
+      Circle rightHole = createHole(rightColor, false);
+      rightHoleBox.getChildren().add(count, rightHole);
+      map.putIfAbsent(rightColor, new ArrayList<Circle>());
+      map.get(rightColor).add(rightHole);
+
+      if (leftHole.getStroke() == Color.RED) {
+        if (count == 0) {
+          startCenter = new Point2D(10, 67);
+        } else if (count == 1) {
+          startCenter = new Point2D(10, 100);
+        } else {
+          startCenter = new Point2D(10, 133);
+        }
+      }
+
+      if (rightHole.getStroke() == Color.RED) {
+        if (count == 0) {
+          endCenter = new Point2D(280, 67);
+        } else if (count == 1) {
+          endCenter = new Point2D(280, 100);
+        } else {
+          endCenter = new Point2D(280, 133);
+        }
+      }
+      count++;
     }
+    System.out.println(map);
+    for (Color val : map.keySet()) {
+      List<Circle> circle = map.get(val);
+      if (circle == null || circle.isEmpty()) continue;
+      CorrectPath path = new CorrectPath(circle.get(0), circle.get(1));
+      correctPaths.put(circle.get(0), path); // Associate holes with correct paths
+      correctPaths.put(circle.get(1), path); // Associate holes with correct paths
+    }
+  }
+
+  private void startRedWireAnimation() {
+
+    animationWire =
+        new Line(startCenter.getX(), startCenter.getY(), startCenter.getX(), startCenter.getY());
+    animationWire.setStroke(Color.RED);
+    animationWire.setStrokeWidth(3);
+    animationWire.setOpacity(0.5);
+    drawingArea.getChildren().add(animationWire);
+
+    // Width in pixels
+    image.setFitWidth(10);
+    image.setFitHeight(15);
+    image.setOpacity(0.5);
+
+    // Bind the ImageView's position to the wire's end position
+    image.xProperty().bind(animationWire.endXProperty());
+    image.yProperty().bind(animationWire.endYProperty());
+
+    // Add the ImageView to the drawing area
+    drawingArea.getChildren().add(image);
+
+    Timeline timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(0),
+                new KeyValue(animationWire.endXProperty(), startCenter.getX()),
+                new KeyValue(animationWire.endYProperty(), startCenter.getY())),
+            new KeyFrame(
+                Duration.seconds(1.5),
+                new KeyValue(animationWire.endXProperty(), endCenter.getX()),
+                new KeyValue(animationWire.endYProperty(), endCenter.getY())));
+
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    timeline.setAutoReverse(false);
+    timeline.play();
+
+    timeline.setOnFinished(
+        event -> {
+          if (!GameState.userStartedDragging.getValue()) {
+            drawingArea.getChildren().remove(animationWire);
+          }
+        });
   }
 
   /**
