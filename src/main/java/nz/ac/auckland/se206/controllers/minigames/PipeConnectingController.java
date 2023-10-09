@@ -899,21 +899,17 @@ public class PipeConnectingController {
   private void clickClue(MouseEvent event) {
     new MouseClick().play();
     if (!solutionGrid.isVisible()) {
-      System.out.println("The solution is not visible");
       if (!GameState.hints.get().equals(GameState.infinity)
           && Integer.parseInt(GameState.hints.get()) < 1) {
         GameState.gameMasterActions.clear();
         GameState.gameMasterActions.say("You have no hints left.");
-        System.out.println("I'm not going to change anything.");
         return;
       } else {
-        System.out.println("I should set the solution to visible");
         solutionGrid.setVisible(true);
         if (!GameState.hints.get().equals(GameState.infinity))
           GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
       }
     } else {
-      System.out.println("The solution is visible");
       solutionGrid.setVisible(false);
     }
   }
