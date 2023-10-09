@@ -335,6 +335,8 @@ public class GameState {
     "piano",
     "dance",
     "happened",
+    "answer",
+    "solution",
   };
 
   /** A rectangle shape for highlighting riddles in the UI. */
