@@ -32,6 +32,7 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
 
 /** Represents the state of the game. */
 public class GameState {
+  public static SimpleBooleanProperty userStartedDragging = new SimpleBooleanProperty(false);
 
   public static GlitchSound glitchSound = new GlitchSound();
 
@@ -368,6 +369,9 @@ public class GameState {
     if (difficulty.equals("medium")) {
       hints.set("5");
     }
+
+    userStartedDragging.set(false);
+
     wallCount = 3;
     // Assuming you want to empty the list
     candleOrder.clear();
