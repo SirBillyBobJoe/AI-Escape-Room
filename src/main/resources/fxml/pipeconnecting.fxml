@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,13 +16,13 @@
         </GridPane>
       </children>
     </AnchorPane>
-      <ImageView fx:id="clue" fitHeight="67.0" fitWidth="80.0" layoutX="608.0" layoutY="326.0" onMouseClicked="#clickClue" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/PipeConnecting/clueBlack.png" />
-         </image>
-      </ImageView>
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#00000096" height="517.0" layoutX="51.0" layoutY="38.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="710.0">
+         <effect>
+            <GaussianBlur radius="6.29" />
+         </effect>
+      </Rectangle>
       <GridPane fx:id="solutionGrid" gridLinesVisible="true" layoutX="250.0" layoutY="375.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="300.0" />
-      <ImageView fitHeight="60.0" fitWidth="56.0" layoutX="684.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="60.0" fitWidth="56.0" layoutX="684.0" layoutY="220.0" onMouseClicked="#clickClue" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/hint.png" />
          </image></ImageView>

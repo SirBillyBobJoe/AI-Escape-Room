@@ -12,8 +12,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -73,7 +71,7 @@ public class PipeConnectingController {
   @FXML private GridPane grid;
   @FXML private GridPane solutionGrid;
 
-  @FXML private ImageView clue;
+  @FXML private Rectangle rectangle;
 
   private int gridHorizontalSize;
   private int gridVerticalSize;
@@ -103,6 +101,7 @@ public class PipeConnectingController {
     checkCompleteness();
 
     solutionGrid.setVisible(false);
+    rectangle.setVisible(false);
   }
 
   /** Sets the size of the grid based on the game's difficulty. */
@@ -906,32 +905,14 @@ public class PipeConnectingController {
         return;
       } else {
         solutionGrid.setVisible(true);
+        rectangle.setVisible(true);
         if (!GameState.hints.get().equals(GameState.infinity))
           GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
       }
     } else {
       solutionGrid.setVisible(false);
+      rectangle.setVisible(false);
     }
-  }
-
-  /**
-   * Event handler for entering mouse.
-   *
-   * @param event The MouseEvent triggered by the entering.
-   */
-  @FXML
-  private void onMouseEntered(MouseEvent event) {
-    clue.setImage(new Image("/images/PipeConnecting/clueWhite.png"));
-  }
-
-  /**
-   * Event handler for exiting mouse.
-   *
-   * @param event The MouseEvent triggered by the exiting
-   */
-  @FXML
-  private void onMouseExited(MouseEvent event) {
-    clue.setImage(new Image("/images/PipeConnecting/clueBlack.png"));
   }
 
   /** Called when the map is found to be complete. Prints a completion message to the console. */
