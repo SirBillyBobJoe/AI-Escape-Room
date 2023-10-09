@@ -8,6 +8,7 @@ import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import nz.ac.auckland.se206.GameState;
 
 /**
  * Manages the actions of the Game Master within the game. Handles displaying text and images for
@@ -129,6 +130,7 @@ public class GameMasterActions {
         new Task<Void>() {
           @Override
           protected Void call() throws Exception {
+            GameState.type.play();
             for (char c : message.toCharArray()) {
               if (isCancelled()) {
                 break;
@@ -142,6 +144,7 @@ public class GameMasterActions {
                           700 / message.length(),
                           20))); // Dynamic sleep based on length for typing effect
             }
+            GameState.type.stop();
             return null;
           }
         };

@@ -33,6 +33,8 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
 /** Represents the state of the game. */
 public class GameState {
 
+  public static TypingSound type = new TypingSound();
+
   public static GlitchSound glitchSound = new GlitchSound();
 
   public static List<TextToSpeech> speechList = new ArrayList<TextToSpeech>();

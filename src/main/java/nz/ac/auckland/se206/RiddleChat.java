@@ -156,9 +156,9 @@ public class RiddleChat {
 
   /** Handles the sending of a text message. */
   @FXML
-  public void onSend(String messageRaw) {
+  public boolean onSend(String messageRaw) {
     if (contextName == null) {
-      return;
+      return false;
     }
     if (!GameState.containsHint(messageRaw)) {
       if (!GameState.riddle2019Solved) {
@@ -167,6 +167,7 @@ public class RiddleChat {
           textArea.appendText("Computer: Correct! \n\n");
           createComment();
           changeStatus();
+          return true;
         } else {
           textArea.appendText("Computer: Incorrect. \n\n");
         }
@@ -176,6 +177,7 @@ public class RiddleChat {
           textArea.appendText("Computer: Correct! \n\n");
           createComment();
           changeStatus();
+          return true;
         } else {
           textArea.appendText("Computer: Incorrect. \n\n");
         }
@@ -184,10 +186,12 @@ public class RiddleChat {
       textArea.appendText(
           "Computer: Sorry I am a computer I dont give hints you need to ask the GameMaster \n\n");
     }
+    return false;
   }
 
   /*Handles creating a comment for solving the game. */
   public void createComment() {
+    GameState.chat.setText("");
     // add message to game master
     GameState.gameMaster.addMessage(
         "main",
@@ -213,8 +217,7 @@ public class RiddleChat {
               GameState.gameMaster.getLastResponse("main").getContent());
           GameState.computerScreenController.setGameMaster(
               GameState.gameMaster.getLastResponse("main").getContent());
-          GameState.userInterfaceOverlayController.setGameMaster(
-              GameState.gameMaster.getLastResponse("main").getContent());
+
           System.out.println(GameState.gameMaster.getLastResponse("main").getContent());
         });
   }

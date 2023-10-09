@@ -483,6 +483,7 @@ public class StartScreenController {
     setMuteSoundImage(GameState.isGameMuted);
     GameState.cancelAllSpeech();
     GameState.glitchSound.stop();
+    GameState.type.stop();
   }
 
   /**

@@ -462,6 +462,7 @@ public class UserInterfaceOverlayController {
     new MouseClick().play();
     GameState.cancelAllSpeech();
     GameState.glitchSound.stop();
+    GameState.type.stop();
     setMuteSoundImage(GameState.isGameMuted);
   }
 
@@ -502,9 +503,5 @@ public class UserInterfaceOverlayController {
 
   public String getGameMaster() {
     return txaGameMaster.getText();
-  }
-
-  public void setGameMaster(String message) {
-    txaGameMaster.setText(message);
   }
 }

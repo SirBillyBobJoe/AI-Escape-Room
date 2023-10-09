@@ -257,9 +257,11 @@ public class Inventory {
           if (!(GameState.wallCount-- > 1)) {
             targetImageNode.setVisible(false);
             ItemChat.getInstance().printChatMessage(itemChat, "You have broken the wall.");
+          } else {
+            // prints a message
+            ItemChat.getInstance().printChatMessage(itemChat, "You have cracked the wall.");
           }
-          // prints a message
-          ItemChat.getInstance().printChatMessage(itemChat, "You have cracked the wall.");
+
         } else {
           ItemChat.getInstance().printChatMessage(itemChat, "You need to use a hammer.");
         }

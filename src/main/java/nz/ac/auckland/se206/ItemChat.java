@@ -34,6 +34,10 @@ public class ItemChat {
    * @param message The message to be printed.
    */
   public void printChatMessage(TextArea itemChat, String message) {
+    if (message == null || message.isEmpty()) {
+      GameState.type.stop();
+      return;
+    }
     // Interrupt previous thread if it's still running
     if (currentThread != null && currentThread.isAlive()) {
       currentThread.interrupt();
@@ -45,6 +49,7 @@ public class ItemChat {
           @Override
           protected Void call() throws Exception {
             // loops through and check the chat and then cancell
+            GameState.type.play();
             for (char c : message.toCharArray()) {
               if (isCancelled()) {
                 break;
@@ -54,6 +59,7 @@ public class ItemChat {
               // Sleep for 20 ms to simulate typing delay
               Thread.sleep(20);
             }
+            GameState.type.stop();
             return null;
           }
         };

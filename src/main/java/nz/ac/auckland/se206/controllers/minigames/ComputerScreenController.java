@@ -58,11 +58,14 @@ public class ComputerScreenController {
   /** Exits the current puzzle and returns to the main game. */
   @FXML
   private void exitPuzzle() {
+    exit();
+  }
+
+  private void exit() {
     System.out.println("Exit");
     GameState.currentPuzzle.setValue(Puzzle.NONE);
     GameState.chat.setGameMasterActions(GameState.gameMasterActions);
     GameState.userInterfaceOverlayController.moveGameMaster();
-    GameState.userInterfaceOverlayController.setGameMaster(getGameMaster());
 
     if (GameState.riddle2019Solved) {
       GameState.riddleChat.newRiddle(GameState.padlockAnswer);
@@ -96,7 +99,7 @@ public class ComputerScreenController {
     }
     txaRiddle.appendText("You: " + txfGuess.getText() + "\n\n");
     // send to gpt
-    GameState.riddleChat.onSend(txfGuess.getText());
+    if (GameState.riddleChat.onSend(txfGuess.getText())) exit();
     txfGuess.clear();
   }
 
