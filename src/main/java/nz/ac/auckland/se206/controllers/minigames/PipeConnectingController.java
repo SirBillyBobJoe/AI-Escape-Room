@@ -67,6 +67,13 @@ public class PipeConnectingController {
     }
   }
 
+  enum Direction {
+    TOP,
+    RIGHT,
+    BOTTOM,
+    LEFT
+  }
+
   @FXML private AnchorPane gridAnchor;
 
   @FXML private GridPane grid;
@@ -86,22 +93,18 @@ public class PipeConnectingController {
   private List<SimpleBooleanProperty> waterLeaksShowing;
   private int[][] mapRotations;
 
-  enum Direction {
-    TOP,
-    RIGHT,
-    BOTTOM,
-    LEFT
-  }
-
   /** Initializes the grid based on the game's difficulty. */
   @FXML
   public void initialize() throws IOException {
+    // sets the game difficulty
     setGamesDifficulty();
+
     initializeDataStructures();
     generateMapSetup();
     createGrid();
+    // check if its compelete
     checkCompleteness();
-
+    // makes solution invisible
     solutionGrid.setVisible(false);
     rectangle.setVisible(false);
     lblClose.setVisible(false);
@@ -425,38 +428,7 @@ public class PipeConnectingController {
     pane.setPrefSize(gridCellSize, gridCellSize);
     pane.setOnMouseClicked(this::handlePaneClick);
     pane.setRotate(mapRotations[x][y] * 90);
-
-    double offsetIncrement = (gridCellSize - rectWidth) / 2;
-    var children = pane.getChildren();
-    // Add pipes
-    if ((stucture & 0b1000) != 0) {
-      // top
-      Rectangle rect = new Rectangle(offsetIncrement, 0, rectWidth, rectHeight);
-      rect.setStrokeWidth(0);
-      rect.setFill(Color.web("#8a7f80"));
-      children.add(rect);
-    }
-    if ((stucture & 0b0100) != 0) {
-      // right
-      Rectangle rect = new Rectangle(offsetIncrement, offsetIncrement, rectHeight, rectWidth);
-      rect.setStrokeWidth(0);
-      rect.setFill(Color.web("#8a7f80"));
-      children.add(rect);
-    }
-    if ((stucture & 0b0010) != 0) {
-      // bottom
-      Rectangle rect = new Rectangle(offsetIncrement, offsetIncrement, rectWidth, rectHeight);
-      rect.setStrokeWidth(0);
-      rect.setFill(Color.web("#8a7f80"));
-      children.add(rect);
-    }
-    if ((stucture & 0b0001) != 0) {
-      // left
-      Rectangle rect = new Rectangle(0, offsetIncrement, rectHeight, rectWidth);
-      rect.setStrokeWidth(0);
-      rect.setFill(Color.web("#8a7f80"));
-      children.add(rect);
-    }
+    addRectangles(pane, stucture);
 
     return pane;
   }
@@ -471,6 +443,12 @@ public class PipeConnectingController {
     Pane pane = new Pane();
     pane.setPrefSize(gridCellSize, gridCellSize);
     pane.setRotate(0);
+    addRectangles(pane, stucture);
+
+    return pane;
+  }
+
+  private void addRectangles(Pane pane, int stucture) {
 
     double offsetIncrement = (gridCellSize - rectWidth) / 2;
     var children = pane.getChildren();
@@ -503,8 +481,6 @@ public class PipeConnectingController {
       rect.setFill(Color.web("#8a7f80"));
       children.add(rect);
     }
-
-    return pane;
   }
 
   /** Creates rectangles to represent inlets in the grid. */
@@ -576,9 +552,17 @@ public class PipeConnectingController {
     }
   }
 
+  /**
+   * Creates water leaks on a grid. Loops through each cell in the grid and creates water leaks for
+   * each direction.
+   *
+   * @throws IOException if an I/O error occurs while loading the FXML file.
+   */
   private void createWaterLeaks() throws IOException {
+    // a continous loop on the grid
     for (int x = 0; x < gridHorizontalSize; x++) {
       for (int y = 0; y < gridVerticalSize; y++) {
+        // loops through and for each set the top,left,bottom,right
         gridAnchor.getChildren().add(createGridWaterLeak(x, y, Direction.TOP));
         gridAnchor.getChildren().add(createGridWaterLeak(x, y, Direction.RIGHT));
         gridAnchor.getChildren().add(createGridWaterLeak(x, y, Direction.BOTTOM));
@@ -587,10 +571,21 @@ public class PipeConnectingController {
     }
   }
 
+  /**
+   * Creates a water leak Pane on the grid at the given coordinates and direction.
+   *
+   * @param x The x-coordinate on the grid.
+   * @param y The y-coordinate on the grid.
+   * @param d The direction in which the water leak should be created.
+   * @return A Pane object representing the water leak.
+   * @throws IOException if an I/O error occurs while loading the FXML file.
+   */
   private Pane createGridWaterLeak(int x, int y, Direction d) throws IOException {
+    // determines the grid
     double layoutX = x * gridCellSize + 0.5 * gridCellSize;
     double layoutY = y * gridCellSize + 0.5 * gridCellSize;
     double rotate = 0;
+    // logic for if its top left right or bottom to rotate
     switch (d) {
       case TOP:
         rotate = 0;
@@ -608,32 +603,42 @@ public class PipeConnectingController {
     return createWaterLeak(layoutX, layoutY, rotate);
   }
 
+  /**
+   * Creates a water leak with specific attributes.
+   *
+   * @param layoutX The x-coordinate for layout placement.
+   * @param layoutY The y-coordinate for layout placement.
+   * @param rotate The rotation angle.
+   * @return A Pane object representing the water leak.
+   * @throws IOException if an I/O error occurs while loading the FXML file.
+   */
   private Pane createWaterLeak(double layoutX, double layoutY, double rotate) throws IOException {
+    // logic for creating the waterleak
     Pane topWaterLeak = (Pane) App.loadFxml("waterleak");
     topWaterLeak.setPrefSize(gridCellSize, gridCellSize);
     topWaterLeak.setLayoutX(layoutX);
     topWaterLeak.setLayoutY(layoutY);
     topWaterLeak.setRotate(rotate);
-
+    // make the leak to visible
     topWaterLeak.setMouseTransparent(true);
     topWaterLeak.setVisible(false);
 
     var leakShowing = new SimpleBooleanProperty(false);
-
+    // make them fade out rather then immediately dissapear
     FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.2), topWaterLeak);
     fadeIn.setFromValue(0);
     fadeIn.setToValue(0.8);
 
     FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.2), topWaterLeak);
     fadeOut.setToValue(0);
-
+    // set a animation for the images so it seems realistic
     Timeline waterFlow =
         new Timeline(
             new KeyFrame(Duration.ZERO, new KeyValue(topWaterLeak.opacityProperty(), 0.7)),
             new KeyFrame(Duration.seconds(0.8), new KeyValue(topWaterLeak.opacityProperty(), 1)));
     waterFlow.setAutoReverse(true);
     waterFlow.setCycleCount(Timeline.INDEFINITE);
-
+    // add a listener to check for values if it matches solution then stop leak
     leakShowing.addListener(
         (observable, oldValue, newValue) -> {
           if (oldValue == newValue) {
@@ -652,6 +657,7 @@ public class PipeConnectingController {
                 });
             fadeIn.play();
           } else {
+            // stop waterfkiw
             waterFlow.stop();
             fadeOut.play();
             fadeOut.setOnFinished(
@@ -664,6 +670,7 @@ public class PipeConnectingController {
                 });
           }
         });
+    // show leaks
     waterLeaksShowing.add(leakShowing);
 
     return topWaterLeak;
@@ -810,8 +817,8 @@ public class PipeConnectingController {
    */
   private boolean isInletConnected(Position inlet) {
     // Define the adjacent Position and the bitmask for the direction from the cell to the inlet
-    Position adjacentPosition = null;
-    int mask = 0;
+    Position adjacentPosition;
+    int mask;
 
     // Top side
     if (inlet.verticalValue == -1) {
@@ -844,7 +851,9 @@ public class PipeConnectingController {
   }
 
   private int getWaterLeakIndex(int x, int y, Direction d) {
+    // gets the index of the leak
     var index = (x * gridVerticalSize + y) * 4;
+    // logic for the top, left,right, bottom
     switch (d) {
       case TOP:
         return index;
@@ -899,11 +908,13 @@ public class PipeConnectingController {
    */
   @FXML
   private void clickClue(MouseEvent event) {
+    // determine logic for clicking on the clue
     new MouseClick().play();
     System.out.println(GameState.pipePuzzleSolved);
     if (GameState.pipePuzzleSolved) {
       return;
     }
+    // makes the grid invisible
     if (!solutionGrid.isVisible()) {
       if (!GameState.hints.get().equals(GameState.infinity)
           && Integer.parseInt(GameState.hints.get()) < 1) {
@@ -911,13 +922,17 @@ public class PipeConnectingController {
         GameState.gameMasterActions.say("You have no hints left.");
         return;
       } else {
+        // puts up the new solution of the grid
         solutionGrid.setVisible(true);
         rectangle.setVisible(true);
         lblClose.setVisible(true);
-        if (!GameState.hints.get().equals(GameState.infinity))
+        // if not infinite hints decrease hint count
+        if (!GameState.hints.get().equals(GameState.infinity)) {
           GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
+        }
       }
     } else {
+      // turns off the visibility of the grid
       solutionGrid.setVisible(false);
       rectangle.setVisible(false);
       lblClose.setVisible(false);

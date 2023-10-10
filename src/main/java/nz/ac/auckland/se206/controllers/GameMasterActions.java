@@ -79,14 +79,14 @@ public class GameMasterActions {
     textArea.setEffect(innerShadow);
   }
 
-  public TextArea getTextArea() {
-    return textArea;
-  }
-
   /** Shows the GameMaster with a message */
   public void activate(String message) {
     activate();
     say(message);
+  }
+
+  public TextArea getTextArea() {
+    return textArea;
   }
 
   /** Hides the GameMaster with a fade-out animation. */

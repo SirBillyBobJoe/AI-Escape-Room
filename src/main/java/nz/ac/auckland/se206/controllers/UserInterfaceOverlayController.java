@@ -70,8 +70,8 @@ public class UserInterfaceOverlayController {
 
   private String intro;
 
-  private final Image SOUND_OFF_IMAGE = new Image("/images/overlay/sound-off.png");
-  private final Image SOUND_ON_IMAGE = new Image("/images/overlay/sound-on.png");
+  private final Image soundOffImage = new Image("/images/overlay/sound-off.png");
+  private final Image soundOnImage = new Image("/images/overlay/sound-on.png");
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
@@ -458,10 +458,12 @@ public class UserInterfaceOverlayController {
   /** Mutes the sound when the mute button is clicked */
   @FXML
   public void onMuteSoundClicked(MouseEvent event) {
+    // plays mouseclick and mute sounds
     GameState.isGameMuted = !GameState.isGameMuted;
     new MouseClick().play();
     GameState.cancelAllSpeech();
     GameState.glitchSound.stop();
+    // stops all other sounds
     GameState.type.stop();
     setMuteSoundImage(GameState.isGameMuted);
   }
@@ -495,9 +497,9 @@ public class UserInterfaceOverlayController {
   /** Sets the mute sound image */
   public void setMuteSoundImage(boolean muted) {
     if (muted) {
-      muteSound.setImage(SOUND_OFF_IMAGE);
+      muteSound.setImage(soundOffImage);
     } else {
-      muteSound.setImage(SOUND_ON_IMAGE);
+      muteSound.setImage(soundOnImage);
     }
   }
 
