@@ -18,7 +18,7 @@
    <children>
       <AnchorPane fx:id="puzzlePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" />
       <Rectangle fx:id="recIntro" arcHeight="5.0" arcWidth="5.0" height="600.0" mouseTransparent="true" opacity="0.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="815.0" />
-      <Label fx:id="lblRestart" layoutX="40.0" layoutY="40.0" onMouseClicked="#lblRestartClicked" onMouseEntered="#lblRestartEntered" onMouseExited="#lblRestartExited" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Restart" textFill="#bfbfbf">
+      <Label fx:id="lblMenuRestart" layoutX="40.0" layoutY="40.0" onMouseClicked="#lblMenuRestartClicked" onMouseEntered="#lblMenuRestartEntered" onMouseExited="#lblMenuRestartExited" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Restart" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
@@ -111,6 +111,11 @@
          <effect>
             <DropShadow height="102.59" radius="50.795" spread="0.84" width="102.59" />
          </effect>
+      </Label>
+      <Label fx:id="lblRestart" layoutX="40.0" layoutY="93.0" onMouseClicked="#lblRestartClicked" onMouseEntered="#lblRestartEntered" onMouseExited="#lblRestartExited" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Restart" textFill="#bfbfbf" visible="false">
+         <font>
+            <Font name="Consolas" size="20.0" />
+         </font>
       </Label>
    </children>
 </AnchorPane>
