@@ -13,6 +13,7 @@ import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.SceneManager.Rooms;
 
+/** Controller for the Riddle room where all the riddles are held. */
 public class RiddleRoomController {
   @FXML private Rectangle leftDoor;
   @FXML private Rectangle computer;

@@ -64,7 +64,7 @@ public class WirelinkingController {
       isComplete = true;
     }
 
-    /** Checks if it has found the correct end */
+    /** Checks if it has found the correct end. */
     public boolean isCorrect(Circle start, Circle end) {
       return start == startHole && end == endHole || start == endHole && end == startHole;
     }

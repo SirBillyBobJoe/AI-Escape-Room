@@ -131,7 +131,7 @@ public class PipeConnectingController {
   /**
    * Creates the grid represents by mapsetup and the game difficulty.
    *
-   * @throws IOException
+   * @throws IOException If the grid cannot be created due to I/O issues.
    */
   private void createGrid() throws IOException {
     // initiates a random variable

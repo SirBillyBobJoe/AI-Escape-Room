@@ -19,6 +19,7 @@ import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 
+/** Controller for the Passcode minigame. */
 public class PasscodeController {
 
   /** Controller for the Pipe Connecting Mini-game. */
