@@ -3,6 +3,7 @@ package nz.ac.auckland.se206.controllers;
 import java.io.IOException;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -24,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameState;
@@ -53,6 +55,9 @@ public class UserInterfaceOverlayController {
   @FXML private TextArea promptArea;
   @FXML private TextArea itemChat;
 
+  @FXML private Rectangle recIntro;
+  @FXML private Label lblIntro;
+
   @FXML private Label lblRestart;
   @FXML private ImageView muteSound;
   private final DropShadow dropShadow = new DropShadow();
@@ -75,6 +80,25 @@ public class UserInterfaceOverlayController {
 
   /** Initializes Room 1, binding the UI to the game state and setting up chat context. */
   public void initialize() {
+    // Title screen
+    PauseTransition pause = new PauseTransition(Duration.seconds(2.4));
+
+    FadeTransition fadeRecIntro = new FadeTransition(Duration.seconds(1.2), recIntro);
+    fadeRecIntro.setFromValue(0.3);
+    fadeRecIntro.setToValue(0.0);
+
+    FadeTransition fadeLblIntro = new FadeTransition(Duration.seconds(1.2), lblIntro);
+    fadeLblIntro.setFromValue(1.0);
+    fadeLblIntro.setToValue(0.0);
+
+    pause.setOnFinished(
+        e -> {
+          fadeRecIntro.play();
+          fadeLblIntro.play();
+        });
+
+    pause.play();
+
     glitch.visibleProperty().bind(GameState.loading);
     GameState.gameMasterActions = new GameMasterActions(imgGameMaster, txaGameMaster);
     GameState.userInterfaceOverlayController = this;
