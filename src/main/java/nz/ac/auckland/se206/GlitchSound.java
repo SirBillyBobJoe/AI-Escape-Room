@@ -20,8 +20,6 @@ public class GlitchSound {
    *
    * <p>Upon construction, this object will load the "mouseClick.wav" sound file and prepare it for
    * playback.
-   *
-   * @return
    */
   public GlitchSound() {
     // pick a random sound (1 or 2)

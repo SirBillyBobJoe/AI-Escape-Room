@@ -94,21 +94,24 @@ public class ComputerScreenController {
     // gets the text
     String text = txfGuess.getText();
     // return if empty
+
     if (text.trim().isEmpty()) {
       return;
     }
+
     txaRiddle.appendText("You: " + txfGuess.getText() + "\n\n");
     // send to gpt
-    if (GameState.riddleChat.onSend(txfGuess.getText())) exit();
-    {
-      txfGuess.clear();
+    if (GameState.riddleChat.onSend(txfGuess.getText())) {
+      exit();
     }
+
+    txfGuess.clear();
   }
 
   /**
    * Handles text message sending for the gamemaster feature in the computer.
    *
-   * @param event keypress event
+   * @param event keypress event.
    */
   @FXML
   private void riddleComputerGameMasterOnKeyPress(KeyEvent event) {

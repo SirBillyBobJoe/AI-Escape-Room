@@ -121,7 +121,7 @@ public class PipeConnectingController {
     rectHeight = gridCellSize / 2 + rectWidth / 2;
   }
 
-  /** Resets the datastructures to default values */
+  /** Resets the datastructures to default values. */
   private void initializeDataStructures() {
     mapRotations = new int[gridHorizontalSize][gridVerticalSize];
 
@@ -129,7 +129,7 @@ public class PipeConnectingController {
   }
 
   /**
-   * Creates the grid represents by mapsetup and the game difficulty
+   * Creates the grid represents by mapsetup and the game difficulty.
    *
    * @throws IOException
    */

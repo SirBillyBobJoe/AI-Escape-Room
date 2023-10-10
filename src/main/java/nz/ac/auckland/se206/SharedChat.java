@@ -71,7 +71,6 @@ public class SharedChat {
    * and triggers asynchronous actions for waiting for a response.
    *
    * @param textField The TextField containing the user message.
-   * @param room The room context for the message.
    */
   public void onSend(TextArea textField) {
     Boolean isHint = false;

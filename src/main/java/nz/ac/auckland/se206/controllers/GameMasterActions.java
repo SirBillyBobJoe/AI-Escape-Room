@@ -79,7 +79,7 @@ public class GameMasterActions {
     textArea.setEffect(innerShadow);
   }
 
-  /** Shows the GameMaster with a message */
+  /** Shows the GameMaster with a message. */
   public void activate(String message) {
     activate();
     say(message);
@@ -112,7 +112,7 @@ public class GameMasterActions {
     textArea.clear();
   }
 
-  /** Displays the GameMaster text with a typing animation */
+  /** Displays the GameMaster text with a typing animation. */
   public void say(String message) {
     // Don't say anything if the GameMaster is not active
     if (!isActive()) {

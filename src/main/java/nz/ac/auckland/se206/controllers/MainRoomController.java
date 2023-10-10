@@ -218,7 +218,7 @@ public class MainRoomController {
   }
 
   /**
-   * Turn Object Blue if imageView otherwise show clickable
+   * Turn Object Blue if imageView otherwise show clickable.
    *
    * @param event MouseEvent for turning object blue or showing clickable
    */
@@ -262,7 +262,7 @@ public class MainRoomController {
   }
 
   /**
-   * Removes blue tint from object
+   * Removes blue tint from object.
    *
    * @param event MouseEvent for turning object blue
    */

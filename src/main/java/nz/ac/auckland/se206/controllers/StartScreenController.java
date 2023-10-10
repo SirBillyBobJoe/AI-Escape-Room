@@ -475,7 +475,7 @@ public class StartScreenController {
     }
   }
 
-  /** Mutes the sound when the mute button is clicked */
+  /** Mutes the sound when the mute button is clicked. */
   @FXML
   public void onMuteSoundClicked(MouseEvent event) {
     // sets the mute function
@@ -514,7 +514,7 @@ public class StartScreenController {
             + " -fx-background-color: black; -fx-padding: 7px;");
   }
 
-  /** Sets the mute sound image */
+  /** Sets the mute sound image. */
   public void setMuteSoundImage(boolean muted) {
     if (muted) {
       muteSound.setImage(soundOffImage);

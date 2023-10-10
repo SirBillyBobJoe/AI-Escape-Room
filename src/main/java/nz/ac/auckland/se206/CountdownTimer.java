@@ -116,12 +116,12 @@ public class CountdownTimer {
         });
   }
 
-  /** Starts the countdown timer. */
+  /** Starts the countdown timer of the time. */
   public void start() {
     timeline.playFromStart();
   }
 
-  /** Stops the countdown timer. */
+  /** Stops the countdown timer of the time. */
   public void stop() {
     timeline.stop();
   }
