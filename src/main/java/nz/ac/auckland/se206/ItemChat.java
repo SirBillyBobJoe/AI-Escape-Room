@@ -4,6 +4,11 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
 
+/**
+ * Manages the item chat for the game.
+ *
+ * <p>This class handles the chat messaging functionality in the game and gives a cool sound effect.
+ */
 public class ItemChat {
   private static ItemChat instance;
 

@@ -395,9 +395,9 @@ public class UserInterfaceOverlayController {
   }
 
   /**
-   * Turn Object Blue
+   * Turn Object Blue in the inventory.
    *
-   * @param event MouseEvent for turning object blue
+   * @param event MouseEvent for turning object blue.
    */
   @FXML
   private void onMouseEntered(MouseEvent event) {
@@ -410,7 +410,7 @@ public class UserInterfaceOverlayController {
   }
 
   /**
-   * Removes blue tint from object
+   * Removes blue tint from object.
    *
    * @param event MouseEvent for turning object blue
    */
@@ -422,9 +422,9 @@ public class UserInterfaceOverlayController {
   }
 
   /**
-   * Handles events when we click on the inventory Items
+   * Handles events when we click on the inventory Items.
    *
-   * @param event MouseEvent for turning object blue
+   * @param event MouseEvent for turning object blue.
    */
   @FXML
   private void onInventoryClicked(MouseEvent event) {
@@ -432,7 +432,7 @@ public class UserInterfaceOverlayController {
     GameState.inventory.onInventoryClicked(event);
   }
 
-  /** Hide and move Game Master to a different location for immersion */
+  /** Hide and move Game Master to a different location for immersion. */
   @FXML
   public void moveGameMaster() {
     // turns the right master invisible
@@ -455,7 +455,7 @@ public class UserInterfaceOverlayController {
     }
   }
 
-  /** Mutes the sound when the mute button is clicked */
+  /** Mutes the sound when the mute button is clicked. */
   @FXML
   public void onMuteSoundClicked(MouseEvent event) {
     // plays mouseclick and mute sounds
@@ -494,7 +494,7 @@ public class UserInterfaceOverlayController {
             + " -fx-background-color: black; -fx-padding: 7px;");
   }
 
-  /** Sets the mute sound image */
+  /** Sets the mute sound image. */
   public void setMuteSoundImage(boolean muted) {
     if (muted) {
       muteSound.setImage(soundOffImage);

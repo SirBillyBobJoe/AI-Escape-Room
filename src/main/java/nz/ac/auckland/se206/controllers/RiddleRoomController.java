@@ -25,7 +25,7 @@ public class RiddleRoomController {
     GameState.riddleRoomController = this;
   }
 
-  /** Turns the lights on in the riddle room */
+  /** Turns the lights on in the riddle room. */
   @FXML
   public void turnLightsOn() {
     // changes the lights in the rom
@@ -40,7 +40,7 @@ public class RiddleRoomController {
     GameState.puzzleRoom.setEffect(colorAdjust);
   }
 
-  /** Turns the lights off in the riddle room */
+  /** Turns the lights off in the riddle room. */
   @FXML
   public void turnLightsOff() {
     // gets the image for dark and turns it off
@@ -81,9 +81,9 @@ public class RiddleRoomController {
   }
 
   /**
-   * Turn Object Blue if imageView otherwise show clickable
+   * Turn Object Blue if imageView otherwise show clickable.
    *
-   * @param event MouseEvent for turning object blue or showing clickable
+   * @param event MouseEvent for turning object blue or showing clickable.
    */
   @FXML
   private void onMouseEntered(MouseEvent event) {
@@ -108,9 +108,9 @@ public class RiddleRoomController {
   }
 
   /**
-   * Removes blue tint from object
+   * Removes blue tint from object.
    *
-   * @param event MouseEvent for turning object blue
+   * @param event MouseEvent for turning object blue.
    */
   @FXML
   private void onMouseExited(MouseEvent event) {

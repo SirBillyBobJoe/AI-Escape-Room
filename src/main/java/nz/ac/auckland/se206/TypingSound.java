@@ -1,6 +1,5 @@
 package nz.ac.auckland.se206;
 
-import javax.sound.sampled.Clip;
 
 /**
  * Manages mouse click sounds for the game.
@@ -9,8 +8,6 @@ import javax.sound.sampled.Clip;
  * Sound API to play the "mouseClick.wav" sound file.
  */
 public class TypingSound extends Sound {
-
-  private Clip clip;
 
   /**
    * Constructs a new MouseClick object.

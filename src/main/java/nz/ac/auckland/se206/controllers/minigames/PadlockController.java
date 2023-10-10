@@ -133,9 +133,9 @@ public class PadlockController {
   }
 
   /**
-   * Turn button blue to show it is clickable
+   * Turn button blue to show it is clickable.
    *
-   * @param event MouseEvent for turning object blue or showing clickable
+   * @param event MouseEvent for turning object blue or showing clickable.
    */
   @FXML
   private void onMouseEntered(MouseEvent event) {
@@ -151,9 +151,9 @@ public class PadlockController {
   }
 
   /**
-   * Removes blue tint from object
+   * Removes blue tint from object.
    *
-   * @param event MouseEvent for turning object blue
+   * @param event MouseEvent for turning object blue.
    */
   @FXML
   private void onMouseExited(MouseEvent event) {

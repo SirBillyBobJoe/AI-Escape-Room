@@ -37,16 +37,16 @@ public class Inventory {
   }
 
   /**
-   * sets the itemChat for the inventory
+   * sets the itemChat for the inventory.
    *
-   * @param itemChat text area
+   * @param itemChat text area.
    */
   public void setItemChat(TextArea itemChat) {
     this.itemChat = itemChat;
   }
 
   /**
-   * Returns the inventory property.
+   * Returns the inventory property of the inventory.
    *
    * @return The inventory as a ListProperty of Object.
    */

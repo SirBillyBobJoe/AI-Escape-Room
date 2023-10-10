@@ -62,7 +62,6 @@ public class RiddleChat {
    * <p>This method clears the text area and starts a loading animation before generating a new
    * riddle.
    *
-   * @param contextName The context or category for the new riddle.
    * @param riddleAnswer The answer to the new riddle.
    */
   public void newRiddle(String riddleAnswer) {
@@ -189,7 +188,7 @@ public class RiddleChat {
     return false;
   }
 
-  /*Handles creating a comment for solving the game. */
+  /** Handles creating a comment for solving the game. */
   public void createComment() {
     GameState.chat.setText("");
     // add message to game master
@@ -222,7 +221,7 @@ public class RiddleChat {
         });
   }
 
-  /*Handles logic for chagning status of the riddle solved. */
+  /** Handles logic for chagning status of the riddle solved. */
   public void changeStatus() {
     // Which riddle was answered correctly?
     if (!GameState.riddle2019Solved) {

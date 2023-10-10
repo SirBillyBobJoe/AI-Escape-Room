@@ -45,49 +45,49 @@ public class GameState {
   /** The infinity symbol. */
   public static String infinity = "\u221E";
 
-  /** Indicates whether the pipe puzzle has been solved */
+  /** Indicates whether the pipe puzzle has been solved. */
   public static boolean pipePuzzleSolved = false;
 
-  /* Indicates whether the hammer has been found */
+  /* Indicates whether the hammer has been found. */
   public static boolean isHammerFound = false;
 
-  /* Indicates whether the lighter has been found */
+  /* Indicates whether the lighter has been found. */
   public static boolean isLighterFound = false;
 
-  /* Indicates whether the red wire has been found */
+  /* Indicates whether the red wire has been found. */
   public static boolean isRedWire = false;
 
-  /* Indicates whether the greenWire has been found */
+  /* Indicates whether the greenWire has been found. */
   public static boolean isGreenWire = false;
 
-  /* Indicates whether the blue wire has been found */
+  /* Indicates whether the blue wire has been found .*/
   public static boolean isBlueWire = false;
 
-  /** Indicates whether the player has hammered down the wall */
+  /** Indicates whether the player has hammered down the wall. */
   public static boolean wallRemoved = false;
 
-  /** Indicates whether the both wall panels have been removed */
+  /** Indicates whether the both wall panels have been removed. */
   public static boolean lighter = false;
 
-  /** Indicates whether the both wall panels have been removed */
+  /** Indicates whether the both wall panels have been removed. */
   public static boolean wire = false;
 
-  /** Indicates whether the player has solved the candle puzzle */
+  /** Indicates whether the player has solved the candle puzzle. */
   public static boolean candlePuzzleSolved = false;
 
-  /** Indicates whether the player has solved the 2019 riddle */
+  /** Indicates whether the player has solved the 2019 riddle. */
   public static boolean riddle2019Solved = false;
 
-  /** Indicates whether the player has solved the chest puzzle */
+  /** Indicates whether the player has solved the chest puzzle. */
   public static boolean chestPuzzleSolved = false;
 
-  /** Indicates whether the player has solved the wire puzzle */
+  /** Indicates whether the player has solved the wire puzzle. */
   public static boolean wirePuzzleSolved = false;
 
-  /** Indicates whether the player has solved the padlock riddle */
+  /** Indicates whether the player has solved the padlock riddle. */
   public static boolean riddlePadlockSolved = false;
 
-  /** Indicates whether the player has solved the padlock puzzle */
+  /** Indicates whether the player has solved the padlock puzzle. */
   public static boolean padlockPuzzleSolved = false;
 
   /** Indicates whether the riddle has been resolved. */
@@ -105,7 +105,7 @@ public class GameState {
 
   public static ComputerScreenController computerScreenController;
 
-  /** Indicates whether the riddle room is active or not */
+  /** Indicates whether the riddle room is active or not. */
   public static SimpleBooleanProperty riddleRoomActive = new SimpleBooleanProperty(false);
 
   /** List to track the order in which candles are interacted with in the game. */
@@ -153,7 +153,7 @@ public class GameState {
   /** Instance of RiddleChat for managing riddles in the game. */
   public static RiddleChat riddleChat = RiddleChat.getInstance();
 
-  /** Stores the riddle the player is currently trying to solve */
+  /** Stores the riddle the player is currently trying to solve. */
   public static String currentRiddle = "";
 
   /** Instance of GameMasterActions to manage actions related to the game master. */
@@ -425,6 +425,17 @@ public class GameState {
     loading.set(true);
   }
 
+  /**
+   * Evaluates whether a given message contains certain keywords indicative of a hint.
+   *
+   * <p>This method iterates through predefined sets of keywords stored in {@code
+   * GameState.clueFirst} and {@code GameState.clueSecond}. If the message contains a keyword from
+   * each set, it is identified as a hint and the method returns {@code true}.
+   *
+   * @param msg The message to be evaluated.
+   * @return {@code true} if the message contains keywords indicative of a hint, {@code false}
+   *     otherwise.
+   */
   public static boolean containsHint(String msg) {
     // determines if its a hint from keywords or if its a general conversation
 
@@ -441,6 +452,12 @@ public class GameState {
     return false;
   }
 
+  /**
+   * Cancels all ongoing text-to-speech operations.
+   *
+   * <p>This method iterates through all instances of {@code TextToSpeech} in {@code speechList},
+   * invoking {@code cancel()} on each to halt any ongoing speech synthesis.
+   */
   public static void cancelAllSpeech() {
     for (TextToSpeech speech : speechList) {
       speech.cancel();

@@ -128,9 +128,9 @@ public class PasscodeController {
   }
 
   /**
-   * Turn button blue to show it is clickable
+   * Turn button blue to show it is clickable.
    *
-   * @param event MouseEvent for turning object blue or showing clickable
+   * @param event MouseEvent for turning object blue or showing clickable.
    */
   private void onMouseEntered(MouseEvent event) {
     if (GameState.puzzleSolved.get(Puzzle.PASSCODE).getValue()) {
@@ -145,9 +145,9 @@ public class PasscodeController {
   }
 
   /**
-   * Removes blue tint from object
+   * Removes blue tint from object.
    *
-   * @param event MouseEvent for turning object blue
+   * @param event MouseEvent for turning object blue.
    */
   private void onMouseExited(MouseEvent event) {
     Polygon source = (Polygon) event.getSource();

@@ -1,6 +1,5 @@
 package nz.ac.auckland.se206.items;
 
-
 import javafx.scene.image.Image;
 
 /**
@@ -51,27 +50,27 @@ public class Object {
   }
 
   /**
-   * Retrieves the Message object holds
+   * Retrieves the Message object holds.
    *
-   * @return The String of message
+   * @return The String of message.
    */
   public String getMessage() {
     return message;
   }
 
   /**
-   * Sets the Message object holds
+   * /** Sets the Message object holds.
    *
-   * @param The String of message
+   * @param message The String of message.
    */
   public void setMessage(String message) {
     this.message = message;
   }
 
   /**
-   * gets the identifier message
+   * gets the identifier message of the object.
    *
-   * @return returns the identifier
+   * @return returns the identifier.
    */
   public String getItemIdentifier() {
     return itemIdentifier;
