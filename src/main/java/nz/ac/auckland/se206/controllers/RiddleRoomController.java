@@ -65,19 +65,21 @@ public class RiddleRoomController {
     // gets sourcenode
     Node source = (Node) event.getSource();
     String id = source.getId();
-    new MouseClick().play();
     // if its the leftdoor go to main room
     if (id.equals("leftDoor")) {
-
+      new MouseClick().play();
       GameState.currentRoom.set(Rooms.MAINROOM);
     } else if (id.equals("computer")) {
       // if its the computer go to the computerscreen
       if (GameState.riddleRoomActive.getValue()) {
+        new MouseClick().play();
         GameState.currentPuzzle.set(Puzzle.COMPUTERSCREEN);
         GameState.userInterfaceOverlayController.moveGameMaster();
         GameState.computerScreenController.setGameMaster(
             GameState.userInterfaceOverlayController.getGameMaster());
       }
+    } else {
+      new MouseClick().play();
     }
   }
 

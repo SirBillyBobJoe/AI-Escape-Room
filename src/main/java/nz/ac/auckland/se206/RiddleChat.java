@@ -101,7 +101,7 @@ public class RiddleChat {
       finalMessage =
           "Give the player a short concise riddle with the answer "
               + answer
-              + " Begin the riddle with \"I am\". Do not include the answer in the riddle.";
+              + " .Begin the riddle with \"I am\". Do not include the answer in the riddle.";
       // adds the message to gpts
       GameState.gameMaster.addMessage(generateContextName, "user", finalMessage);
     } else {
@@ -109,7 +109,7 @@ public class RiddleChat {
       finalMessage =
           "Give the player a short consice riddle with the answer "
               + riddleAnswer
-              + "Begin the riddle with \"I am\". Do not include the answer in the riddle.";
+              + " .Begin the riddle with \"I am\". Do not include the answer in the riddle.";
       // adds the message to gpt
       GameState.gameMaster.addMessage(generateContextName, "user", finalMessage);
     }
@@ -164,7 +164,7 @@ public class RiddleChat {
         // logic for the riddles
         if (messageRaw.contains(GameState.passcodeAnswer)) {
           textArea.appendText("Computer: Correct! \n\n");
-          createComment();
+          createComment(GameState.passcodeAnswer);
           changeStatus();
           return true;
         } else {
@@ -174,7 +174,7 @@ public class RiddleChat {
         // logic for the padlock
         if (messageRaw.toLowerCase().contains(GameState.padlockAnswer.toLowerCase())) {
           textArea.appendText("Computer: Correct! \n\n");
-          createComment();
+          createComment(GameState.padlockAnswer.toLowerCase());
           changeStatus();
           return true;
         } else {
@@ -189,21 +189,27 @@ public class RiddleChat {
   }
 
   /** Handles creating a comment for solving the game. */
-  public void createComment() {
+  public void createComment(String riddleAnswer) {
     GameState.chat.setText("");
     // add message to game master
     GameState.gameMaster.addMessage(
         "main",
         "user",
-        "Commend the player very briefly for solving the riddle. Saying something along"
-            + " lines of \"You're smarter than you look\".");
+        "Commend the player very briefly for solving the riddle. Saying something along lines of"
+            + " \"You're smarter than you look\". And then tell the player they should remember"
+            + " their answer \""
+            + riddleAnswer
+            + "\" cause they may need it later.");
     GameState.gameMaster.runContext("main");
     // generate the comments
     Task<Void> generateCommendment =
         new Task<Void>() {
           @Override
           protected Void call() throws Exception {
+            GameState.loading.set(true);
+            GameState.glitchSound.play();
             GameState.gameMaster.waitForContext("main");
+            GameState.loading.set(false);
             return null;
           }
         };
