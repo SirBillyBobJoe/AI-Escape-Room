@@ -22,7 +22,7 @@
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblEasy" alignment="CENTER" layoutX="86.0" layoutY="269.0" onMouseClicked="#levelClicked" onMouseEntered="#lblEasyEntered" onMouseExited="#lblEasyExited" prefHeight="39.0" prefWidth="256.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Easy (Infinite Hints)" textFill="#bfbfbf">
+      <Label fx:id="lblEasy" alignment="CENTER" layoutX="86.0" layoutY="266.0" onMouseClicked="#levelClicked" onMouseEntered="#lblEasyEntered" onMouseExited="#lblEasyExited" prefHeight="39.0" prefWidth="256.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Easy (Infinite Hints)" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
@@ -32,7 +32,7 @@
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblHard" alignment="CENTER" layoutX="86.0" layoutY="405.0" onMouseClicked="#levelClicked" onMouseEntered="#lblHardEntered" onMouseExited="#lblHardExited" prefHeight="39.0" prefWidth="256.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Hard (0 Hints)" textFill="#bfbfbf">
+      <Label fx:id="lblHard" alignment="CENTER" layoutX="86.0" layoutY="412.0" onMouseClicked="#levelClicked" onMouseEntered="#lblHardEntered" onMouseExited="#lblHardExited" prefHeight="39.0" prefWidth="256.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Hard (0 Hints)" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
@@ -42,17 +42,17 @@
             <Font name="Consolas" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="lbl2Min" alignment="CENTER" layoutX="149.0" layoutY="266.0" onMouseClicked="#timeClicked" onMouseEntered="#lbl2MinEntered" onMouseExited="#lbl2MinExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="2 minutes" textFill="#bfbfbf" visible="false">
+      <Label fx:id="lbl2Min" alignment="CENTER" layoutX="149.0" layoutY="266.0" onMouseClicked="#timeClicked" onMouseEntered="#lbl2MinEntered" onMouseExited="#lbl2MinExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="2 minutes" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lbl4Min" alignment="CENTER" layoutX="148.0" layoutY="340.0" onMouseClicked="#timeClicked" onMouseEntered="#lbl4MinEntered" onMouseExited="#lbl4MinExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="4 minutes" textFill="#bfbfbf" visible="false">
+      <Label fx:id="lbl4Min" alignment="CENTER" layoutX="148.0" layoutY="340.0" onMouseClicked="#timeClicked" onMouseEntered="#lbl4MinEntered" onMouseExited="#lbl4MinExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="4 minutes" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lbl6Min" alignment="CENTER" layoutX="149.0" layoutY="412.0" onMouseClicked="#timeClicked" onMouseEntered="#lbl6MinEntered" onMouseExited="#lbl6MinExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="6 minutes" textFill="#bfbfbf" visible="false">
+      <Label fx:id="lbl6Min" alignment="CENTER" layoutX="149.0" layoutY="412.0" onMouseClicked="#timeClicked" onMouseEntered="#lbl6MinEntered" onMouseExited="#lbl6MinExited" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="6 minutes" textFill="#bfbfbf">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
