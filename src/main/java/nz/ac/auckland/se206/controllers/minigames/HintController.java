@@ -8,6 +8,7 @@ import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.MouseClick;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 
+/** Hint Controller class for the Hints within the game. */
 public class HintController {
   @FXML private ImageView clue;
 

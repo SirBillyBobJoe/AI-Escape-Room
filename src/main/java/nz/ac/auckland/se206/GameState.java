@@ -43,7 +43,7 @@ public class GameState {
   public static boolean isGameMuted = false;
 
   /** The infinity symbol. */
-  public static String infinity = "\u221E";
+  public static String infinity = "∞";
 
   /** Indicates whether the pipe puzzle has been solved. */
   public static boolean pipePuzzleSolved = false;

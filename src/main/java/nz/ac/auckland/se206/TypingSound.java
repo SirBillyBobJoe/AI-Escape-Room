@@ -1,6 +1,5 @@
 package nz.ac.auckland.se206;
 
-
 /**
  * Manages mouse click sounds for the game.
  *
@@ -14,8 +13,6 @@ public class TypingSound extends Sound {
    *
    * <p>Upon construction, this object will load the "mouseClick.wav" sound file and prepare it for
    * playback.
-   *
-   * @return
    */
   public TypingSound() {
 
