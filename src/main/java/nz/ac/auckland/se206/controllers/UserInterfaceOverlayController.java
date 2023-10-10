@@ -59,8 +59,10 @@ public class UserInterfaceOverlayController {
   @FXML private Label lblIntro;
 
   @FXML private Label lblRestart;
+  @FXML private Label lblMenuRestart;
   @FXML private ImageView muteSound;
   private final DropShadow dropShadow = new DropShadow();
+  private final DropShadow dropShadowMenu = new DropShadow();
 
   @FXML private TextArea txaGameMaster;
   @FXML private ImageView imgGameMaster;
@@ -197,8 +199,11 @@ public class UserInterfaceOverlayController {
     changePuzzle(Puzzle.NONE, Puzzle.NONE);
 
     // Set up a button drop shadow
-    dropShadow.setColor(Color.web("#007aec"));
+    dropShadow.setColor(Color.RED);
     dropShadow.setRadius(5.0);
+
+    dropShadowMenu.setColor(Color.web("#007aec"));
+    dropShadowMenu.setRadius(5.0);
 
     // Set up a timer to check for player interaction with game master
     playerInteractionTimer =
@@ -328,7 +333,7 @@ public class UserInterfaceOverlayController {
   @FXML
   private void lblRestartEntered(MouseEvent event) {
     lblRestart.setEffect(dropShadow);
-    lblRestart.setTextFill(Color.WHITE);
+    lblRestart.setTextFill(Color.RED);
     lblRestart.setStyle(
         "-fx-border-radius: 5px; -fx-border-color: white; -fx-background-radius: 5px;"
             + " -fx-background-color: black; -fx-padding: 7px;");
@@ -344,6 +349,55 @@ public class UserInterfaceOverlayController {
     lblRestart.setEffect(null);
     lblRestart.setTextFill(Color.web("#bfbfbf"));
     lblRestart.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: #bfbfbf; -fx-background-radius: 5px;"
+            + " -fx-background-color: black; -fx-padding: 7px;");
+  }
+
+  /**
+   * Opens the confirmation restart button
+   *
+   * @param event The mouse click event for the restart button.
+   * @throws IOException If the FXML for the start screen can't be loaded.
+   */
+  @FXML
+  private void lblMenuRestartClicked(MouseEvent event) throws IOException {
+    // Play a click sound effect
+    new MouseClick().play();
+
+    // Show restart button
+    if (lblRestart.isVisible()) {
+      lblRestart.setVisible(false);
+      lblMenuRestart.setText("Restart");
+    } else {
+      lblRestart.setVisible(true);
+      lblMenuRestart.setText("Hide");
+    }
+  }
+
+  /**
+   * Updates the restart menu button when the mouse hovers over it.
+   *
+   * @param event MouseEvent for hovering over the restart button.
+   */
+  @FXML
+  private void lblMenuRestartEntered(MouseEvent event) {
+    lblMenuRestart.setEffect(dropShadowMenu);
+    lblMenuRestart.setTextFill(Color.WHITE);
+    lblMenuRestart.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: white; -fx-background-radius: 5px;"
+            + " -fx-background-color: black; -fx-padding: 7px;");
+  }
+
+  /**
+   * Updates the restart menu button when the mouse leaves its area.
+   *
+   * @param event MouseEvent for leaving the restart button.
+   */
+  @FXML
+  private void lblMenuRestartExited(MouseEvent event) {
+    lblMenuRestart.setEffect(null);
+    lblMenuRestart.setTextFill(Color.web("#bfbfbf"));
+    lblMenuRestart.setStyle(
         "-fx-border-radius: 5px; -fx-border-color: #bfbfbf; -fx-background-radius: 5px;"
             + " -fx-background-color: black; -fx-padding: 7px;");
   }
