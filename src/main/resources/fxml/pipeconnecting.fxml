@@ -18,7 +18,7 @@
         </GridPane>
       </children>
     </AnchorPane>
-      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#00000096" height="517.0" layoutX="51.0" layoutY="38.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="710.0">
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#00000096" height="517.0" layoutX="51.0" layoutY="38.0" mouseTransparent="true" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="710.0">
          <effect>
             <GaussianBlur radius="6.29" />
          </effect>
