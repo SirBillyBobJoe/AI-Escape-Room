@@ -294,7 +294,11 @@ public class Inventory {
               .printChatMessage(itemChat, "You need a key to unlock The padlock.");
         }
       } else if ("candle".equals(targetImageView.getUserData())) { // if its a candle
-
+        if (GameState.candlePuzzleSolved) {
+          event.setDropCompleted(success);
+          event.consume();
+          return;
+        }
         Candle candleItem = (Candle) room1Items.get(targetImageView);
 
         // Check whether the dragged item is a lighter

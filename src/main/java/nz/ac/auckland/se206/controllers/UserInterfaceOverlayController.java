@@ -2,7 +2,6 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -204,16 +203,6 @@ public class UserInterfaceOverlayController {
 
     dropShadowMenu.setColor(Color.web("#007aec"));
     dropShadowMenu.setRadius(5.0);
-
-    // Set up a timer to check for player interaction with game master
-    playerInteractionTimer =
-        new Timeline(
-            new KeyFrame(
-                Duration.seconds(15),
-                e -> {
-                  // This code will run after 20 seconds of player inactivity.
-                  GameState.gameMasterActions.unactivate();
-                }));
 
     // Generate a welcome message for the player after the game master activates (5 seconds after
     // game loads)

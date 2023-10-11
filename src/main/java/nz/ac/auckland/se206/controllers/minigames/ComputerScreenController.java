@@ -1,6 +1,5 @@
 package nz.ac.auckland.se206.controllers.minigames;
 
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.util.Duration;
 import nz.ac.auckland.se206.GameState;
 import nz.ac.auckland.se206.SceneManager.Puzzle;
 import nz.ac.auckland.se206.controllers.GameMasterActions;
@@ -44,15 +42,6 @@ public class ComputerScreenController {
     sendButton.disableProperty().bind(GameState.riddleRoomActive.not());
 
     GameState.computerScreenController = this;
-
-    playerInteractionTimer =
-        new Timeline(
-            new KeyFrame(
-                Duration.seconds(15),
-                e -> {
-                  // This code will run after 20 seconds of player inactivity.
-                  GameState.gameMasterActions.unactivate();
-                }));
   }
 
   /** Exits the current puzzle and returns to the main game. */
