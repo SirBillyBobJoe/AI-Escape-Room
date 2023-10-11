@@ -296,6 +296,12 @@ public class PuzzleRoomController {
 
       return;
     }
+    if (node.getUserData() != null && node.getUserData().equals("candle")) {
+      if (!GameState.isPuzzlesOn.getValue()) {
+        GameState.inventory.setTextChat("You Need To Solve Riddle");
+        return;
+      }
+    }
     // use inventory logic
     GameState.inventory.onDragDropped(event, GameState.currentRoomItems);
     // if wall count is 0
@@ -316,6 +322,10 @@ public class PuzzleRoomController {
       background.setImage(new Image("/images/puzzleroom/crack2.png"));
     }
     if (node.getUserData() != null && node.getUserData().equals("candle")) {
+      if (GameState.candlePuzzleSolved) {
+        GameState.inventory.setTextChat("This puzzle is already solved");
+        return;
+      }
       // if its a candle
       System.out.println(checkCandleGame());
       System.out.println(GameState.candleOrder);

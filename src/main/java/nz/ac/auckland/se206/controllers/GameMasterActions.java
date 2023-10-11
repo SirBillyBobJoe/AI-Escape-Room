@@ -89,29 +89,6 @@ public class GameMasterActions {
     return textArea;
   }
 
-  /** Hides the GameMaster with a fade-out animation. */
-  public void unactivate() {
-    if (!isActive()) {
-      return;
-    }
-    setInactive();
-
-    // Hide the GameMaster image with a 1s fade-in animation.
-    FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), image);
-    fadeTransition.setFromValue(1.0);
-    fadeTransition.setToValue(0.0);
-    fadeTransition.play();
-
-    // Hide the GameMaster glow
-    InnerShadow innerShadow = new InnerShadow();
-    innerShadow.setColor(Color.WHITE);
-    innerShadow.setRadius(10.0);
-    textArea.setEffect(innerShadow);
-
-    // Clear the text area
-    textArea.clear();
-  }
-
   /** Displays the GameMaster text with a typing animation. */
   public void say(String message) {
     // Don't say anything if the GameMaster is not active
@@ -163,10 +140,5 @@ public class GameMasterActions {
   /** Sets the active status of GameMasterActions to true. */
   private void setActive() {
     this.active = true;
-  }
-
-  /** Sets the active status of GameMasterActions to false. */
-  private void setInactive() {
-    this.active = false;
   }
 }
