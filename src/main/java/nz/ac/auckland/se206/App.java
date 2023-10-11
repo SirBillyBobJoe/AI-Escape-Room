@@ -1,5 +1,8 @@
 package nz.ac.auckland.se206;
 
+import java.awt.Image;
+import java.awt.Taskbar;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.URL;
 import javafx.application.Application;
@@ -25,6 +28,23 @@ public class App extends Application {
    * @param args Command-line arguments.
    */
   public static void main(final String[] args) {
+    try {
+      // loading an image from a file
+      final Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+      final URL imageResource =
+          App.class.getClassLoader().getResource("images/menu/gamemaster.png");
+      final Image image = defaultToolkit.getImage(imageResource);
+
+      // this is new since JDK 9
+      final Taskbar taskbar = Taskbar.getTaskbar();
+      // set icon for mac os (and other systems which do support this method)
+      taskbar.setIconImage(image);
+    } catch (final UnsupportedOperationException e) {
+      System.out.println("The os does not support: 'taskbar.setIconImage'");
+    } catch (final SecurityException e) {
+      System.out.println("There was a security exception for: 'taskbar.setIconImage'");
+    }
+
     launch();
   }
 
@@ -139,6 +159,7 @@ public class App extends Application {
     // starts the room
     scene = new Scene(SceneManager.getUi(AppUi.STARTSCREEN), 1100, 600);
     scene.getRoot().requestFocus();
+    stage.setTitle("The Singularity's Grip");
     // resizes not possible
     stage.setResizable(false);
     stage.setScene(scene);
