@@ -1,5 +1,7 @@
 package nz.ac.auckland.se206;
 
+import java.awt.Taskbar;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.URL;
 import javafx.application.Application;
@@ -26,7 +28,19 @@ public class App extends Application {
    * @param args Command-line arguments.
    */
   public static void main(final String[] args) {
+    try {
+      // loading an image from a file
+      final Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+      final URL imageResource =
+          App.class.getClassLoader().getResource("images/menu/gameMaster.png");
+      final java.awt.Image dockImage = defaultToolkit.getImage(imageResource);
 
+      // this is new since JDK 9
+      final Taskbar taskbar = Taskbar.getTaskbar();
+      // set icon for mac os (and other systems which do support this method)
+      taskbar.setIconImage(dockImage);
+    } catch (Exception e) {
+    }
     launch();
   }
 
@@ -138,6 +152,7 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
+    // Add icon and image to dock
     final Image image = new Image("images/menu/gameMaster.png");
     stage.getIcons().add(image);
 
