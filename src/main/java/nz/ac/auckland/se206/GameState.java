@@ -32,6 +32,9 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
 
 /** Represents the state of the game. */
 public class GameState {
+
+  public static boolean isInComputer = false;
+
   public static SimpleBooleanProperty userStartedDragging = new SimpleBooleanProperty(false);
 
   public static TypingSound type = new TypingSound();

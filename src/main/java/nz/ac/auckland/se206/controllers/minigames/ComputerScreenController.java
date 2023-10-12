@@ -52,6 +52,7 @@ public class ComputerScreenController {
 
   private void exit() {
     System.out.println("Exit");
+    GameState.isInComputer = false;
     GameState.currentPuzzle.setValue(Puzzle.NONE);
     GameState.chat.setGameMasterActions(GameState.gameMasterActions);
     GameState.userInterfaceOverlayController.moveGameMaster();
