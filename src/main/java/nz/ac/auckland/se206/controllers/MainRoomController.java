@@ -104,7 +104,7 @@ public class MainRoomController {
     new MouseClick().play();
     if (!GameState.isPuzzlesOn.getValue() && GameState.puzzleName.contains(source.getId())) {
       // when puzzles are turned off
-
+      GameState.inventory.setTextChat("You Need To Solve The Riddle");
       vibrate(source);
 
     } else if (source instanceof ImageView) {
@@ -199,7 +199,7 @@ public class MainRoomController {
 
     // when u drop it checks values
     if (!GameState.isPuzzlesOn.getValue() && GameState.puzzleName.contains(node.getId())) {
-
+      GameState.inventory.setTextChat("You Need To Solve The Riddle");
       vibrate(node);
       // gets keyframe for delays
       KeyFrame keyFrame =
