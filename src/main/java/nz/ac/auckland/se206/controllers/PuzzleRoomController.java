@@ -142,10 +142,10 @@ public class PuzzleRoomController {
         || id.equals("candle3")
         || id.equals("candle4")) {
 
-      GameState.inventory.setTextChat("You need a lighter");
-
       if (!GameState.isPuzzlesOn.getValue()) {
-        return;
+        GameState.inventory.setTextChat("You need to solve the riddle");
+      } else {
+        GameState.inventory.setTextChat("You need a lighter");
       }
 
       return;
@@ -306,7 +306,6 @@ public class PuzzleRoomController {
       if (!GameState.isPuzzlesOn.getValue()) {
 
         GameState.inventory.setTextChat("You need to the solve riddle");
-
 
         return;
       }
