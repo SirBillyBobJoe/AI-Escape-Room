@@ -33,14 +33,16 @@ public class ComputerScreenController {
    */
   @FXML
   private void initialize() {
+    // binds the loading image to loading state
     glitch.visibleProperty().bind(GameState.loading);
     System.out.println("Initialise Computer Screen Controller");
     GameState.riddleChat.setTextArea(txaRiddle);
     GameState.riddleChat.setLoadingWheel(imgLoadingWheel);
+    // sets answers to riddles
     GameState.riddleChat.newRiddle(GameState.passcodeAnswer);
 
     sendButton.disableProperty().bind(GameState.riddleRoomActive.not());
-
+    // screen controller is this right now
     GameState.computerScreenController = this;
   }
 
@@ -52,6 +54,7 @@ public class ComputerScreenController {
 
   private void exit() {
     System.out.println("Exit");
+    GameState.isInComputer = false;
     GameState.currentPuzzle.setValue(Puzzle.NONE);
     GameState.chat.setGameMasterActions(GameState.gameMasterActions);
     GameState.userInterfaceOverlayController.moveGameMaster();

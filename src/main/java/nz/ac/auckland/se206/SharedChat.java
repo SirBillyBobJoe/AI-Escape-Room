@@ -107,27 +107,40 @@ public class SharedChat {
     String stepBasedHintPrompt = "";
     if (GameState.riddleRoomActive.getValue()) {
       if (!GameState.riddle2019Solved) {
-        // logic for the riddles
-        stepBasedHintPrompt =
-            "The player is solving the riddle \""
-                + GameState.currentRiddle
-                + "\". With the answer \""
-                + GameState.passcodeAnswer
-                + "\". Please give the player a hint to help them solve the riddle."
-                + " BUT NEVER UNDER ANY CIRCUMSTANCE SAY: \""
-                + GameState.passcodeAnswer
-                + "\".";
+        if (!GameState.isInComputer) {
+          stepBasedHintPrompt =
+              "Tell the player to go to the right room and to solve the riddle thats in the"
+                  + " computer";
+        } else {
+          // logic for the riddles
+          stepBasedHintPrompt =
+              "The player is solving the riddle \""
+                  + GameState.currentRiddle
+                  + "\". With the answer \""
+                  + GameState.passcodeAnswer
+                  + "\". Please give the player a hint to help them solve the riddle."
+                  + " BUT NEVER UNDER ANY CIRCUMSTANCE SAY: \""
+                  + GameState.passcodeAnswer
+                  + "\".";
+        }
+
       } else if (!GameState.riddlePadlockSolved) {
-        // logic for the padlock
-        stepBasedHintPrompt =
-            "The player is solving the riddle \""
-                + GameState.currentRiddle
-                + "\". With the answer \""
-                + GameState.padlockAnswer
-                + "\". Please give the player a hint to help them solve the riddle."
-                + " BUT NEVER UNDER ANY CIRCUMSTANCE SAY: \""
-                + GameState.padlockAnswer
-                + "\".";
+        if (!GameState.isInComputer) {
+          stepBasedHintPrompt =
+              "Tell the player to go to the right room and to solve the riddle thats in the"
+                  + " computer";
+        } else {
+          // logic for the padlock
+          stepBasedHintPrompt =
+              "The player is solving the riddle \""
+                  + GameState.currentRiddle
+                  + "\". With the answer \""
+                  + GameState.padlockAnswer
+                  + "\". Please give the player a hint to help them solve the riddle."
+                  + " BUT NEVER UNDER ANY CIRCUMSTANCE SAY: \""
+                  + GameState.padlockAnswer
+                  + "\".";
+        }
       }
 
     } else if (!GameState.pipePuzzleSolved) {

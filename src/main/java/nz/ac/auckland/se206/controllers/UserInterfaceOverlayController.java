@@ -343,7 +343,7 @@ public class UserInterfaceOverlayController {
   }
 
   /**
-   * Opens the confirmation restart button
+   * Opens the confirmation restart button.
    *
    * @param event The mouse click event for the restart button.
    * @throws IOException If the FXML for the start screen can't be loaded.

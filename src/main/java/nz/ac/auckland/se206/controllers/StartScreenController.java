@@ -29,6 +29,7 @@ public class StartScreenController {
   @FXML private AnchorPane anchorPane;
   @FXML private Label screenStage;
 
+  @FXML private Label lblMenuExit;
   @FXML private Label lblExit;
   @FXML private ImageView muteSound;
 
@@ -54,6 +55,7 @@ public class StartScreenController {
   @FXML private Rectangle loadingBackground;
 
   private final DropShadow dropShadow = new DropShadow();
+  private final DropShadow dropShadowMenu = new DropShadow();
   private final DropShadow startDropShadow = new DropShadow();
 
   private final Image soundOffImage = new Image("/images/overlay/sound-off.png");
@@ -67,6 +69,10 @@ public class StartScreenController {
     // Button drop shadow
     dropShadow.setColor(Color.web("#007aec"));
     dropShadow.setRadius(5.0);
+
+    // Button drop shadow
+    dropShadowMenu.setColor(Color.RED);
+    dropShadowMenu.setRadius(5.0);
 
     // Start button drop shadow
     startDropShadow.setColor(Color.web("#c31212"));
@@ -102,6 +108,44 @@ public class StartScreenController {
   @FXML
   private void timeClicked(MouseEvent event) {
     chooseTime();
+  }
+
+  /**
+   * Handles mouse click events for the "Back" button.
+   *
+   * @param event The mouse event object.
+   */
+  @FXML
+  private void lblMenuExitClicked(MouseEvent event) {
+    System.exit(0);
+  }
+
+  /**
+   * Updates the exit button when the mouse hovers over it.
+   *
+   * @param event MouseEvent for hovering over the button.
+   */
+  @FXML
+  private void lblMenuExitEntered(MouseEvent event) {
+    lblMenuExit.setEffect(dropShadowMenu);
+    lblMenuExit.setTextFill(Color.RED);
+    lblMenuExit.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: white; -fx-background-radius: 5px;"
+            + " -fx-background-color: black; -fx-padding: 7px;");
+  }
+
+  /**
+   * Updates the exit button when the mouse leaves its area.
+   *
+   * @param event MouseEvent for leaving the button.
+   */
+  @FXML
+  private void lblMenuExitExited(MouseEvent event) {
+    lblMenuExit.setEffect(null);
+    lblMenuExit.setTextFill(Color.web("#bfbfbf"));
+    lblMenuExit.setStyle(
+        "-fx-border-radius: 5px; -fx-border-color: #bfbfbf; -fx-background-radius: 5px;"
+            + " -fx-background-color: black; -fx-padding: 7px;");
   }
 
   /**
@@ -381,7 +425,13 @@ public class StartScreenController {
       screenStage.setText("Difficulty Select");
       lblExit.setText("Exit");
     } else if (onLevel) {
-      System.exit(0);
+      if (lblMenuExit.isVisible()) {
+        lblExit.setText("Exit");
+        lblMenuExit.setVisible(false);
+      } else {
+        lblExit.setText("Hide");
+        lblMenuExit.setVisible(true);
+      }
     } else {
       // sets visibility
       lbl2Min.setVisible(true);

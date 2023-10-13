@@ -141,7 +141,14 @@ public class PuzzleRoomController {
         || id.equals("candle2")
         || id.equals("candle3")
         || id.equals("candle4")) {
+
       GameState.inventory.setTextChat("You need a lighter");
+
+      if (!GameState.isPuzzlesOn.getValue()) {
+        GameState.inventory.setTextChat("You Need To Solve The Riddle");
+        return;
+      }
+
       return;
     }
     // if its a brickwall
@@ -156,7 +163,7 @@ public class PuzzleRoomController {
         && GameState.puzzleName.contains(source.getId())
         && source instanceof Rectangle) {
       // when puzzles are turned off
-
+      GameState.inventory.setTextChat("You Need To Solve The Riddle");
       Rectangle rectangle = (Rectangle) source;
       vibrate(rectangle);
 
@@ -225,7 +232,6 @@ public class PuzzleRoomController {
         && GameState.puzzleName.contains(source.getId())
         && source instanceof Rectangle) {
       // when the puzzles are turned off turn red
-
       Rectangle rectangle = (Rectangle) source;
       rectangle.setFill(Color.web("#1F85FF"));
       source.setOpacity(0);
@@ -279,6 +285,7 @@ public class PuzzleRoomController {
         && GameState.puzzleName.contains(node.getId())
         && node instanceof Rectangle) {
       // if its a rectangle
+      GameState.inventory.setTextChat("You Need To Solve The Riddle");
       Rectangle rectangle = (Rectangle) node;
 
       vibrate(rectangle);
@@ -298,7 +305,10 @@ public class PuzzleRoomController {
     }
     if (node.getUserData() != null && node.getUserData().equals("candle")) {
       if (!GameState.isPuzzlesOn.getValue()) {
+
         GameState.inventory.setTextChat("You need to the solve riddle");
+
+
         return;
       }
     }

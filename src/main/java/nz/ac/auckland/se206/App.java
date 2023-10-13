@@ -40,6 +40,7 @@ public class App extends Application {
       // set icon for mac os (and other systems which do support this method)
       taskbar.setIconImage(dockImage);
     } catch (Exception e) {
+      System.out.println("error with loading image");
     }
     launch();
   }

@@ -17,7 +17,7 @@
             <Image url="@../images/startScreen/startScreen.png" />
          </image>
       </ImageView>
-      <Label fx:id="lblExit" layoutX="40.0" layoutY="40.0" onMouseClicked="#lblExitClicked" onMouseEntered="#lblExitEntered" onMouseExited="#lblExitExited" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Exit" textFill="#bfbfbf">
+      <Label fx:id="lblMenuExit" layoutX="40.0" layoutY="93.0" onMouseClicked="#lblMenuExitClicked" onMouseEntered="#lblMenuExitEntered" onMouseExited="#lblMenuExitExited" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Exit" textFill="#bfbfbf" visible="false">
          <font>
             <Font name="Consolas" size="20.0" />
          </font>
@@ -127,5 +127,10 @@
             <Image url="@../images/startScreen/loading.gif" />
          </image>
       </ImageView>
+      <Label fx:id="lblExit" layoutX="40.0" layoutY="40.0" onMouseClicked="#lblExitClicked" onMouseEntered="#lblExitEntered" onMouseExited="#lblExitExited" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Exit" textFill="#bfbfbf">
+         <font>
+            <Font name="Consolas" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
