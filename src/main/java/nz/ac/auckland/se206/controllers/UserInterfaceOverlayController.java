@@ -72,8 +72,6 @@ public class UserInterfaceOverlayController {
   @FXML private Pane puzzlePane; // Must remain so it can be swapped at the start
   private Pane loadedPuzzle;
 
-  private Timeline playerInteractionTimer;
-
   private String intro;
 
   private final Image soundOffImage = new Image("/images/overlay/sound-off.png");
@@ -455,10 +453,6 @@ public class UserInterfaceOverlayController {
       GameState.chat.onSend(promptArea);
       GameState.glitchSound.play();
     }
-
-    // Reset the player interaction timer
-    playerInteractionTimer.stop();
-    playerInteractionTimer.play();
   }
 
   /**

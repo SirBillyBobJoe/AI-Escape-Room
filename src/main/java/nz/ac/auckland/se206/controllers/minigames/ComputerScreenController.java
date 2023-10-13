@@ -25,8 +25,6 @@ public class ComputerScreenController {
   @FXML private ImageView imgGameMaster2;
   @FXML private ImageView glitch;
 
-  @FXML private Timeline playerInteractionTimer;
-
   /**
    * Initializes the state of the ComputerScreenController. Sets up bindings and initializes game
    * state.
@@ -129,10 +127,6 @@ public class ComputerScreenController {
 
       GameState.glitchSound.play();
     }
-
-    // Reset the player interaction timer
-    playerInteractionTimer.stop();
-    playerInteractionTimer.play();
   }
 
   public void setGameMaster(String message) {

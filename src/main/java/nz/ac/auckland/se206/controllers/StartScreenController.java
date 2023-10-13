@@ -424,6 +424,7 @@ public class StartScreenController {
       onTime = false;
       screenStage.setText("Difficulty Select");
       lblExit.setText("Exit");
+      lblMenuExit.setVisible(false);
     } else if (onLevel) {
       if (lblMenuExit.isVisible()) {
         lblExit.setText("Exit");
@@ -442,6 +443,7 @@ public class StartScreenController {
       timeSummaryVal.setVisible(false);
       levelSummaryVal.setVisible(false);
       lblStart.setVisible(false);
+      lblMenuExit.setVisible(false);
       onTime = true;
       // selectime
       screenStage.setText("Time Select");
@@ -461,6 +463,7 @@ public class StartScreenController {
     lbl2Min.setVisible(true);
     lbl4Min.setVisible(true);
     lbl6Min.setVisible(true);
+    lblMenuExit.setVisible(false);
     // sets back
     lblExit.setText("Back");
     screenStage.setText("Time Select");
@@ -498,6 +501,7 @@ public class StartScreenController {
     levelSummary.setVisible(true);
     timeSummaryVal.setVisible(true);
     levelSummaryVal.setVisible(true);
+    lblMenuExit.setVisible(false);
     // asks if ur ready
 
     screenStage.setText("Ready?");
