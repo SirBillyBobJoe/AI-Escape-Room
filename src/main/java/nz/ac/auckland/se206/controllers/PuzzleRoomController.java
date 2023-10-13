@@ -145,7 +145,6 @@ public class PuzzleRoomController {
       GameState.inventory.setTextChat("You need a lighter");
 
       if (!GameState.isPuzzlesOn.getValue()) {
-        GameState.inventory.setTextChat("You Need To Solve The Riddle");
         return;
       }
 
@@ -163,7 +162,7 @@ public class PuzzleRoomController {
         && GameState.puzzleName.contains(source.getId())
         && source instanceof Rectangle) {
       // when puzzles are turned off
-      GameState.inventory.setTextChat("You Need To Solve The Riddle");
+      GameState.inventory.setTextChat("You need to solve the riddle");
       Rectangle rectangle = (Rectangle) source;
       vibrate(rectangle);
 
@@ -285,7 +284,7 @@ public class PuzzleRoomController {
         && GameState.puzzleName.contains(node.getId())
         && node instanceof Rectangle) {
       // if its a rectangle
-      GameState.inventory.setTextChat("You Need To Solve The Riddle");
+      GameState.inventory.setTextChat("You need to solve the riddle");
       Rectangle rectangle = (Rectangle) node;
 
       vibrate(rectangle);
