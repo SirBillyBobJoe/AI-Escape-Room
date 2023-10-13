@@ -96,16 +96,16 @@ public class WirelinkingController {
         Paint colour = sourceHole.getStroke();
         if (colour.equals(Color.RED) && !GameState.inventory.containsItem(GameState.redWire)) {
           new MouseClick().play();
-          GameState.inventory.setTextChat("You need a red wire");
+          GameState.inventory.setTextChat("You need a red wire.");
           return;
         }
         if (colour.equals(Color.BLUE) && !GameState.inventory.containsItem(GameState.blueWire)) {
-          GameState.inventory.setTextChat("You need a blue wire");
+          GameState.inventory.setTextChat("You need a blue wire.");
           new MouseClick().play();
           return;
         }
         if (colour.equals(Color.GREEN) && !GameState.inventory.containsItem(GameState.greenWire)) {
-          GameState.inventory.setTextChat("You need a green wire");
+          GameState.inventory.setTextChat("You need a green wire.");
           new MouseClick().play();
           return;
         }

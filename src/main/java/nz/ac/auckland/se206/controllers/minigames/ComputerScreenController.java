@@ -52,13 +52,16 @@ public class ComputerScreenController {
     exit();
   }
 
+  /** This is a helper method for the exit puzzle method. */
   private void exit() {
+    // exits the game
     System.out.println("Exit");
     GameState.isInComputer = false;
     GameState.currentPuzzle.setValue(Puzzle.NONE);
+    // does the game master action
     GameState.chat.setGameMasterActions(GameState.gameMasterActions);
     GameState.userInterfaceOverlayController.moveGameMaster();
-
+    // sets new riddle for the game
     if (GameState.riddle2019Solved) {
       GameState.riddleChat.newRiddle(GameState.padlockAnswer);
     }
