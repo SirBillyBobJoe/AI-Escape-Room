@@ -121,16 +121,16 @@
             <Image url="@../images/overlay/sound-on.png" />
          </image>
       </ImageView>
+      <Label fx:id="lblExit" layoutX="40.0" layoutY="40.0" onMouseClicked="#lblExitClicked" onMouseEntered="#lblExitEntered" onMouseExited="#lblExitExited" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Exit" textFill="#bfbfbf">
+         <font>
+            <Font name="Consolas" size="20.0" />
+         </font>
+      </Label>
       <Rectangle fx:id="loadingBackground" arcHeight="5.0" arcWidth="5.0" height="603.0" layoutX="-3.0" layoutY="-2.0" stroke="TRANSPARENT" strokeType="INSIDE" visible="false" width="1108.0" />
       <ImageView fx:id="imgLoading" fitHeight="206.0" fitWidth="214.0" layoutX="468.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../images/startScreen/loading.gif" />
          </image>
       </ImageView>
-      <Label fx:id="lblExit" layoutX="40.0" layoutY="40.0" onMouseClicked="#lblExitClicked" onMouseEntered="#lblExitEntered" onMouseExited="#lblExitExited" style="-fx-background-color: black; -fx-background-radius: 5px; -fx-border-color: #bfbfbf; -fx-padding: 7px; -fx-border-radius: 5px;" text="Exit" textFill="#bfbfbf">
-         <font>
-            <Font name="Consolas" size="20.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>
