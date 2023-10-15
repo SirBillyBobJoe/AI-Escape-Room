@@ -183,7 +183,7 @@ public class RiddleChat {
       }
     } else {
       textArea.appendText(
-          "Computer: Sorry I am a computer I dont give hints you need to ask the GameMaster \n\n");
+          "Computer: Error: Bad request. A computer does not provide hints. \n\n");
     }
     return false;
   }
