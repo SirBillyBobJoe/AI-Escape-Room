@@ -101,7 +101,7 @@ public class RiddleChat {
       finalMessage =
           "Give the player a short concise riddle with the answer "
               + answer
-              + " .Begin the riddle with \"I am\". Do not include the answer in the riddle.";
+              + " . Begin the riddle with \"I am\". Do not include the answer in the riddle.";
       // adds the message to gpts
       GameState.gameMaster.addMessage(generateContextName, "user", finalMessage);
     } else {
@@ -109,7 +109,7 @@ public class RiddleChat {
       finalMessage =
           "Give the player a short consice riddle with the answer "
               + riddleAnswer
-              + " .Begin the riddle with \"I am\". Do not include the answer in the riddle.";
+              + " . Begin the riddle with \"I am\". Do not include the answer in the riddle.";
       // adds the message to gpt
       GameState.gameMaster.addMessage(generateContextName, "user", finalMessage);
     }
@@ -182,8 +182,7 @@ public class RiddleChat {
         }
       }
     } else {
-      textArea.appendText(
-          "Computer: Error: Bad request. A computer does not provide hints. \n\n");
+      textArea.appendText("Computer: Error: Bad request. A computer does not provide hints. \n\n");
     }
     return false;
   }
