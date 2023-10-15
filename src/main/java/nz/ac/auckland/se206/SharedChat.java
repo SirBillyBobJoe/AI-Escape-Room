@@ -84,7 +84,7 @@ public class SharedChat {
 
     // If the player gives the correct answer to the game master, instead of the computer
     if (msg.contains(GameState.passcodeAnswer)) {
-      msg1 = "Tell the player to enter their correct answer in the computer instead of telling you. ";
+      msg1 = "The player is correct. Tell the player to enter their correct answer in the computer instead of telling you. ";
       textField.clear();
     } else {
     msg = msg.toLowerCase();
