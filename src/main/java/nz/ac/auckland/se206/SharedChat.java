@@ -81,6 +81,11 @@ public class SharedChat {
     if (msg.trim().isEmpty()) {
       return;
     }
+
+    // If the player gives the correct answer to the game master, instead of the computer
+    if (msg.contains(GameState.passcodeAnswer)) {
+      msg1 = "Tell the player to enter their answer in the computer instead of telling you. ";
+    } else {
     msg = msg.toLowerCase();
     textField.clear();
     // if it contains both words
@@ -102,6 +107,7 @@ public class SharedChat {
         msg1 = "Do not mention a hint number or say \"Hint: \". ";
       }
     }
+  }
 
     // Get the right hint based on the current step
     String stepBasedHintPrompt = "";
@@ -229,6 +235,7 @@ public class SharedChat {
               + " about using their wit to escape through the center door in the center room."
               + " Please Specify The Room";
     }
+    
     String finalMessage;
     // tell them no more hitns when hitns are out
     if (GameState.hints.get().equals("0") || !isHint) {
