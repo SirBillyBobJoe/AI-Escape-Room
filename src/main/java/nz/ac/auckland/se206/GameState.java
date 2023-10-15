@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -440,10 +442,10 @@ public class GameState {
    *     otherwise.
    */
   public static boolean containsHint(String msg) {
-    // determines if its a hint from keywords or if its a general conversation
+    // determines if it's a hint from keywords or if it's general conversation
 
-    for (String keyWords1 : GameState.clueFirst) {
-      for (String keyWords2 : GameState.clueSecond) {
+    for (String keyWords1 : clueFirst) {
+      for (String keyWords2 : clueSecond) {
         // if contains return true
         if (msg.contains(keyWords1) && msg.contains(keyWords2)) {
           System.out.println(keyWords1 + " " + keyWords2);
@@ -451,7 +453,31 @@ public class GameState {
         }
       }
     }
-    // if it dosent return false
+
+    // if it doesn't return false
+    return false;
+  }
+
+  /**
+   * Evaluates whether a given message contains certain keywords indicative of a year.
+   *
+   * @param msg The message to be evaluated.
+   * @return {@code true} if the message contains a year {@code false} otherwise.
+   */
+  public static boolean containsYear(String msg) {
+    if (msg.contains(passcodeAnswer)) {
+      return false;
+    }
+    // Check for 4-digit numbers like a year
+    Pattern pattern = Pattern.compile("\\b\\d{4}\\b");
+    Matcher matcher = pattern.matcher(msg);
+
+    if (matcher.find()) {
+      System.out.println("Contains a year: " + matcher.group());
+      return true;
+    }
+
+    // if it doesn't return false
     return false;
   }
 

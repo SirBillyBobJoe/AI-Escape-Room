@@ -77,38 +77,45 @@ public class SharedChat {
     // Get the player's message
     String msg1 = "";
     String msg = textField.getText();
+    String answer = "";
 
     if (msg.trim().isEmpty()) {
       return;
     }
-
+    if (GameState.containsYear(msg)) {
+      answer =
+          " Tell the player that they need to provide the answer into the computer thats to the"
+              + " left IT IS VERY IMPORTANT YOU SAY THIS. ";
+    }
     // If the player gives the correct answer to the game master, instead of the computer
     if (msg.contains(GameState.passcodeAnswer)) {
-      msg1 = "The player is correct. Tell the player to enter their correct answer in the computer instead of telling you. ";
+      msg1 =
+          "The player is correct. Tell the player to enter their correct answer in the computer"
+              + " instead of telling you. ";
       textField.clear();
     } else {
-    msg = msg.toLowerCase();
-    textField.clear();
-    // if it contains both words
-    if (GameState.containsHint(msg)) {
-      isHint = true;
-      if (GameState.hints.get().equals(GameState.infinity)) {
-        // tell them they have infinite hints
-        msg1 = "Do not mention a hint number or say \"Hint: \". ";
+      msg = msg.toLowerCase();
+      textField.clear();
+      // if it contains both words
+      if (GameState.containsHint(msg)) {
+        isHint = true;
+        if (GameState.hints.get().equals(GameState.infinity)) {
+          // tell them they have infinite hints
+          msg1 = "Do not mention a hint number or say \"Hint: \". ";
 
-      } else if (Integer.parseInt(GameState.hints.get()) == 0) {
-        // with no more hints tell them
-        msg1 =
-            "Tell the player they have no more hints left. YOU ARE TO NOT GIVE THEM ANY MORE"
-                + " ANSWERS TO HINTS";
+        } else if (Integer.parseInt(GameState.hints.get()) == 0) {
+          // with no more hints tell them
+          msg1 =
+              "Tell the player they have no more hints left. YOU ARE TO NOT GIVE THEM ANY MORE"
+                  + " ANSWERS TO HINTS";
 
-      } else {
-        // remove 1 hint and ask gpt
-        GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
-        msg1 = "Do not mention a hint number or say \"Hint: \". ";
+        } else {
+          // remove 1 hint and ask gpt
+          GameState.hints.set(Integer.toString(Integer.parseInt(GameState.hints.get()) - 1));
+          msg1 = "Do not mention a hint number or say \"Hint: \". ";
+        }
       }
     }
-  }
 
     // Get the right hint based on the current step
     String stepBasedHintPrompt = "";
@@ -118,6 +125,7 @@ public class SharedChat {
           stepBasedHintPrompt =
               "Tell the player to go to the right room and to solve the riddle thats in the"
                   + " computer";
+
         } else {
           // logic for the riddles
           stepBasedHintPrompt =
@@ -236,15 +244,26 @@ public class SharedChat {
               + " about using their wit to escape through the center door in the center room."
               + " Please Specify The Room";
     }
-    
+
     String finalMessage;
     // tell them no more hitns when hitns are out
-    if (GameState.hints.get().equals("0") || !isHint) {
-      finalMessage = msg1 + "The player says: " + msg + ". ";
+    if (GameState.riddle2019Solved && !GameState.riddlePadlockSolved && GameState.isInComputer) {
+      finalMessage =
+          "The riddle answer is: "
+              + GameState.padlockAnswer
+              + " if it seems like they are answering the riddle  tell them to provide the answer"
+              + " in the computer on the left otherwise interact with them normally. UNDER NO"
+              + " CIRCUMSTANCE ARE YOU ALLOWED TO REVEAL THE RIDDLE ANSWER TO THE PLAYER. "
+              + msg1
+              + " The player says: "
+              + msg
+              + ". ";
+    } else if (GameState.hints.get().equals("0") || !isHint) {
+      finalMessage = answer + msg1 + " The player says: " + msg + ". ";
       System.out.println("no hint");
     } else {
       // give step based hint
-      finalMessage = msg1 + "The player says: " + msg + ". " + stepBasedHintPrompt;
+      finalMessage = msg1 + " The player says: " + msg + ". " + stepBasedHintPrompt;
       System.out.println("Give hint");
     }
     // Get the Game Master's response
