@@ -10,6 +10,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.SceneManager.AppUi;
@@ -156,6 +157,12 @@ public class App extends Application {
     // Add icon and image to dock
     final Image image = new Image("images/menu/gameMaster.png");
     stage.getIcons().add(image);
+
+    // Load fonts must be before getUi
+    Font.loadFont(getClass().getResourceAsStream("/fonts/consola.ttf"), 14);
+    Font.loadFont(getClass().getResourceAsStream("/fonts/consolab.ttf"), 14);
+    Font.loadFont(getClass().getResourceAsStream("/fonts/consolai.ttf"), 14);
+    Font.loadFont(getClass().getResourceAsStream("/fonts/consolaz.ttf"), 14);
 
     // starts the room
     scene = new Scene(SceneManager.getUi(AppUi.STARTSCREEN), 1100, 600);
