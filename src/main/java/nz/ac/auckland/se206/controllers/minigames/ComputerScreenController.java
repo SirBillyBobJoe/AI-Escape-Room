@@ -1,6 +1,5 @@
 package nz.ac.auckland.se206.controllers.minigames;
 
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
