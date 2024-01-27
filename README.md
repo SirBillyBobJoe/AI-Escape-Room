@@ -1,36 +1,26 @@
-# SOFTENG 206 - EscAIpe Room
+# The Singularity Escape Room Game
+## Introduction
+Welcome to an immersive riddle escape room game where your challenge is to solve puzzles and riddles to escape from a virtual room. This game is uniquely powered by ChatGPT, acting as your guide and game master throughout the experience.
 
-## To setup OpenAI's API
+### Overview
+Setting: Trapped in a virtual room with various puzzles and riddles.
 
-- add in the root of the project (i.e., the same level where `pom.xml` is located) a file named `apiproxy.config`
-- put inside the credentials that you received from no-reply@digitaledu.ac.nz (put the quotes "")
+Objective: Solve the puzzles to escape.
 
-  ```
-  email: "upi123@aucklanduni.ac.nz"
-  apiKey: "YOUR_KEY"
-  ```
-  these are your credentials to invoke the OpenAI GPT APIs
+Gameplay: Interact through text commands; ChatGPT responds and guides.
 
-## To setup codestyle's API
-
-- add in the root of the project (i.e., the same level where `pom.xml` is located) a file named `codestyle.config`
-- put inside the credentials that you received from gradestyle@digitaledu.ac.nz (put the quotes "")
-
-  ```
-  email: "upi123@aucklanduni.ac.nz"
-  accessToken: "YOUR_KEY"
-  ```
-
- these are your credentials to invoke GradeStyle
+Role of ChatGPT: Acts as a game master, providing narrative, hints, and reacting to your choices.
 
 ## To run the game
 
+navigate to the folder directory and execute the following command:
 `./mvnw clean javafx:run`
 
-## To debug the game
+## Note You will need to have your own ChatGPT API KEY 
+Once you have your own ChatGPT apiKey navigate to the file `apiproxy.config` and paste your api key in the section that says `apiKey`
 
-`./mvnw clean javafx:run@debug` then in VS Code "Run & Debug", then run "Debug JavaFX"
-
-## To run codestyle
-
-`./mvnw clean compile exec:java@style`
+## Gameplay Images
+![Main Interface](images/demo.gif)
+![Main Interface](images/image.png)
+![Main Interface](images/image1.png)
+![Main Interface](images/image2.png)
